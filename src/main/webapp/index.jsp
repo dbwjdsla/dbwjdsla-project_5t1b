@@ -7,6 +7,7 @@
 <title>index</title>
 </head>
 <body>
-index
+	<h1>index</h1>
+	<h2>page</h2>
 </body>
 </html>
