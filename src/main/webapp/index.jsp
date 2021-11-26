@@ -756,7 +756,7 @@
     <!-- Page level custom scripts -->
     <script src="<c:url value="/resources/js/demo/chart-area-demo.js" />">
     <script src="<c:url value="/resources/js/demo/chart-pie-demo.js" />">
-
+	  <a href="<%= request.getContextPath() %>/test.do">Database 접속 테스트</a>
 </body>
 
 </html>
