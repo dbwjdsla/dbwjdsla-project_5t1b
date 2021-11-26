@@ -9,5 +9,7 @@
 <body>
 	<h1>index</h1>
 	<h2>page</h2>
+	<a href="<%= request.getContextPath() %>/test.do">Database 접속 테스트</a>
+
 </body>
 </html>
