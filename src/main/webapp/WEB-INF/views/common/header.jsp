@@ -1,6 +1,9 @@
+<%@page import="com.otlb.semi.emp.model.vo.Emp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%
+	Emp loginEmp = (Emp) session.getAttribute("loginEmp");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -196,12 +199,32 @@
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
-
+<%
+	if(loginEmp == null){
+%>
+						<form 
+						id="loginFrm" 
+						action="<%= request.getContextPath() %>/emp/login"
+						method="POST">
+						<table>
+							<tr>
+								<td><input type="text" name="no" id="empId" value="202101" placeholder="사원번호"></td>
+								<td><input type="submit" value="로그인"></td>
+							</tr>
+							<tr>
+								<td><input type="password" name="password" id="password" value="1234" placeholder="비밀번호"></td>
+								<td></td>
+							</tr>
+						</table>
+					</form>
+<%
+	} else {
+%>
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= loginEmp.getEmpName() %></span>
                                 <img class="img-profile rounded-circle"
                                     src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
                             </a>
@@ -227,7 +250,9 @@
                                 </a>
                             </div>
                         </li>
-
+<%
+	}
+%>
                     </ul>
 
                 </nav>
