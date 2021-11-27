@@ -11,8 +11,8 @@ public class Emp implements Serializable{
 	private String empName;
 	private String password;
 	private Date birthdate;
-	private String deptName;
-	private String jobName;
+	private String deptCode;
+	private String jobCode;
 	private String empRole;
 	private String gender;
 	private String email;
@@ -24,15 +24,15 @@ public class Emp implements Serializable{
 		super();
 	}
 
-	public Emp(int no, String empName, String password, Date birthdate, String deptName, String jobName, String empRole,
+	public Emp(int no, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,
 			String gender, String email, String phone, String quitYn, String banYn) {
 		super();
 		this.no = no;
 		this.empName = empName;
 		this.password = password;
 		this.birthdate = birthdate;
-		this.deptName = deptName;
-		this.jobName = jobName;
+		this.deptCode = deptCode;
+		this.jobCode = jobCode;
 		this.empRole = empRole;
 		this.gender = gender;
 		this.email = email;
@@ -73,20 +73,20 @@ public class Emp implements Serializable{
 		this.birthdate = birthdate;
 	}
 
-	public String getDeptName() {
-		return deptName;
+	public String getDeptCode() {
+		return deptCode;
 	}
 
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
 	}
 
-	public String getJobName() {
-		return jobName;
+	public String getJobCode() {
+		return jobCode;
 	}
 
-	public void setJobName(String jobName) {
-		this.jobName = jobName;
+	public void setJobCode(String jobCode) {
+		this.jobCode = jobCode;
 	}
 
 	public String getEmpRole() {
@@ -140,8 +140,10 @@ public class Emp implements Serializable{
 	@Override
 	public String toString() {
 		return "Emp [no=" + no + ", empName=" + empName + ", password=" + password + ", birthdate=" + birthdate
-				+ ", deptName=" + deptName + ", jobName=" + jobName + ", empRole=" + empRole + ", gender=" + gender
+				+ ", deptCode=" + deptCode + ", jobCode=" + jobCode + ", empRole=" + empRole + ", gender=" + gender
 				+ ", email=" + email + ", phone=" + phone + ", quitYn=" + quitYn + ", banYn=" + banYn + "]";
 	}
+	
+	
 	
 }
