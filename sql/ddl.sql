@@ -3,8 +3,8 @@ create table emp (
     emp_name varchar2(20) not null,
     password varchar2(300) not null,
     birthdate date,
-    dept_name varchar2(50) not null,
-    job_name varchar2(50) not null,
+    dept_code varchar2(10) not null,
+    job_code varchar2(10) not null,
     emp_role    varchar2(1) default 'U',
     gender varchar2(1) not null,
     email varchar2(40) not null,
@@ -16,9 +16,21 @@ create table emp (
     constraint ck_emp_gender check(gender in ('M', 'F')),
     constraint ck_emp_quit_yn check(quit_yn in ('Y', 'N')),
     constraint ck_emp_ban_yn check(ban_yn in('Y', 'N')),
-    constraint ck_emp_dept_name check(dept_name in ('총무부', '영업부', '관리부', '개발부', '인사부'))
+    CONSTRAINT uq_emp_email UNIQUE(email),
+    CONSTRAINT uq_emp_phone unique(phone),
+    CONSTRAINT fk_emp_dept_code FOREIGN KEY(dept_code) REFERENCES department(dept_code),
+    CONSTRAINT fk_emp_job_code FOREIGN KEY(job_code) REFERENCES job(job_code)
 );
-
+CREATE TABLE department(
+	dept_code varchar2(10),
+	dept_name varchar2(30),
+	CONSTRAINT pk_department_dept_code PRIMARY key(dept_code)
+);
+CREATE TABLE job(
+	job_code varchar2(10),
+	job_name varchar2(30),
+	CONSTRAINT pk_job_job_code PRIMARY key(job_code)
+);
 create table report_type (
     id number,
     type varchar2(50),
@@ -45,7 +57,6 @@ create table message (
 	receiver_emp_no	number not null,
 	sent_date date default sysdate not null,
 	read_date date,
-	emp_no	number not null,
 	sender_del_yn	varchar(1)	default 'N' not null,
 	receiver_del_yn varchar(1)	default 'N' not null,
     constraint pk_message_no primary key(no),
