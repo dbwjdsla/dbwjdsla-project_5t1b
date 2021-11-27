@@ -11,7 +11,7 @@ public class EmpDao {
 	private Properties prop = new Properties();
 	
 	public EmpDao() {
-		String filepath = EmpDao.class.getResource("emp-query.properties").getPath();
+		String filepath = EmpDao.class.getResource("/emp-query.properties").getPath();
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {
