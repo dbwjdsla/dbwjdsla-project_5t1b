@@ -1,31 +1,108 @@
 package com.otlb.semi.message.model.vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Message {
+public class Message implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
 	private int no;
 	private String content;
 	private int senderEmpNo;
 	private int receiverEmpNo;
 	private Date sentDate;
 	private Date readDate;
+	private String senderDelYn;
+	private String receiverDelYn;
+	
+	public Message() {
+		super();
+	}
 
+	public Message(int no, String content, int senderEmpNo, int receiverEmpNo, Date sentDate, Date readDate,
+			String senderDelYn, String receiverDelYn) {
+		super();
+		this.no = no;
+		this.content = content;
+		this.senderEmpNo = senderEmpNo;
+		this.receiverEmpNo = receiverEmpNo;
+		this.sentDate = sentDate;
+		this.readDate = readDate;
+		this.senderDelYn = senderDelYn;
+		this.receiverDelYn = receiverDelYn;
+	}
+
+	public int getNo() {
+		return no;
+	}
+
+	public void setNo(int no) {
+		this.no = no;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public int getSenderEmpNo() {
+		return senderEmpNo;
+	}
+
+	public void setSenderEmpNo(int senderEmpNo) {
+		this.senderEmpNo = senderEmpNo;
+	}
+
+	public int getReceiverEmpNo() {
+		return receiverEmpNo;
+	}
+
+	public void setReceiverEmpNo(int receiverEmpNo) {
+		this.receiverEmpNo = receiverEmpNo;
+	}
+
+	public Date getSentDate() {
+		return sentDate;
+	}
+
+	public void setSentDate(Date sentDate) {
+		this.sentDate = sentDate;
+	}
+
+	public Date getReadDate() {
+		return readDate;
+	}
+
+	public void setReadDate(Date readDate) {
+		this.readDate = readDate;
+	}
+
+	public String getSenderDelYn() {
+		return senderDelYn;
+	}
+
+	public void setSenderDelYn(String senderDelYn) {
+		this.senderDelYn = senderDelYn;
+	}
+
+	public String getReceiverDelYn() {
+		return receiverDelYn;
+	}
+
+	public void setReceiverDelYn(String receiverDelYn) {
+		this.receiverDelYn = receiverDelYn;
+	}
+
+	@Override
+	public String toString() {
+		return "Message [no=" + no + ", content=" + content + ", senderEmpNo=" + senderEmpNo + ", receiverEmpNo="
+				+ receiverEmpNo + ", sentDate=" + sentDate + ", readDate=" + readDate + ", senderDelYn=" + senderDelYn
+				+ ", receiverDelYn=" + receiverDelYn + "]";
+	}
+	
 }
 
-
-//create table message (
-//	no number,
-//	content varchar2(2000) not null,
-//	sender_emp_no number not null,
-//	receiver_emp_no	number not null,
-//	sent_date date default sysdate not null,
-//	read_date date,
-//	emp_no	number not null,
-//	sender_del_yn	varchar(1)	default 'N' not null,
-//	receiver_del_yn varchar(1)	default 'N' not null,
-//    constraint pk_message_no primary key(no),
-//    constraint ck_message_sender_del_yn check(sender_del_yn in ('Y', 'N')),
-//    constraint ck_message_receiver_del_yn check(receiver_del_yn in ('Y', 'N')),
-//    constraint fk_message_sender_emp_no foreign key(sender_emp_no) references emp(no),
-//    constraint fk_message_receiver_emp_no foreign key(receiver_emp_no) references emp(no)
-//);
