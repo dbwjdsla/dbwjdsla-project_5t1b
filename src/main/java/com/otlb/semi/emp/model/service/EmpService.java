@@ -2,7 +2,10 @@ package com.otlb.semi.emp.model.service;
 
 import static com.otlb.semi.common.JdbcTemplate.*;
 
+import java.sql.Connection;
+
 import com.otlb.semi.emp.model.dao.EmpDao;
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class EmpService {
 
@@ -14,4 +17,13 @@ public class EmpService {
 	public static final String isNotBanned = "N";
 	
 	private EmpDao empDao = new EmpDao();
+
+	public Emp selectOneEmp(int no) {
+		Connection conn = getConnection();
+		Emp emp = empDao.selectOneEmp(conn, no);
+		close(conn);
+		return emp;
+	}
+
+
 }
