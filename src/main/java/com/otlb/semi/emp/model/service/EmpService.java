@@ -1,6 +1,9 @@
 package com.otlb.semi.emp.model.service;
 
-import static com.otlb.semi.common.JdbcTemplate.*;
+import static com.otlb.semi.common.JdbcTemplate.close;
+import static com.otlb.semi.common.JdbcTemplate.commit;
+import static com.otlb.semi.common.JdbcTemplate.getConnection;
+import static com.otlb.semi.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 
@@ -23,6 +26,23 @@ public class EmpService {
 		Emp emp = empDao.selectOneEmp(conn, no);
 		close(conn);
 		return emp;
+	}
+
+	public int updateEmp(Emp emp) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = empDao.updateEmp(conn, emp);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		
+		return result;
 	}
 
 
