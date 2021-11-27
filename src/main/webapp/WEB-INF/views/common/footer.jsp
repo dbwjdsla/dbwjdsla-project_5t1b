@@ -43,27 +43,20 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <%-- <script src="<c:url value="/resources/vendor/jquery/jquery.min.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
-	<%-- <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <%-- <script src="<c:url value="/resources/vendor/jquery-easing/jquery.easing.min.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <%-- <script src="<c:url value="/resources/js/sb-admin-2.min.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <%-- <script src="<c:url value="/resources/vendor/chart.js/Chart.min.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <<%-- script src="<c:url value="/resources/js/demo/chart-area-demo.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-    <%-- <script src="<c:url value="/resources/js/demo/chart-pie-demo.js" />"> --%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 	  <a href="<%= request.getContextPath() %>/test.do">Database 접속 테스트</a>
 </body>

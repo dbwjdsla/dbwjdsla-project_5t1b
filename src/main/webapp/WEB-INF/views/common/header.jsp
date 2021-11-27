@@ -137,7 +137,7 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle"
 			href="<%=request.getContextPath()%>/message/messageList"
-			id="messagesDropdown" role="button" data-toggle="dropdown"
+			id="messagesDropdown" role="button"
 			aria-haspopup="true" aria-expanded="false"> <i
 				class="fas fa-envelope fa-fw"></i> <!-- Counter - Messages --> <span
 				class="badge badge-danger badge-counter">7</span>
