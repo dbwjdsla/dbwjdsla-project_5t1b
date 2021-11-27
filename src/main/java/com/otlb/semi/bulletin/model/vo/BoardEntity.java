@@ -1,9 +1,7 @@
-package com.otlb.semi.bulletin.model;
+package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
-
-import com.otlb.semi.bulletin.Bulletin;
 
 public class BoardEntity extends Bulletin implements Serializable {
 

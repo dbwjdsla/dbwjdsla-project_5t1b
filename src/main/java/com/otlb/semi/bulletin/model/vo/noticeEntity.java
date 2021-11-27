@@ -1,8 +1,6 @@
-package com.otlb.semi.bulletin.model;
+package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
-
-import com.otlb.semi.bulletin.Bulletin;
 
 public class noticeEntity extends Bulletin implements Serializable {
 	

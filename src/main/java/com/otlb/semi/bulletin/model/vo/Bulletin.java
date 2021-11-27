@@ -1,4 +1,4 @@
-package com.otlb.semi.bulletin;
+package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;

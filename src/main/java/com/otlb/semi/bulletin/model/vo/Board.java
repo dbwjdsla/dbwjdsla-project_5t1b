@@ -1,4 +1,4 @@
-package com.otlb.semi.bulletin.model;
+package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
 
