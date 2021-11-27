@@ -58,7 +58,6 @@
     <!-- Page level custom scripts -->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
-	  <a href="<%= request.getContextPath() %>/test.do">Database 접속 테스트</a>
 </body>
 
 </html>
