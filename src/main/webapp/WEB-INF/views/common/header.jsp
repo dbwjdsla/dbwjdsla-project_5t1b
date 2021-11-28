@@ -8,6 +8,9 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 <html lang="en">
 
 <head>
+<!-- 웹폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,8 +26,9 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css">
 <link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Myeongjo&Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+
 
 <!-- Custom styles for this template-->
 <!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
@@ -208,7 +212,7 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 				<tr>
 					<td><input type="text" name="no" id="empId" value="202101"
 						placeholder="사원번호"></td>
-					<td><input type="submit" value="로그인"></td>
+					<td><input class="btn btn-primary btn-icon-split" type="submit" value="로그인"></td>
 				</tr>
 				<tr>
 					<td><input type="password" name="password" id="password"
