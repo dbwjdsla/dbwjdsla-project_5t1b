@@ -1,13 +1,19 @@
 <%@page import="com.otlb.semi.emp.model.vo.Emp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%
 Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
+<!-- 웹폰트 링크 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,8 +29,9 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css">
 <link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Myeongjo&Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
+
 
 <!-- Custom styles for this template-->
 <!-- <link href="css/sb-admin-2.min.css" rel="stylesheet"> -->
@@ -199,10 +206,13 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 			</div></li>
 
 		<div class="topbar-divider d-none d-sm-block"></div>
+
 		<%
 		if (loginEmp == null) {
 		%>
+
 		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'">로그인</button>
+
 		<%
 		} else {
 		%>
@@ -236,6 +246,38 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<%
 		}
 		%>
+	</ul>
+
+
+
+		<!-- Nav Item - User Information -->
+		<li class="nav-item dropdown no-arrow"><a
+			class="nav-link dropdown-toggle" href="#" id="userDropdown"
+			role="button" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false"> <span
+				class="mr-2 d-none d-lg-inline text-gray-600 small"></span>
+				<img class="img-profile rounded-circle"
+				src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
+		</a> <!-- Dropdown - User Information -->
+			<div
+				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+				aria-labelledby="userDropdown">
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/emp/empView"> <i
+					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Edit Profile
+				</a> <a class="dropdown-item" href="#"> <i
+					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
+				</a> <a class="dropdown-item" href="#"> <i
+					class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> Activity
+					Log
+				</a>
+				<div class="dropdown-divider"></div>
+				<a class="dropdown-item" href="#" data-toggle="modal"
+					data-target="#logoutModal"> <i
+					class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+					Logout
+				</a>
+			</div></li>
+	
 	</ul>
 
 </nav>
