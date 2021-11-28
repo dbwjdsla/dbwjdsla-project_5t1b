@@ -29,7 +29,7 @@ public class EmpLoginServlet extends HttpServlet {
 	}
 	
 	/**
-	 * select * from emp where no
+	 * select * from emp where no = ?
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 사용자입력값처리
@@ -53,9 +53,9 @@ public class EmpLoginServlet extends HttpServlet {
 		
 		
 		// 3. 응답처리
-		request
-			.getRequestDispatcher("/index.jsp")
-			.forward(request, response);
+		// 새로고침을 통한 오류 방지
+		String location = request.getContextPath() + "/";
+		response.sendRedirect(location);
 			
 	}
 
