@@ -9,11 +9,14 @@
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-            <!-- Sidebar - Brand -->
-            <a class="btn btn-light btn-icon-split" href="<%= request.getContextPath()%>/message/messageForm">
-            	<i class="fas fa-envelope fa-fw"></i>
-                쪽지쓰기
-            </a>
+			<div class="my-2"></div>
+			
+            <!-- 쪽지보내기 버튼 -->
+            <a class="btn btn-light btn-icon-split" href="<%= request.getContextPath()%>/message/messageForm">            
+                <span class="text"><i class="fas fa-envelope fa-fw"></i>쪽지쓰기</span>
+               </a>
+           	<div class="my-2"></div>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
@@ -22,8 +25,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link" href="#" >
                     <i class="fas fa-fw fa-cog"></i>
                     <span>받은쪽지함</span>
                 </a>
@@ -31,8 +33,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link" href="#" >
                     <i class="fas fa-fw fa-wrench"></i>
                     <span>보낸쪽지함</span>
                 </a>
