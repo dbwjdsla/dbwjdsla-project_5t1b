@@ -202,21 +202,7 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<%
 		if (loginEmp == null) {
 		%>
-		<form id="loginFrm" action="<%=request.getContextPath()%>/emp/login"
-			method="POST">
-			<table>
-				<tr>
-					<td><input type="text" name="no" id="empId" value="202101"
-						placeholder="사원번호"></td>
-					<td><input type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td><input type="password" name="password" id="password"
-						value="1234" placeholder="비밀번호"></td>
-					<td></td>
-				</tr>
-			</table>
-		</form>
+		<button><a href="<%=request.getContextPath()%>/emp/loginPage">로그인</a></button>
 		<%
 		} else {
 		%>
