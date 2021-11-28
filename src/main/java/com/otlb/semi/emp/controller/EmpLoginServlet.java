@@ -44,8 +44,10 @@ public class EmpLoginServlet extends HttpServlet {
 		
 		
 		// 3. 응답처리
-		String location = request.getHeader("Referer");
-		response.sendRedirect(location);
+		request
+			.getRequestDispatcher("/index.jsp")
+			.forward(request, response);
+			
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.otlb.semi.emp.model.dao;
 
-import static com.otlb.semi.common.JdbcTemplate.*;
+import static com.otlb.semi.common.JdbcTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -59,5 +59,28 @@ public class EmpDao {
 			close(pstmt);
 		}
 		return emp;
+	}
+
+	public int updateEmp(Connection conn, Emp emp) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEmp");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp.getPassword());
+			pstmt.setString(2, emp.getPhone());
+			pstmt.setString(3, emp.getEmail());			
+			pstmt.setInt(4, emp.getNo());
+
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }

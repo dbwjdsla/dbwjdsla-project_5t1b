@@ -206,6 +206,7 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<%
 		if (loginEmp == null) {
 		%>
+<<<<<<< HEAD
 		<form id="loginFrm" action="<%=request.getContextPath()%>/emp/login"
 			method="POST">
 			<table>
@@ -221,6 +222,9 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 				</tr>
 			</table>
 		</form>
+=======
+		<button><a href="<%=request.getContextPath()%>/emp/loginPage">로그인</a></button>
+>>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
 		<%
 		} else {
 		%>
@@ -236,8 +240,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="userDropdown">
-				<a class="dropdown-item" href="#"> <i
-					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+				<a class="dropdown-item" href="<%=request.getContextPath()%>/emp/empView"> <i
+					class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Edit Profile
 				</a> <a class="dropdown-item" href="#"> <i
 					class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> Settings
 				</a> <a class="dropdown-item" href="#"> <i
