@@ -210,25 +210,9 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<%
 		if (loginEmp == null) {
 		%>
-<<<<<<< HEAD
-		<form id="loginFrm" action="<%=request.getContextPath()%>/emp/login"
-			method="POST">
-			<table>
-				<tr>
-					<td><input type="text" name="no" id="empId" value="202101"
-						placeholder="사원번호"></td>
-					<td><input class="btn btn-primary btn-icon-split" type="submit" value="로그인"></td>
-				</tr>
-				<tr>
-					<td><input type="password" name="password" id="password"
-						value="1234" placeholder="비밀번호"></td>
-					<td></td>
-				</tr>
-			</table>
-		</form>
-=======
-		<button><a href="<%=request.getContextPath()%>/emp/loginPage">로그인</a></button>
->>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
+
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'">로그인</button>
+
 		<%
 		} else {
 		%>

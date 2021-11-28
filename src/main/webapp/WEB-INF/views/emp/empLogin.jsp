@@ -1,5 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	// 쿠키처리
+	Cookie[] cookies = request.getCookies();
+	String saveEmpNo = null;
+	if(cookies != null){
+		for(Cookie cookie : cookies){
+			String name = cookie.getName();
+			String value = cookie.getValue();
+			// System.out.println(name + " = " + value);
+			if("saveNo".equals(name)){
+				saveEmpNo = value;
+			}
+		}
+	}
+	// System.out.println("saveEmpNo@empLogin.jsp = " + saveEmpNo);
+%>    
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +27,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>5T1b - Login</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%= request.getContextPath() %>/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -49,7 +65,7 @@
                                     	action="<%= request.getContextPath() %>/emp/login"
                                     	method="POST">
                                         <div class="form-group">
-                                            <input type="text" name="no" value="202101" class="form-control form-control-user"
+                                            <input type="text" name="no" value="<%= saveEmpNo != null ? saveEmpNo : "" %>" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="사원번호"> <!-- 프로젝트 기간 동안 인풋태그에 사원번호 하드코딩 -->
                                         </div>
@@ -59,7 +75,7 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                <input type="checkbox" name="saveNo" <%= saveEmpNo != null ? "checked" : "" %> class="custom-control-input" id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
