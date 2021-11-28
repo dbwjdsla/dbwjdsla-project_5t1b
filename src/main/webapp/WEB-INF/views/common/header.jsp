@@ -202,7 +202,7 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<%
 		if (loginEmp == null) {
 		%>
-		<button><a href="<%=request.getContextPath()%>/emp/loginPage">로그인</a></button>
+		<button><a href="<%=request.getContextPath()%>/emp/login">로그인</a></button>
 		<%
 		} else {
 		%>

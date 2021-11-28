@@ -20,6 +20,15 @@ public class EmpLoginServlet extends HttpServlet {
 	private EmpService empService = new EmpService();
 	
 	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request
+			.getRequestDispatcher("/WEB-INF/views/emp/empLogin.jsp")
+			.forward(request, response);
+	}
+	
+	/**
 	 * select * from emp where no
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
