@@ -17,7 +17,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a>
+				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>대쉬보드</span></a>
 			</li>
 
 			<!-- Divider -->
