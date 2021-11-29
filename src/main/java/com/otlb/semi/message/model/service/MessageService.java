@@ -10,9 +10,17 @@ import com.otlb.semi.message.model.vo.Message;
 public class MessageService {
 	private MessageDao messageDao = new MessageDao();
 
-	public List<Message> selectAllMessage(int no) {
+	public List<Message> selectAllReceivedMessage(int no) {
 		Connection conn = getConnection();
 		List<Message> list = messageDao.selectAllMessage(conn, no);
+		close(conn);
+		
+		return list;
+	}
+
+	public List<Message> selectAllSentMessage(int no) {
+		Connection conn = getConnection();
+		List<Message> list = messageDao.selectAllSentMessage(conn, no);
 		close(conn);
 		
 		return list;
