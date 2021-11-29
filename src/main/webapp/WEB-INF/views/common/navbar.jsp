@@ -11,11 +11,8 @@
 			id="accordionSidebar">
 
 
-
 			<!-- Divider -->
 			<hr class="sidebar-divider my-0">
-
-
 
 
 			<!-- Divider -->
