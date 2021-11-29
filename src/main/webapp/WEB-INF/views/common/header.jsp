@@ -53,8 +53,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 	</button>
 
 	<!-- 5t1b 홈버튼-->
-	<a href="index.jsp">
-	<img alt="logo" src="${pageContext.request.contextPath}/resources/img/logo.png">
+	<a href="<%= request.getContextPath() %>/index.jsp">
+	<img alt="logo" src="<%= request.getContextPath() %>/resources/img/logo.png">
 	</a>
 
 	
