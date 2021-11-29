@@ -56,7 +56,7 @@ create table message (
 	sender_emp_no number not null,
 	receiver_emp_no	number not null,
 	sent_date date default sysdate not null,
-	read_date date,
+	read_date date default null,
 	sender_del_yn	varchar(1)	default 'N' not null,
 	receiver_del_yn varchar(1)	default 'N' not null,
     constraint pk_message_no primary key(no),
