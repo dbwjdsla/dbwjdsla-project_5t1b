@@ -1,4 +1,4 @@
-<%@page import="com.otlb.semi.message.model.vo.MessageEntity"%>
+<%@page import="com.otlb.semi.message.model.vo.Message"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -67,12 +67,14 @@
                          </thead>
                          <tbody>
 <%
-List<MessageEntity> list = (List<MessageEntity>) request.getAttribute("list");
-	for(MessageEntity message : list){
+List<Message> list = (List<Message>) request.getAttribute("list");
+	for(Message message : list){
 %>
                          	<tr>
-                         		<td><%= message.getSenderEmpNo() %></td>
-                         	
+                         		<td><input type="checkbox" /></td>
+                         		<td><%= message.getEmp().getEmpName() %></td>
+                         		<td><%= message.getContent() %></td>
+                         		<td><%= message.getSentDate() %></td>
                          	</tr>
 <% 
 	}
