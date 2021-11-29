@@ -8,7 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.otlb.semi.emp.model.vo.Emp;
 import com.otlb.semi.message.model.service.MessageService;
 import com.otlb.semi.message.model.vo.Message;
 
@@ -24,8 +26,12 @@ public class MessageListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("saveNo"));
-		int no = Integer.valueOf(request.getParameter("saveNo"));
+		HttpSession session = request.getSession();
+		
+		System.out.println(session.getAttribute("loginEmp"));
+		Emp emp = (Emp) session.getAttribute("loginEmp");
+		
+		int no = emp.getNo();
 		List<Message> list = messageService.selectAllMessage(no);
 		System.out.println("[MessageListServlet] list = " + list);
 		
