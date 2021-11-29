@@ -21,7 +21,7 @@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>공지사항</span>
+					 <span>공지사항</span>
 			</a></li>
 			
 			
@@ -31,7 +31,7 @@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>자유게시판</span>
+					 <span>자유게시판</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -40,7 +40,7 @@
 
 			<!-- Nav Item - Charts -->
 			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>익명게시판</span>
+					<span>익명게시판</span>
 			</a></li>
 
 			<!-- Divider -->
@@ -48,7 +48,7 @@
 
 			<!-- Nav Item - Tables -->
 			<li class="nav-item"><a class="nav-link" href="tables.html">
-					<i class="fas fa-fw fa-table"></i> <span>사내식당메뉴</span>
+					<span>사내식당메뉴</span>
 			</a></li>
 
 			<!-- Divider -->
