@@ -52,7 +52,11 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		<i class="fa fa-bars"></i>
 	</button>
 
-	<!-- 이부분에 5t1b 로고 넣을겁니당 -->
+	<!-- 5t1b 홈버튼-->
+	<a href="index.jsp">
+	<img alt="logo" src="${pageContext.request.contextPath}/resources/img/logo.png">
+	</a>
+
 	
 	<!-- Topbar Navbar -->
 	<ul class="navbar-nav ml-auto">
