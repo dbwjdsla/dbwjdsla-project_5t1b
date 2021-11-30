@@ -25,7 +25,7 @@ public class OtoChatClientServlet extends HttpServlet {
 		
 		System.out.println("////ChatClientsServlet////doGet////////");	
 		
-		//1. 
+		//1. 클라이언트 목록 
 		Set<String> clients = OtoChatWebsocket.clients.keySet();
 		
 		//2. 

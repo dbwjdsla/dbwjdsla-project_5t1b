@@ -48,19 +48,19 @@ System.out.println("////ChatroomServlet///////otoSRTp//////"+otoSRTp);
 
 		//GET REceiver's Name
 		//Need DB check
-		if(otoSenderId.equals("001")) {
-			otoSenderNm	=	"해";
-		}else if(otoSenderId.equals("002")){
-			otoSenderNm	=	"닭";
+		if(otoSenderId.equals("202002")) {
+			otoSenderNm	=	"양소영";
+		}else if(otoSenderId.equals("202103")){
+			otoSenderNm	=	"홍길동";
 		}else{
-			otoSenderNm	=	"별";
+			otoSenderNm	=	"이송이";
 		}
-		if(otoReceiverId.equals("001")) {
-			otoReceiverNm	=	"해";
-		}else if(otoReceiverId.equals("002")){
-			otoReceiverNm	=	"닭";
+		if(otoReceiverId.equals("202002")) {
+			otoReceiverNm	=	"양소영";
+		}else if(otoReceiverId.equals("202103")){
+			otoReceiverNm	=	"홍길동";
 		}else {
-			otoReceiverNm	=	"별";
+			otoReceiverNm	=	"이송이";
 		} 
 		// 2. 
 		// websocket session 
@@ -75,7 +75,7 @@ System.out.println("////ChatroomServlet///////otoSRTp//////"+otoSRTp);
 
 		// 3. view 
 		request
-			.getRequestDispatcher("/WEB-INF/views/otochat/OtoChatRoom.jsp")
+			.getRequestDispatcher("/WEB-INF/views/chat/otoChatRoom.jsp")
 			.forward(request, response);
 	}
 	
