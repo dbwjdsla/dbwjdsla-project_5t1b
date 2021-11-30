@@ -52,15 +52,18 @@
                                     List<Emp> list = (List<Emp>) request.getAttribute("list");
                                     for(Emp emp : list) {
                                     %>
-                                    	<tr>
-                                    		<td><%= emp.getNo() %></td>
-                                    		<td><%= emp.getEmpName() %></td>
-                                    		<td><%= emp.getDeptCode() %></td>
-                                    		<td><%= emp.getJobCode() %></td>
-                                    		<td><%= emp.getBirthdate() %></td>
-                                    		<td><%= emp.getEmail() %></td>
-                                    		<td><%= emp.getPhone() %></td>
-                                    	</tr>
+											<tr>
+												<td><%= emp.getNo() %></td>
+												<td>
+												<a href="<%= request.getContextPath() %>/emp/empInfoView?no=<%= emp.getNo() %>">
+													<%= emp.getEmpName() %></td>
+												</a>
+												<td><%= emp.getDeptCode() %></td>
+												<td><%= emp.getJobCode() %></td>
+												<td><%= emp.getBirthdate() %></td>
+												<td><%= emp.getEmail() %></td>
+												<td><%= emp.getPhone() %></td>
+											</tr>
                                     <% } %>
                                     </tbody>
                                 </table>
@@ -132,8 +135,6 @@
     <!-- Page level custom scripts -->
     <script src="<%= request.getContextPath() %>/resources/js/demo/datatables-demo.js"></script>
 
-
-	<div id='empInfo'><%= request.getAttribute("list") %></div>
 </body>
 
 </html>
