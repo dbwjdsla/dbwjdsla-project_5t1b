@@ -11,7 +11,7 @@ public class ReportDao {
 	private Properties prop = new Properties();
 	
 	public ReportDao() {
-		String filepath = ReportDao.class.getResource("report-query.properties").getPath();
+		String filepath = ReportDao.class.getResource("/report-query.properties").getPath();
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {

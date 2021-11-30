@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.otlb.semi.emp.model.exception.EmpException;
@@ -110,4 +112,43 @@ public class EmpDao {
 		}
 		return result;
 	}
+
+	public List<Emp> selectAllEmp(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllEmp");
+		ResultSet rset = null;
+		List<Emp> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Emp emp = new Emp();
+				
+				emp.setNo(rset.getInt("no"));
+				emp.setEmpName(rset.getString("emp_name"));
+				emp.setBirthdate(rset.getDate("birthdate"));
+				emp.setGender(rset.getString("gender"));
+				// deptcode, jobcode가 아니라 deptname, jobname이 맞지만 설계가 이래서 일단 어쩔 수 없음
+				emp.setDeptCode(rset.getString("dept_name"));
+				emp.setJobCode(rset.getString("job_name"));
+				emp.setEmpRole(rset.getString("emp_role"));
+				emp.setEmail(rset.getString("email"));
+				emp.setPhone(rset.getString("phone"));
+				emp.setQuitYn(rset.getString("quit_yn"));
+				emp.setBanYn(rset.getString("ban_yn"));
+				
+				list.add(emp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }

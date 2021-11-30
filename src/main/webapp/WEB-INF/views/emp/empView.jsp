@@ -68,3 +68,5 @@
 	</form>
 </section>
 
+<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
+
