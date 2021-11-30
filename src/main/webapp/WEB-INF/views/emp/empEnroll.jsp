@@ -47,32 +47,49 @@
 								class="user" 
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
-								<div class="form-group">
-									<input type="text" name="no" class="form-control form-control-user"
-										id="exampleFirstName" placeholder="사원번호" autocomplete="off">
+								<div class="form-group">	
+									<input value="202103" type="text" name="no" class="form-control form-control-user"
+										id="exampleFirstName" placeholder="사원번호" autocomplete="off">									
+								</div>
+								<div class="form-group">	
+									<input value="홍길동" type="text" name="empName" class="form-control form-control-user"
+										id="" placeholder="이름" autocomplete="off">									
 								</div>
 								<div class="form-group">
-									<input type="email" name="email" class="form-control form-control-user"
+									<input value="hong@naver.com" type="email" name="email" class="form-control form-control-user"
 										id="exampleInputEmail" placeholder="이메일" autocomplete="off">
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="password" name="password" class="form-control form-control-user"
+										<input value="1234" type="password" name="password" class="form-control form-control-user"
 											id="exampleInputPassword" placeholder="비밀번호" autocomplete="off">
 									</div>
 									<div class="col-sm-6">
-										<input type="password" name="passwordCheck" class="form-control form-control-user"
+										<input value="1234" type="password" name="passwordCheck" class="form-control form-control-user"
 											id="" placeholder="비밀번호 확인" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
-									<input type="text" name="phone" class="form-control form-control-user"
+									<input value="01022223333" type="text" name="phone" class="form-control form-control-user"
 										id="" placeholder="전화번호" autocomplete="off">
 								</div>
 								<div class="form-group">
+									<select name="jobCode" id="jobCode" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
+										<option value="" disabled hidden>직급</option>
+										<option value="J8" selected>인턴</option>
+										<option value="J7">사원</option>
+										<option value="J6">대리</option>
+										<option value="J5">과장</option>
+										<option value="J4">차장</option>
+										<option value="J3">부장</option>
+										<option value="J2">부사장</option>
+										<option value="J1">사장</option>
+									</select>
+								</div>
+								<div class="form-group">
 									<select name="deptCode" id="deptCode" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value="" selected disabled hidden>부서명</option>
-										<option value="SL">영업부</option>
+										<option value="" disabled hidden>부서명</option>
+										<option value="SL" selected>영업부</option>
 										<option value="DV">개발부</option>
 										<option value="HR">인사부</option>
 										<option value="GA">총무부</option>
@@ -80,8 +97,8 @@
 								</div>
 								<div class="form-group">
 									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value="" selected disabled hidden>성별</option>
-										<option value="F">여자</option>
+										<option value=""  disabled hidden>성별</option>
+										<option value="F" selected>여자</option>
 										<option value="M">남자</option>
 									</select>
 								</div>
@@ -91,8 +108,8 @@
 									<div class="row">
 										<div class="col">
 											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value="" selected disabled hidden>년</option>
-											<option value="2021">2021</option>
+											<option value=""  disabled hidden>년</option>
+											<option value="2021" selected>2021</option>
 											<option value="2020">2020</option>
 											<option value="2019">2019</option>
 											<option value="2018">2018</option>
@@ -213,8 +230,8 @@
 										</div>
 										<div class="col">
 											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value="" selected disabled hidden>월</option>
-											<option value="1">1월</option>
+											<option value=""  disabled hidden>월</option>
+											<option value="1" selected>1월</option>
 											<option value="2">2월</option>
 											<option value="3">3월</option>
 											<option value="4">4월</option>
@@ -230,8 +247,8 @@
 										</div>
 										<div class="col">
 											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value="" selected disabled hidden>일</option>
-											<option value="1">1</option>
+											<option value=""  disabled hidden>일</option>
+											<option value="1" selected>1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -267,7 +284,6 @@
 									</div>
 								</div>
 								
-								
 
 								<input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" />
 								
@@ -295,8 +311,32 @@
 				</div>
 			</div>
 		</div>
-
 	</div>
+<%
+	String messageType = null;
+	String messageContent = null;
+	if(session.getAttribute("messageType") != null 
+			&& session.getAttribute("messageContent") != null){
+		messageType = (String) session.getAttribute("messageType");
+		messageContent = (String) session.getAttribute("messageContent");
+	}
+	if(messageType != null) {
+%>
+	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" >
+		<div class="vertical-alignment-helper">
+			<div class="modal-dialog vertical-align-center">
+			
+			
+			</div>
+		</div>
+	</div>
+<%
+	}
+%>
+	
+	
+	
+	
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="vendor/jquery/jquery.min.js"></script>
