@@ -4,6 +4,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%
+	Message message = (Message) request.getAttribute("message");
+%>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -60,7 +63,24 @@
 	 		</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+					<hr class="sidebar-divider">
+	 				<div class="col-sm-12">
+	 				<table>
+                           <tr>
+                               <th>보낸사람</th>
+                               <td><%= message.getEmp().getEmpName() %></td>
+                           </tr>
+                         	<tr>
+                         		<th>받은시간</th>
+                         		<td><%= message.getSentDate() %></td>
+                         	</tr>
+ 					</table>
+ 					<hr class="sidebar-divider">
+ 					<div class="container-container">
+					<%= message.getContent() %>
+ 					</div>	
+ 					
+	 			</div>
                     
 
                 </div>

@@ -26,9 +26,17 @@ public class MessageService {
 		return list;
 	}
 
-	public Message selectOneMessage(int no) {
+	public Message selectOneReceivedMessage(int no) {
 		Connection conn = getConnection();
-		Message message = messageDao.selectOneMessage(conn, no);
+		Message message = messageDao.selectOneReceivedMessage(conn, no);
+		close(conn);
+		
+		return message;
+	}
+
+	public Message selectOneSentMessage(int no) {
+		Connection conn = getConnection();
+		Message message = messageDao.selectOneSentMessage(conn, no);
 		close(conn);
 		
 		return message;

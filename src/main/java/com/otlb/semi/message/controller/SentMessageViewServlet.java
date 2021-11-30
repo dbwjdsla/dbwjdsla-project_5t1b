@@ -11,29 +11,26 @@ import com.otlb.semi.message.model.service.MessageService;
 import com.otlb.semi.message.model.vo.Message;
 
 /**
- * Servlet implementation class MessageViewServlet
+ * Servlet implementation class SentMessageViewServlet
  */
-@WebServlet("/message/messageView")
-public class MessageViewServlet extends HttpServlet {
+@WebServlet("/message/sentMessageView")
+public class SentMessageViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MessageService messageService = new MessageService();
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//글번호
 		int no = Integer.valueOf(request.getParameter("no"));
-		
-		Message message = messageService.selectOneReceivedMessage(no);
+		System.out.println("test");
+		Message message = messageService.selectOneSentMessage(no);
 		
 		request.setAttribute("message", message);
 		
 		request
-			.getRequestDispatcher("/WEB-INF/views/message/messageView.jsp")
+			.getRequestDispatcher("/WEB-INF/views/message/sentMessageView.jsp")
 			.forward(request, response);
-		
-		
 	}
 
 }
