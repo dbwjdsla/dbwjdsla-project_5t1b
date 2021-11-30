@@ -14,7 +14,7 @@
 		<div class="container-fluid">
 
 
-			<div class="row">
+			<div class="row" style="flex-wrap: nowrap; margin-right: 22.8rem;">
 
 
 				<!-- 공지사항 & 자유 게시판 부분  -->
