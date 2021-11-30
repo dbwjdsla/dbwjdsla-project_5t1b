@@ -33,7 +33,7 @@ public class MessageDao {
 	public List<Message> selectAllMessage(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		List<Message> list = new ArrayList<>();
-		String sql = prop.getProperty("selectAllMessage");
+		String sql = prop.getProperty("selectAllReceivedMessage");
 		ResultSet rset = null;
 		
 		try {
@@ -60,7 +60,45 @@ public class MessageDao {
 				list.add(message);
 			}
 		} catch (SQLException e) {
-			throw new MessageException("쪽지 데이터 조회 오류", e);
+			throw new MessageException("받은 쪽지 데이터 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<Message> selectAllSentMessage(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		List<Message> list = new ArrayList<>();
+		String sql = prop.getProperty("selectAllSentMessage");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Message message = new Message();
+				message.setNo(rset.getInt("no"));
+				message.setContent(rset.getString("content"));
+				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
+				message.setReceiverEmpNo(rset.getInt("receiver_emp_no"));
+				message.setSentDate(rset.getDate("sent_date"));
+				message.setReadDate(rset.getDate("read_date"));
+				message.setSenderDelYn(rset.getString("sender_del_yn"));
+				message.setReceiverDelYn(rset.getString("receiver_del_yn"));
+				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("receiver_emp_name"));
+				
+				message.setEmp(emp);
+				
+				list.add(message);
+			}
+		} catch (SQLException e) {
+			throw new MessageException("보낸 쪽지 데이터 조회 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
