@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.otlb.semi.emp.model.vo.Department;
 import com.otlb.semi.emp.model.exception.EmpException;
 import com.otlb.semi.emp.model.vo.Emp;
 
@@ -54,6 +55,8 @@ public class EmpDao {
 				emp.setPhone(rset.getString("phone"));
 				emp.setQuitYn(rset.getString("quit_yn"));
 				emp.setBanYn(rset.getString("ban_yn"));
+				emp.setDeptName(rset.getString("dept_name"));
+				emp.setJobName(rset.getString("job_name"));
 			}
 		} catch (SQLException e) {
 			throw new EmpException("회원가입 오류", e);
@@ -73,7 +76,7 @@ public class EmpDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emp.getPassword());
 			pstmt.setString(2, emp.getPhone());
-			pstmt.setString(3, emp.getEmail());			
+			pstmt.setString(3, emp.getEmail());		
 			pstmt.setInt(4, emp.getNo());
 
 			result = pstmt.executeUpdate();
