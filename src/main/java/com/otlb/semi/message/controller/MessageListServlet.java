@@ -35,6 +35,8 @@ public class MessageListServlet extends HttpServlet {
 		List<Message> list = messageService.selectAllReceivedMessage(no);
 		System.out.println("[MessageListServlet] list = " + list);
 		
+		System.out.println(list.get(0).getSentDate().getTime());
+		
 		request.setAttribute("list", list);
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageList.jsp")

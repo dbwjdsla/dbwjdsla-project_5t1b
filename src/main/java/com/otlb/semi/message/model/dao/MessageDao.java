@@ -105,4 +105,30 @@ public class MessageDao {
 		}
 		return list;
 	}
+
+	public Message selectOneMessage(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneMessage");
+		Message message = null;
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				
+			}
+		} catch (SQLException e) {
+			throw new MessageException("상세쪽지 조회 요류");
+		}
+		return message;
+	}
 }
+
+
+
+
+
+
+

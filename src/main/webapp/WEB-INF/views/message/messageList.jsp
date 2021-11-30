@@ -76,7 +76,7 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                          	<tr>
                          		<td><input type="checkbox" /></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
-                         		<td><%= message.getContent() %></td>
+                         		<td><a href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
                          		<td><%= message.getSentDate() %></td>
                          	</tr>
 <% 
