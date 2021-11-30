@@ -11,12 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.otlb.semi.emp.model.service.EmpService;
+import com.otlb.semi.emp.model.vo.Department;
 import com.otlb.semi.emp.model.vo.Emp;
+import com.otlb.semi.emp.model.vo.Job;
 
 /**
  * Servlet implementation class EmpUpdateServlet
  */
-@WebServlet("/emp/empupdate")
+@WebServlet("/emp/empUpdate")
 public class EmpUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();
@@ -24,11 +26,26 @@ public class EmpUpdateServlet extends HttpServlet {
 	/**
 	 * 회원정보 수정쿼리
 	 *  
-	 * update member
+	 * update emp
 	 * set password = ?, phone = ?, email = ?
 	 * where no = ?
 	 * 
 	 */
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		HttpSession session = request.getSession();
+//		
+//		Emp emp = (Emp)session.getAttribute("loginEmp");
+//		int no = emp.getNo();
+//		
+//		
+//		// 3.view단처리
+//		request.setAttribute("department", department);
+////		request.setAttribute("job", job);
+//		request
+//			.getRequestDispatcher("/WEB-INF/views/emp/empView.jsp")
+//			.forward(request, response);
+//	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1.인코딩처리
 				request.setCharacterEncoding("utf-8");

@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.otlb.semi.emp.model.dao.EmpDao;
+import com.otlb.semi.emp.model.vo.Department;
 import com.otlb.semi.emp.model.vo.Emp;
+import com.otlb.semi.emp.model.vo.Job;
 
 public class EmpService {
 
@@ -68,6 +70,5 @@ public class EmpService {
 		}
 		return result;
 	}
-
 
 }
