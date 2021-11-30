@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.otlb.semi.emp.model.exception.EmpException;
 import com.otlb.semi.emp.model.vo.Emp;
 
 public class EmpDao {
@@ -53,7 +54,7 @@ public class EmpDao {
 				emp.setBanYn(rset.getString("ban_yn"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new EmpException("회원가입 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -81,6 +82,32 @@ public class EmpDao {
 			close(pstmt);
 		}
 		
+		return result;
+	}
+
+	public int insertEmp(Connection conn, Emp emp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertEmp");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp.getEmpName());
+			pstmt.setString(2, emp.getPassword());
+			pstmt.setDate(3, emp.getBirthdate());
+			pstmt.setString(4, emp.getDeptCode());
+			pstmt.setString(5, emp.getJobCode());
+			pstmt.setString(6, emp.getEmpRole());
+			pstmt.setString(7, emp.getGender());
+			pstmt.setString(8, emp.getEmail());
+			pstmt.setString(9, emp.getPhone());
+			pstmt.setString(10, emp.getQuitYn());
+			pstmt.setString(11, emp.getBanYn());
+			pstmt.setInt(12, emp.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new EmpException("회원가입 오류", e);
+		}
 		return result;
 	}
 }
