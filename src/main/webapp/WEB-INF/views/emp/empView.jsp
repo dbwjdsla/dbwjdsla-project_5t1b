@@ -69,28 +69,33 @@
 										<div class="form-group">
 											<p>
 												사원번호 :
-												<%=loginEmp.getNo()%></p>
+												<%=loginEmp.getNo() %></p>
 										</div>
 										<div class="form-group">
 											<p>
-												비밀번호 :<input type="password" name="password"
-													class="form-control form-control-user"
-													value="<%=loginEmp.getPassword()%>" required>
+												현재 비밀번호 :<input type="password" name="oldpassword"
+													class="form-control form-control-user" required>
+											</p>
+										</div>
+										<div class="form-group">
+											<p>
+												새로운 비밀번호 :<input type="password" name="newpassword"
+													class="form-control form-control-user" required>
 											</p>
 										</div>
 										<div class="form-group">
 											<p>
 												전화번호 :<input type="tel" placeholder="(-없이)01012345678"
-													name="phone" maxlength="11"
+													name="phone" id="phone" maxlength="11"
 													class="form-control form-control-user"
-													value="<%=loginEmp.getPhone()%>" required>
+													value="<%=loginEmp.getPhone() %>" required>
 											</p>
 										</div>
 										<div class="form-group">
 											<p>
 												이메일 :<input type="email" placeholder="abc@5t1b.com"
 													name="email" class="form-control form-control-user"
-													value="<%=loginEmp.getEmail()%>" required>
+													value="<%=loginEmp.getEmail() %>" required>
 											</p>
 										</div>
 										<div class="form-group">
@@ -114,9 +119,9 @@
 											<p>
 												직급 :<%=loginEmp.getJobName()%></p>
 										</div>
-										<input type="button"
+										<!-- <input type="button"
 											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="비밀번호변경" /> 
+											onclick="updatePassword();" value="비밀번호변경" /> --> 
 										<input type="button" 
 											class="btn btn-primary btn-user btn-block"
 											onclick="updateEmp();" value="정보수정" />
@@ -144,19 +149,6 @@ const updateEmp = () => {
  * 유효성검사
  */
 $(empUpdateFrm).submit((e) => {
-	
-	/* password
-	const $password = $(password);
-	const $passwordCheck = $(passwordCheck);
-	
-	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
-		alert("유효한 패스워드를 입력하세요.");
-		return false;
-	}
-	if($password.val() != $passwordCheck.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		return false;
-	} */
 	
 	//phone
 	const $phone = $(phone);
