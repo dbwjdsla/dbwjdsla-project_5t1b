@@ -109,7 +109,7 @@ public class MessageDao {
 	public Message selectOneMessage(Connection conn, int no) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectOneMessage");
-		Message message = null;
+		Message message = new Message();
 		ResultSet rset = null;
 		
 		try {
@@ -117,10 +117,18 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setSentDate(rset.getDate("sent_date"));
+				message.setContent(rset.getString("content"));
 				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("sender_emp_name"));
+				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
 			throw new MessageException("상세쪽지 조회 요류");
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return message;
 	}

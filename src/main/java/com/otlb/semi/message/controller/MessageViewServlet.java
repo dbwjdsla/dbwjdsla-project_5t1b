@@ -27,6 +27,12 @@ public class MessageViewServlet extends HttpServlet {
 		
 		Message message = messageService.selectOneMessage(no);
 		
+		request.setAttribute("message", message);
+		
+		request
+			.getRequestDispatcher("/WEB-INF/views/message/messageView.jsp")
+			.forward(request, response);
+		
 		
 	}
 
