@@ -208,8 +208,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		if (loginEmp == null) {
 		%>
 
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="{height=15px;}">로그인 <i class="fas fa-unlock-alt"></i></button>
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm">회원가입 <i class="fas fa-user-plus"></i></button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="margin:3px; height:2rem;">로그인 <i class="fas fa-unlock-alt"></i></button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm" style= "margin :3px; height:2rem;">회원가입 <i class="fas fa-user-plus"></i></button>
 
 		<%
 		} else {
