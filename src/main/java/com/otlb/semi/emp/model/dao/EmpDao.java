@@ -5,6 +5,7 @@ import static com.otlb.semi.common.JdbcTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -69,24 +70,23 @@ public class EmpDao {
 
 	public int updateEmp(Connection conn, Emp emp) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("updateEmp");
+		String query = prop.getProperty("updateEmp");
 		int result = 0;
 		
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, emp.getPassword());
-			pstmt.setString(2, emp.getPhone());
-			pstmt.setString(3, emp.getEmail());		
-			pstmt.setInt(4, emp.getNo());
-
+			pstmt.setString(2, emp.getGender());
+			pstmt.setString(3, emp.getPhone());
+			pstmt.setString(4, emp.getEmail());
+			pstmt.setInt(5, emp.getNo());
 			result = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new EmpException("회원정보 변경 실패", e);
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
 
@@ -151,5 +151,7 @@ public class EmpDao {
 		
 		return list;
 	}
+
+
 
 }
