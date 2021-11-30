@@ -8,8 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
+import com.otlb.semi.emp.model.vo.Department;
+import com.otlb.semi.emp.model.exception.EmpException;
 import com.otlb.semi.emp.model.vo.Emp;
 
 public class EmpDao {
@@ -51,9 +55,11 @@ public class EmpDao {
 				emp.setPhone(rset.getString("phone"));
 				emp.setQuitYn(rset.getString("quit_yn"));
 				emp.setBanYn(rset.getString("ban_yn"));
+				emp.setDeptName(rset.getString("dept_name"));
+				emp.setJobName(rset.getString("job_name"));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new EmpException("회원가입 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -70,7 +76,7 @@ public class EmpDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, emp.getPassword());
 			pstmt.setString(2, emp.getPhone());
-			pstmt.setString(3, emp.getEmail());			
+			pstmt.setString(3, emp.getEmail());		
 			pstmt.setInt(4, emp.getNo());
 
 			result = pstmt.executeUpdate();
@@ -83,4 +89,69 @@ public class EmpDao {
 		
 		return result;
 	}
+
+	public int insertEmp(Connection conn, Emp emp) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertEmp");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, emp.getEmpName());
+			pstmt.setString(2, emp.getPassword());
+			pstmt.setDate(3, emp.getBirthdate());
+			pstmt.setString(4, emp.getDeptCode());
+			pstmt.setString(5, emp.getJobCode());
+			pstmt.setString(6, emp.getEmpRole());
+			pstmt.setString(7, emp.getGender());
+			pstmt.setString(8, emp.getEmail());
+			pstmt.setString(9, emp.getPhone());
+			pstmt.setString(10, emp.getQuitYn());
+			pstmt.setString(11, emp.getBanYn());
+			pstmt.setInt(12, emp.getNo());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new EmpException("회원가입 오류", e);
+		}
+		return result;
+	}
+
+	public List<Emp> selectAllEmp(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllEmp");
+		ResultSet rset = null;
+		List<Emp> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Emp emp = new Emp();
+				
+				emp.setNo(rset.getInt("no"));
+				emp.setEmpName(rset.getString("emp_name"));
+				emp.setBirthdate(rset.getDate("birthdate"));
+				emp.setGender(rset.getString("gender"));
+				// deptcode, jobcode가 아니라 deptname, jobname이 맞지만 설계가 이래서 일단 어쩔 수 없음
+				emp.setDeptCode(rset.getString("dept_name"));
+				emp.setJobCode(rset.getString("job_name"));
+				emp.setEmpRole(rset.getString("emp_role"));
+				emp.setEmail(rset.getString("email"));
+				emp.setPhone(rset.getString("phone"));
+				emp.setQuitYn(rset.getString("quit_yn"));
+				emp.setBanYn(rset.getString("ban_yn"));
+				
+				list.add(emp);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
 }
