@@ -59,9 +59,9 @@ public class EmpEnrollServlet extends HttpServlet {
 			String passwordCheck = request.getParameter("passwordCheck");
 			String phone = request.getParameter("phone");
 			// 위 내용을 입력하지 않은 경우 modal에 전달할 메세지 작성
-			if(empName == null || "".equals(empName) || email == null || password == null || passwordCheck == null || phone == null) {
+			if("".equals(empName) || "".equals(email) || "".equals(password) || "".equals(passwordCheck) || "".equals(phone)) {
 				modalMessage(request, response, ERROR_MESSAGE, "모든 내용을 입력하세요.");
-				
+				return;
 			}
 
 			// 입력되지 않는 경우가 발생하지 않음(select태그)
@@ -80,7 +80,7 @@ public class EmpEnrollServlet extends HttpServlet {
 			// 3. 응답처리
 			if(result > 0) {
 				// 회원가입 성공시 modal에 전달할 메세지 작성
-				modalMessage(request, response, "성공 메세지", "회원가입에 성공하셨습니다.");
+				modalMessage(request, response, SUCCESS_MESSAGE, "회원가입에 성공하셨습니다.");
 				return;
 			}
 			else {

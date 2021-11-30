@@ -55,6 +55,7 @@
 								<h1 class="h4 text-gray-900 mb-4">회원가입</h1>
 							</div>
 							<form 
+								name="empEmrollFrm"
 								class="user" 
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
@@ -308,6 +309,11 @@
 <%
 	if(messageType != null) {
 %>
+<script>
+	$(function(){
+		$("#staticBackdrop").modal('show');		
+	});
+</script>
 
 <!-- Modal -->
 	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -315,22 +321,28 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel"><%= messageType %></h5>
+	      <%
+	      	if(messageType.equals(EmpEnrollServlet.ERROR_MESSAGE)){
+	      %>
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	          <span aria-hidden="true">&times;</span>
 	        </button>
+	      <%
+	      	}
+	      %>
 	      </div>
 	      <div class="modal-body">
-	        <%= messageContent %>
+	      <%= messageContent %>
 	      </div>
 	      <div class="modal-footer">
 	      <%
-	      	if("성공 메세지".equals(EmpEnrollServlet.SUCCESS_MESSAGE)){
+	      	if(messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE)){
 	      %>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/empLogin'">확인</button>	      		
+			<button type="button" class="btn btn-secondary" id="success_button" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/login'">확인</button>	      		
 	      <%
 	      	} else {
 	      %>	
-	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+	        <button type="button" class="btn btn-secondary" id="error_button" data-dismiss="modal">닫기</button>
 		  <%
 	      	}
 		  %>	      
@@ -339,10 +351,11 @@
 	  </div>
 	</div>
 	
-	<script>
-	$(function(){
-		$("#staticBackdrop").modal('show');		
-	});
+<script>
+	if(<%= messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE) %>)
+		$(".modal-header").attr("style", "background-color:#d9edf7");
+	else
+		$(".modal-header").attr("style", "background-color:#f2dede");
 </script>
 
 <%
@@ -350,6 +363,17 @@
 	session.removeAttribute("messageType");
 	}
 %>
+<script>
+	document.empEmrollFrm.onsubmit = (e) => {
+		// 사원번호 유효성 검사
+		
+		// 비밀번호 유효성 검사
+		
+		// 비밀번호 확인 유효성 검사
+		
+	};
+</script>
+
 
 
 	<!-- Bootstrap core JavaScript-->
@@ -360,12 +384,6 @@
 
     <!-- Custom scripts for all pages-->
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
-	
-	 <!-- Page level plugins -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
-    <!-- Page level custom scripts -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
