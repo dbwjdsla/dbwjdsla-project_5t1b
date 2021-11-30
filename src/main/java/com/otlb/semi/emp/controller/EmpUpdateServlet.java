@@ -49,6 +49,9 @@ public class EmpUpdateServlet extends HttpServlet {
 			
 			//업무로직
 			loginEmp.setPassword(newPassword);
+			loginEmp.setGender(gender);
+			loginEmp.setPhone(phone);
+			loginEmp.setEmail(email);
 			result = empService.updateEmp(loginEmp);
 			msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
 		}
