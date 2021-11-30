@@ -111,3 +111,4 @@ $(empUpdateFrm).submit((e) => {
 });
 
 </script>
+<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
