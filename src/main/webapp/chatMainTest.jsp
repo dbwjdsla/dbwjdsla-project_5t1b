@@ -7,7 +7,7 @@
 function goOtoChat(){
     var url = "<%= request.getContextPath() %>/otochat/otochatroom?otoSenderId=202002&otoReceiverId=202103&otoSRTp=S";
     var name = "양소영님과 1:1 채팅";
-	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	var options = 'top=10, left=10, width=330, height=500, status=no, menubar=no, toolbar=no, resizable=no';
     
     var popup1	=	window.open(url, name, options);
 }
@@ -15,7 +15,7 @@ function goOtoChat(){
 function goOtoChat2(){
     var url = "<%= request.getContextPath() %>/otochat/otochatroom?otoSenderId=202002&otoReceiverId=202103&otoSRTp=R";
     var name = "홍길동님과 1:1 채팅";
-	var options = 'top=10, left=10, width=500, height=600, status=no, menubar=no, toolbar=no, resizable=no';
+	var options = 'top=10, left=10, width=330, height=500, status=no, menubar=no, toolbar=no, resizable=no';
     
 	var popup2	=	window.open(url, name, options);
 }
