@@ -18,6 +18,7 @@ public class Emp extends EmpEntity implements Serializable{
 			String gender, String email, String phone, String quitYn, String banYn) {
 		super(no, empName, password, birthdate, deptCode, jobCode, empRole, gender, email, phone, quitYn, banYn);
 	}
+	
 
 
 	public Emp(int no, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,

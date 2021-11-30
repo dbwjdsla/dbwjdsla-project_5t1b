@@ -33,19 +33,19 @@ public class OtoChatWebsocketConfig extends Configurator {
 		String otoReceiverNm	=	"";
 		
 		//	name setting
-		if(otoSenderId.equals("001")) {
-			otoSenderNm	=	"해";
-		}else if(otoSenderId.equals("002")){
-			otoSenderNm	=	"닭";
+		if(otoSenderId.equals("202002")) {
+			otoSenderNm	=	"양소영";
+		}else if(otoSenderId.equals("202103")){
+			otoSenderNm	=	"홍길동";
 		}else{
-			otoSenderNm	=	"별";
+			otoSenderNm	=	"이송이";
 		}
-		if(otoReceiverId.equals("001")) {
-			otoReceiverNm	=	"해";
-		}else if(otoReceiverId.equals("002")){
-			otoReceiverNm	=	"닭";
+		if(otoReceiverId.equals("202002")) {
+			otoReceiverNm	=	"양소영";
+		}else if(otoReceiverId.equals("202103")){
+			otoReceiverNm	=	"홍길동";
 		}else {
-			otoReceiverNm	=	"별";
+			otoReceiverNm	=	"이송이";
 		}
 		//	아이디 설정 처리 
 		String userId	=	"";

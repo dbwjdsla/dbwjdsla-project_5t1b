@@ -1,6 +1,8 @@
 package com.otlb.semi.emp.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +13,10 @@ import com.otlb.semi.emp.model.service.EmpService;
 import com.otlb.semi.emp.model.vo.Emp;
 
 /**
- * Servlet implementation class EmpViewServlet
+ * Servlet implementation class EmpListViewServlet
  */
-@WebServlet("/emp/empView")
-public class EmpViewServlet extends HttpServlet {
+@WebServlet("/emp/empInfoView")
+public class EmpInfoViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();
 
@@ -23,12 +25,17 @@ public class EmpViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		Emp emp = empService.selectOneEmp();
+		try {
+			int no = Integer.parseInt(request.getParameter("no"));
+			Emp emp = empService.selectOneEmp(no);
+			
+			request.setAttribute("emp", emp);
+			request.getRequestDispatcher("/WEB-INF/views/emp/empInfoView.jsp").forward(request, response);
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw e;
 		
-		request
-		.getRequestDispatcher("/WEB-INF/views/emp/empView.jsp")
-		.forward(request, response);
+		}
 	}
-
 
 }
