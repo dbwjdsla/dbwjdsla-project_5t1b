@@ -25,4 +25,12 @@ public class MessageService {
 		
 		return list;
 	}
+
+	public Message selectOneMessage(int no) {
+		Connection conn = getConnection();
+		Message message = messageDao.selectOneMessage(conn, no);
+		close(conn);
+		
+		return message;
+	}
 }
