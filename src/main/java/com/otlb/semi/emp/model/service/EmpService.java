@@ -53,5 +53,21 @@ public class EmpService {
 		return list;
 	}
 
+	public int insertEmp(Emp emp) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = empDao.insertEmp(conn, emp);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 }

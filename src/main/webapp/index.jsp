@@ -92,9 +92,10 @@
 						</div>
 						<div class="card-body">
 							<p>
-								Add some quality, svg illustrations to your project courtesy of
-								a constantly updated collection of beautiful svg images that you
-								can use completely free and without attribution!
+								SB Admin 2 makes extensive use of Bootstrap 4 utility
+								classes in order to reduce CSS bloat and poor page performance.
+								Custom CSS classes are used to create custom components and
+								custom utility classes.
 							</p>
 						
 						</div>
