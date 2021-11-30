@@ -1,90 +1,147 @@
-<%@page import="com.otlb.semi.emp.model.vo.Department" %>
+<%@page import="com.otlb.semi.emp.model.vo.Department"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp" %>
-<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
-<section id=enroll-container>
-	<h2>회원 정보</h2>
-	<form id="empUpdateFrm" method="post">
-		<table>
-			<tr>
-				<th>사원명</th>
-				<td>
-					<%= loginEmp.getEmpName() %>
-				</td>
-			</tr>
-			<tr>
-				<th>사원번호</th>
-				<td>
-					<%= loginEmp.getNo() %>
-				</td>
-			</tr>
+	pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/navbar.jsp"%>
+<!DOCTYPE html>
+<html lang="en">
 
-			<tr>
-				<th>비밀번호</th>
-				<td>
-					<input type="password" name="password" id="password" value="<%= loginEmp.getPassword() %>" required>
-				</td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td>	
-					<input type="tel" placeholder="(-없이)01012345678" name="phone" id="phone" maxlength="11" value="<%= loginEmp.getPhone() %>" required><br>
-				</td>
-			</tr>
-			<tr>
-				<th>이메일</th>
-				<td>	
-					<input type="email" placeholder="abc@xyz.com" name="email" id="email" value="<%= loginEmp.getEmail() %>" required><br>
-				</td>
-			</tr>
-			<tr>
-				<th>생년월일</th>
-				<td>	
-				<%= loginEmp.getBirthdate() %>
-				</td>
-			</tr>
-			<tr>
-				<th>성별</th>
-				<td>
-				<input type="radio" name="gender" id="gender0" value="M" <%= "M".equals(loginEmp.getGender()) ? "checked" : "" %> readonly>
-				<label for="gender0">남</label>
-				<input type="radio" name="gender" id="gender1" value="F" <%= "F".equals(loginEmp.getGender()) ? "checked" : "" %> readonly>
-				<label for="gender1">여</label>
-				</td>
-			</tr>
-			<tr>
-				<th>부서</th>
-				<td>	
-				<%= loginEmp.getDeptName()%>
-				</td>
-			</tr>
-		 	<tr>
-				<th>직급</th>
-				<td>	
-				<%= loginEmp.getJobName() %>
-				</td>
-			</tr>
-		</table>
-        <input type="button" onclick="updateProfileimg();" value="사진변경"/>
-        <input type="button" onclick="updateEmp();" value="정보수정"/>
-        <input type="button" onclick="updatePassword();" value="비밀번호변경"/>
-	</form>
-</section>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>5T1b - Mypage</title>
+
+<!-- Custom fonts for this template-->
+<link
+	href="<%=request.getContextPath()%>/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link
+	href="<%=request.getContextPath()%>/resources/css/sb-admin-2.min.css"
+	rel="stylesheet">
+<script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
+
+</head>
+
+<body class="mypage" id="mypage">
+
+	<div class="container">
+
+		<!-- Outer Row -->
+		<div class="row justify-content-center">
+
+			<div class="col-xl-10 col-lg-12 col-md-9">
+
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div class="p-5">
+							<div class="text-center">
+								<br /> <br />
+								<h1 class="h4 text-gray-900 mb-4">회원정보</h1>
+							</div>
+							<div class="row">
+								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
+									<p>
+										프사프사 넣을예정 <br /> <br /> <br /> <br /> <br /> <br />
+									</p>
+									<input type="button" class="btn btn-primary btn-user btn-block"
+										onclick="updateProfileimg();" value="사진변경" />
+								</div>
+								<div class="col-lg-6">
+									<form id="empUpdateFrm"
+										atcion="<%=request.getContextPath()%>/emp/empView"
+										method="POST">
+										<div class="form-group">
+											<p>
+												사원명 :
+												<%=loginEmp.getEmpName()%></p>
+										</div>
+										<div class="form-group">
+											<p>
+												사원번호 :
+												<%=loginEmp.getNo()%></p>
+										</div>
+										<div class="form-group">
+											<p>
+												비밀번호 :<input type="password" name="password"
+													class="form-control form-control-user"
+													value="<%=loginEmp.getPassword()%>" required>
+											</p>
+										</div>
+										<div class="form-group">
+											<p>
+												전화번호 :<input type="tel" placeholder="(-없이)01012345678"
+													name="phone" maxlength="11"
+													class="form-control form-control-user"
+													value="<%=loginEmp.getPhone()%>" required>
+											</p>
+										</div>
+										<div class="form-group">
+											<p>
+												이메일 :<input type="email" placeholder="abc@5t1b.com"
+													name="email" class="form-control form-control-user"
+													value="<%=loginEmp.getEmail()%>" required>
+											</p>
+										</div>
+										<div class="form-group">
+											<p>
+												생년월일 :
+												<%=loginEmp.getBirthdate()%></p>
+										</div>
+										<div class="form-group">
+											<input type="radio" name="gender" id="gender0" value="M"
+												<%="M".equals(loginEmp.getGender()) ? "checked" : ""%>
+												readonly> <label for="gender0">남</label> <input
+												type="radio" name="gender" id="gender1" value="F"
+												<%="F".equals(loginEmp.getGender()) ? "checked" : ""%>
+												readonly> <label for="gender1">여</label>
+										</div>
+										<div class="form-group">
+											<p>
+												부서 :<%=loginEmp.getDeptName()%></p>
+										</div>
+										<div class="form-group">
+											<p>
+												직급 :<%=loginEmp.getJobName()%></p>
+										</div>
+										<input type="button"
+											class="btn btn-primary btn-user btn-block"
+											onclick="updatePassword();" value="비밀번호변경" /> 
+										<input type="button" 
+											class="btn btn-primary btn-user btn-block"
+											onclick="updateEmp();" value="정보수정" />
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
 
 <script>
 const updateEmp = () => {
-	// 폼의 action값을 할당후 제출!
 	$(empUpdateFrm)
-		.attr("action", "<%= request.getContextPath() %>/emp/empUpdate")
+		.attr("action", "<%=request.getContextPath()%>/emp/empUpdate")
 		.submit();
 };
 
 /**
- * #memberUpdateFrm 유효성검사
- * - 비번 영문자/숫자 4글자이상
- * - 이름 한글 2글자 이상
- * - 전화번호 숫자확인
+ * 유효성검사
  */
 $(empUpdateFrm).submit((e) => {
 	
@@ -111,4 +168,6 @@ $(empUpdateFrm).submit((e) => {
 });
 
 </script>
-<%@ include file="/WEB-INF/views/common/navbar.jsp" %>
+
+</body>
+</html>
