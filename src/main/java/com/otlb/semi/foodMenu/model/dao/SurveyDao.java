@@ -10,7 +10,7 @@ public class SurveyDao {
 	private Properties prop = new Properties();
 	
 	public SurveyDao() {
-		String filepath = BulletinDao.class.getResource("survey-query.properties").getPath();
+		String filepath = BulletinDao.class.getResource("/survey-query.properties").getPath();
 		try {
 			prop.load(new FileReader(filepath));
 		} catch (IOException e) {

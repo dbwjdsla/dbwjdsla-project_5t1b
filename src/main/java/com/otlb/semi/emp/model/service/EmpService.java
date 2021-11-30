@@ -6,9 +6,12 @@ import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.otlb.semi.emp.model.dao.EmpDao;
+import com.otlb.semi.emp.model.vo.Department;
 import com.otlb.semi.emp.model.vo.Emp;
+import com.otlb.semi.emp.model.vo.Job;
 
 public class EmpService {
 
@@ -45,6 +48,13 @@ public class EmpService {
 		return result;
 	}
 
+	public List<Emp> selectAllBoard() {
+		Connection conn = getConnection();
+		List<Emp> list = empDao.selectAllEmp(conn);
+		close(conn);
+		return list;
+	}
+
 	public int insertEmp(Emp emp) {
 		Connection conn = null;
 		int result = 0;
@@ -60,6 +70,5 @@ public class EmpService {
 		}
 		return result;
 	}
-
 
 }

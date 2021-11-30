@@ -15,6 +15,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -84,13 +86,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 				</form>
 			</div></li>
 
-		<!-- Nav Item - Alerts -->
-		<li class="nav-item dropdown no-arrow mx-1"><a
-			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
-			role="button" data-toggle="dropdown" aria-haspopup="true"
-			aria-expanded="false"> <i class="fas fa-bell fa-fw"></i> <!-- Counter - Alerts -->
-				<span class="badge badge-danger badge-counter">3+</span>
-		</a> <!-- Dropdown - Alerts -->
+	
+		<!-- Dropdown - Alerts -->
 			<div
 				class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="alertsDropdown">
@@ -211,8 +208,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		if (loginEmp == null) {
 		%>
 
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="{height=15px;}">로그인</button>
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm">회원가입</button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="{height=15px;}">로그인 <i class="fas fa-unlock-alt"></i></button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm">회원가입 <i class="fas fa-user-plus"></i></button>
 
 		<%
 		} else {

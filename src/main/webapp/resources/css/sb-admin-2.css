@@ -584,10 +584,10 @@ pre code {
 }
 
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -0.75rem;
-  margin-left: -0.75rem;
+    display: flex;
+    flex-wrap:wrap;
+    margin-right: -0.75rem;
+    margin-left: -0.75rem;
 }
 
 .no-gutters {
@@ -2940,6 +2940,8 @@ fieldset:disabled a.btn {
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.2rem;
+  margin: 0.3rem;
+
 }
 
 .btn-block {
