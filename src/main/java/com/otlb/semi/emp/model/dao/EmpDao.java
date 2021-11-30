@@ -95,15 +95,13 @@ public class EmpDao {
 			pstmt.setString(1, emp.getEmpName());
 			pstmt.setString(2, emp.getPassword());
 			pstmt.setDate(3, emp.getBirthdate());
-			pstmt.setString(4, emp.getDeptCode());
-			pstmt.setString(5, emp.getJobCode());
-			pstmt.setString(6, emp.getEmpRole());
-			pstmt.setString(7, emp.getGender());
-			pstmt.setString(8, emp.getEmail());
-			pstmt.setString(9, emp.getPhone());
-			pstmt.setString(10, emp.getQuitYn());
-			pstmt.setString(11, emp.getBanYn());
-			pstmt.setInt(12, emp.getNo());
+			pstmt.setString(4, emp.getEmpRole());
+			pstmt.setString(5, emp.getGender());
+			pstmt.setString(6, emp.getEmail());
+			pstmt.setString(7, emp.getPhone());
+			pstmt.setString(8, emp.getQuitYn());
+			pstmt.setString(9, emp.getBanYn());
+			pstmt.setInt(10, emp.getNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new EmpException("회원가입 오류", e);

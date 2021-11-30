@@ -23,6 +23,8 @@ import com.otlb.semi.emp.model.vo.Emp;
 public class EmpEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();
+	public static final String ERROR_MESSAGE = "오류 메세지";
+	public static final String SUCCESS_MESSAGE = "성공 메세지";
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +49,7 @@ public class EmpEnrollServlet extends HttpServlet {
 				no = Integer.parseInt(request.getParameter("no"));
 			} catch (Exception e) {
 				// 사원번호를 입력하지 않은 경우 modal에 전달할 메세지 작성
-				modalMessage(request, response, "오류 메세지", "사원번호를 입력하세요.");
+				modalMessage(request, response, ERROR_MESSAGE, "사원번호를 입력하세요.");
 				return;
 			}
 			
@@ -57,14 +59,12 @@ public class EmpEnrollServlet extends HttpServlet {
 			String passwordCheck = request.getParameter("passwordCheck");
 			String phone = request.getParameter("phone");
 			// 위 내용을 입력하지 않은 경우 modal에 전달할 메세지 작성
-			if(empName == null || email == null || password == null || passwordCheck == null || phone == null) {
-				modalMessage(request, response, "오류 메세지", "모든 내용을 입력하세요.");
-				return;
+			if(empName == null || "".equals(empName) || email == null || password == null || passwordCheck == null || phone == null) {
+				modalMessage(request, response, ERROR_MESSAGE, "모든 내용을 입력하세요.");
+				
 			}
 
 			// 입력되지 않는 경우가 발생하지 않음(select태그)
-			String jobCode = request.getParameter("jobCode");
-			String deptCode = request.getParameter("deptCode");
 			String gender = request.getParameter("gender");
 			int year = Integer.parseInt(request.getParameter("birthdayYear"));
 			int month = Integer.parseInt(request.getParameter("birthdayMonth"));
@@ -72,7 +72,7 @@ public class EmpEnrollServlet extends HttpServlet {
 			Calendar cal = new GregorianCalendar(year, month - 1, day);
 			Date birthdate = new Date(cal.getTimeInMillis());
 
-			Emp emp = new Emp(no, empName, password, birthdate, deptCode, jobCode, EmpService.EMP_ROLE, gender, email, phone, EmpService.hasNotQuit, EmpService.isNotBanned);
+			Emp emp = new Emp(no, empName, password, birthdate, null, null, EmpService.EMP_ROLE, gender, email, phone, EmpService.hasNotQuit, EmpService.isNotBanned);
 			
 			// 2. 업무로직
 			int result = empService.insertEmp(emp);
@@ -85,7 +85,7 @@ public class EmpEnrollServlet extends HttpServlet {
 			}
 			else {
 				// 회원가입 실패시 modal에 전달할 메세지 작성
-				modalMessage(request, response, "실패 메세지", "이미 존재하는 회원입니다.");
+				modalMessage(request, response, ERROR_MESSAGE, "이미 존재하는 회원입니다.");
 				return;
 			}
 			
@@ -99,8 +99,10 @@ public class EmpEnrollServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("messageType", messageType);
 		session.setAttribute("messageContent", messageContent);
+
 		try {
-			response.sendRedirect(request.getContextPath() + "/");
+			String location = request.getContextPath() + "/emp/empEnroll";
+			response.sendRedirect(location);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

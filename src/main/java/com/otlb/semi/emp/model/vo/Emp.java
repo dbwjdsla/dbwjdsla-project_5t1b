@@ -40,6 +40,7 @@ public class Emp implements Serializable{
 		this.quitYn = quitYn;
 		this.banYn = banYn;
 	}
+	
 
 	public int getNo() {
 		return no;

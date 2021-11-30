@@ -1,5 +1,15 @@
+<%@page import="com.otlb.semi.emp.controller.EmpEnrollServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String messageType = null;
+	String messageContent = null;
+	if(session.getAttribute("messageType") != null 
+			&& session.getAttribute("messageContent") != null){
+		messageType = (String) session.getAttribute("messageType");
+		messageContent = (String) session.getAttribute("messageContent");
+	}
+%>	
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +36,7 @@
 <link
 	href="<%=request.getContextPath()%>/resources/css/sb-admin-2.min.css"
 	rel="stylesheet">
+<script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 
 </head>
 
@@ -53,7 +64,7 @@
 								</div>
 								<div class="form-group">	
 									<input value="홍길동" type="text" name="empName" class="form-control form-control-user"
-										id="" placeholder="이름" autocomplete="off">									
+										 placeholder="이름" autocomplete="off">									
 								</div>
 								<div class="form-group">
 									<input value="hong@naver.com" type="email" name="email" class="form-control form-control-user"
@@ -66,34 +77,12 @@
 									</div>
 									<div class="col-sm-6">
 										<input value="1234" type="password" name="passwordCheck" class="form-control form-control-user"
-											id="" placeholder="비밀번호 확인" autocomplete="off">
+											placeholder="비밀번호 확인" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
 									<input value="01022223333" type="text" name="phone" class="form-control form-control-user"
-										id="" placeholder="전화번호" autocomplete="off">
-								</div>
-								<div class="form-group">
-									<select name="jobCode" id="jobCode" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value="" disabled hidden>직급</option>
-										<option value="J8" selected>인턴</option>
-										<option value="J7">사원</option>
-										<option value="J6">대리</option>
-										<option value="J5">과장</option>
-										<option value="J4">차장</option>
-										<option value="J3">부장</option>
-										<option value="J2">부사장</option>
-										<option value="J1">사장</option>
-									</select>
-								</div>
-								<div class="form-group">
-									<select name="deptCode" id="deptCode" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value="" disabled hidden>부서명</option>
-										<option value="SL" selected>영업부</option>
-										<option value="DV">개발부</option>
-										<option value="HR">인사부</option>
-										<option value="GA">총무부</option>
-									</select>
+										 placeholder="전화번호" autocomplete="off">
 								</div>
 								<div class="form-group">
 									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
@@ -284,8 +273,8 @@
 									</div>
 								</div>
 								
-
-								<input type="submit" value="가입하기" class="btn btn-primary btn-user btn-block" />
+								<!-- 회원가입 버튼 -->
+								<button type="submit" class="btn btn-primary btn-user btn-block">가입하기</button>
 								
 								<!-- 
 								 <hr>
@@ -303,6 +292,8 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                              -->
+                             
+                             <!-- 로그인 화면으로 이동 -->
 							<div class="text-center">
 								<a class="small" href="<%= request.getContextPath() %>/emp/login">로그인</a>
 							</div>
@@ -312,41 +303,69 @@
 			</div>
 		</div>
 	</div>
+
+
 <%
-	String messageType = null;
-	String messageContent = null;
-	if(session.getAttribute("messageType") != null 
-			&& session.getAttribute("messageContent") != null){
-		messageType = (String) session.getAttribute("messageType");
-		messageContent = (String) session.getAttribute("messageContent");
-	}
 	if(messageType != null) {
 %>
-	<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" >
-		<div class="vertical-alignment-helper">
-			<div class="modal-dialog vertical-align-center">
-			
-			
-			</div>
-		</div>
+
+<!-- Modal -->
+	<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel"><%= messageType %></h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <%= messageContent %>
+	      </div>
+	      <div class="modal-footer">
+	      <%
+	      	if("성공 메세지".equals(EmpEnrollServlet.SUCCESS_MESSAGE)){
+	      %>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/empLogin'">확인</button>	      		
+	      <%
+	      	} else {
+	      %>	
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+		  <%
+	      	}
+		  %>	      
+	      </div>
+	    </div>
+	  </div>
 	</div>
+	
+	<script>
+	$(function(){
+		$("#staticBackdrop").modal('show');		
+	});
+</script>
+
 <%
+	session.removeAttribute("messageContent");
+	session.removeAttribute("messageType");
 	}
 %>
-	
-	
-	
-	
+
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin-2.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/sb-admin-2.min.js"></script>
+	
+	 <!-- Page level plugins -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
+    <!-- Page level custom scripts -->
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/demo/chart-pie-demo.js"></script>
 
 </body>
 
