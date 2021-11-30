@@ -106,10 +106,10 @@ public class MessageDao {
 		return list;
 	}
 
-	public Message selectOneMessage(Connection conn, int no) {
+	public Message selectOneReceivedMessage(Connection conn, int no) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("selectOneMessage");
-		Message message = null;
+		String sql = prop.getProperty("selectOneReceivedMessage");
+		Message message = new Message();
 		ResultSet rset = null;
 		
 		try {
@@ -117,10 +117,45 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setSentDate(rset.getDate("sent_date"));
+				message.setContent(rset.getString("content"));
 				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("sender_emp_name"));
+				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
-			throw new MessageException("상세쪽지 조회 요류");
+			throw new MessageException("받은상세쪽지 조회 요류");
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return message;
+	}
+
+	public Message selectOneSentMessage(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneSentMessage");
+		Message message = new Message();
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				message.setSentDate(rset.getDate("sent_date"));
+				message.setContent(rset.getString("content"));
+				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("receiver_emp_name"));
+				message.setEmp(emp);
+			}
+		} catch (SQLException e) {
+			throw new MessageException("보낸상세쪽지 조회 요류");
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return message;
 	}

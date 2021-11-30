@@ -4,6 +4,9 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%
+	Message message = (Message) request.getAttribute("message");
+%>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -55,42 +58,29 @@
             <!-- Main Content -->
             <div id="content">
 	 		<div class="row">
-	 			<div class="col-sm-12">
-	 				<table class="table table-bordered dataTable">
-	 					<thead>
-                           <tr>
-                               <th><input type="checkbox" id="allCheck"/></th>
-                               <th>받는사람</th>
-                               <th>내용</th>
-                               <th>날짜</th>
-                           </tr>
-                         </thead>
-                         <tbody>
-<%
-/* 
-	로그인 회원이 보낸 쪽지데이터 출력
-*/
-List<Message> list = (List<Message>) request.getAttribute("list");
-	for(Message message : list){
-%>
-                         	<tr>
-                         		<td><input type="checkbox" /></td>
-                         		<td><%= message.getEmp().getEmpName() %></td>
-                         		
-                         		<td><a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
-                         		<td><%= message.getSentDate() %></td>
-                         	</tr>
-<% 
-	}
- %>
-                         </tbody>
- 					</table>
-	 			</div>
+	 			
 	 		
 	 		</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
+					<hr class="sidebar-divider">
+	 				<div class="col-sm-12">
+	 				<table>
+                           <tr>
+                               <th>받는사람</th>
+                               <td><%= message.getEmp().getEmpName() %></td>
+                           </tr>
+                         	<tr>
+                         		<th>보낸시간</th>
+                         		<td><%= message.getSentDate() %></td>
+                         	</tr>
+ 					</table>
+ 					<hr class="sidebar-divider">
+ 					<div class="container-container">
+					<%= message.getContent() %>
+ 					</div>	
+ 					
+	 			</div>
                     
 
                 </div>
