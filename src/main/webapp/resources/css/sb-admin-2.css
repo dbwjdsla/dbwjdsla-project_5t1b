@@ -585,7 +585,8 @@ pre code {
 
 .row {
     display: flex;
-    margin-right: 23rem;
+    flex-wrap:wrap;
+    margin-right: -0.75rem;
     margin-left: -0.75rem;
 }
 
