@@ -31,57 +31,43 @@ public class EmpUpdateServlet extends HttpServlet {
 	 * where no = ?
 	 * 
 	 */
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		
-//		Emp emp = (Emp)session.getAttribute("loginEmp");
-//		int no = emp.getNo();
-//		
-//		
-//		// 3.view단처리
-//		request.setAttribute("department", department);
-////		request.setAttribute("job", job);
-//		request
-//			.getRequestDispatcher("/WEB-INF/views/emp/empView.jsp")
-//			.forward(request, response);
-//	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1.인코딩처리
-				request.setCharacterEncoding("utf-8");
-				
-				// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
-				int no = Integer.parseInt(request.getParameter("no"));
-				String empName = request.getParameter("empName");
-				String password = request.getParameter("password");
-				String _birthdate = request.getParameter("birthdate"); 
-				String deptCode = request.getParameter("deptCode");
-				String jobCode = request.getParameter("jobCode");
-				String gender = request.getParameter("gender");
-				String email = request.getParameter("email");
-				String phone = request.getParameter("phone");
+		request.setCharacterEncoding("utf-8");
+		
+		// 2.사용자입력값 처리 사용자입력값 -> Member VO객체 생성
+		int no = Integer.parseInt(request.getParameter("no"));
+		String empName = request.getParameter("empName");
+		String password = request.getParameter("password");
+		String _birthdate = request.getParameter("birthdate"); 
+		String deptCode = request.getParameter("deptCode");
+		String jobCode = request.getParameter("jobCode");
+		String gender = request.getParameter("gender");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 
-				
-				Date birthdate = null;
-				if(!"".equals(_birthdate))
-					birthdate = Date.valueOf(_birthdate);
-				
-				Emp emp = 
-						new Emp(no, empName, password, birthdate, deptCode, jobCode, null, gender, email, phone, null, null);
-				System.out.println("emp@servlet = " + emp);
-				
-				// 3.업무로직 요청 : 서비스객체의 updateMember호출 & Member객체 전달
-				int result = empService.updateEmp(emp);
-				String msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
-				
-				// 4.리다이렉트처리 및 사용자메세지 준비
-				HttpSession session = request.getSession();
-				session.setAttribute("msg", msg);
-				
-				String location = request.getContextPath() + "/emp/empView";
-				response.sendRedirect(location);
-				
-			
+		
+		Date birthdate = null;
+		if(!"".equals(_birthdate))
+			birthdate = Date.valueOf(_birthdate);
+		
+		Emp emp = 
+				new Emp(no, empName, password, birthdate, deptCode, jobCode, null, gender, email, phone, null, null);
+		System.out.println("emp@servlet = " + emp);
+		
+		// 3.업무로직 요청 : 서비스객체의 updateMember호출 & Member객체 전달
+		int result = empService.updateEmp(emp);
+		String msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
+		
+		// 4.리다이렉트처리 및 사용자메세지 준비
+		HttpSession session = request.getSession();
+		session.setAttribute("msg", msg);
+		
+		String location = request.getContextPath() + "/emp/empView";
+		response.sendRedirect(location);
+		
+	
 	}
 
 }
