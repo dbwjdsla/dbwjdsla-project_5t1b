@@ -1,17 +1,21 @@
-package com.otlb.semi.message.controller;
+package com.otlb.semi.chat.controller;
 
 import java.io.IOException;
+import java.util.Set;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 /**
- * Servlet implementation class MessageFormServlet
+ * Servlet implementation class ChatClientsServlet
  */
-@WebServlet("/message/messageForm")
-public class MessageFormServlet extends HttpServlet {
+@WebServlet("/otochat/clients")
+public class OtoChatClientServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -19,11 +23,18 @@ public class MessageFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("////ChatClientsServlet////doGet////////");	
 		
-		request
-			.getRequestDispatcher("/WEB-INF/views/message/messageForm.jsp")
-			.forward(request, response);
+		//1. 
+		Set<String> clients = OtoChatWebsocket.clients.keySet();
+		
+		//2. 
+		response.setContentType("application/json; charset=utf-8");
+		new Gson().toJson(clients, response.getWriter());
 	}
-
-
 }
+
+
+
+
+

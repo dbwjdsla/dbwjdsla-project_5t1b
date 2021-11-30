@@ -53,8 +53,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 	</button>
 
 	<!-- 5t1b 홈버튼-->
-	<a href="<%= request.getContextPath() %>/index.jsp">
-	<img alt="logo" src="<%= request.getContextPath() %>/resources/img/logo.png">
+	<a href="<%= request.getContextPath() %>">
+	<img alt="logo" src="${pageContext.request.contextPath}/resources/img/logo.png">
 	</a>
 
 	
@@ -133,14 +133,23 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 			</div></li>
 
 		<!-- Nav Item - Messages -->
-		<li class="nav-item dropdown no-arrow mx-1"><a
-			class="nav-link dropdown-toggle"
-			href="<%=request.getContextPath()%>/message/messageList"
-			id="messagesDropdown" role="button"
-			aria-haspopup="true" aria-expanded="false"> <i
-				class="fas fa-envelope fa-fw"></i> <!-- Counter - Messages --> <span
-				class="badge badge-danger badge-counter">7</span>
-		</a> <!-- Dropdown - Messages -->
+<%
+	if(loginEmp != null){
+%>
+		<li class="nav-item dropdown no-arrow mx-1">
+			<a
+				class="nav-link dropdown-toggle"
+				href="<%=request.getContextPath()%>/message/messageList"
+				id="messagesDropdown" role="button"
+				aria-haspopup="true" aria-expanded="false"> 
+				<i class="fas fa-envelope fa-fw"></i> 
+				<!-- Counter - Messages --> 
+				<span class="badge badge-danger badge-counter">7</span>
+			</a> 
+<%
+	}
+%>
+		<!-- Dropdown - Messages -->
 			<div
 				class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				aria-labelledby="messagesDropdown">
@@ -203,8 +212,8 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		if (loginEmp == null) {
 		%>
 
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="{height=15px;}">로그인 <i class="fas fa-unlock-alt"></i></button>
-		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm">회원가입 <i class="fas fa-user-plus"></i></button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/login'" class="btn btn-sm btn-primary shadow-sm" style="{height=15px;}">로그인</button>
+		<button onclick="location.href='<%=request.getContextPath()%>/emp/empEnroll'" class="btn btn-sm btn-primary shadow-sm">회원가입</button>
 
 		<%
 		} else {

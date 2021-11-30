@@ -1,4 +1,4 @@
-package com.otlb.semi.message.controller;
+package com.otlb.semi.emp.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,22 +8,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MessageFormServlet
+ * Servlet implementation class EmpEnrollServlet
  */
-@WebServlet("/message/messageForm")
-public class MessageFormServlet extends HttpServlet {
+@WebServlet("/emp/empEnroll")
+public class EmpEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		request
-			.getRequestDispatcher("/WEB-INF/views/message/messageForm.jsp")
+			.getRequestDispatcher("/WEB-INF/views/emp/empEnroll.jsp")
 			.forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	}
 
 }
