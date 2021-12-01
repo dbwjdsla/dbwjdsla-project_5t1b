@@ -9,7 +9,7 @@
 			String name = cookie.getName();
 			String value = cookie.getValue();
 			// System.out.println(name + " = " + value);
-			if("saveNo".equals(name)){
+			if("saveEmpNo".equals(name)){
 				saveEmpNo = value;
 			}
 		}
@@ -67,7 +67,7 @@
                                     	action="<%= request.getContextPath() %>/emp/login"
                                     	method="POST">
                                         <div class="form-group">
-                                            <input type="text" name="no" value="<%= saveEmpNo != null ? saveEmpNo : "" %>" class="form-control form-control-user"
+                                            <input type="text" name="empNo" value="<%= saveEmpNo != null ? saveEmpNo : "" %>" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="사원번호"> <!-- 프로젝트 기간 동안 인풋태그에 사원번호 하드코딩 -->
                                         </div>

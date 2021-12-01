@@ -44,7 +44,7 @@ public class EmpDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				emp = new Emp();
-				emp.setNo(rset.getInt("no"));
+				emp.setEmpNo(rset.getInt("emp_no"));
 				emp.setEmpName(rset.getString("emp_name"));
 				emp.setPassword(rset.getString("password"));
 				emp.setBirthdate(rset.getDate("birthdate"));
@@ -79,7 +79,7 @@ public class EmpDao {
 			pstmt.setString(2, emp.getGender());
 			pstmt.setString(3, emp.getPhone());
 			pstmt.setString(4, emp.getEmail());
-			pstmt.setInt(5, emp.getNo());
+			pstmt.setInt(5, emp.getEmpNo());
 			result = pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -106,7 +106,7 @@ public class EmpDao {
 			pstmt.setString(7, emp.getPhone());
 			pstmt.setString(8, emp.getQuitYn());
 			pstmt.setString(9, emp.getBanYn());
-			pstmt.setInt(10, emp.getNo());
+			pstmt.setInt(10, emp.getEmpNo());
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new EmpException("회원가입 오류", e);
@@ -127,7 +127,7 @@ public class EmpDao {
 			while(rset.next()) {
 				Emp emp = new Emp();
 				
-				emp.setNo(rset.getInt("no"));
+				emp.setEmpNo(rset.getInt("emp_no"));
 				emp.setEmpName(rset.getString("emp_name"));
 				emp.setBirthdate(rset.getDate("birthdate"));
 				emp.setGender(rset.getString("gender"));

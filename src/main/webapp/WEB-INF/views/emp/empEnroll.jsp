@@ -60,7 +60,7 @@
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
 								<div class="form-group">	
-									<input value="202103" type="text" name="no" class="form-control form-control-user"
+									<input value="202103" type="text" name="empNo" class="form-control form-control-user"
 										id="exampleFirstName" placeholder="사원번호" autocomplete="off">									
 								</div>
 								<div class="form-group">	
@@ -321,31 +321,21 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel"><%= messageType %></h5>
-	      <%
-	      	if(messageType.equals(EmpEnrollServlet.ERROR_MESSAGE)){
-	      %>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      <%
-	      	}
-	      %>
+	          <% if(messageType.equals(EmpEnrollServlet.ERROR_MESSAGE)){ %>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+	          <% } %>
 	      </div>
 	      <div class="modal-body">
-	      <%= messageContent %>
+	      	  <%= messageContent %>
 	      </div>
 	      <div class="modal-footer">
-	      <%
-	      	if(messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE)){
-	      %>
-			<button type="button" class="btn btn-secondary" id="success_button" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/login'">확인</button>	      		
-	      <%
-	      	} else {
-	      %>	
-	        <button type="button" class="btn btn-secondary" id="error_button" data-dismiss="modal">닫기</button>
-		  <%
-	      	}
-		  %>	      
+		      <% if(messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE)){ %>
+				<button type="button" class="btn btn-secondary" id="success_button" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/login'">확인</button>	      		
+		      <% } else { %>	
+		        <button type="button" class="btn btn-secondary" id="error_button" data-dismiss="modal">닫기</button>
+			  <% } %>	      
 	      </div>
 	    </div>
 	  </div>

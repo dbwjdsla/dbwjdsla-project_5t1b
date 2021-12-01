@@ -1,5 +1,5 @@
 create table emp (
-    no number,
+    emp_no number,
     emp_name varchar2(20) not null,
     password varchar2(300) not null,
     birthdate date,
@@ -11,7 +11,7 @@ create table emp (
     phone    varchar2(11) not null,
     quit_yn varchar(1) default 'N' not null, 
     ban_yn varchar(1) default 'N' not null,
-    constraint pk_emp_no primary key(no),
+    constraint pk_emp_no primary key(emp_no),
     constraint ck_emp_emp_role check(emp_role in ('U', 'A')),
     constraint ck_emp_gender check(gender in ('M', 'F')),
     constraint ck_emp_quit_yn check(quit_yn in ('Y', 'N')),
@@ -45,7 +45,7 @@ create table report (
     issolved    varchar2(1)    default 'N' not null,
     reporter_id number not null,
     constraint pk_bulletin_id_board_no primary key(bulletin_id, board_no),
-    constraint fk_reporter_id foreign key(reporter_id) references emp(no),
+    constraint fk_reporter_id foreign key(reporter_id) references emp(emp_no),
     constraint fk_report_type_id foreign key(report_type_id) references report_type(id) 
 );
 
@@ -62,8 +62,8 @@ create table message (
     constraint pk_message_no primary key(no),
     constraint ck_message_sender_del_yn check(sender_del_yn in ('Y', 'N')),
     constraint ck_message_receiver_del_yn check(receiver_del_yn in ('Y', 'N')),
-    constraint fk_message_sender_emp_no foreign key(sender_emp_no) references emp(no),
-    constraint fk_message_receiver_emp_no foreign key(receiver_emp_no) references emp(no)
+    constraint fk_message_sender_emp_no foreign key(sender_emp_no) references emp(emp_no),
+    constraint fk_message_receiver_emp_no foreign key(receiver_emp_no) references emp(emp_no)
 );
 
 create table food_menu (
@@ -89,7 +89,7 @@ create table board (
 	category varchar2(20) not null,
     delete_yn varchar2(1) default 'N' not null,
     constraint pk_board_no primary key(no),
-    constraint fk_board_emp_no foreign key(emp_no) references emp(no),
+    constraint fk_board_emp_no foreign key(emp_no) references emp(emp_no),
     constraint ck_board_report_yn check(report_yn in ('Y', 'N')),
     constraint ck_board_delete_yn check(delete_yn in ('Y', 'N'))
 );
@@ -136,7 +136,7 @@ create table anonymous_board (
 	emp_no number not null,
     delete_yn varchar2(1) default 'N' not null,
     constraint pk_anonymous_board_no primary key(no),
-    constraint fk_anonymous_board_emp_no foreign key(emp_no) references emp(no),
+    constraint fk_anonymous_board_emp_no foreign key(emp_no) references emp(emp_no),
     constraint ck_anonymous_board_report_yn check(report_yn in('Y', 'N')),
     constraint ck_anonymous_board_delete_yn check(delete_yn in ('Y', 'N'))
 );
@@ -154,7 +154,7 @@ create table anonymous_board_comment (
     delete_yn varchar2(1) default 'N' not null,
     constraint pk_anonymous_board_comment_no primary key(no),
     constraint fk_anonymous_board_comment_board_no foreign key(board_no) references anonymous_board(no) on delete cascade,
-    constraint fk_anonymous_board_comment_emp_no foreign key(emp_no) references emp(no),
+    constraint fk_anonymous_board_comment_emp_no foreign key(emp_no) references emp(emp_no),
     constraint fk_anonymous_board_comment_comment_ref foreign key(comment_ref) references board_comment(no),
     constraint ck_anonymous_board_comment_delete_yn check(delete_yn in('Y', 'N'))
 );
@@ -179,7 +179,7 @@ create table notice (
 	emp_no	number not null,
     delete_yn varchar2(1) default 'N' not null,
     constraint pk_notice_no primary key(no),
-    constraint fk_notice_emp_no foreign key(emp_no) REFERENCES emp(no),
+    constraint fk_notice_emp_no foreign key(emp_no) REFERENCES emp(emp_no),
     constraint ck_notice_delete_yn check(delete_yn in ('Y', 'N'))
 );
 create SEQUENCE seq_notice_no;
@@ -200,6 +200,6 @@ create table survey (
     constraint ck_survey_answer4 check(answer1 in (1, 2, 3, 4, 5)),
     constraint ck_survey_answer5 check(answer1 in (1, 2, 3, 4, 5)),
     constraint fk_survey_food_menu foreign key(survey_date) REFERENCES food_menu(menu_date),
-    constraint fk_survey_emp foreign key(emp_no) REFERENCES emp(no)
+    constraint fk_survey_emp foreign key(emp_no) REFERENCES emp(emp_no)
 );
 
