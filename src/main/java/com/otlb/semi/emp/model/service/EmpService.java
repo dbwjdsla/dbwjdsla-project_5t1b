@@ -72,5 +72,12 @@ public class EmpService {
 		return result;
 	}
 
+	public int countEmpNo(int empNo) {
+		Connection conn = getConnection();
+		int result = empDao.countEmpNo(conn, empNo);
+		close(conn);
+		return result;
+	}
+
 
 }
