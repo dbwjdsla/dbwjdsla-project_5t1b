@@ -1,7 +1,16 @@
+<%@page import="com.otlb.semi.emp.model.vo.Emp"%>
 <%@page import="com.otlb.semi.emp.controller.EmpEnrollServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	
+	String empName = request.getParameter("empName");
+	String email = request.getParameter("email");
+	String password = request.getParameter("password");
+	String passwordCheck = request.getParameter("passwordCheck");
+	String phone = request.getParameter("phone");
+	String gender = request.getParameter("gender");
+
 	String messageType = null;
 	String messageContent = null;
 	if(session.getAttribute("messageType") != null 
@@ -59,37 +68,37 @@
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
 								<div class="form-group">	
-									<input value="202103" type="text" name="empNo" class="form-control form-control-user"
+									<input type="text" name="empNo" class="form-control form-control-user"
 										id="empNo" placeholder="사원번호" autocomplete="off">
 										<div id="checkEmpNo"></div>									
 								</div>
 								<div class="form-group">	
-									<input value="홍길동" type="text" name="empName" class="form-control form-control-user"
-										 placeholder="이름" autocomplete="off">									
+									<input  type="text" name="empName" class="form-control form-control-user"
+										 placeholder="이름" autocomplete="off" value="<%= empName != null ? empName : "" %>">									
 								</div>
 								<div class="form-group">
-									<input value="hong@naver.com" type="email" name="email" class="form-control form-control-user"
-										id="exampleInputEmail" placeholder="이메일" autocomplete="off">
+									<input type="email" name="email" class="form-control form-control-user"
+										id="exampleInputEmail" placeholder="이메일" autocomplete="off" value="<%= email != null ? email : "" %>">
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input value="1234" type="password" name="password" class="form-control form-control-user"
-											id="password" placeholder="비밀번호" autocomplete="off">
+										<input  type="password" name="password" class="form-control form-control-user"
+											id="password" placeholder="비밀번호" autocomplete="off" value="<%= password != null ? password : "" %>">
 									</div>
 									<div class="col-sm-6">
-										<input value="1234" type="password" name="passwordCheck" class="form-control form-control-user"
+										<input type="password" name="passwordCheck" class="form-control form-control-user"
 											id="passwordCheck" placeholder="비밀번호 확인" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
-									<input value="01022223333" type="text" name="phone" class="form-control form-control-user"
-										 placeholder="전화번호" autocomplete="off">
+									<input type="text" name="phone" class="form-control form-control-user"
+										 placeholder="전화번호" autocomplete="off" value="<%= phone != null ? phone : "" %>">
 								</div>
 								<div class="form-group">
 									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value=""  disabled hidden>성별</option>
-										<option value="F" selected>여자</option>
-										<option value="M">남자</option>
+										<option value="" <%= gender == null ? "selected" : ""  %> disabled hidden>성별</option>
+										<option  value="F" <%= "F".equals(gender) ? "selected" : "" %>>여자</option>
+										<option  value="M" <%= "M".equals(gender) ? "selected" : "" %>>남자</option>
 									</select>
 								</div>
 								
@@ -98,8 +107,8 @@
 									<div class="row">
 										<div class="col">
 											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>년</option>
-											<option value="2021" selected>2021</option>
+											<option value="" selected disabled hidden>년</option>
+											<option value="2021">2021</option>
 											<option value="2020">2020</option>
 											<option value="2019">2019</option>
 											<option value="2018">2018</option>
@@ -220,8 +229,8 @@
 										</div>
 										<div class="col">
 											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>월</option>
-											<option value="1" selected>1월</option>
+											<option value="" selected disabled hidden>월</option>
+											<option value="1">1월</option>
 											<option value="2">2월</option>
 											<option value="3">3월</option>
 											<option value="4">4월</option>
@@ -237,8 +246,8 @@
 										</div>
 										<div class="col">
 											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>일</option>
-											<option value="1" selected>1</option>
+											<option value="" selected disabled hidden>일</option>
+											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -302,21 +311,20 @@ $("#empNo").blur((e) => {
 		url: "<%= request.getContextPath() %>/emp/empNoCheck?empNo=" + empNo,
 		success(data){
 			// data == 1 ? 중복o : 중복x
-			console.log("data = " + data);
+			//console.log("data = " + data);
 			
 			if(data == 1) {
 				// data == 1 -> 사원번호 중복
-				$("#checkEmpNo").text("발급받은 사원번호를 입력하세요.");
-				$("#checkEmpNo").addClass("text-danger");
+				$("#checkEmpNo").text("유효한 사원번호 입니다.");
+				$("#checkEmpNo").removeClass("text-danger");
+				$("#checkEmpNo").addClass("text-success");
 			}
 			else{
-				
 				// data == 0 -> 사원번호 길이 & 문자열 검사
 				const reg_empNo = /^\d{6}$/; // 6자리 숫자
 				if(reg_empNo.test(empNo)){
-					$("#checkEmpNo").text("유효한 사원번호 입니다.");
-					$("#checkEmpNo").removeClass("text-danger");
-					$("#checkEmpNo").addClass("text-success");
+					$("#checkEmpNo").text("발급받은 사원번호를 입력하세요.");
+					$("#checkEmpNo").addClass("text-danger");
 				}
 				else{
 					$("#checkEmpNo").text("6자리의 사원번호를 입력하세요.");

@@ -27,8 +27,12 @@ public class EmpNoCheckServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// 1. 사용자입력값 처리
-		int empNo = Integer.parseInt(request.getParameter("empNo"));
-		System.out.println(empNo);
+		int empNo = 0;
+		try {
+			empNo = Integer.parseInt(request.getParameter("empNo"));
+		} catch (NumberFormatException e) {
+			return;
+		}
 		
 		// 2. 업무요청
 		int empNoCount = empService.countEmpNo(empNo);

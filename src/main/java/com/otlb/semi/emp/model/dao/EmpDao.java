@@ -107,10 +107,16 @@ public class EmpDao {
 			pstmt.setString(8, emp.getQuitYn());
 			pstmt.setString(9, emp.getBanYn());
 			pstmt.setInt(10, emp.getEmpNo());
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			throw new EmpException("회원가입 오류", e);
+			//throw new EmpException("회원가입 오류", e);
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
+		System.out.println(result);
 		return result;
 	}
 
