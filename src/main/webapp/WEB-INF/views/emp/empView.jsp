@@ -69,7 +69,7 @@
 										<div class="form-group">
 											<p>
 												사원번호 :
-												<%=loginEmp.getNo() %></p>
+												<%=loginEmp.getEmpNo() %></p>
 										</div>
 										<div class="form-group">
 											<p>

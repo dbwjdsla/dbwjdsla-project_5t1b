@@ -37,7 +37,7 @@ public class EmpUpdateServlet extends HttpServlet {
 		Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		
 		// 사용자입력값 처리
-		int no = loginEmp.getNo();
+		int no = loginEmp.getEmpNo();
 		String oldPassword = request.getParameter("oldpassword");
 		String newPassword = request.getParameter("newpassword");
 		String gender = request.getParameter("gender");

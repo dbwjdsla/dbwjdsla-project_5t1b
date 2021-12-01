@@ -31,7 +31,7 @@ public class MessageListServlet extends HttpServlet {
 		System.out.println(session.getAttribute("loginEmp"));
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		
-		int no = emp.getNo();
+		int no = emp.getEmpNo();
 		List<Message> list = messageService.selectAllReceivedMessage(no);
 		System.out.println("[MessageListServlet] list = " + list);
 		
