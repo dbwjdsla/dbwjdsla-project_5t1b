@@ -72,5 +72,22 @@ public class EmpService {
 		return result;
 	}
 
+	public int updatePassword(Emp emp) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = empDao.updatePassword(conn, emp);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
+
 
 }

@@ -1,3 +1,4 @@
+<%@page import="com.otlb.semi.emp.model.dao.*"%>
 <%@page import="com.otlb.semi.emp.model.vo.Department"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -69,9 +70,9 @@
 										<div class="form-group">
 											<p>
 												사원번호 :
-												<%=loginEmp.getNo() %></p>
+												<%=loginEmp.getEmpNo() %></p>
 										</div>
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<p>
 												현재 비밀번호 :<input type="password" name="oldpassword"
 													class="form-control form-control-user" required>
@@ -82,7 +83,7 @@
 												새로운 비밀번호 :<input type="password" name="newpassword"
 													class="form-control form-control-user" required>
 											</p>
-										</div>
+										</div> -->
 										<div class="form-group">
 											<p>
 												전화번호 :<input type="tel" placeholder="(-없이)01012345678"
@@ -119,12 +120,12 @@
 											<p>
 												직급 :<%=loginEmp.getJobName()%></p>
 										</div>
-										<!-- <input type="button"
-											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="비밀번호변경" /> --> 
 										<input type="button" 
 											class="btn btn-primary btn-user btn-block"
 											onclick="updateEmp();" value="정보수정" />
+										<input type="button"
+											class="btn btn-primary btn-user btn-block"
+											onclick="updatePassword();" value="비밀번호변경" /> 
 									</form>
 								</div>
 							</div>
@@ -139,17 +140,31 @@
 	</div>
 
 <script>
+const updatePassword = () => location.href = "<%= request.getContextPath() %>/emp/updatePassword";
+
 const updateEmp = () => {
 	$(empUpdateFrm)
-		.attr("action", "<%=request.getContextPath()%>/emp/empUpdate")
+		.attr("action", "<%= request.getContextPath() %>/emp/empUpdate")
 		.submit();
 };
+
 
 /**
  * 유효성검사
  */
-$(empUpdateFrm).submit((e) => {
+
+
+//이메일 검사
+//4글자 이상(\w = [a-zA-Z0-9_], [\w-\.]) @가 나오고
+//1글자 이상(주소). 글자 가 1~3번 반복됨
+
+ 
+ /* $(empUpdateFrm).submit((e) => {
 	
+	//email
+	if(!regExpTest(/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/, email, "이메일 형식에 어긋납니다."))
+        return false; */
+        
 	//phone
 	const $phone = $(phone);
 	if(!/^010[0-9]{8}$/.test($phone.val())){
@@ -158,6 +173,8 @@ $(empUpdateFrm).submit((e) => {
 	}
 	return true;
 });
+
+
 
 </script>
 
