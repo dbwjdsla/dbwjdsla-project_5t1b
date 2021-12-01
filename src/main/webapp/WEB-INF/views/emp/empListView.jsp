@@ -53,9 +53,9 @@
                                     for(Emp emp : list) {
                                     %>
 											<tr>
-												<td><%= emp.getNo() %></td>
+												<td><%= emp.getEmpNo() %></td>
 												<td>
-												<a href="<%= request.getContextPath() %>/emp/empInfoView?no=<%= emp.getNo() %>">
+												<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= emp.getEmpNo() %>">
 													<%= emp.getEmpName() %></td>
 												</a>
 												<td><%= emp.getDeptCode() %></td>
