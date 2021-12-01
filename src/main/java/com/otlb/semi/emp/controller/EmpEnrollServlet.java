@@ -44,9 +44,9 @@ public class EmpEnrollServlet extends HttpServlet {
 		try {
 			
 			// 1. 사용자입력값 처리
-			int no = 0;
+			int empNo = 0;
 			try {
-				no = Integer.parseInt(request.getParameter("no"));
+				empNo = Integer.parseInt(request.getParameter("empNo"));
 			} catch (Exception e) {
 				// 사원번호를 입력하지 않은 경우 modal에 전달할 메세지 작성
 				modalMessage(request, response, ERROR_MESSAGE, "사원번호를 입력하세요.");
@@ -72,7 +72,7 @@ public class EmpEnrollServlet extends HttpServlet {
 			Calendar cal = new GregorianCalendar(year, month - 1, day);
 			Date birthdate = new Date(cal.getTimeInMillis());
 
-			Emp emp = new Emp(no, empName, password, birthdate, null, null, EmpService.EMP_ROLE, gender, email, phone, EmpService.hasNotQuit, EmpService.isNotBanned);
+			Emp emp = new Emp(empNo, empName, password, birthdate, null, null, EmpService.EMP_ROLE, gender, email, phone, EmpService.hasNotQuit, EmpService.isNotBanned);
 			
 			// 2. 업무로직
 			int result = empService.insertEmp(emp);
