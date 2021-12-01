@@ -31,11 +31,11 @@ public class MessageListServlet extends HttpServlet {
 		System.out.println(session.getAttribute("loginEmp"));
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		
-		int no = emp.getEmpNo();
-		List<Message> list = messageService.selectAllReceivedMessage(no);
+		int empNo = emp.getEmpNo();
+		List<Message> list = messageService.selectAllReceivedMessage(empNo);
 		System.out.println("[MessageListServlet] list = " + list);
 		
-		System.out.println(list.get(0).getSentDate().getTime());
+//		System.out.println(list.get(0).getSentDate().getTime());
 		
 		request.setAttribute("list", list);
 		request

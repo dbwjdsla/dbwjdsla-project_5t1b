@@ -44,14 +44,16 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-           
-
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+        	<div class="container">
+				<a href="" class="btn btn-primary btn-icon-split">
+					<span class="text">삭제</span>
+				</a>
+			</div>
+		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
             <div id="content">
 	 		<div class="row">
