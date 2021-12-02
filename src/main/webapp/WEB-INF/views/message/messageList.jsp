@@ -61,7 +61,7 @@
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
                            <tr>
-                               <th><input type="checkbox" id="allCheck"/></th>
+                               <th><input type="checkbox" id="checkAll"/></th>
                                <th>보낸사람</th>
                                <th>내용</th>
                                <th>날짜</th>
@@ -76,7 +76,7 @@ List<Message> list = (List<Message>) request.getAttribute("list");
 	for(Message message : list){
 %>
                          	<tr>
-                         		<td><input type="checkbox" /></td>
+                         		<td><input type="checkbox" name="check"/></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
                          		<td><a href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
                          		<td><%= message.getSentDate() %></td>
@@ -100,6 +100,18 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             </div>
             <!-- End of Main Content -->
 <script>
+$(".checkAll").click(function() {
+	console.log('test');
+	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
+	else $("input[name=check]").prop("checked", false);
+});
 
+$("input[name=check]").click(function() {
+	var total = $("input[name=check]").length;
+	var checked = $("input[name=check]:checked").length;
+	
+	if(total != checked) $(".checkAll").prop("checked", false);
+	else $(".checkAll").prop("checked", true); 
+});
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

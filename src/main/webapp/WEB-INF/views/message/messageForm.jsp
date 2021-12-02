@@ -78,6 +78,9 @@
 			</form>
             <!-- End of Main Content -->
 <script>
-	
+	(() =>{
+		var temp = $(".counter").text();
+		console.log(temp);
+	});
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
