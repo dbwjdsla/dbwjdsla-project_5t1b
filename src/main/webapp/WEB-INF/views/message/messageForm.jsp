@@ -51,9 +51,7 @@
 	        	action="<%= request.getContextPath() %>/message/messageEnroll"
 	        	method="POST">
 	        	<div class="container">
-					<a href="" class="btn btn-primary btn-icon-split">
-						<span class="text">보내기</span>
-					</a>
+					<input type="submit" value="보내기" class="btn btn-primary btn-icon-split"/>
 				</div>
 			 	<hr class="sidebar-divider my-3">
 	            <!-- Main Content -->
@@ -62,7 +60,7 @@
 	                <!-- Begin Page Content -->
 	                <div class="container">
 						<span class="text">받는사람</span>
-						<input type="text" class="form-control form-control-sm" />
+						<input type="text" class="form-control form-control-sm" name="sender"/>
 	                    <textarea 
 	                    	name="content" id="textContent" cols="30" rows="10"
 	                    	class="form-control"
@@ -78,6 +76,7 @@
 			</form>
             <!-- End of Main Content -->
 <script>
+/* 쪽지 쓰기 500자 제한 코드 */
 $(document).ready(function() {
 	$('#textContent').on('keyup', function() {
 		console.log($(this).val().length);
