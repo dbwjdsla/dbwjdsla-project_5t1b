@@ -3,7 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	
+	// 값의 입력 여부를 servlet에서 확인하기 때문에
+	// 하나라도 값을 입력하지 않고 가입하기를 누르면
+	// 기존에 입력했던 값이 사라지는 문제가 발생하여
+	// jsp에서 기존에 입력했던 값을 받아와서 해결
 	String empName = request.getParameter("empName");
 	String email = request.getParameter("email");
 	String password = request.getParameter("password");
@@ -11,6 +14,8 @@
 	String phone = request.getParameter("phone");
 	String gender = request.getParameter("gender");
 
+	
+	
 	String messageType = null;
 	String messageContent = null;
 	if(session.getAttribute("messageType") != null 
@@ -70,20 +75,22 @@
 								<div class="form-group">	
 									<input type="text" name="empNo" class="form-control form-control-user"
 										id="empNo" placeholder="사원번호" autocomplete="off">
-										<div id="checkEmpNo"></div>									
+										<div id="validateMessage"></div>									
 								</div>
 								<div class="form-group">	
-									<input  type="text" name="empName" class="form-control form-control-user"
-										 placeholder="이름" autocomplete="off" value="<%= empName != null ? empName : "" %>">									
+									<input  type="text" name="empName" class="form-control form-control-user" id="empName"
+										 placeholder="이름" autocomplete="off" value="<%= empName != null ? empName : "" %>">	
+									<div style="color: red; font-size: 0.8em;" id="nameCheckMessage"></div>							
 								</div>
 								<div class="form-group">
 									<input type="email" name="email" class="form-control form-control-user"
-										id="exampleInputEmail" placeholder="이메일" autocomplete="off" value="<%= email != null ? email : "" %>">
+										id="email" placeholder="이메일" autocomplete="off" value="<%= email != null ? email : "" %>">
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input  type="password" name="password" class="form-control form-control-user"
 											id="password" placeholder="비밀번호" autocomplete="off" value="<%= password != null ? password : "" %>">
+											<div style="color: red; font-size: 0.8em;" id="passwordCheckMessage"></div>
 									</div>
 									<div class="col-sm-6">
 										<input type="password" name="passwordCheck" class="form-control form-control-user"
@@ -91,7 +98,7 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<input type="text" name="phone" class="form-control form-control-user"
+									<input type="text" name="phone" class="form-control form-control-user" id="phone"
 										 placeholder="전화번호" autocomplete="off" value="<%= phone != null ? phone : "" %>">
 								</div>
 								<div class="form-group">
@@ -303,8 +310,10 @@
 
 <script>
 
+
+
 // 사원번호 유효성 검사
-$("#empNo").blur((e) => {
+const $validateEmpNo = $("#empNo").blur(({target = empNo}) => {
 	const empNo = $("#empNo").val();
 	
 	$.ajax({
@@ -315,20 +324,20 @@ $("#empNo").blur((e) => {
 			
 			if(data == 1) {
 				// data == 1 -> 사원번호 중복
-				$("#checkEmpNo").text("유효한 사원번호 입니다.");
-				$("#checkEmpNo").removeClass("text-danger");
-				$("#checkEmpNo").addClass("text-success");
+				$("#validateMessage").text("유효한 사원번호 입니다.");
+				$("#validateMessage").removeClass("text-danger");
+				$("#validateMessage").addClass("text-success");
 			}
 			else{
 				// data == 0 -> 사원번호 길이 & 문자열 검사
 				const reg_empNo = /^\d{6}$/; // 6자리 숫자
 				if(reg_empNo.test(empNo)){
-					$("#checkEmpNo").text("발급받은 사원번호를 입력하세요.");
-					$("#checkEmpNo").addClass("text-danger");
+					$("#validateMessage").text("발급받은 사원번호를 입력하세요.");
+					$("#validateMessage").addClass("text-danger");
 				}
 				else{
-					$("#checkEmpNo").text("6자리의 사원번호를 입력하세요.");
-					$("#checkEmpNo").addClass("text-danger");
+					$("#validateMessage").text("6자리의 사원번호를 입력하세요.");
+					$("#validateMessage").addClass("text-danger");
 				}
 				
 			}
@@ -338,8 +347,41 @@ $("#empNo").blur((e) => {
 });
 
 // 이름 유효성 검사
+<%--
+const validateEmpName = ({target = name}) => {
+console.log("heloo");
+	const error = document.querySelector(`.error-${target.id}`)
+	if(/^[가-힣]{3,5}$/.test(name.value)){
+		error.style.display = "inline";
+		console.log(name.value);
+	}
+	else{
+		error.style.display = "none";
+	}
+};
+--%>
 
+const validateEmpName = ({target}) => {
+	let empName = $("#empName").val();
+    if(!/^[가-힣]{3,5}$/.test(empName)){
+    	$("#nameCheckMessage").html("특수문자, 영어, 숫자는 사용할 수 없습니다. 한글만 입력해주세요.");
+    }
+    else{
+    	$("#nameCheckMessage").html("");
+    }
+}
 
+// 비밀번호 유효성 검사
+const validatePassword = ({target}) => {
+	if(target.value.length < 4){
+		$("#passwordCheckMessage").html("비밀번호 4자리 이상");
+	} else {
+		$("#passwordCheckMessage").html("");
+	}
+}
+
+empName.onkeyup = validateEmpName;
+password.onkeyup = validatePassword;
 
 </script>
 
