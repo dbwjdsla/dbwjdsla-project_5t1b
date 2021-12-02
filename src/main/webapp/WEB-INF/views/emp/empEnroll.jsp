@@ -41,7 +41,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-
 	<div class="container">
 
 		<div class="card o-hidden border-0 shadow-lg my-5">
@@ -61,7 +60,8 @@
 								method="POST">
 								<div class="form-group">	
 									<input value="202103" type="text" name="empNo" class="form-control form-control-user"
-										id="exampleFirstName" placeholder="사원번호" autocomplete="off">									
+										id="empNo" placeholder="사원번호" autocomplete="off">
+										<div id="checkEmpNo"></div>									
 								</div>
 								<div class="form-group">	
 									<input value="홍길동" type="text" name="empName" class="form-control form-control-user"
@@ -74,11 +74,11 @@
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input value="1234" type="password" name="password" class="form-control form-control-user"
-											id="exampleInputPassword" placeholder="비밀번호" autocomplete="off">
+											id="password" placeholder="비밀번호" autocomplete="off">
 									</div>
 									<div class="col-sm-6">
 										<input value="1234" type="password" name="passwordCheck" class="form-control form-control-user"
-											placeholder="비밀번호 확인" autocomplete="off">
+											id="passwordCheck" placeholder="비밀번호 확인" autocomplete="off">
 									</div>
 								</div>
 								<div class="form-group">
@@ -277,22 +277,8 @@
 								<!-- 회원가입 버튼 -->
 								<button type="submit" class="btn btn-primary btn-user btn-block">가입하기</button>
 								
-								<!-- 
-								 <hr>
-								<a href="index.html" class="btn btn-google btn-user btn-block">
-									<i class="fab fa-google fa-fw"></i> Register with Google
-								</a> <a href="index.html"
-									class="btn btn-facebook btn-user btn-block"> <i
-									class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-								</a>
-								 -->
 							</form>
 							<hr>
-							<!-- 
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                             -->
                              
                              <!-- 로그인 화면으로 이동 -->
 							<div class="text-center">
@@ -306,10 +292,56 @@
 	</div>
 
 
+<script>
+
+// 사원번호 유효성 검사
+$("#empNo").blur((e) => {
+	const empNo = $("#empNo").val();
+	
+	$.ajax({
+		url: "<%= request.getContextPath() %>/emp/empNoCheck?empNo=" + empNo,
+		success(data){
+			// data == 1 ? 중복o : 중복x
+			console.log("data = " + data);
+			
+			if(data == 1) {
+				// data == 1 -> 사원번호 중복
+				$("#checkEmpNo").text("발급받은 사원번호를 입력하세요.");
+				$("#checkEmpNo").addClass("text-danger");
+			}
+			else{
+				
+				// data == 0 -> 사원번호 길이 & 문자열 검사
+				const reg_empNo = /^\d{6}$/; // 6자리 숫자
+				if(reg_empNo.test(empNo)){
+					$("#checkEmpNo").text("유효한 사원번호 입니다.");
+					$("#checkEmpNo").removeClass("text-danger");
+					$("#checkEmpNo").addClass("text-success");
+				}
+				else{
+					$("#checkEmpNo").text("6자리의 사원번호를 입력하세요.");
+					$("#checkEmpNo").addClass("text-danger");
+				}
+				
+			}
+		},
+		error: console.log
+	});
+});
+
+// 이름 유효성 검사
+
+
+
+</script>
+
+
 <%
 	if(messageType != null) {
 %>
 <script>
+
+	// modal 실행
 	$(function(){
 		$("#staticBackdrop").modal('show');		
 	});
@@ -353,16 +385,7 @@
 	session.removeAttribute("messageType");
 	}
 %>
-<script>
-	document.empEmrollFrm.onsubmit = (e) => {
-		// 사원번호 유효성 검사
-		
-		// 비밀번호 유효성 검사
-		
-		// 비밀번호 확인 유효성 검사
-		
-	};
-</script>
+
 
 
 
