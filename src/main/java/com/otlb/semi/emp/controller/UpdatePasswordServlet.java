@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.otlb.semi.common.EmpUtils;
 import com.otlb.semi.emp.model.service.EmpService;
 import com.otlb.semi.emp.model.vo.Emp;
 
@@ -38,8 +39,8 @@ public class UpdatePasswordServlet extends HttpServlet {
 		
 		
 		// 사용자입력값 처리
-		String oldPassword = request.getParameter("oldpassword");
-		String newPassword = request.getParameter("newpassword");
+		String oldPassword = request.getParameter("oldPassword");
+		String newPassword = request.getParameter("newPassword");
 		
 		// 기존 비밀번호 비교		
 		HttpSession session = request.getSession();
@@ -51,7 +52,7 @@ public class UpdatePasswordServlet extends HttpServlet {
 			loginEmp.setPassword(newPassword);
 			result = empService.updatePassword(loginEmp);
 			msg = (result > 0) ? "비밀번호 변경 성공!" : "비밀번호 변경 실패!";
-			location += "/emp/empPassword";
+			location += "/emp/empView";
 		}
 		else {
 			msg = "비밀번호가 일치하지 않습니다.";
@@ -60,7 +61,7 @@ public class UpdatePasswordServlet extends HttpServlet {
 		// 리다이렉트처리
 		session.setAttribute("msg", msg);
 		
-		location = request.getContextPath() + "/emp/empView";
+//		location = request.getContextPath() + "/emp/empView";
 		response.sendRedirect(location);	
 	
 	}
