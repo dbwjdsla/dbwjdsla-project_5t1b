@@ -14,7 +14,9 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String name) {
 		switch(name) {
-		case "password":  
+		case "password":
+		case "oldPassword": 
+		case "newPassword":
 			System.out.println("super.getParameter(name) = " + super.getParameter(name));
 			return EmpUtils.getEncryptedPassword(super.getParameter(name));
 		default:
