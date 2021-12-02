@@ -61,7 +61,7 @@
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
                            <tr>
-                               <th><input type="checkbox" id="checkAll"/></th>
+                               <th><input type="checkbox" class="checkAll"/></th>
                                <th>보낸사람</th>
                                <th>내용</th>
                                <th>날짜</th>
@@ -101,7 +101,6 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             <!-- End of Main Content -->
 <script>
 $(".checkAll").click(function() {
-	console.log('test');
 	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
 	else $("input[name=check]").prop("checked", false);
 });
