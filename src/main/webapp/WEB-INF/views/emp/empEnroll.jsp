@@ -9,8 +9,6 @@
 	//jsp에서 기존에 입력했던 값을 받아와서 해결
 	String empName = request.getParameter("empName");
 	String email = request.getParameter("email");
-	String password = request.getParameter("password");
-	String passwordCheck = request.getParameter("passwordCheck");
 	String phone = request.getParameter("phone");
 	String gender = request.getParameter("gender");
 
@@ -62,6 +60,7 @@
 					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
 					<div class="col-lg-7">
 						<div class="p-5">
+							<a href="<%= request.getContextPath() %>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">회원가입</h1>
 							</div>
@@ -88,7 +87,7 @@
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input  type="password" name="password" class="form-control form-control-user"
-											id="password" placeholder="비밀번호" autocomplete="off" value="<%= password != null ? password : "" %>">
+											id="password" placeholder="비밀번호" autocomplete="off">
 											<div style="color: red; font-size: 0.8em;" id="passwordCheckMessage"></div>
 									</div>
 									<div class="col-sm-6">

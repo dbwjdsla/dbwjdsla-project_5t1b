@@ -117,7 +117,6 @@ public class EmpDao {
 		} finally {
 			close(pstmt);
 		}
-		System.out.println(result);
 		return result;
 	}
 
