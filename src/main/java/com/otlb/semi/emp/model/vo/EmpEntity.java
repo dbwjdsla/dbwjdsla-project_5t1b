@@ -7,7 +7,7 @@ public class EmpEntity implements Serializable{
 
 		private static final long serialVersionUID = 1L;
 		
-		private int no;
+		private int empNo;
 		private String empName;
 		private String password;
 		private Date birthdate;
@@ -24,10 +24,10 @@ public class EmpEntity implements Serializable{
 			super();
 		}
 
-		public EmpEntity(int no, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,
-				String gender, String email, String phone, String quitYn, String banYn) {
+		public EmpEntity(int empNo, String empName, String password, Date birthdate, String deptCode, String jobCode,
+				String empRole, String gender, String email, String phone, String quitYn, String banYn) {
 			super();
-			this.no = no;
+			this.empNo = empNo;
 			this.empName = empName;
 			this.password = password;
 			this.birthdate = birthdate;
@@ -41,12 +41,12 @@ public class EmpEntity implements Serializable{
 			this.banYn = banYn;
 		}
 
-		public int getNo() {
-			return no;
+		public int getEmpNo() {
+			return empNo;
 		}
 
-		public void setNo(int no) {
-			this.no = no;
+		public void setEmpNo(int empNo) {
+			this.empNo = empNo;
 		}
 
 		public String getEmpName() {
@@ -139,10 +139,10 @@ public class EmpEntity implements Serializable{
 
 		@Override
 		public String toString() {
-			return "Emp [no=" + no + ", empName=" + empName + ", password=" + password + ", birthdate=" + birthdate
-					+ ", deptCode=" + deptCode + ", jobCode=" + jobCode + ", empRole=" + empRole + ", gender=" + gender
-					+ ", email=" + email + ", phone=" + phone + ", quitYn=" + quitYn + ", banYn=" + banYn + "]";
+			return "EmpEntity [empNo=" + empNo + ", empName=" + empName + ", password=" + password + ", birthdate="
+					+ birthdate + ", deptCode=" + deptCode + ", jobCode=" + jobCode + ", empRole=" + empRole
+					+ ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", quitYn=" + quitYn + ", banYn="
+					+ banYn + "]";
 		}
-		
 
 }

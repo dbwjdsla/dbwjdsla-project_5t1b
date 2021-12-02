@@ -35,13 +35,13 @@ public class EmpLoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 사용자입력값처리
-		int no = Integer.parseInt(request.getParameter("no"));
+		int empNo = Integer.parseInt(request.getParameter("empNo"));
 		String password = request.getParameter("password");
 		String saveNo = request.getParameter("saveNo"); // 값으로 on or null
 		//System.out.println("saveId = " + saveNo);
 		
 		// 2. 업무로직
-		Emp emp = empService.selectOneEmp(no);
+		Emp emp = empService.selectOneEmp(empNo);
 		System.out.println("[EmpLoginServlet] emp = " + emp);
 		
 		HttpSession session = request.getSession();
@@ -53,7 +53,7 @@ public class EmpLoginServlet extends HttpServlet {
 			session.setAttribute("loginEmp", emp);
 			
 			// 아이디저장 체크박스 처리
-			Cookie cookie = new Cookie("saveNo", String.valueOf(no));
+			Cookie cookie = new Cookie("saveEmpNo", String.valueOf(empNo));
 			cookie.setPath(request.getContextPath()); // context path로 시작하는 모든 경로에서 쿠키사용
 			if(saveNo != null) {
 				cookie.setMaxAge(7 * 24 * 60 * 60); // 7일				

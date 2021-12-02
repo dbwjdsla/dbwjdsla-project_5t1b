@@ -30,7 +30,7 @@ public class MessageDao {
 		}
 	}
 
-	public List<Message> selectAllMessage(Connection conn, int no) {
+	public List<Message> selectAllReceivedMessage(Connection conn, int empNo) {
 		PreparedStatement pstmt = null;
 		List<Message> list = new ArrayList<>();
 		String sql = prop.getProperty("selectAllReceivedMessage");
@@ -38,7 +38,7 @@ public class MessageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, empNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

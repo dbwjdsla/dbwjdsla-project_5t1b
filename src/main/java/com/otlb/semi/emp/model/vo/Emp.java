@@ -13,26 +13,22 @@ public class Emp extends EmpEntity implements Serializable{
 		super();
 	}
 
-	
-	public Emp(int no, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,
-			String gender, String email, String phone, String quitYn, String banYn) {
-		super(no, empName, password, birthdate, deptCode, jobCode, empRole, gender, email, phone, quitYn, banYn);
+	public Emp(int empNo, String empName, String password, Date birthdate, String deptCode, String jobCode,
+			String empRole, String gender, String email, String phone, String quitYn, String banYn) {
+		super(empNo, empName, password, birthdate, deptCode, jobCode, empRole, gender, email, phone, quitYn, banYn);
+		// TODO Auto-generated constructor stub
 	}
 	
-
-
-	public Emp(int no, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,
-			String gender, String email, String phone, String quitYn, String banYn, String deptName, String jobName) {
-		super(no, empName, password, birthdate, deptCode, jobCode, empRole, gender, email, phone, quitYn, banYn);
-		this.deptName = deptName;
-		this.jobName = jobName;
+	public Emp(int empNo, String empName, String password, Date birthdate, String deptCode, String jobCode, String empRole,
+		String gender, String email, String phone, String quitYn, String banYn, String deptName, String jobName) {
+	super(empNo, empName, password, birthdate, deptCode, jobCode, empRole, gender, email, phone, quitYn, banYn);
+	this.deptName = deptName;
+	this.jobName = jobName;	
 	}
-
 
 	public String getDeptName() {
 		return deptName;
 	}
-
 
 	public void setDeptName(String deptName) {
 		this.deptName = deptName;
@@ -56,8 +52,5 @@ public class Emp extends EmpEntity implements Serializable{
 				+ ", jobName=" + jobName + "]";
 	}
 
-	
 
-	
-	
 }

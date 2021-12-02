@@ -32,6 +32,7 @@ public class OtoChatWebsocket {
 	public void onOpen(EndpointConfig config, Session session) throws IOException {
 		
 		System.out.println("////otoChatWebsocket////////////");	
+	
 		
 		// userId - session 
 		Map<String, Object> userProp = config.getUserProperties();
@@ -58,12 +59,14 @@ System.out.println("////otoChatWebsocket/////userNm///////"+userNm);
 		
 		//	아이디 설정 처리 
 		clients.put(userId, session);
-
+		// 채팅 요청자와 응답자 정보 저장 
+		OtoChatInfo.setPersonInfo(otoSenderId, otoReceiverId);
+		
 		//  접속 시작은 동시에 모두 출력 
 		String jsonMsg = msgToJson("welcome", otoSenderId,otoReceiverId, otoSenderNm+" 님과 1:1 대화를 시작합니다");
-		onMessage(jsonMsg, session);
+		//onMessage(jsonMsg, session);
 		jsonMsg = msgToJson("welcome", otoReceiverId,otoSenderId, otoReceiverNm+" 님과 1:1 대화를 시작합니다");
-		onMessage(jsonMsg, session);
+		//onMessage(jsonMsg, session);
 		
 		logClients();
 	}

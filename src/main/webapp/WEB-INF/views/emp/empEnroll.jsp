@@ -1,7 +1,17 @@
+<%@page import="com.otlb.semi.emp.model.vo.Emp"%>
 <%@page import="com.otlb.semi.emp.controller.EmpEnrollServlet"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
+	//값의 입력 여부를 servlet에서 확인하기 때문에
+	//하나라도 값을 입력하지 않고 가입하기를 누르면
+	//기존에 입력했던 값이 사라지는 문제가 발생하여
+	//jsp에서 기존에 입력했던 값을 받아와서 해결
+	String empName = request.getParameter("empName");
+	String email = request.getParameter("email");
+	String phone = request.getParameter("phone");
+	String gender = request.getParameter("gender");
+
 	String messageType = null;
 	String messageContent = null;
 	if(session.getAttribute("messageType") != null 
@@ -41,7 +51,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-
 	<div class="container">
 
 		<div class="card o-hidden border-0 shadow-lg my-5">
@@ -51,45 +60,52 @@
 					<div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
 					<div class="col-lg-7">
 						<div class="p-5">
+							<a href="<%= request.getContextPath() %>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 							<div class="text-center">
 								<h1 class="h4 text-gray-900 mb-4">회원가입</h1>
 							</div>
 							<form 
-								name="empEmrollFrm"
+								name="empEnrollFrm"
 								class="user" 
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
 								<div class="form-group">	
-									<input value="202103" type="text" name="no" class="form-control form-control-user"
-										id="exampleFirstName" placeholder="사원번호" autocomplete="off">									
+									<input type="text" name="empNo" class="form-control form-control-user"
+										id="empNo" placeholder="사원번호" autocomplete="off">
+										<div id="validateMessage"></div>									
 								</div>
 								<div class="form-group">	
-									<input value="홍길동" type="text" name="empName" class="form-control form-control-user"
-										 placeholder="이름" autocomplete="off">									
+									<input  type="text" name="empName" class="form-control form-control-user" id="empName"
+										 placeholder="이름" autocomplete="off" value="<%= empName != null ? empName : "" %>">	
+									<div style="color: red; font-size: 0.8em;" id="nameCheckMessage"></div>							
 								</div>
 								<div class="form-group">
-									<input value="hong@naver.com" type="email" name="email" class="form-control form-control-user"
-										id="exampleInputEmail" placeholder="이메일" autocomplete="off">
+									<input type="email" name="email" class="form-control form-control-user"
+										id="email" placeholder="이메일" autocomplete="off" value="<%= email != null ? email : "" %>">
+									<div style="color: red; font-size: 0.8em;" id="emailCheckMessage"></div>		
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input value="1234" type="password" name="password" class="form-control form-control-user"
-											id="exampleInputPassword" placeholder="비밀번호" autocomplete="off">
+										<input  type="password" name="password" class="form-control form-control-user"
+											id="password" placeholder="비밀번호" autocomplete="off">
+											<div style="color: red; font-size: 0.8em;" id="passwordCheckMessage"></div>
 									</div>
 									<div class="col-sm-6">
-										<input value="1234" type="password" name="passwordCheck" class="form-control form-control-user"
-											placeholder="비밀번호 확인" autocomplete="off">
+										<input type="password" name="passwordCheck" class="form-control form-control-user"
+											id="passwordCheck" placeholder="비밀번호 확인" autocomplete="off">
+										<div style="color: red; font-size: 0.8em;" id="passwordCheckMessage1"></div>
 									</div>
 								</div>
 								<div class="form-group">
-									<input value="01022223333" type="text" name="phone" class="form-control form-control-user"
-										 placeholder="전화번호" autocomplete="off">
+									<input type="text" name="phone" class="form-control form-control-user" id="phone"
+										 placeholder="전화번호 (-) 제외하고 입력" autocomplete="off" value="<%= phone != null ? phone : "" %>">
+									<div style="color: red; font-size: 0.8em;" id="phoneCheckMessage"></div>
 								</div>
 								<div class="form-group">
-									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-										<option value=""  disabled hidden>성별</option>
-										<option value="F" selected>여자</option>
-										<option value="M">남자</option>
+									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
+										<option value="" <%= gender == null ? "selected" : ""  %> disabled hidden>성별</option>
+										<option  value="F" <%= "F".equals(gender) ? "selected" : "" %>>여자</option>
+										<option  value="M" <%= "M".equals(gender) ? "selected" : "" %>>남자</option>
 									</select>
 								</div>
 								
@@ -97,9 +113,9 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col">
-											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>년</option>
-											<option value="2021" selected>2021</option>
+											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
+											<option value="" selected disabled hidden>년</option>
+											<option value="2021">2021</option>
 											<option value="2020">2020</option>
 											<option value="2019">2019</option>
 											<option value="2018">2018</option>
@@ -219,9 +235,9 @@
 										</select> 
 										</div>
 										<div class="col">
-											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>월</option>
-											<option value="1" selected>1월</option>
+											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
+											<option value="" selected disabled hidden>월</option>
+											<option value="1">1월</option>
 											<option value="2">2월</option>
 											<option value="3">3월</option>
 											<option value="4">4월</option>
@@ -236,9 +252,9 @@
 										</select> 
 										</div>
 										<div class="col">
-											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
-											<option value=""  disabled hidden>일</option>
-											<option value="1" selected>1</option>
+											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
+											<option value="" selected disabled hidden>일</option>
+											<option value="1">1</option>
 											<option value="2">2</option>
 											<option value="3">3</option>
 											<option value="4">4</option>
@@ -277,22 +293,8 @@
 								<!-- 회원가입 버튼 -->
 								<button type="submit" class="btn btn-primary btn-user btn-block">가입하기</button>
 								
-								<!-- 
-								 <hr>
-								<a href="index.html" class="btn btn-google btn-user btn-block">
-									<i class="fab fa-google fa-fw"></i> Register with Google
-								</a> <a href="index.html"
-									class="btn btn-facebook btn-user btn-block"> <i
-									class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-								</a>
-								 -->
 							</form>
 							<hr>
-							<!-- 
-                            <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                             -->
                              
                              <!-- 로그인 화면으로 이동 -->
 							<div class="text-center">
@@ -306,10 +308,143 @@
 	</div>
 
 
+<script>
+document.empEnrollFrm.onsubmit = (e) => {
+	// 이름 유효성 검사
+	if(!validateEmpName({}))
+		return false;
+	// 이메일 유효성 검사
+	if(!validateEmail({}))
+		return false;
+	// 비밀번호 유효성 검사
+	if(!validatePassword({}))
+		return false;
+	// 비밀번호 확인 유효성 검사
+	if(!validatePasswordCheck({}))
+		return false;
+	// 전화번호 유효성 검사
+	if(!validatePhone({}))
+		return false;
+	
+	return true;
+};
+
+
+
+// 사원번호 유효성 검사
+const $validateEmpNo = $("#empNo").blur(({target = empNo}) => {
+	const empNo = $("#empNo").val();
+	
+	$.ajax({
+		url: "<%= request.getContextPath() %>/emp/empNoCheck?empNo=" + empNo,
+		success(data){
+			// data == 1 ? 중복o : 중복x
+			//console.log("data = " + data);
+			
+			if(data == 1) {
+				// data == 1 -> 사원번호 중복
+				$("#validateMessage").text("유효한 사원번호 입니다.");
+				$("#validateMessage").removeClass("text-danger");
+				$("#validateMessage").addClass("text-success");
+			}
+			else{
+				// data == 0 -> 사원번호 길이 & 문자열 검사
+				const reg_empNo = /^\d{6}$/; // 6자리 숫자
+				if(reg_empNo.test(empNo)){
+					$("#validateMessage").text("발급받은 사원번호를 입력하세요.");
+					$("#validateMessage").addClass("text-danger");
+				}
+				else{
+					$("#validateMessage").text("6자리의 사원번호를 입력하세요.");
+					$("#validateMessage").addClass("text-danger");
+				}
+				
+			}
+		},
+		error: console.log
+	});
+});
+
+// 이름 유효성 검사
+const validateEmpName = ({target = empName}) => {
+	let empName = $("#empName").val();
+    if(!/^[가-힣]{2,}$/.test(empName)){
+    	$("#nameCheckMessage").html("특수문자, 영어, 숫자는 사용할 수 없습니다. 한글만 입력해주세요.");
+    	return false;
+    }
+    else{
+    	$("#nameCheckMessage").html("");
+    	return true;
+    }
+};
+
+// 이메일 유효성 검사
+const validateEmail = ({target = email}) =>{
+	let email = $("#email").val();
+	if(!/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/.test(email)){
+		$("#emailCheckMessage").html("유효한 이메일 형식이 아닙니다.");
+		return false;
+	}
+	else{
+		$("#emailCheckMessage").html("");
+		return true;
+	}
+};
+
+// 비밀번호 유효성 검사
+const validatePassword = ({target = password}) => {
+	let regExpArr = [/^.{8,15}$/, /\d/, /[a-zA-Z]/, /[!@#$%^&*()&]/];
+	let password = $("#password").val();
+	for(let i = 0; i < regExpArr.length; i++){
+        if(!regExpArr[i].test(password)){
+        	$("#passwordCheckMessage").html("비밀번호는 8~15자리 숫자/문자/특수문자를 포함해야합니다.");
+        	return false;
+        } else {
+        	$("#passwordCheckMessage").html("");
+        	return true;
+        }
+    }
+};
+
+// 비밀번호 확인 유효성 검사
+const validatePasswordCheck = ({target = passwordCheck}) => {
+	let passwordCheck = $("#passwordCheck").val();
+	let password = $("#password").val();
+	if(password != passwordCheck){
+		$("#passwordCheckMessage1").html("비밀번호가 일치하지 않습니다.");
+		return false;
+	} else {
+		$("#passwordCheckMessage1").html("");
+		return true;
+	}
+};
+
+// 전화번호 유효성 검사
+const validatePhone = ({target = phone}) => {
+	let phone = $("#phone").val();
+	if(!/^01[016789][^0][0-9]{6,7}$/.test(phone)){
+		$("#phoneCheckMessage").html("유효하지 않은 전화번호입니다.")
+		return false;
+	} else {
+		$("#phoneCheckMessage").html("");
+		return true;
+	}
+};
+
+empName.onkeyup = validateEmpName;
+email.onkeyup = validateEmail;
+password.onkeyup = validatePassword;
+passwordCheck.onkeyup = validatePasswordCheck;
+phone.onkeyup = validatePhone;
+</script>
+
+
 <%
 	if(messageType != null) {
 %>
 <script>
+
+	// modal 실행
 	$(function(){
 		$("#staticBackdrop").modal('show');		
 	});
@@ -321,31 +456,21 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h5 class="modal-title" id="staticBackdropLabel"><%= messageType %></h5>
-	      <%
-	      	if(messageType.equals(EmpEnrollServlet.ERROR_MESSAGE)){
-	      %>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      <%
-	      	}
-	      %>
+	          <% if(messageType.equals(EmpEnrollServlet.ERROR_MESSAGE)){ %>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+	          <% } %>
 	      </div>
 	      <div class="modal-body">
-	      <%= messageContent %>
+	      	  <%= messageContent %>
 	      </div>
 	      <div class="modal-footer">
-	      <%
-	      	if(messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE)){
-	      %>
-			<button type="button" class="btn btn-secondary" id="success_button" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/login'">확인</button>	      		
-	      <%
-	      	} else {
-	      %>	
-	        <button type="button" class="btn btn-secondary" id="error_button" data-dismiss="modal">닫기</button>
-		  <%
-	      	}
-		  %>	      
+		      <% if(messageType.equals(EmpEnrollServlet.SUCCESS_MESSAGE)){ %>
+				<button type="button" class="btn btn-secondary" id="success_button" data-dismiss="modal" onclick="location.href='<%= request.getContextPath() %>/emp/login'">확인</button>	      		
+		      <% } else { %>	
+		        <button type="button" class="btn btn-secondary" id="error_button" data-dismiss="modal">닫기</button>
+			  <% } %>	      
 	      </div>
 	    </div>
 	  </div>
@@ -363,16 +488,7 @@
 	session.removeAttribute("messageType");
 	}
 %>
-<script>
-	document.empEmrollFrm.onsubmit = (e) => {
-		// 사원번호 유효성 검사
-		
-		// 비밀번호 유효성 검사
-		
-		// 비밀번호 확인 유효성 검사
-		
-	};
-</script>
+
 
 
 

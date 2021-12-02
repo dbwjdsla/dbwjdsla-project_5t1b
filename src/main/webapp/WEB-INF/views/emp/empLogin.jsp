@@ -9,7 +9,7 @@
 			String name = cookie.getName();
 			String value = cookie.getValue();
 			// System.out.println(name + " = " + value);
-			if("saveNo".equals(name)){
+			if("saveEmpNo".equals(name)){
 				saveEmpNo = value;
 			}
 		}
@@ -57,17 +57,18 @@
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
                                 <div class="p-5">
+                                <a href="<%= request.getContextPath() %>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
                                     <div class="text-center">
                                     	<br />
-                                    	<br />
                                         <h1 class="h4 text-gray-900 mb-4">환영합니다!</h1>
+                                    	<br />
                                     </div>
                                     <form 
                                     	class="user"
                                     	action="<%= request.getContextPath() %>/emp/login"
                                     	method="POST">
                                         <div class="form-group">
-                                            <input type="text" name="no" value="<%= saveEmpNo != null ? saveEmpNo : "" %>" class="form-control form-control-user"
+                                            <input type="text" name="empNo" value="<%= saveEmpNo != null ? saveEmpNo : "" %>" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
                                                 placeholder="사원번호"> <!-- 프로젝트 기간 동안 인풋태그에 사원번호 하드코딩 -->
                                         </div>
