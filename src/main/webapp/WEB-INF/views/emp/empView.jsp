@@ -1,3 +1,4 @@
+<%@page import="com.otlb.semi.emp.model.dao.*"%>
 <%@page import="com.otlb.semi.emp.model.vo.Department"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -71,7 +72,7 @@
 												사원번호 :
 												<%=loginEmp.getEmpNo() %></p>
 										</div>
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<p>
 												현재 비밀번호 :<input type="password" name="oldpassword"
 													class="form-control form-control-user" required>
@@ -82,7 +83,7 @@
 												새로운 비밀번호 :<input type="password" name="newpassword"
 													class="form-control form-control-user" required>
 											</p>
-										</div>
+										</div> -->
 										<div class="form-group">
 											<p>
 												전화번호 :<input type="tel" placeholder="(-없이)01012345678"
@@ -119,12 +120,12 @@
 											<p>
 												직급 :<%=loginEmp.getJobName()%></p>
 										</div>
-										<!-- <input type="button"
-											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="비밀번호변경" /> --> 
 										<input type="button" 
 											class="btn btn-primary btn-user btn-block"
 											onclick="updateEmp();" value="정보수정" />
+										<input type="button"
+											class="btn btn-primary btn-user btn-block"
+											onclick="updatePassword();" value="비밀번호변경" /> 
 									</form>
 								</div>
 							</div>
@@ -139,25 +140,25 @@
 	</div>
 
 <script>
+const updatePassword = () => location.href = "<%= request.getContextPath() %>/emp/updatePassword";
+
 const updateEmp = () => {
 	$(empUpdateFrm)
-		.attr("action", "<%=request.getContextPath()%>/emp/empUpdate")
+		.attr("action", "<%= request.getContextPath() %>/emp/empUpdate")
 		.submit();
 };
 
-/**
- * 유효성검사
- */
-$(empUpdateFrm).submit((e) => {
-	
-	//phone
-	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())){
-		alert("유효한 전화번호가 아닙니다.");
-		return false;
-	}
-	return true;
-});
+
+
+//phone
+/* const $phone = $(phone);
+if(!/^010[0-9]{8}$/.test($phone.val())){
+	alert("유효한 전화번호가 아닙니다.");
+	return false;
+}
+return true;
+}); */
+
 
 </script>
 

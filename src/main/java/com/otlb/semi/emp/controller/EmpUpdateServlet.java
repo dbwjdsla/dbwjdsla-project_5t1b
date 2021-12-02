@@ -38,26 +38,18 @@ public class EmpUpdateServlet extends HttpServlet {
 		
 		// 사용자입력값 처리
 		int no = loginEmp.getEmpNo();
-		String oldPassword = request.getParameter("oldpassword");
-		String newPassword = request.getParameter("newpassword");
+
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		
-		// 기존 비밀번호 비교		
-		if(oldPassword.equals(loginEmp.getPassword())) {
-			
-			//업무로직
-			loginEmp.setPassword(newPassword);
+
 			loginEmp.setGender(gender);
 			loginEmp.setPhone(phone);
 			loginEmp.setEmail(email);
 			result = empService.updateEmp(loginEmp);
 			msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
-		}
-		else {
-			msg = "비밀번호가 일치하지 않습니다.";
-		}
+
 		// 리다이렉트처리
 		session.setAttribute("msg", msg);
 		
