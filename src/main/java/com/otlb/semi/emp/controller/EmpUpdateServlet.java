@@ -38,6 +38,7 @@ public class EmpUpdateServlet extends HttpServlet {
 		
 		// 사용자입력값 처리
 		int no = loginEmp.getEmpNo();
+
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
