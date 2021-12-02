@@ -138,12 +138,16 @@ $("#loginFrm").submit((e) =>{
 
 const validateEmpNo = ({target = empNo}) => {
 	const $empNo = $(empNo);
-	 if(!/^\d+&/.test($empNo.val())){
+	 if(!/^\d+$/.test($empNo.val())){
 		 const errorTitle = "사원번호 입력 오류";
 		 const errorMsg = "숫자만 입력해주세요.";
 		 $("#staticBackdropLabel").html(errorTitle);
 		 $("#modalBody").html(errorMsg);
 		 $("#staticBackdrop").modal('show');
+		 return false;
+	 }
+	 else{
+		 return true;
 	 }
 };
 
