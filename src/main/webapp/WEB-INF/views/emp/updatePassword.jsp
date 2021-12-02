@@ -55,30 +55,31 @@
 									<input type="button" class="btn btn-primary btn-user btn-block"
 										onclick="updateProfileimg();" value="사진변경" />
 								</div> -->
-								<div class="col-lg-pp">
-									<form id="updatePwdFrm"
+								<div class="col-lg-6">
+									<form name="updatePwdFrm"
 										atcion="<%=request.getContextPath()%>/emp/updatePassword"
-										method="POST">
+										method="post">
 										<div class="form-group">
 											<p>
-												현재 비밀번호 :<input type="password" name="oldpassword"
+												현재 비밀번호 :<input type="password" name="oldPassword" id="oldPassword"
 													class="form-control form-control-user" required>
 											</p>
 										</div>
 										<div class="form-group">
 											<p>
-												새로운 비밀번호 :<input type="password" name="newpassword"
+												새로운 비밀번호 :<input type="password" name="newPassword" id="newPassword"
 													class="form-control form-control-user" required>
 											</p>
 										</div>
-										<!-- <input type="button"
-											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="비밀번호변경" /> --> 
-										<input type="button" 
-											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="변경" />
+										<div class="form-group">
+											<p>
+												비밀번호 확인 :<input type="password" id="newPasswordCheck"
+													class="form-control form-control-user" required>
+											</p><br />
+										</div>
+										<input type="submit" value = "변경하기"
+											class="btn btn-primary btn-user btn-block" />
 									</form>
-							</div>
 								</div>
 							</div>
 						</div>
@@ -90,6 +91,49 @@
 		</div>
 
 	</div>
+<script>
+
+/**
+ * 비번 변경 유효성검사
+ */ 
+$("[name=updatePwdFrm]").submit(function(){
+	var $oldPassword = $("#oldPassword");
+	var $newPassword = $("#newPassword");
+	
+	if(!passwordValidate()){
+		return false;
+	}
+	
+	if($oldPassword.val() == $newPassword.val()){
+		alert("기존비밀번호와 신규비밀번호는 같을 수 없습니다.");
+		$oldPassword.select();
+		return false;
+	}
+	
+	return true;	
+
+});
+
+/**
+ * 
+ */ 
+$("#newPasswordCheck").blur(passwordValidate);
+
+/**
+ * 신규비밀번호 일치 검사 
+ */ 
+function passwordValidate(){
+	var $newPassword = $("#newPassword");
+	var $newPasswordCheck = $("#newPasswordCheck");
+	if($newPassword.val() != $newPasswordCheck.val()){
+		alert("입력한 비밀번호가 일치하지 않습니다.");
+		$newPassword.select();
+		return false;
+	}
+	return true;	
+}
+
+</script>
 
 </body>
 </html>
