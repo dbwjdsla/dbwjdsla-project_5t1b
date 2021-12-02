@@ -101,36 +101,5 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             <!-- End of Main Content -->
 <script>
 
-	/**
-     * 전체체크박스 -> 개별체크박스 제어
-     */ 
-	function checkAllSubject(checkAll){
-        const subjects = document.querySelectorAll("[type=checkbox]");
-        
-        for(let i = 0; i < subjects.length; i++){
-          subjects[i].checked = checkAll.checked;
-          manageTdClassOn(subjects[i], checkAll.checked);
-        }
-     }
-  
-  
-    /**
-     * 개별체크박스 -> 전체체크박스 제어
-     */ 
-    function checkSubject(subject){
-        //1. 부모td
-		manageTdClassOn(subject, subject.checked);
-		
-		// 2. 전체체크박스 제어
-		const subjects = document.querySelectorAll("[type=checkbox]");
-		for(let i = 0; i < subjects.length; i++){
-		  if(!subjects[i].checked) {
-		    checkAll2.checked = false;
-		    return;
-		  }
-		}
-		checkAll2.checked = true;
-    }
-
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
