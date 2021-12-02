@@ -10,6 +10,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Properties;
 
@@ -106,9 +108,14 @@ public class EmpDao {
 			pstmt.setString(8, emp.getQuitYn());
 			pstmt.setString(9, emp.getBanYn());
 			pstmt.setInt(10, emp.getEmpNo());
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
-			throw new EmpException("회원가입 오류", e);
+			//throw new EmpException("회원가입 오류", e);
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return result;
 	}
@@ -178,10 +185,14 @@ public class EmpDao {
 		int result = 0;
 		ResultSet rset = null;
 		String sql = prop.getProperty("countEmpNo");
-		
+		// 만들어진 사원번호를 발급할때 birthdate를 1000101로 세팅해서 준다.
+		Calendar cal = new GregorianCalendar(1000, 00,01);
+		Date initialDate = new Date(cal.getTimeInMillis());
+		System.out.println(initialDate);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
+			pstmt.setDate(2, initialDate);
 			
 			rset = pstmt.executeQuery();
 			if(rset.next())
