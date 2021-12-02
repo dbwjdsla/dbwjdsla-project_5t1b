@@ -64,7 +64,7 @@
 						<span class="text">받는사람</span>
 						<input type="text" class="form-control form-control-sm" />
 	                    <textarea 
-	                    	name="content" id="" cols="30" rows="10"
+	                    	name="content" id="textContent" cols="30" rows="10"
 	                    	class="form-control"
                     		style="resize: none; margin-top: 10px"></textarea>
                     		<div class="counter" style="float: right;">
@@ -72,15 +72,25 @@
                     		</div>
 	                </div>
 	                <!-- /.container-fluid -->
-	
+					
 	            </div>
 	            
 			</form>
             <!-- End of Main Content -->
 <script>
-	(() =>{
-		var temp = $(".counter").text();
-		console.log(temp);
+$(document).ready(function() {
+	$('#textContent').on('keyup', function() {
+		console.log($(this).val().length);
+		
+		$('#count').html($(this).val().length);
+		
+		if($(this).val().length > 500) {
+			alert("500자까지만 입력할 수 있습니다.");
+            $(this).val($(this).val().substring(0, 500));
+            $('#count').html("500");
+        }
 	});
+});
+
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
