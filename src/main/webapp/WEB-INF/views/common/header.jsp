@@ -4,6 +4,8 @@
 
 <%
 Emp loginEmp = (Emp) session.getAttribute("loginEmp");
+String msg = (String) session.getAttribute("msg");
+if(msg != null) session.removeAttribute("msg");
 %>
 
 <!DOCTYPE html>
@@ -27,6 +29,14 @@ Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 <title>5T1B 커뮤니티에 오신것을 환영합니다!</title>
 <!-- 제이쿼리 링크 -->
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<script> 
+$(() =>{
+	
+<% if(msg != null){ %>
+	alert("<%= msg %>");
+<%  } %>
+});
+</script>
 
 <!-- Custom fonts for this template-->
 <!-- <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"> -->
