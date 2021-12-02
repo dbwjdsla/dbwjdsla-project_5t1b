@@ -65,7 +65,7 @@
                 <div class="container-fluid">
 					<hr class="sidebar-divider">
 	 				<div class="col-sm-12">
-	 				<table>
+		 				<table>
                            <tr>
                                <th>보낸사람</th>
                                <td><%= message.getEmp().getEmpName() %></td>
@@ -74,14 +74,13 @@
                          		<th>받은시간</th>
                          		<td><%= message.getSentDate() %></td>
                          	</tr>
- 					</table>
- 					<hr class="sidebar-divider">
- 					<div class="container-container">
-					<%= message.getContent() %>
- 					</div>	
+	 					</table>
  					
-	 			</div>
-                    
+	 				</div>
+ 					<hr class="sidebar-divider">
+ 					<div class="container">
+						<%= message.getContent() %>
+ 					</div>	
 
                 </div>
                 <!-- /.container-fluid -->
