@@ -15,7 +15,7 @@ import com.otlb.semi.common.wrapper.EncryptWrapper;
 /**
  * Servlet Filter implementation class EncryptFilter
  */
-@WebFilter({ "/emp/login", "/emp/empEnroll" })
+@WebFilter({ "/emp/login", "/emp/empEnroll", "/emp/updatePassword" })
 public class EncryptFilter implements Filter {
 
     /**

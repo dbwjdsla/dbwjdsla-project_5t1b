@@ -29,8 +29,10 @@ public class EmpUpdateServlet extends HttpServlet {
 	 * 
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String location = request.getContextPath();
-		String msg = null;
+		request.setCharacterEncoding("utf-8");
+
+//		String location = request.getContextPath();
+//		String msg = null;
 		int result = 0;
 		
 		HttpSession session = request.getSession();
@@ -38,24 +40,33 @@ public class EmpUpdateServlet extends HttpServlet {
 		
 		// 사용자입력값 처리
 		int no = loginEmp.getEmpNo();
-
 		String gender = request.getParameter("gender");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		
 
-			loginEmp.setGender(gender);
-			loginEmp.setPhone(phone);
-			loginEmp.setEmail(email);
-			result = empService.updateEmp(loginEmp);
-			msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
+		loginEmp.setGender(gender);
+		loginEmp.setPhone(phone);
+		loginEmp.setEmail(email);
+		result = empService.updateEmp(loginEmp);
+//		String msg = null;
+//		String location = null;
+//		if(result > 0) {
+//			msg = "성공";
+//			location += "/emp/empView";
+//		}
+//		else {
+//			msg = "실패";
+//			location += "/emp/empView";
+//		}
+		String msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
 
 		// 리다이렉트처리
 		session.setAttribute("msg", msg);
 		
-		location = request.getContextPath() + "/emp/empView";
-		response.sendRedirect(location);	
-	
+		String location = request.getContextPath() + "/emp/empView";
+		response.sendRedirect(location);
+//		response.sendRedirect(msg);
 	}
 
 }
