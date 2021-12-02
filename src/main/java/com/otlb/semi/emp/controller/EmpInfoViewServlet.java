@@ -33,7 +33,7 @@ public class EmpInfoViewServlet extends HttpServlet {
 			request.setAttribute("emp", emp);
 
 			// 진짜 이렇게 짜면 안 되는데
-			String filepath = EmpInfoViewServlet.class.getResource("../../../../../../../img").getPath();
+			String filepath = EmpInfoViewServlet.class.getResource("../../../../../../../img/profile").getPath();
 			File ownProfileImage = new File(filepath + emp.getEmpNo() + ".png");
 			if(ownProfileImage.exists()) {
 				request.setAttribute("ownProfileImageExists", true);

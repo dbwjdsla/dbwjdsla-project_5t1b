@@ -67,7 +67,7 @@ create table message (
 );
 
 create table food_menu (
-	menu_date date default sysdate,
+	menu_date date,
 	main varchar2(30),
 	soup varchar2(30),
 	side1 varchar2(30),
