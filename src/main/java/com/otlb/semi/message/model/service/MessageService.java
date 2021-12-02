@@ -10,9 +10,9 @@ import com.otlb.semi.message.model.vo.Message;
 public class MessageService {
 	private MessageDao messageDao = new MessageDao();
 
-	public List<Message> selectAllReceivedMessage(int no) {
+	public List<Message> selectAllReceivedMessage(int empNo) {
 		Connection conn = getConnection();
-		List<Message> list = messageDao.selectAllMessage(conn, no);
+		List<Message> list = messageDao.selectAllReceivedMessage(conn, empNo);
 		close(conn);
 		
 		return list;
@@ -40,5 +40,24 @@ public class MessageService {
 		close(conn);
 		
 		return message;
+	}
+
+	public int insertMessage(Message message) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = messageDao.insertMessage(conn, message);
+			
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
 	}
 }

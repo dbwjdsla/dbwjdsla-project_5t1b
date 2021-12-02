@@ -30,7 +30,7 @@ public class MessageDao {
 		}
 	}
 
-	public List<Message> selectAllMessage(Connection conn, int no) {
+	public List<Message> selectAllReceivedMessage(Connection conn, int empNo) {
 		PreparedStatement pstmt = null;
 		List<Message> list = new ArrayList<>();
 		String sql = prop.getProperty("selectAllReceivedMessage");
@@ -38,7 +38,7 @@ public class MessageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, empNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -158,6 +158,27 @@ public class MessageDao {
 			close(pstmt);
 		}
 		return message;
+	}
+
+	public int insertMessage(Connection conn, Message message) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMessage");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, message.getContent());
+			pstmt.setInt(2, message.getSenderEmpNo());
+			pstmt.setInt(3, message.getReceiverEmpNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("쪽지 발송 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }
 

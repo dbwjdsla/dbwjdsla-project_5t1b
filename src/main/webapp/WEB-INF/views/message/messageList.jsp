@@ -44,14 +44,16 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-           
-
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+        	<div class="container">
+				<a href="" class="btn btn-primary btn-icon-split">
+					<span class="text">삭제</span>
+				</a>
+			</div>
+		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
             <div id="content">
 	 		<div class="row">
@@ -59,7 +61,7 @@
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
                            <tr>
-                               <th><input type="checkbox" id="allCheck"/></th>
+                               <th><input type="checkbox" class="checkAll"/></th>
                                <th>보낸사람</th>
                                <th>내용</th>
                                <th>날짜</th>
@@ -74,7 +76,7 @@ List<Message> list = (List<Message>) request.getAttribute("list");
 	for(Message message : list){
 %>
                          	<tr>
-                         		<td><input type="checkbox" /></td>
+                         		<td><input type="checkbox" name="check"/></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
                          		<td><a href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
                          		<td><%= message.getSentDate() %></td>
@@ -98,37 +100,17 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             </div>
             <!-- End of Main Content -->
 <script>
+$(".checkAll").click(function() {
+	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
+	else $("input[name=check]").prop("checked", false);
+});
 
-	/**
-     * 전체체크박스 -> 개별체크박스 제어
-     */ 
-	function checkAllSubject(checkAll){
-        const subjects = document.querySelectorAll("[type=checkbox]");
-        
-        for(let i = 0; i < subjects.length; i++){
-          subjects[i].checked = checkAll.checked;
-          manageTdClassOn(subjects[i], checkAll.checked);
-        }
-     }
-  
-  
-    /**
-     * 개별체크박스 -> 전체체크박스 제어
-     */ 
-    function checkSubject(subject){
-        //1. 부모td
-		manageTdClassOn(subject, subject.checked);
-		
-		// 2. 전체체크박스 제어
-		const subjects = document.querySelectorAll("[type=checkbox]");
-		for(let i = 0; i < subjects.length; i++){
-		  if(!subjects[i].checked) {
-		    checkAll2.checked = false;
-		    return;
-		  }
-		}
-		checkAll2.checked = true;
-    }
-
+$("input[name=check]").click(function() {
+	var total = $("input[name=check]").length;
+	var checked = $("input[name=check]:checked").length;
+	
+	if(total != checked) $(".checkAll").prop("checked", false);
+	else $(".checkAll").prop("checked", true); 
+});
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
