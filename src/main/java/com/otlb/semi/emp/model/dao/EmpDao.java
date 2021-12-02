@@ -151,6 +151,7 @@ public class EmpDao {
 		return list;
 	}
 
+
 	public int updatePassword(Connection conn, Emp emp) {
 		PreparedStatement pstmt = null;
 		String query = prop.getProperty("updatePassword");
@@ -165,6 +166,30 @@ public class EmpDao {
 		} catch (SQLException e) {
 			throw new EmpException("비번 변경 오류", e);
 		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+	}
+
+	public int countEmpNo(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		String sql = prop.getProperty("countEmpNo");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				result = rset.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return result;

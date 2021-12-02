@@ -149,31 +149,15 @@ const updateEmp = () => {
 };
 
 
-/**
- * 유효성검사
- */
 
-
-//이메일 검사
-//4글자 이상(\w = [a-zA-Z0-9_], [\w-\.]) @가 나오고
-//1글자 이상(주소). 글자 가 1~3번 반복됨
-
- 
- /* $(empUpdateFrm).submit((e) => {
-	
-	//email
-	if(!regExpTest(/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/, email, "이메일 형식에 어긋납니다."))
-        return false; */
-        
-	//phone
-	const $phone = $(phone);
-	if(!/^010[0-9]{8}$/.test($phone.val())){
-		alert("유효한 전화번호가 아닙니다.");
-		return false;
-	}
-	return true;
-});
-
+//phone
+/* const $phone = $(phone);
+if(!/^010[0-9]{8}$/.test($phone.val())){
+	alert("유효한 전화번호가 아닙니다.");
+	return false;
+}
+return true;
+}); */
 
 
 </script>
