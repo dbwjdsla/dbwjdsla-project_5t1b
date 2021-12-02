@@ -3,10 +3,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	// 값의 입력 여부를 servlet에서 확인하기 때문에
-	// 하나라도 값을 입력하지 않고 가입하기를 누르면
-	// 기존에 입력했던 값이 사라지는 문제가 발생하여
-	// jsp에서 기존에 입력했던 값을 받아와서 해결
+	//값의 입력 여부를 servlet에서 확인하기 때문에
+	//하나라도 값을 입력하지 않고 가입하기를 누르면
+	//기존에 입력했던 값이 사라지는 문제가 발생하여
+	//jsp에서 기존에 입력했던 값을 받아와서 해결
 	String empName = request.getParameter("empName");
 	String email = request.getParameter("email");
 	String password = request.getParameter("password");
@@ -14,8 +14,6 @@
 	String phone = request.getParameter("phone");
 	String gender = request.getParameter("gender");
 
-	
-	
 	String messageType = null;
 	String messageContent = null;
 	if(session.getAttribute("messageType") != null 
@@ -68,7 +66,7 @@
 								<h1 class="h4 text-gray-900 mb-4">회원가입</h1>
 							</div>
 							<form 
-								name="empEmrollFrm"
+								name="empEnrollFrm"
 								class="user" 
 								action="<%= request.getContextPath() %>/emp/empEnroll" 
 								method="POST">
@@ -85,6 +83,7 @@
 								<div class="form-group">
 									<input type="email" name="email" class="form-control form-control-user"
 										id="email" placeholder="이메일" autocomplete="off" value="<%= email != null ? email : "" %>">
+									<div style="color: red; font-size: 0.8em;" id="emailCheckMessage"></div>		
 								</div>
 								<div class="form-group row">
 									<div class="col-sm-6 mb-3 mb-sm-0">
@@ -95,14 +94,16 @@
 									<div class="col-sm-6">
 										<input type="password" name="passwordCheck" class="form-control form-control-user"
 											id="passwordCheck" placeholder="비밀번호 확인" autocomplete="off">
+										<div style="color: red; font-size: 0.8em;" id="passwordCheckMessage1"></div>
 									</div>
 								</div>
 								<div class="form-group">
 									<input type="text" name="phone" class="form-control form-control-user" id="phone"
-										 placeholder="전화번호" autocomplete="off" value="<%= phone != null ? phone : "" %>">
+										 placeholder="전화번호 (-) 제외하고 입력" autocomplete="off" value="<%= phone != null ? phone : "" %>">
+									<div style="color: red; font-size: 0.8em;" id="phoneCheckMessage"></div>
 								</div>
 								<div class="form-group">
-									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
+									<select name="gender" id="gender" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
 										<option value="" <%= gender == null ? "selected" : ""  %> disabled hidden>성별</option>
 										<option  value="F" <%= "F".equals(gender) ? "selected" : "" %>>여자</option>
 										<option  value="M" <%= "M".equals(gender) ? "selected" : "" %>>남자</option>
@@ -113,7 +114,7 @@
 								<div class="form-group">
 									<div class="row">
 										<div class="col">
-											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
+											<select name="birthdayYear" id="year" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
 											<option value="" selected disabled hidden>년</option>
 											<option value="2021">2021</option>
 											<option value="2020">2020</option>
@@ -235,7 +236,7 @@
 										</select> 
 										</div>
 										<div class="col">
-											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
+											<select name="birthdayMonth" id="month" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
 											<option value="" selected disabled hidden>월</option>
 											<option value="1">1월</option>
 											<option value="2">2월</option>
@@ -252,7 +253,7 @@
 										</select> 
 										</div>
 										<div class="col">
-											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;">
+											<select name="birthdayDay" id="day" class="form-control rounded-pill" style="height:49px; font-size: .8rem;" required>
 											<option value="" selected disabled hidden>일</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -309,6 +310,25 @@
 
 
 <script>
+document.empEnrollFrm.onsubmit = (e) => {
+	// 이름 유효성 검사
+	if(!validateEmpName({}))
+		return false;
+	// 이메일 유효성 검사
+	if(!validateEmail({}))
+		return false;
+	// 비밀번호 유효성 검사
+	if(!validatePassword({}))
+		return false;
+	// 비밀번호 확인 유효성 검사
+	if(!validatePasswordCheck({}))
+		return false;
+	// 전화번호 유효성 검사
+	if(!validatePhone({}))
+		return false;
+	
+	return true;
+};
 
 
 
@@ -347,42 +367,76 @@ const $validateEmpNo = $("#empNo").blur(({target = empNo}) => {
 });
 
 // 이름 유효성 검사
-<%--
-const validateEmpName = ({target = name}) => {
-console.log("heloo");
-	const error = document.querySelector(`.error-${target.id}`)
-	if(/^[가-힣]{3,5}$/.test(name.value)){
-		error.style.display = "inline";
-		console.log(name.value);
-	}
-	else{
-		error.style.display = "none";
-	}
-};
---%>
-
-const validateEmpName = ({target}) => {
+const validateEmpName = ({target = empName}) => {
 	let empName = $("#empName").val();
-    if(!/^[가-힣]{3,5}$/.test(empName)){
+    if(!/^[가-힣]{2,}$/.test(empName)){
     	$("#nameCheckMessage").html("특수문자, 영어, 숫자는 사용할 수 없습니다. 한글만 입력해주세요.");
+    	return false;
     }
     else{
     	$("#nameCheckMessage").html("");
+    	return true;
     }
-}
+};
+
+// 이메일 유효성 검사
+const validateEmail = ({target = email}) =>{
+	let email = $("#email").val();
+	if(!/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/.test(email)){
+		$("#emailCheckMessage").html("유효한 이메일 형식이 아닙니다.");
+		return false;
+	}
+	else{
+		$("#emailCheckMessage").html("");
+		return true;
+	}
+};
 
 // 비밀번호 유효성 검사
-const validatePassword = ({target}) => {
-	if(target.value.length < 4){
-		$("#passwordCheckMessage").html("비밀번호 4자리 이상");
+const validatePassword = ({target = password}) => {
+	let regExpArr = [/^.{8,15}$/, /\d/, /[a-zA-Z]/, /[!@#$%^&*()&]/];
+	let password = $("#password").val();
+	for(let i = 0; i < regExpArr.length; i++){
+        if(!regExpArr[i].test(password)){
+        	$("#passwordCheckMessage").html("비밀번호는 8~15자리 숫자/문자/특수문자를 포함해야합니다.");
+        	return false;
+        } else {
+        	$("#passwordCheckMessage").html("");
+        	return true;
+        }
+    }
+};
+
+// 비밀번호 확인 유효성 검사
+const validatePasswordCheck = ({target = passwordCheck}) => {
+	let passwordCheck = $("#passwordCheck").val();
+	let password = $("#password").val();
+	if(password != passwordCheck){
+		$("#passwordCheckMessage1").html("비밀번호가 일치하지 않습니다.");
+		return false;
 	} else {
-		$("#passwordCheckMessage").html("");
+		$("#passwordCheckMessage1").html("");
+		return true;
 	}
-}
+};
+
+// 전화번호 유효성 검사
+const validatePhone = ({target = phone}) => {
+	let phone = $("#phone").val();
+	if(!/^01[016789][^0][0-9]{6,7}$/.test(phone)){
+		$("#phoneCheckMessage").html("유효하지 않은 전화번호입니다.")
+		return false;
+	} else {
+		$("#phoneCheckMessage").html("");
+		return true;
+	}
+};
 
 empName.onkeyup = validateEmpName;
+email.onkeyup = validateEmail;
 password.onkeyup = validatePassword;
-
+passwordCheck.onkeyup = validatePasswordCheck;
+phone.onkeyup = validatePhone;
 </script>
 
 
