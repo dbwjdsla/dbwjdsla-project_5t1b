@@ -1,6 +1,7 @@
 package com.otlb.semi.message.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +19,6 @@ public class MessageFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageForm.jsp")
 			.forward(request, response);

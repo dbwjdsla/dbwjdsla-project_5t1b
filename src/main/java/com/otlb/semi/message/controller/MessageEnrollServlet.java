@@ -26,11 +26,13 @@ public class MessageEnrollServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		
+		
+		
 		//보내는사람
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		int sender = emp.getEmpNo();
 		//받는사람
-		int receiver = Integer.valueOf(request.getParameter("sender"));
+		int receiver = Integer.valueOf(request.getParameter("receiver"));
 		String content = request.getParameter("content");
 		Message message = new Message(0, content, sender, receiver, null, null, null, null);
 		

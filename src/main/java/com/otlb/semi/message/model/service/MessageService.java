@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 import static com.otlb.semi.common.JdbcTemplate.*;
 
+import com.otlb.semi.emp.model.vo.Emp;
 import com.otlb.semi.message.model.dao.MessageDao;
 import com.otlb.semi.message.model.vo.Message;
 
@@ -60,4 +61,22 @@ public class MessageService {
 		
 		return result;
 	}
+
+	public List<Emp> selectAllMember() {
+		Connection conn = getConnection();
+		List<Emp> list = messageDao.selectAllMember(conn);
+		close(conn);
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
