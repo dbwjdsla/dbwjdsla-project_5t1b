@@ -7,7 +7,6 @@
 
 
 <% 
-	String msg = (String) request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,15 +56,18 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
-									<p>프사프사 넣을예정</p>
+									<div class="form-group">
+									<br /><br />
+										<img src="${pageContext.request.contextPath}/img/profile.png" 
+											width="320px" height="300px" />
+									</div>
 									<input type="button" class="btn btn-primary btn-user btn-block"
 										onclick="updateProfileImg();" value="사진변경" />
 								</div>
 								<div class="col-lg-6">
 									<form id="empUpdateFrm"
 										atcion="<%=request.getContextPath()%>/emp/empView"
-										method="POST"
-										enctype="multipart/form-data">
+										method="POST">
 										<div class="form-group">
 											<p>
 												사원명 :
@@ -177,31 +179,6 @@ $(empUpdateFrm).submit((e) => {
 });
 
 </script>
-
-<%
-	if(msg != null){
-%>
-
-	<script>
-		alert(<%= msg %>);
-
-	</script>	
-
-<% } /* else { */ %>
-
-	<%-- <script>
-
-		alert(<%= msg %>);
-
-		history.back();
-
-	</script>	
-
-<%
-
-	}
-
-%> --%>
 
 </body>
 </html>

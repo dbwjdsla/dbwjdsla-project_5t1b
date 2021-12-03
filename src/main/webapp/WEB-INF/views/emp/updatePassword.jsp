@@ -47,15 +47,8 @@
 							<div class="text-center">
 								<br /> <br />
 								<h1 class="h4 text-gray-900 mb-4">비밀번호 변경</h1>
-							<!-- <div class="row">
-								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
-									<p>
-										프사프사 넣을예정 <br /> <br /> <br /> <br /> <br /> <br />
-									</p>
-									<input type="button" class="btn btn-primary btn-user btn-block"
-										onclick="updateProfileimg();" value="사진변경" />
-								</div> -->
-								<div class="col-lg-6">
+								<!-- <div class="row">
+								<div class="col-lg-6"> -->
 									<form name="updatePwdFrm"
 										atcion="<%=request.getContextPath()%>/emp/updatePassword"
 										method="post">
@@ -80,8 +73,8 @@
 										<input type="submit" value = "변경하기"
 											class="btn btn-primary btn-user btn-block" />
 									</form>
-								</div>
-							</div>
+								<!-- </div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -91,6 +84,7 @@
 		</div>
 
 	</div>
+</div>
 <script>
 
 /**
@@ -114,9 +108,6 @@ $("[name=updatePwdFrm]").submit(function(){
 
 });
 
-/**
- * 
- */ 
 $("#newPasswordCheck").blur(passwordValidate);
 
 /**

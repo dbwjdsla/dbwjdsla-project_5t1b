@@ -49,24 +49,15 @@ public class EmpUpdateServlet extends HttpServlet {
 		loginEmp.setPhone(phone);
 		loginEmp.setEmail(email);
 		result = empService.updateEmp(loginEmp);
-//		String msg = null;
-//		String location = null;
-//		if(result > 0) {
-//			msg = "성공";
-//			location += "/emp/empView";
-//		}
-//		else {
-//			msg = "실패";
-//			location += "/emp/empView";
-//		}
-		String msg = (result > 0) ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
+
+		String msg = result > 0 ? "회원정보 수정 성공!" : "회원정보 수정 실패!";
+		System.out.println(msg);
 
 		// 리다이렉트처리
-		session.setAttribute("msg", msg);
-		
+		session.setAttribute("msg", msg);	
 		String location = request.getContextPath() + "/emp/empView";
 		response.sendRedirect(location);
-//		response.sendRedirect(msg);
+
 	}
 
 }

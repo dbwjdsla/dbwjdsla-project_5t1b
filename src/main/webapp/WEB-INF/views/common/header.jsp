@@ -233,7 +233,7 @@ $(() =>{
 			aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small"><%=loginEmp.getEmpName()%></span>
 				<img class="img-profile rounded-circle"
-				src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
+				src="${pageContext.request.contextPath}/img/profile.png">
 		</a> <!-- Dropdown - User Information -->
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
