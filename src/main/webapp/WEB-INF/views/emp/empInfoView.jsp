@@ -11,7 +11,7 @@
 	Boolean ownProfileImageExists = (boolean) request.getAttribute("ownProfileImageExists");
 	String profileImagePath = "";
 	if(ownProfileImageExists) {
-		profileImagePath = "/img/" + emp.getEmpNo() + ".png";		
+		profileImagePath = "/img/profile/" + emp.getEmpNo() + ".png";		
 	} else {
 		profileImagePath = "/img/profile/profile.png";
 	}
