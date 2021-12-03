@@ -3,6 +3,8 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+
+
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -60,7 +62,16 @@
 	                <!-- Begin Page Content -->
 	                <div class="container">
 						<span class="text">받는사람</span>
-						<input type="text" class="form-control form-control-sm" name="sender"/>
+						<input 
+							type="text" class="form-control form-control-sm" 
+							name="receiver" 
+							id="receiver"
+							placeholder="받는 사람을 검색하세요(사번/이름)"/>
+						<input 
+							type="text" class="form-control form-control-sm"
+							name="receiverList"
+							readonly="readonly" />
+							
 	                    <textarea 
 	                    	name="content" id="textContent" cols="30" rows="10"
 	                    	class="form-control"
@@ -76,6 +87,57 @@
 			</form>
             <!-- End of Main Content -->
 <script>
+/* 받는사람 검색기능 */
+<%-- function search(target) {
+	var word = target.value;
+	console.log(word);
+	$.ajax({
+		url: "<%= request.getContextPath() %>/message/empList.do",
+		dataType: "json",
+		success(data){
+			console.log(data);
+		},
+		error: console.log("에러발생")
+	});
+} --%>
+$(receiver).autocomplete({
+	source: function(request, response) {
+		//console.log(request);
+		//console.log(response);
+		
+		$.ajax({
+			url: "<%= request.getContextPath() %>/message/empList.do",
+			data: request,
+			method: "GET",
+			success(data){
+				//console.log(data);
+				if(data == '') return;
+
+				const emp = data.split(",");
+				//console.log(emp);
+				const arr = $.map(emp, (elem, i) =>{
+					//const no = elem.split("-");
+					//console.log(elem);
+					
+					return{
+						lable: elem.split("-")[0],
+						value: elem
+					};
+					
+				});
+				//console.log(arr);
+				
+				response(arr);
+			},
+			error: console.log
+		})
+	},
+	focus: function(event, selected) {
+		//console.log(event, selected);
+		return false;
+	} 
+});
+
 /* 쪽지 쓰기 500자 제한 코드 */
 $(document).ready(function() {
 	$('#textContent').on('keyup', function() {
