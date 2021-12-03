@@ -3,6 +3,7 @@
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
+<%@ page import="java.util.*"%>
 
 
 
@@ -31,13 +32,16 @@
 								공지사항 <i class="fas fa-thumbtack"></i>
 							</h6>
 						</div>
+						<%
+						List<Notice> list = (List<Notice>) request.getAttribute("list"); 
+						 %>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
-							<li>공지사항 내용</li>
-							<li>공지사항 내용</li>
-							<li>공지사항 내용</li>
-							<li>공지사항 내용</li>
-							<li>공지사항 내용</li>
+							<li><%= list.getTitle %>:<%= list.getContent %></li>
+							<li><%= list.getTitle %>:<%= list.getContent %></li>
+							<li><%= list.getTitle %>:<%= list.getContent %></li>
+							<li><%= list.getTitle %>:<%= list.getContent %></li>
+							<li><%= list.getTitle %>:<%= list.getContent %></li>
 						</div>
 					</div>
 
@@ -89,7 +93,7 @@
 						</div>
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
-								<li>게시글 내용</li>
+							<li>게시글 내용</li>
 							<li>게시글 내용</li>
 							<li>게시글 내용</li>
 							<li>개시글 내용</li>
