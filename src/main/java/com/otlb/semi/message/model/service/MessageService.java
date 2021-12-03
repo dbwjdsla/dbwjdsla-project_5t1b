@@ -41,4 +41,23 @@ public class MessageService {
 		
 		return message;
 	}
+
+	public int insertMessage(Message message) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = messageDao.insertMessage(conn, message);
+			
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			e.printStackTrace();
+		} finally {
+			close(conn);
+		}
+		
+		return result;
+	}
 }

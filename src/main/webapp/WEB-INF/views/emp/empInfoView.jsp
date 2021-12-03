@@ -13,7 +13,7 @@
 	if(ownProfileImageExists) {
 		profileImagePath = "/img/" + emp.getEmpNo() + ".png";		
 	} else {
-		profileImagePath = "/img/profile.png";
+		profileImagePath = "/img/profile/profile.png";
 	}
 
 %>

@@ -159,6 +159,27 @@ public class MessageDao {
 		}
 		return message;
 	}
+
+	public int insertMessage(Connection conn, Message message) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertMessage");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, message.getContent());
+			pstmt.setInt(2, message.getSenderEmpNo());
+			pstmt.setInt(3, message.getReceiverEmpNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("쪽지 발송 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }
 
 

@@ -1,9 +1,14 @@
-<%@page import="com.otlb.semi.emp.model.dao.*"%>
 <%@page import="com.otlb.semi.emp.model.vo.Department"%>
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
+
+
+<% 
+	String msg = (String) request.getAttribute("msg");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,16 +57,15 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
-									<p>
-										프사프사 넣을예정 <br /> <br /> <br /> <br /> <br /> <br />
-									</p>
+									<p>프사프사 넣을예정</p>
 									<input type="button" class="btn btn-primary btn-user btn-block"
-										onclick="updateProfileimg();" value="사진변경" />
+										onclick="updateProfileImg();" value="사진변경" />
 								</div>
 								<div class="col-lg-6">
 									<form id="empUpdateFrm"
 										atcion="<%=request.getContextPath()%>/emp/empView"
-										method="POST">
+										method="POST"
+										enctype="multipart/form-data">
 										<div class="form-group">
 											<p>
 												사원명 :
@@ -95,7 +99,7 @@
 										<div class="form-group">
 											<p>
 												이메일 :<input type="email" placeholder="abc@5t1b.com"
-													name="email" class="form-control form-control-user"
+													name="email" id="email" class="form-control form-control-user"
 													value="<%=loginEmp.getEmail() %>" required>
 											</p>
 										</div>
@@ -140,6 +144,7 @@
 	</div>
 
 <script>
+const updateProfileImg = () => location.href = "<%= request.getContextPath() %>/emp/updateProfileImg";
 const updatePassword = () => location.href = "<%= request.getContextPath() %>/emp/updatePassword";
 
 const updateEmp = () => {
@@ -148,19 +153,55 @@ const updateEmp = () => {
 		.submit();
 };
 
+/**
+ * #empUpdateFrm 유효성검사
+ */
+$(empUpdateFrm).submit((e) => {
+	
+	//phone
+	const $phone = $(phone);
+	if(!/^010[0-9]{8}$/.test($phone.val())){
+		alert("유효한 전화번호가 아닙니다.");
+		return false;
+	}
 
 
-//phone
-/* const $phone = $(phone);
-if(!/^010[0-9]{8}$/.test($phone.val())){
-	alert("유효한 전화번호가 아닙니다.");
-	return false;
-}
-return true;
-}); */
-
+	//email
+	const $email = $(email);
+	if(!/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/.test($email.val())){
+		alert("올바른 이메일 형식이 아닙니다.");
+		return false;
+	}
+	
+	return true;
+});
 
 </script>
+
+<%
+	if(msg != null){
+%>
+
+	<script>
+		alert(<%= msg %>);
+
+	</script>	
+
+<% } /* else { */ %>
+
+	<%-- <script>
+
+		alert(<%= msg %>);
+
+		history.back();
+
+	</script>	
+
+<%
+
+	}
+
+%> --%>
 
 </body>
 </html>

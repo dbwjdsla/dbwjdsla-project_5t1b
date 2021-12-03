@@ -48,6 +48,7 @@ public class EmpLoginServlet extends HttpServlet {
 		
 		// 로그인 성공여부
 		if(emp != null && password.equals(emp.getPassword())) {
+			//로그인 성공
 			
 			// 로그인객체를 session에 저장
 			session.setAttribute("loginEmp", emp);
@@ -63,14 +64,24 @@ public class EmpLoginServlet extends HttpServlet {
 			}
 			response.addCookie(cookie);
 			
+			// 3. 응답처리
+			// 새로고침을 통한 오류 방지
+			String location = request.getContextPath() + "/";
+			response.sendRedirect(location);
+			
+		}
+		else {
+			// 로그인 실패
+			session.setAttribute("modalHeader", "로그인 실패");
+			session.setAttribute("modalBody", "아이디 또는 비밀번호가 일치하지 않습니다.");
+			String location = request.getContextPath() + "/emp/login";
+			response.sendRedirect(location);
+			
 		}
 		
 		
 		
-		// 3. 응답처리
-		// 새로고침을 통한 오류 방지
-		String location = request.getContextPath() + "/";
-		response.sendRedirect(location);
+		
 			
 	}
 
