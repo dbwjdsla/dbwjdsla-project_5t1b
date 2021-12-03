@@ -58,7 +58,7 @@
 										<%-- <img id="img__wrap" 
 											src="${sessionScope.principal.userProfile}" width="350px" height="300px" /> --%>
 											<img id="img__wrap" 
-												src="<%= request.getContextPath() %>/img/\${renamedFilename}" 
+												src="<%= request.getContextPath() %>/img/profile/profile.png" 
 												width="320px" height="300px" />
 										</div>
 										<div class="form-group">
