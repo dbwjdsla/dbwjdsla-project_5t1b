@@ -20,7 +20,7 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
 					<span>공지사항</span>
 			</a></li>
 			
@@ -30,7 +30,7 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
 					<span>자유게시판</span>
 			</a></li>
 
@@ -39,7 +39,7 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="charts.html">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
 					<span>익명게시판</span>
 			</a></li>
 
@@ -47,7 +47,7 @@
 			<hr class="sidebar-divider">
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="tables.html">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
 					<span>사내식당메뉴</span>
 			</a></li>
 

@@ -4,8 +4,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 <%@ page import="java.util.*"%>
-
-
+<%@ page import="mainpage.model.vo.*" %>
 
 
 
@@ -33,15 +32,18 @@
 							</h6>
 						</div>
 						<%
-						List<Notice> list = (List<Notice>) request.getAttribute("list"); 
-						 %>
+						NoticeVo noticeVo = (NoticeVo) request.getAttribute("noticeVo");
+						%>
 						<div class="card-body">
+					    <a href="<%= request.getContextPath() %>/mainpage/Notice"></a>
 							<!-- 공지사항 내용 띄울 부분 -->
-							<li><%= list.getTitle %>:<%= list.getContent %></li>
-							<li><%= list.getTitle %>:<%= list.getContent %></li>
-							<li><%= list.getTitle %>:<%= list.getContent %></li>
-							<li><%= list.getTitle %>:<%= list.getContent %></li>
-							<li><%= list.getTitle %>:<%= list.getContent %></li>
+							<ul>
+							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
+							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
+							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
+							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
+							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
+							</ul>
 						</div>
 					</div>
 
@@ -52,13 +54,19 @@
 								자유게시판 <i class="fas fa-users"></i>
 							</h6>
 						</div>
+						<%
+						BoardVo boardVo = (BoardVo) request.getAttribute("boardVo");
+						%>
 						<div class="card-body">
+						<a href="<%= request.getContextPath() %>/mainpage/Board"></a>
 							<!-- 자유게시판 내용 띄울 부분 -->
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>개시글 내용</li>
-							<li>게시글 내용</li>
+							<ul>
+							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
+							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
+							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
+							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
+							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
+							</ul>
 						</div>
 					</div>
 				</div>
@@ -76,11 +84,13 @@
 						</div>
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
+							<ul>
 							<li>게시글 내용</li>
 							<li>게시글 내용</li>
 							<li>게시글 내용</li>
 							<li>개시글 내용</li>
 							<li>게시글 내용</li>
+							</ul>
 						</div>
 					</div>
 
@@ -91,13 +101,19 @@
 								익명게시판 <i class="fas fa-user-secret"></i>
 							</h6>
 						</div>
+						<%
+						Anonymous_boardVo anonymous_boardVo = (Anonymous_boardVo) request.getAttribute("anonymous_boardVo");
+						%>
 						<div class="card-body">
+						<a href="<%= request.getContextPath() %>/mainpage/Anonymous_board"></a>
 							<!-- 익명 게시판 내용 띄울 부분 -->
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>개시글 내용</li>
-							<li>게시글 내용</li>
+							<ul>
+							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							</ul>
 						</div>
 					</div>
 

@@ -3,8 +3,7 @@ package mainpage.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Notice implements Serializable {
-	
+public class Anonymous_boardVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int no;
@@ -12,20 +11,23 @@ public class Notice implements Serializable {
 	private String content;
 	private Date reg_date;
 	private int read_count;
+	private int like_count; // 추천수
 	private int user_no;
 
-	public Notice() {
+	public Anonymous_boardVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Notice(int no, String title, String content, Date reg_date, int read_count, int user_no) {
+	public Anonymous_boardVo(int no, String title, String content, Date reg_date, int read_count, int like_count,
+			int user_no) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.reg_date = reg_date;
 		this.read_count = read_count;
+		this.like_count = like_count;
 		this.user_no = user_no;
 	}
 
@@ -69,6 +71,14 @@ public class Notice implements Serializable {
 		this.read_count = read_count;
 	}
 
+	public int getLike_count() {
+		return like_count;
+	}
+
+	public void setLike_count(int like_count) {
+		this.like_count = like_count;
+	}
+
 	public int getUser_no() {
 		return user_no;
 	}
@@ -77,10 +87,14 @@ public class Notice implements Serializable {
 		this.user_no = user_no;
 	}
 
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	@Override
 	public String toString() {
-		return "Notice [no=" + no + ", title=" + title + ", content=" + content + ", reg_date=" + reg_date
-				+ ", read_count=" + read_count + ", user_no=" + user_no + "]";
+		return "Anonymous_boardVo [no=" + no + ", title=" + title + ", content=" + content + ", reg_date=" + reg_date
+				+ ", read_count=" + read_count + ", like_count=" + like_count + ", user_no=" + user_no + "]";
 	}
 
 }
