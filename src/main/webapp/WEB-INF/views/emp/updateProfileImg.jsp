@@ -4,6 +4,14 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
+<%
+ 	Boolean ownProfileImageExists = (boolean) session.getAttribute("ownProfileImageExists");
+	if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
+	String profileImagePath = "";
+ 	if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
+	else profileImagePath = "/img/profile/profile.png";
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +66,7 @@
 										<%-- <img id="img__wrap" 
 											src="${sessionScope.principal.userProfile}" width="350px" height="300px" /> --%>
 											<img id="img__wrap" 
-												src="<%= request.getContextPath() %>/img/profile/profile.png" 
+												src="<%= request.getContextPath() + profileImagePath %>" 
 												width="320px" height="300px" />
 										</div>
 										<div class="form-group">
