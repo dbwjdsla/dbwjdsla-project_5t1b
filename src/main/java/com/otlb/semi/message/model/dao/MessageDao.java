@@ -180,6 +180,31 @@ public class MessageDao {
 		
 		return result;
 	}
+
+	public List<Emp> selectAllMember(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllMember");
+		List<Emp> list = new ArrayList<Emp>();
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Emp emp = new Emp();
+				emp.setEmpNo(rset.getInt("emp_no"));
+				emp.setEmpName(rset.getString("emp_name"));
+				
+				list.add(emp);
+			}
+		} catch (SQLException e) {
+			throw new MessageException("회원 이름, 사번 조회 오류");
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 }
 
 
