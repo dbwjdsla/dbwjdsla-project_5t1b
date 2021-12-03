@@ -60,7 +60,10 @@
 	                <!-- Begin Page Content -->
 	                <div class="container">
 						<span class="text">받는사람</span>
-						<input type="text" class="form-control form-control-sm" name="sender"/>
+						<input 
+							type="text" class="form-control form-control-sm" 
+							name="sender"
+							onkeyup="search(this)"/>
 	                    <textarea 
 	                    	name="content" id="textContent" cols="30" rows="10"
 	                    	class="form-control"
@@ -76,6 +79,21 @@
 			</form>
             <!-- End of Main Content -->
 <script>
+/* 받는사람 검색기능 */
+function search(target) {
+	var word = target.value;
+	//console.log(word);
+	$.ajax({
+		url: "<%= request.getContextPath() %>/",
+		dataType: "json",
+		success(data){
+			console.log(data);
+		},
+		error: console.log("에러발생");
+	});
+}
+
+
 /* 쪽지 쓰기 500자 제한 코드 */
 $(document).ready(function() {
 	$('#textContent').on('keyup', function() {
