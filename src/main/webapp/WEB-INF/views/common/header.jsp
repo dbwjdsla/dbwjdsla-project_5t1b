@@ -29,6 +29,8 @@ if(msg != null) session.removeAttribute("msg");
 <title>5T1B 커뮤니티에 오신것을 환영합니다!</title>
 <!-- 제이쿼리 링크 -->
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script> 
 $(() =>{
 	
@@ -235,7 +237,7 @@ $(() =>{
 			aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small"><%=loginEmp.getEmpName()%></span>
 				<img class="img-profile rounded-circle"
-				src="${pageContext.request.contextPath}/resources/img/undraw_profile.svg">
+				src="${pageContext.request.contextPath}/img/profile.png">
 		</a> <!-- Dropdown - User Information -->
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
