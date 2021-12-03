@@ -29,6 +29,7 @@ public class Notice extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		NoticeVo noticeVo = selectService.selectContent();
+		
 
 		request.setAttribute("noticeVo", noticeVo);
 		request.getRequestDispatcher("/WEB-INF/views/common/index.jsp").forward(request, response);

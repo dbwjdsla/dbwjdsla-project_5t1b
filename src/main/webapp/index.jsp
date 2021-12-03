@@ -82,14 +82,18 @@
 								인기게시글 <i class="far fa-thumbs-up"></i>
 							</h6>
 						</div>
+						<%
+						LikeContentVo likeContentVo = (LikeContentVo) request.getAttribute("likeContentVo");
+						%>
 						<div class="card-body">
+						<a href="<%= request.getContextPath() %>/mainpage/likeContent"></a>
 							<!-- 인기게시글 내용 띄울 부분 -->
 							<ul>
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>게시글 내용</li>
-							<li>개시글 내용</li>
-							<li>게시글 내용</li>
+							<li><%= likeContentVo.getTitle()%>:<%= likeContentVo.getContent() %></li>
+							<li><%= likeContentVo.getTitle()%>:<%= likeContentVo.getContent() %></li>
+							<li><%= likeContentVo.getTitle()%>:<%= likeContentVo.getContent() %></li>
+							<li><%= likeContentVo.getTitle()%>:<%= likeContentVo.getContent() %></li>
+							<li><%= likeContentVo.getTitle()%>:<%= likeContentVo.getContent() %></li>
 							</ul>
 						</div>
 					</div>
@@ -102,17 +106,17 @@
 							</h6>
 						</div>
 						<%
-						Anonymous_boardVo anonymous_boardVo = (Anonymous_boardVo) request.getAttribute("anonymous_boardVo");
+						AnonymousBoardVo anonymousBoardVo = (AnonymousBoardVo) request.getAttribute("anonymousBoardVo");
 						%>
 						<div class="card-body">
 						<a href="<%= request.getContextPath() %>/mainpage/Anonymous_board"></a>
 							<!-- 익명 게시판 내용 띄울 부분 -->
 							<ul>
-							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
-							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
-							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
-							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
-							<li><%= anonymous_boardVo.getTitle()%>:<%=anonymous_boardVo.getContent()%></li>
+							<li><%= anonymousBoardVo.getTitle()%>:<%= anonymousBoardVo.getContent()%></li>
+							<li><%= anonymousBoardVo.getTitle()%>:<%= anonymousBoardVo.getContent()%></li>
+							<li><%= anonymousBoardVo.getTitle()%>:<%= anonymousBoardVo.getContent()%></li>
+							<li><%= anonymousBoardVo.getTitle()%>:<%= anonymousBoardVo.getContent()%></li>
+							<li><%= anonymousBoardVo.getTitle()%>:<%= anonymousBoardVo.getContent()%></li>
 							</ul>
 						</div>
 					</div>
@@ -141,11 +145,19 @@
 								오늘의 메뉴 <i class="fas fa-utensils"></i>
 							</h6>
 						</div>
+						<%
+						FoodMenuVo foodMenuVo = (FoodMenuVo)request.getAttribute("foodMenuVo");
+						%>
 						<div class="card-body">
-							<p>SB Admin 2 makes extensive use of Bootstrap 4 utility
-								classes in order to reduce CSS bloat and poor page performance.
-								Custom CSS classes are used to create custom components and
-								custom utility classes.</p>
+						<a href="<%= request.getContextPath() %>/mainpage/FoodMenu"></a>
+							<ul>
+							<li><%= foodMenuVo.getMain() %></li>
+							<li><%= foodMenuVo.getSoup() %></li>
+							<li><%= foodMenuVo.getSide1() %></li>
+							<li><%= foodMenuVo.getSide2() %></li>
+							<li><%= foodMenuVo.getSide3() %></li>
+							<li><%= foodMenuVo.getDessert() %></li>							
+							</ul>
 						</div>
 					</div>
 				</div>

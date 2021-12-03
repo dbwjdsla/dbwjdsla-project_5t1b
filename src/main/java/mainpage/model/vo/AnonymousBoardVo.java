@@ -3,7 +3,7 @@ package mainpage.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Anonymous_boardVo implements Serializable {
+public class AnonymousBoardVo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int no;
@@ -14,12 +14,12 @@ public class Anonymous_boardVo implements Serializable {
 	private int like_count; // 추천수
 	private int user_no;
 
-	public Anonymous_boardVo() {
+	public AnonymousBoardVo() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Anonymous_boardVo(int no, String title, String content, Date reg_date, int read_count, int like_count,
+	public AnonymousBoardVo(int no, String title, String content, Date reg_date, int read_count, int like_count,
 			int user_no) {
 		super();
 		this.no = no;

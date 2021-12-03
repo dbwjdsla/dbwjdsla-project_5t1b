@@ -7,8 +7,10 @@ import static com.otlb.semi.common.JdbcTemplate.close;
 
 import mainpage.controller.Board;
 import mainpage.model.dao.SelectDao;
-import mainpage.model.vo.Anonymous_boardVo;
+import mainpage.model.vo.AnonymousBoardVo;
 import mainpage.model.vo.BoardVo;
+import mainpage.model.vo.FoodMenuVo;
+import mainpage.model.vo.LikeContentVo;
 import mainpage.model.vo.NoticeVo;
 
 public class SelectService {
@@ -31,11 +33,27 @@ public class SelectService {
 	}
 
 	// 익명 게시판 조회 
-	public Anonymous_boardVo selectAnonymous_boardContent() {
+	public AnonymousBoardVo selectAnonymousBoardContent() {
 		Connection conn = getConnection();
-		Anonymous_boardVo anonymous_boardVo = SelectDao.selectAnonymous_boardContent(conn);
+		AnonymousBoardVo anonymousBoardVo = SelectDao.selectAnonymousBoardContent(conn);
 		close(conn);
-		return anonymous_boardVo;
+		return anonymousBoardVo;
+	}
+
+	// 인기 게시글 조회 
+	public LikeContentVo selectLikeContent() {
+		Connection conn = getConnection();
+		LikeContentVo likeContentVo = SelectDao.selectLikeContent(conn);
+		close(conn);
+		return likeContentVo;
+	}
+
+	// 오늘의 메뉴 조회
+	public FoodMenuVo selectFoodMenu() {
+		Connection conn = getConnection();
+		FoodMenuVo foodMenuVo = SelectDao.selectFoodMenu(conn);
+		close(conn);
+		return foodMenuVo;
 	}
 
 }
