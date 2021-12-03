@@ -25,9 +25,14 @@ public class MessageViewServlet extends HttpServlet {
 		//글번호
 		int no = Integer.valueOf(request.getParameter("no"));
 		
-		Message message = messageService.selectOneReceivedMessage(no);
+		int result = messageService.updateReadDate(no);
+		String msg = result > 0 ? null : "쪽지 읽음처리 오류";
+		System.out.println("쪽지 읽음처리 결과: " + result);
+		
+		Message message = messageService.selectOneSentMessage(no);
 		
 		request.setAttribute("message", message);
+		request.setAttribute("msg", msg);
 		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageView.jsp")

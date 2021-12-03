@@ -19,9 +19,9 @@ public class MessageService {
 		return list;
 	}
 
-	public List<Message> selectAllSentMessage(int no) {
+	public List<Message> selectAllSentMessage(int empNo) {
 		Connection conn = getConnection();
-		List<Message> list = messageDao.selectAllSentMessage(conn, no);
+		List<Message> list = messageDao.selectAllSentMessage(conn, empNo);
 		close(conn);
 		
 		return list;
@@ -54,7 +54,7 @@ public class MessageService {
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);
-			e.printStackTrace();
+			throw e;
 		} finally {
 			close(conn);
 		}
@@ -68,6 +68,24 @@ public class MessageService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int updateReadDate(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = messageDao.updateReadDate(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		
+		return result;
 	}
 	
 	

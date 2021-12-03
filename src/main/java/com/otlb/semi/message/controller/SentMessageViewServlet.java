@@ -23,7 +23,7 @@ public class SentMessageViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//글번호
 		int no = Integer.valueOf(request.getParameter("no"));
-		System.out.println("test");
+
 		Message message = messageService.selectOneSentMessage(no);
 		
 		request.setAttribute("message", message);
