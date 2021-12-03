@@ -62,7 +62,8 @@
                                <th><input type="checkbox" class="checkAll"/></th>
                                <th>받는사람</th>
                                <th>내용</th>
-                               <th>날짜</th>
+                               <th>보낸날짜</th>
+                               <th>받은날짜</th>
                            </tr>
                          </thead>
                          <tbody>
@@ -77,8 +78,10 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                          		<td><input type="checkbox" name="check" /></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
                          		
-                         		<td><a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
+                         		<td>
+                         			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
                          		<td><%= message.getSentDate() %></td>
+                         		<td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td>
                          	</tr>
 <% 
 	}

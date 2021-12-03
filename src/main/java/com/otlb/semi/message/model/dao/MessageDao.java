@@ -68,7 +68,7 @@ public class MessageDao {
 		return list;
 	}
 
-	public List<Message> selectAllSentMessage(Connection conn, int no) {
+	public List<Message> selectAllSentMessage(Connection conn, int empNo) {
 		PreparedStatement pstmt = null;
 		List<Message> list = new ArrayList<>();
 		String sql = prop.getProperty("selectAllSentMessage");
@@ -76,7 +76,7 @@ public class MessageDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, empNo);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -125,7 +125,7 @@ public class MessageDao {
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
-			throw new MessageException("받은상세쪽지 조회 요류");
+			throw new MessageException("받은상세쪽지 조회 요류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -146,13 +146,14 @@ public class MessageDao {
 			while(rset.next()) {
 				message.setSentDate(rset.getDate("sent_date"));
 				message.setContent(rset.getString("content"));
+//				message.setReadDate(rset.getDate("read_date"));
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("receiver_emp_name"));
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
-			throw new MessageException("보낸상세쪽지 조회 요류");
+			throw new MessageException("보낸상세쪽지 조회 요류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
@@ -198,12 +199,28 @@ public class MessageDao {
 				list.add(emp);
 			}
 		} catch (SQLException e) {
-			throw new MessageException("회원 이름, 사번 조회 오류");
+			throw new MessageException("회원 이름, 사번 조회 오류", e);
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int updateReadDate(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReadDate");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("쪽지 읽음처리 오류", e);
+		}
+		
+		return result;
 	}
 }
 

@@ -26,13 +26,13 @@ public class SentMessageListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		
 //		System.out.println(session.getAttribute("loginEmp"));
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		
-		int no = emp.getEmpNo();
-		List<Message> list = messageService.selectAllSentMessage(no);
+		int empNo = emp.getEmpNo();
+		List<Message> list = messageService.selectAllSentMessage(empNo);
 		System.out.println("[MessageListServlet] list = " + list);
 		
 		request.setAttribute("list", list);
