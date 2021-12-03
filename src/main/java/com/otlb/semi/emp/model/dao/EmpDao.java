@@ -206,6 +206,32 @@ public class EmpDao {
 		return result;
 	}
 
+	public int checkEmpInfo(Connection conn, int empNo, String empName, String email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		ResultSet rset = null;
+		String sql = prop.getProperty("checkEmpInfo");
+		System.out.println(sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			pstmt.setString(2, empName);
+			pstmt.setString(3, email);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				result = rset.getInt(1);
+			
+			System.out.println("EmpDao result = " + result);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 
 
 }

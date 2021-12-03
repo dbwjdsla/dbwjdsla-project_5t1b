@@ -97,5 +97,12 @@ public class EmpService {
 		return result;
 	}
 
+	public int checkEmpInfo(int empNo, String empName, String email) {
+		Connection conn = getConnection();
+		int result = empDao.checkEmpInfo(conn, empNo, empName, email);
+		close(conn);
+		return result;
+	}
+
 
 }
