@@ -52,7 +52,7 @@ public class EmpListServlet extends HttpServlet {
 //csv형식		
 		//사용자입력값 확인
 		String term = request.getParameter("term");
-		System.out.println("[AutoCompleteServlet] term = " + term);
+		//System.out.println("[AutoCompleteServlet] term = " + term);
 		
 		List<Emp> list = messageService.selectAllMember();
 		

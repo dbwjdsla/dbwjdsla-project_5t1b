@@ -66,11 +66,13 @@
 							type="text" class="form-control form-control-sm" 
 							name="receiver" 
 							id="receiver"
-							placeholder="받는 사람을 검색하세요(사번/이름)"/>
+							placeholder="받는 사람을 검색하세요(사번/이름)" />
 						<input 
 							type="text" class="form-control form-control-sm"
 							name="receiverList"
-							readonly="readonly" />
+							id="receiverList"
+							readonly="readonly" 
+							style="margin-top: 10px"/>
 							
 	                    <textarea 
 	                    	name="content" id="textContent" cols="30" rows="10"
@@ -87,19 +89,11 @@
 			</form>
             <!-- End of Main Content -->
 <script>
+/* $(receiver).change(function() {
+	console.log("함수작동");
+}); */
+
 /* 받는사람 검색기능 */
-<%-- function search(target) {
-	var word = target.value;
-	console.log(word);
-	$.ajax({
-		url: "<%= request.getContextPath() %>/message/empList.do",
-		dataType: "json",
-		success(data){
-			console.log(data);
-		},
-		error: console.log("에러발생")
-	});
-} --%>
 $(receiver).autocomplete({
 	source: function(request, response) {
 		//console.log(request);
@@ -116,11 +110,11 @@ $(receiver).autocomplete({
 				const emp = data.split(",");
 				//console.log(emp);
 				const arr = $.map(emp, (elem, i) =>{
-					//const no = elem.split("-");
-					//console.log(elem);
+					const arr2 = elem.split("-");
+					//console.log(arr2);
 					
 					return{
-						lable: elem.split("-")[0],
+						lable: elem,
 						value: elem
 					};
 					
@@ -132,11 +126,20 @@ $(receiver).autocomplete({
 			error: console.log
 		})
 	},
-	focus: function(event, selected) {
-		//console.log(event, selected);
-		return false;
-	} 
+    focus: function(event, selected) {
+        const selected2 = document.getElementsByClassName("ui-state-active")[0];
+        console.log("+++++++++" + selected2.innerText);
+        receiver.value =  selected2.innerText;
+        return false;
+    } 
 });
+$("#ui-id-1").click(() => {
+     if(receiverList.value)
+        receiverList.value += ', ' + receiver.value;
+     else receiverList.value = receiver.value;
+    receiver.value = '';    
+});
+	
 
 /* 쪽지 쓰기 500자 제한 코드 */
 $(document).ready(function() {

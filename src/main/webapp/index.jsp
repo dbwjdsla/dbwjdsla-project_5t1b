@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 <%@ page import="java.util.*"%>
@@ -8,22 +7,16 @@
 
 
 
+
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
-
 	<!-- Main Content -->
 	<div id="content">
-
 		<!-- Begin Page Content -->
 		<div class="container-fluid">
-
-
 			<div class="row" style="flex-wrap: nowrap; margin-right: 22.8rem;">
-
-
 				<!-- 공지사항 & 자유 게시판 부분  -->
 				<div class="col-lg-6 mb-4">
-
 					<!-- 공지사항 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -31,12 +24,15 @@
 								공지사항 <i class="fas fa-thumbtack"></i>
 							</h6>
 						</div>
+
 						<%
 						NoticeVo noticeVo = (NoticeVo) request.getAttribute("noticeVo");
 						%>
+
 						<div class="card-body">
 					    <a href="<%= request.getContextPath()%>/mainpage/Notice"></a>
 							<!-- 공지사항 내용 띄울 부분 -->
+
 							<ul>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
@@ -44,9 +40,9 @@
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
 							</ul>
+
 						</div>
 					</div>
-
 					<!-- 자유게시판 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -60,6 +56,7 @@
 						<div class="card-body">
 						<a href="<%= request.getContextPath() %>/mainpage/Board"></a>
 							<!-- 자유게시판 내용 띄울 부분 -->
+
 							<ul>
 							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
 							<li><%= boardVo.getTitle() %>:<%= boardVo.getContent() %></li>
@@ -70,11 +67,8 @@
 						</div>
 					</div>
 				</div>
-
-
 				<!-- 인기게시글 & 익명 게시판 부분  -->
 				<div class="col-lg-6 mb-4">
-
 					<!-- 인기게시글 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -97,7 +91,6 @@
 							</ul>
 						</div>
 					</div>
-
 					<!-- 익명게시판부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -120,11 +113,9 @@
 							</ul>
 						</div>
 					</div>
-
 				</div>
 				<!-- 캘린더 & 오늘의 메뉴 부분-->
 				<div class="col-lg-6 mb-4">
-
 					<!-- 캘린더 부분  -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -134,10 +125,8 @@
 						</div>
 						<div class="card-body">
 
-
 						</div>
 					</div>
-
 					<!-- 오늘의 메뉴 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -163,10 +152,7 @@
 				</div>
 			</div>
 			<!-- /.container-fluid -->
-
 		</div>
-
 	</div>
 	<!-- End of Main Content -->
-
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
