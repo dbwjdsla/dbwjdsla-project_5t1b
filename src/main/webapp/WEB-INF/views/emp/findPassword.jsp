@@ -17,7 +17,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Forgot Password</title>
+    <title>5T1B - 비밀번호 찾기</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%= request.getContextPath() %>/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -52,21 +52,22 @@
                                         <p class="mb-4">입력하신 이메일로 임시비밀번호를 보내드립니다. 발급 받은 임시비밀번호로 로그인 후 변경해주세요.</p>
                                     </div>
                                     <form 
+                                    	id="findPasswordFrm"
                                     	class="user"
                                     	action="<%= request.getContextPath() %>/emp/findPassword"
                                     	method="POST">
                                     	<div class="form-group">
 	                                    	<input type="text" name="empName" class="form-control form-control-user"
-	                                                placeholder="이름" required>
+	                                                placeholder="이름" required autocomplete="off">
                                     	</div>
                                     	<div class="form-group">
-	                                    	<input type="text" name="empNo" class="form-control form-control-user"
-	                                               placeholder="사원번호" required>
+	                                    	<input type="text" name="empNo" id="empNo" class="form-control form-control-user"
+	                                               placeholder="사원번호" required autocomplete="off">
                                     	</div>
                                         <div class="form-group">
                                             <input type="email" name="email" class="form-control form-control-user"
                                                 id="exampleInputEmail" aria-describedby="emailHelp"
-                                                placeholder="이메일" required>
+                                                placeholder="이메일" required autocomplete="off">
                                         </div>
                                         <input type="submit" class="btn btn-primary btn-user btn-block"
                                             value="임시 비밀번호 받기">
@@ -101,6 +102,32 @@ $(function(){
 <%
 	}
 %>
+
+<script>
+$("#findPasswordFrm").submit((e) =>{
+	if(!validateEmpNo({}))
+		return false;
+	
+	return true;
+});
+
+const validateEmpNo = ({target = empNo}) => {
+	const $empNo = $(empNo);
+	 if(!/^\d+$/.test($empNo.val())){
+		 const errorTitle = "사원번호 입력 오류";
+		 const errorMsg = "숫자만 입력해주세요.";
+		 $("#staticBackdropLabel").html(errorTitle);
+		 $("#modalBody").html(errorMsg);
+		 $("#staticBackdrop").modal('show');
+		 return false;
+	 }
+	 else{
+		 return true;
+	 }
+};
+
+
+</script>
 <!-- Modal -->
 <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
