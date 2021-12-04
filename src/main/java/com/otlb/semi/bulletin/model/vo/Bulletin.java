@@ -20,21 +20,21 @@ abstract public class Bulletin implements Serializable {
 	private String content;
 	private Date regDate;
 	private int readCount;
-	private int userNo;
+	private int empNo;
 	private String deleteYn;
 	
 	public Bulletin() {
 		super();
 	}
 
-	public Bulletin(int no, String title, String content, Date regDate, int readCount, int userNo, String deleteYn) {
+	public Bulletin(int no, String title, String content, Date regDate, int readCount, int empNo, String deleteYn) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
 		this.regDate = regDate;
 		this.readCount = readCount;
-		this.userNo = userNo;
+		this.empNo = empNo;
 		this.deleteYn = deleteYn;
 	}
 
@@ -78,12 +78,12 @@ abstract public class Bulletin implements Serializable {
 		this.readCount = readCount;
 	}
 
-	public int getUserNo() {
-		return userNo;
+	public int getEmpNo() {
+		return empNo;
 	}
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
 	}
 
 	public String getDeleteYn() {
@@ -97,7 +97,7 @@ abstract public class Bulletin implements Serializable {
 	@Override
 	public String toString() {
 		return "Bulletin [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate
-				+ ", readCount=" + readCount + ", userNo=" + userNo + ", deleteYn=" + deleteYn + "]";
+				+ ", readCount=" + readCount + ", empNo=" + empNo + ", deleteYn=" + deleteYn + "]";
 	}
 	
 }
