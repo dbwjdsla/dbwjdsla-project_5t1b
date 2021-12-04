@@ -71,7 +71,10 @@
 	로그인 회원이 받은 쪽지데이터 출력
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
-	for(Message message : list){
+List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
+	//for(Message message : list){
+	for(int i = 0; i < list.size(); i++){	
+		Message message = list.get(i);
 		if(message.getReceiverDelYn().equals("N")){
 %>
                          	<tr>
@@ -85,7 +88,8 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                        				<%= message.getContent() %>
                        				</a>
                    				</td>
-                         		<td><%= message.getSentDate() %></td>
+                         		<%-- <td><%= message.getSentDate() %></td> --%>
+                         		<td><%= sentDateList.get(i) %></td>
                          	</tr>
 <% 
 		}

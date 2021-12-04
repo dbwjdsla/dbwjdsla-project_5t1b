@@ -75,7 +75,11 @@
 	로그인 회원이 보낸 쪽지데이터 출력
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
-	for(Message message : list){
+List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
+List<String> readDateList = (List<String>) request.getAttribute("readDateList");
+	//for(Message message : list){
+	for(int i = 0; i < list.size(); i++){
+		Message message = list.get(i);
 		if(message.getSenderDelYn().equals("N")){
 %>
                          	<tr>
@@ -84,8 +88,10 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                          		
                          		<td>
                          			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
-                         		<td><%= message.getSentDate() %></td>
-                         		<td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td>
+                         		<%-- <td><%= message.getSentDate() %></td> --%>
+                         		<%-- <td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td> --%>
+                         		<td><%= sentDateList.get(i) %></td>
+                         		<td><%= readDateList.get(i) != null ? readDateList.get(i) : "읽지 않음" %></td>
                          	</tr>
 <% 
 		}

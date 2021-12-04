@@ -47,8 +47,8 @@ public class MessageDao {
 				message.setContent(rset.getString("content"));
 				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setReceiverEmpNo(rset.getInt("receiver_emp_no"));
-				message.setSentDate(rset.getDate("sent_date"));
-				message.setReadDate(rset.getDate("read_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
+				message.setReadDate(rset.getTimestamp("read_date"));
 				message.setSenderDelYn(rset.getString("sender_del_yn"));
 				message.setReceiverDelYn(rset.getString("receiver_del_yn"));
 				
@@ -85,8 +85,8 @@ public class MessageDao {
 				message.setContent(rset.getString("content"));
 				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setReceiverEmpNo(rset.getInt("receiver_emp_no"));
-				message.setSentDate(rset.getDate("sent_date"));
-				message.setReadDate(rset.getDate("read_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
+				message.setReadDate(rset.getTimestamp("read_date"));
 				message.setSenderDelYn(rset.getString("sender_del_yn"));
 				message.setReceiverDelYn(rset.getString("receiver_del_yn"));
 				
@@ -117,7 +117,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				message.setSentDate(rset.getDate("sent_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 				
 				Emp emp = new Emp();
@@ -144,7 +144,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				message.setSentDate(rset.getDate("sent_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));
 				
