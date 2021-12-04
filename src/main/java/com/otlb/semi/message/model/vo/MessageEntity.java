@@ -1,7 +1,7 @@
 package com.otlb.semi.message.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class MessageEntity implements Serializable{
 
@@ -11,8 +11,8 @@ public class MessageEntity implements Serializable{
 	private String content;
 	private int senderEmpNo;
 	private int receiverEmpNo;
-	private Date sentDate;
-	private Date readDate;
+	private Timestamp sentDate;
+	private Timestamp readDate;
 	private String senderDelYn;
 	private String receiverDelYn;
 	
@@ -20,7 +20,7 @@ public class MessageEntity implements Serializable{
 		super();
 	}
 
-	public MessageEntity(int no, String content, int senderEmpNo, int receiverEmpNo, Date sentDate, Date readDate,
+	public MessageEntity(int no, String content, int senderEmpNo, int receiverEmpNo, Timestamp sentDate, Timestamp readDate,
 			String senderDelYn, String receiverDelYn) {
 		super();
 		this.no = no;
@@ -65,19 +65,19 @@ public class MessageEntity implements Serializable{
 		this.receiverEmpNo = receiverEmpNo;
 	}
 
-	public Date getSentDate() {
+	public Timestamp getSentDate() {
 		return sentDate;
 	}
 
-	public void setSentDate(Date sentDate) {
+	public void setSentDate(Timestamp sentDate) {
 		this.sentDate = sentDate;
 	}
 
-	public Date getReadDate() {
+	public Timestamp getReadDate() {
 		return readDate;
 	}
 
-	public void setReadDate(Date readDate) {
+	public void setReadDate(Timestamp readDate) {
 		this.readDate = readDate;
 	}
 
