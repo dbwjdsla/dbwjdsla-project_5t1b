@@ -3,23 +3,24 @@ package com.otlb.semi.mainpage.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class AnonymousBoardVo implements Serializable {
+public class LikeContent  implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
-
+	
 	private int no;
 	private String title;
 	private String content;
 	private Date reg_date;
 	private int read_count;
-	private int like_count; // 추천수
+	private int like_count; //추천수
 	private int user_no;
-
-	public AnonymousBoardVo() {
+	
+	public LikeContent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnonymousBoardVo(int no, String title, String content, Date reg_date, int read_count, int like_count,
+	public LikeContent(int no, String title, String content, Date reg_date, int read_count, int like_count,
 			int user_no) {
 		super();
 		this.no = no;
@@ -93,8 +94,9 @@ public class AnonymousBoardVo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Anonymous_boardVo [no=" + no + ", title=" + title + ", content=" + content + ", reg_date=" + reg_date
+		return "LikeContentVo [no=" + no + ", title=" + title + ", content=" + content + ", reg_date=" + reg_date
 				+ ", read_count=" + read_count + ", like_count=" + like_count + ", user_no=" + user_no + "]";
 	}
-
+	
+	
 }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.mainpage.model.service.SelectService;
-import com.otlb.semi.mainpage.model.vo.AnonymousBoardVo;
+import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
 
 
 
@@ -18,7 +18,7 @@ import com.otlb.semi.mainpage.model.vo.AnonymousBoardVo;
  * Servlet implementation class Anonymous_board
  */
 @WebServlet("/mainpage/AnonymousBoard")
-public class AnonymousBoard extends HttpServlet {
+public class AnonymousBoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SelectService selectService = new SelectService();
 
@@ -28,10 +28,10 @@ public class AnonymousBoard extends HttpServlet {
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		AnonymousBoardVo anonymousBoardVo = selectService.selectAnonymousBoardContent();
+		AnonymousBoard anonymousBoard = selectService.selectAnonymousBoardContent();
 		
-		request.setAttribute("anonymousBoardVo", anonymousBoardVo);
-		request.getRequestDispatcher("WEB-INF/views/common/index.jsp").forward(request, response);
+		request.setAttribute("anonymousBoard", anonymousBoard);
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 }

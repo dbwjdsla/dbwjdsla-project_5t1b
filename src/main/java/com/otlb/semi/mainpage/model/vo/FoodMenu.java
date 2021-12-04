@@ -3,7 +3,7 @@ package com.otlb.semi.mainpage.model.vo;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class FoodMenuVo implements Serializable {
+public class FoodMenu implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private Date menu_date;
@@ -15,13 +15,13 @@ public class FoodMenuVo implements Serializable {
 	private String dessert;
 	
 	
-	public FoodMenuVo() {
+	public FoodMenu() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public FoodMenuVo(Date menu_date, String main, String soup, String side1, String side2, String side3,
+	public FoodMenu(Date menu_date, String main, String soup, String side1, String side2, String side3,
 			String dessert) {
 		super();
 		this.menu_date = menu_date;

@@ -8,31 +8,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.mainpage.model.service.SelectService;
-import com.otlb.semi.mainpage.model.vo.FoodMenuVo;
-
+import com.otlb.semi.mainpage.model.vo.LikeContent;
 
 
 /**
- * Servlet implementation class FoodMenu
+ * Servlet implementation class LikeContent
  */
-@WebServlet("/mainpage/FoodMenu")
-public class FoodMenu extends HttpServlet {
+@WebServlet("/mainpage/likeContent")
+public class LikeContentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SelectService selectService = new SelectService();
-	
-       
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * 
-	 * 오늘의 메뉴 조회 
+	 * 인기 게시글 조회 
+	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 FoodMenuVo foodMenuVo = selectService.selectFoodMenu();
-		 
-		 request.setAttribute("foodMenuVo", foodMenuVo);
-		 request.getRequestDispatcher("/WEB-INF/views/common/index.jsp").forward(request, response);
+		LikeContent likeContent = selectService.selectLikeContent();
+		
+		request.setAttribute("likeContent", likeContent);
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
-
-	
 
 }

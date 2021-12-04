@@ -9,15 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.Properties;
 
-import com.otlb.semi.mainpage.model.vo.AnonymousBoardVo;
-import com.otlb.semi.mainpage.model.vo.BoardVo;
-import com.otlb.semi.mainpage.model.vo.FoodMenuVo;
-import com.otlb.semi.mainpage.model.vo.LikeContentVo;
-import com.otlb.semi.mainpage.model.vo.NoticeVo;
+import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
+import com.otlb.semi.mainpage.model.vo.Board;
+import com.otlb.semi.mainpage.model.vo.FoodMenu;
+import com.otlb.semi.mainpage.model.vo.LikeContent;
+import com.otlb.semi.mainpage.model.vo.Notice;
 
 
 
@@ -36,21 +35,21 @@ public class SelectDao {
 	}
 
 	// 공지사항 조회
-	public NoticeVo selectNoticeContent(Connection conn) {
+	public Notice selectNoticeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("noticeSelect");
 		ResultSet rset = null;
-		NoticeVo noticeVo = null;
+		Notice notice = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				noticeVo = new NoticeVo();
-				noticeVo.setTitle(rset.getString("TITLE"));
-				noticeVo.setContent(rset.getString("CONTENT"));
-				System.out.println("DAO 확인 " + noticeVo);
+				notice= new Notice();
+				notice.setTitle(rset.getString("TITLE"));
+				notice.setContent(rset.getString("CONTENT"));
+				
 
 			}
 		} catch (SQLException e) {
@@ -59,24 +58,24 @@ public class SelectDao {
 			close(rset);
 			close(pstmt);
 		}
-		return noticeVo;
+		return notice;
 	}
 
 	// 자유게시판 조회
-	public static BoardVo selectBoardContent(Connection conn) {
+	public static Board selectBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("boardSelect");
 		ResultSet rset = null;
-		BoardVo boardVo = null;
+		Board board = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				boardVo = new BoardVo();
-				boardVo.setTitle(rset.getString("TITLE"));
-				boardVo.setContent(rset.getString("CONTENT"));
+				board = new Board();
+				board.setTitle(rset.getString("TITLE"));
+				board.setContent(rset.getString("CONTENT"));
 
 			}
 		} catch (SQLException e) {
@@ -84,26 +83,27 @@ public class SelectDao {
 		} finally {
 			close(rset);
 			close(pstmt);
+			System.out.println("dao" + board);
 		}
 
-		return boardVo;
+		return board;
 	}
 
 	// 익명 게시판 조회
-	public static AnonymousBoardVo selectAnonymousBoardContent(Connection conn) {
+	public static AnonymousBoard selectAnonymousBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("anonymousBoardSelect");
 		ResultSet rset = null;
-		AnonymousBoardVo anonymousBoardVo = null;
+		AnonymousBoard anonymousBoard = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				anonymousBoardVo = new AnonymousBoardVo();
-				anonymousBoardVo.setTitle(rset.getString("TITLE"));
-				anonymousBoardVo.setContent(rset.getString("CONTENT"));
+				anonymousBoard = new AnonymousBoard();
+				anonymousBoard.setTitle(rset.getString("TITLE"));
+				anonymousBoard.setContent(rset.getString("CONTENT"));
 
 			}
 		} catch (SQLException e) {
@@ -114,24 +114,24 @@ public class SelectDao {
 			close(pstmt);
 		}
 
-		return anonymousBoardVo;
+		return anonymousBoard;
 	}
 
 	// 인기 게시글
-	public static LikeContentVo selectLikeContent(Connection conn) {
+	public static LikeContent selectLikeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("likeContentSelect");
 		ResultSet rset = null;
-		LikeContentVo likeContentVo = null;
+		LikeContent likeContent = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				likeContentVo = new LikeContentVo();
-				likeContentVo.setTitle(rset.getString("TITLE"));
-				likeContentVo.setContent(rset.getString("CONTENT"));
+				likeContent= new LikeContent();
+				likeContent.setTitle(rset.getString("TITLE"));
+				likeContent.setContent(rset.getString("CONTENT"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -140,28 +140,28 @@ public class SelectDao {
 			close(pstmt);
 		}
 
-		return likeContentVo;
+		return likeContent;
 	}
 	
     // 오늘의 메뉴 조회 
-	public static FoodMenuVo selectFoodMenu(Connection conn) {
+	public static FoodMenu selectFoodMenu(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("foodMenuSelect");
 		ResultSet rset = null;
-		FoodMenuVo foodMenuVo = null;
+		FoodMenu foodMenu = null;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 			
 			while (rset.next()) {
-				foodMenuVo = new FoodMenuVo();
-				foodMenuVo.setMain(rset.getString("MAIN"));
-				foodMenuVo.setSoup(rset.getString("SOUP"));
-				foodMenuVo.setSide1(rset.getString("SIDE1"));
-				foodMenuVo.setSide2(rset.getString("SIDE2"));
-				foodMenuVo.setSide3(rset.getString("SIDE3"));
-				foodMenuVo.setDessert(rset.getString("DESSERT"));
+				foodMenu = new FoodMenu();
+				foodMenu.setMain(rset.getString("MAIN"));
+				foodMenu.setSoup(rset.getString("SOUP"));
+				foodMenu.setSide1(rset.getString("SIDE1"));
+				foodMenu.setSide2(rset.getString("SIDE2"));
+				foodMenu.setSide3(rset.getString("SIDE3"));
+				foodMenu.setDessert(rset.getString("DESSERT"));
 			
 			}
 			
@@ -172,7 +172,7 @@ public class SelectDao {
 			close(pstmt);
 		}
 		
-		return foodMenuVo;
+		return foodMenu;
 	}
 
 }
