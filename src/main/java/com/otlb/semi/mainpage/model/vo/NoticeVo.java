@@ -1,4 +1,4 @@
-package mainpage.model.vo;
+package com.otlb.semi.mainpage.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;

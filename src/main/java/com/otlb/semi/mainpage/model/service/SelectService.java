@@ -1,17 +1,18 @@
-package mainpage.model.service;
+package com.otlb.semi.mainpage.model.service;
 
 import java.sql.Connection;
 import java.util.List;
+
+import com.otlb.semi.mainpage.model.dao.SelectDao;
+import com.otlb.semi.mainpage.model.vo.AnonymousBoardVo;
+import com.otlb.semi.mainpage.model.vo.BoardVo;
+import com.otlb.semi.mainpage.model.vo.FoodMenuVo;
+import com.otlb.semi.mainpage.model.vo.LikeContentVo;
+import com.otlb.semi.mainpage.model.vo.NoticeVo;
+
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.close;
 
-import mainpage.controller.Board;
-import mainpage.model.dao.SelectDao;
-import mainpage.model.vo.AnonymousBoardVo;
-import mainpage.model.vo.BoardVo;
-import mainpage.model.vo.FoodMenuVo;
-import mainpage.model.vo.LikeContentVo;
-import mainpage.model.vo.NoticeVo;
 
 public class SelectService {
 	SelectDao selectDao = new SelectDao();

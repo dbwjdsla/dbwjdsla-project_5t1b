@@ -1,4 +1,4 @@
-package mainpage.model.dao;
+package com.otlb.semi.mainpage.model.dao;
 
 import static com.otlb.semi.common.JdbcTemplate.close;
 
@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import mainpage.controller.Board;
-import mainpage.model.vo.AnonymousBoardVo;
-import mainpage.model.vo.BoardVo;
-import mainpage.model.vo.FoodMenuVo;
-import mainpage.model.vo.LikeContentVo;
-import mainpage.model.vo.NoticeVo;
+import com.otlb.semi.mainpage.model.vo.AnonymousBoardVo;
+import com.otlb.semi.mainpage.model.vo.BoardVo;
+import com.otlb.semi.mainpage.model.vo.FoodMenuVo;
+import com.otlb.semi.mainpage.model.vo.LikeContentVo;
+import com.otlb.semi.mainpage.model.vo.NoticeVo;
+
+
 
 public class SelectDao {
 

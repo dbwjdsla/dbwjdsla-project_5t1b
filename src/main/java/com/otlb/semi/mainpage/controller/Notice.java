@@ -1,4 +1,4 @@
-package mainpage.controller;
+package com.otlb.semi.mainpage.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,29 +10,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import mainpage.model.service.SelectService;
-import mainpage.model.vo.BoardVo;
+import com.otlb.semi.mainpage.model.service.SelectService;
+import com.otlb.semi.mainpage.model.vo.NoticeVo;
+
 
 /**
- * Servlet implementation class Board
+ * Servlet implementation class Notice
  */
-@WebServlet("/mainpage/Board")
-public class Board extends HttpServlet {
+@WebServlet("/mainpage/Notice")
+public class Notice extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SelectService selectService = new SelectService();
-//	List<Board> board = new ArrayList<>();
+	
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response) 자유게시판 글 조회
+	 *      response) 공지사항 조회
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		NoticeVo noticeVo = selectService.selectContent();
 		
-		BoardVo boardVo = selectService.selectBoardContent();
 
-		request.setAttribute("boardVo", boardVo);
+		request.setAttribute("noticeVo", noticeVo);
 		request.getRequestDispatcher("/WEB-INF/views/common/index.jsp").forward(request, response);
+
 	}
 
 }
