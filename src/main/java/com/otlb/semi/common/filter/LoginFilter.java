@@ -17,7 +17,7 @@ import com.otlb.semi.emp.model.vo.Emp;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/message/*")
+@WebFilter(urlPatterns = {"/message/*"})
 public class LoginFilter implements Filter {
 
     /**
