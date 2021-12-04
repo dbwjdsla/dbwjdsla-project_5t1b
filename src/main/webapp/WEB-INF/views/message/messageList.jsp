@@ -49,7 +49,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
         	<div class="container">
-				<a href="" class="btn btn-primary btn-icon-split">
+				<a href="" class="btn btn-primary btn-icon-split" onclick="delMessage();">
 					<span class="text">삭제</span>
 				</a>
 			</div>
@@ -107,6 +107,32 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             </div>
             <!-- End of Main Content -->
 <script>
+//메세지 삭제 제어
+function delMessage(){
+	//var count = $("input:checkbox[name=check]").length
+	//console.log(count);
+	let $check = $("input[name=check]");
+	//console.log($check.val());
+	for(let i = 0; i < $check.length; i++){
+		console.log($check[i]);
+
+		if($("input[name=check]").is(':checked')){
+			console.log(123);
+		}
+			
+
+	}
+	if(document.getElementsByName("check").length > 0){
+		if(confirm("삭제하시겠습니까?")){
+			location.href = "<%= request.getContextPath() %>/message/messageDelete?no=<%="" %>";
+		}
+		
+	}else{
+		alert("선택한 쪽지가 없습니다.");
+	}
+}
+
+// 체크박스 제어
 $(".checkAll").click(function() {
 	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
 	else $("input[name=check]").prop("checked", false);
