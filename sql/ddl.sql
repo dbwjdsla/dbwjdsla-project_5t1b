@@ -93,7 +93,7 @@ create table board (
     constraint ck_board_report_yn check(report_yn in ('Y', 'N')),
     constraint ck_board_delete_yn check(delete_yn in ('Y', 'N'))
 );
-create SEQUENCE seq_board_no;
+create sequence seq_board_no nocache;
 
 create table attachment (
 	no number,
