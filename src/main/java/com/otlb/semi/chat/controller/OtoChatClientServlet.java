@@ -31,6 +31,9 @@ public class OtoChatClientServlet extends HttpServlet {
 		//2. 
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(clients, response.getWriter());
+		
+		
+		
 	}
 }
 

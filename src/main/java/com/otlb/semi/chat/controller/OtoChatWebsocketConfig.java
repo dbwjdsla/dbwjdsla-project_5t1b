@@ -3,19 +3,23 @@ package com.otlb.semi.chat.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
 import javax.websocket.HandshakeResponse;
 import javax.websocket.server.HandshakeRequest;
 import javax.websocket.server.ServerEndpointConfig;
 import javax.websocket.server.ServerEndpointConfig.Configurator;
 
+import com.otlb.semi.emp.model.service.EmpService;
+import com.otlb.semi.emp.model.vo.Emp;
+
 public class OtoChatWebsocketConfig extends Configurator {
 
+	private EmpService empService = new EmpService();
+	
+	
 	@Override
 	public void modifyHandshake(ServerEndpointConfig sec, HandshakeRequest request, HandshakeResponse response) {
 		
-		System.out.println("////OtoChatWebsocketConfig////////////");	
-		System.out.println("////OtoChatWebsocketConfig//////////getParameterMap//"+request.getParameterMap());	
+		System.out.println("[OtoChatWebsocketConfig][getParameterMap]"+request.getParameterMap());	
 		
 		Map<String,List<String>> reqParamMap	=	request.getParameterMap();
 		
@@ -25,28 +29,13 @@ public class OtoChatWebsocketConfig extends Configurator {
 		String otoSRTp=	reqParamMap.get("otoSRTp").get(0);
 
 		//	
-		HttpSession session = (HttpSession) request.getHttpSession();
-//		String userId = (String) session.getAttribute("userId");
-//		
+		Emp sndEmp = empService.selectOneEmp(Integer.parseInt(otoSenderId));
+		Emp rcvEmp = empService.selectOneEmp(Integer.parseInt(otoReceiverId));
+		
 		
 		String otoSenderNm	=	"";
 		String otoReceiverNm	=	"";
-		
-		//	name setting
-		if(otoSenderId.equals("202002")) {
-			otoSenderNm	=	"양소영";
-		}else if(otoSenderId.equals("202103")){
-			otoSenderNm	=	"홍길동";
-		}else{
-			otoSenderNm	=	"이송이";
-		}
-		if(otoReceiverId.equals("202002")) {
-			otoReceiverNm	=	"양소영";
-		}else if(otoReceiverId.equals("202103")){
-			otoReceiverNm	=	"홍길동";
-		}else {
-			otoReceiverNm	=	"이송이";
-		}
+		 
 		//	아이디 설정 처리 
 		String userId	=	"";
 		String userNm	=	"";
@@ -54,10 +43,10 @@ public class OtoChatWebsocketConfig extends Configurator {
 
 		if("R".equals(otoSRTp)) {
 			userId = otoReceiverId; 
-			userNm = otoReceiverNm; 
+			userNm = rcvEmp.getEmpName(); 
 		}else {
 			userId = otoSenderId; 
-			userNm = otoSenderNm; 
+			userNm = sndEmp.getEmpName(); 
 		}
 		
 		// config 
@@ -68,11 +57,9 @@ public class OtoChatWebsocketConfig extends Configurator {
 		userProp.put("otoSenderNm", otoSenderNm);
 		userProp.put("otoReceiverId", otoReceiverId);
 		userProp.put("otoReceiverNm", otoReceiverNm);
-		userProp.put("otoSRTp", otoSRTp);
-		
+		userProp.put("otoSRTp", otoSRTp);		
 		
 //		System.out.println("userProp = " + userProp);
-		// {userId=honggd, org.apache.tomcat.websocket.pojo.PojoEndpoint.methodMapping=org.apache.tomcat.websocket.pojo.PojoMethodMapping@38207a35}
 	}
 	
 	

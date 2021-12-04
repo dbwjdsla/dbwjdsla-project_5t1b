@@ -21,8 +21,11 @@
 <head>
 <meta charset="UTF-8">
 <title>1:1 대화방</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+<style>
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+</style>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
+
 <style>
 	
    .chat_wrap { border:none; solid #999;font-size:13px; color:#333}
@@ -98,6 +101,8 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 };
  function setText2(){
 	 var _val = $("#sendingMsg").val();
+	// 전송후 초기화 처리 
+	$("#sendingMsg").val("");
 
      var _class ="mymsg";
      $(this).val('');
@@ -137,6 +142,7 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 		//if(!/^(.|\n)+$/.test($sendingMsg.val()))
 			//return;
 		var sendMsg = $("#sendingMsg").val();
+		
 		const msg = {
 			type: "message",
 			msg: sendMsg,
@@ -179,9 +185,9 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 	    <div class="chatwith">
 	    <img src="<%=request.getContextPath()%>/honggd.png" width=30px; height=30px; />
 		<% if(otoSRTp.equals("S")){ %>
-		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverId") %>)</h1>
+		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverDeptNm") %>)</h1>
 		<% }else{ %>
-		<h1><%= request.getAttribute("otoSenderNm") %>(<%= request.getAttribute("otoSenderId") %>)</h1>
+		<h1><%= request.getAttribute("otoSenderNm") %>(<%= request.getAttribute("otoSenderDeptNm") %>)</h1>
 		<% } %>
 	</div>
         <div class="inner">&nbsp;</div>
