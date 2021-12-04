@@ -29,7 +29,7 @@
            
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item" >
                 <a class="nav-link" href="<%= request.getContextPath() %>/message/messageList" >
                     <i class="fa fa-envelope-open"></i>
                     <span>받은쪽지함</span>

@@ -30,6 +30,7 @@
                 <a class="nav-link" href="<%= request.getContextPath() %>/message/messageList" >
                     <i class="fa fa-envelope-open"></i>
                     <span>받은쪽지함</span>
+                    <!-- <i class="fa fa-angle-double-right" style="float: right;"></i> -->
                 </a>
             </li>
 
