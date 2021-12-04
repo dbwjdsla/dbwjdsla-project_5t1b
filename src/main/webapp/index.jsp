@@ -35,7 +35,7 @@
 						NoticeVo noticeVo = (NoticeVo) request.getAttribute("noticeVo");
 						%>
 						<div class="card-body">
-					    <a href="<%= request.getContextPath() %>/mainpage/Notice"></a>
+					    <a href="<%= request.getContextPath()%>/mainpage/Notice"></a>
 							<!-- 공지사항 내용 띄울 부분 -->
 							<ul>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
