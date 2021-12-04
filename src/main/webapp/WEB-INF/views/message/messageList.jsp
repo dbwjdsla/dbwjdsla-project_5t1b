@@ -49,9 +49,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
         	<div class="container">
-				<a href="" class="btn btn-primary btn-icon-split">
-					<span class="text">삭제</span>
-				</a>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
 			</div>
 		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
@@ -74,9 +72,10 @@
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
 	for(Message message : list){
+		if(message.getReceiverDelYn().equals("N")){
 %>
                          	<tr>
-                         		<td><input type="checkbox" name="check"/></td>
+                         		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
                          		<td>
                          			<a 
@@ -89,12 +88,20 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                          		<td><%= message.getSentDate() %></td>
                          	</tr>
 <% 
+		}
 	}
  %>
                          </tbody>
  					</table>
 	 			</div>
+	 		<form
 	 		
+	 			id = "delFrm"
+				name="messageDelFrm"
+				method="POST" 
+				action="<%= request.getContextPath() %>/message/receivedMessageDelete" >
+				<input type="hidden" id="no" name="no" value="" />
+			</form>	
 	 		</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -107,6 +114,42 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             </div>
             <!-- End of Main Content -->
 <script>
+//메세지 삭제 제어
+function delMessage(){
+	// 선택된 갯수 
+	var count = $("input:checkbox[name=check]:checked").length;  
+
+	//선택한 쪽지가 1개 이상일때
+	if(count > 0){
+		if(confirm("삭제하시겠습니까?")){
+			
+			//check박스 요소들 변수 저장
+			var check = document.getElementsByName("check");
+			//글번호 저장
+			var no = "";
+			//check박스 전체순회
+			for(let i = 0; i < check.length; i++){
+				//해당순번의 체크박스가 체크되어 있으면
+				if(check[i].checked){
+					//,를 구분자로 값을 연결
+					no += check[i].value + ",";
+				}
+			}
+			var inputNo = document.getElementById("no");
+			//input value에 글번호 대입
+			inputNo.value = no;
+			console.log("input value: " + inputNo.value);
+			$("form[name=messageDelFrm]").submit();	
+			//$(document.messageDelFrm).submit();
+			
+		}
+	//선택한 쪽지가 0개일때
+	}else{
+		alert("선택한 쪽지가 없습니다.");
+	}
+}
+
+// 체크박스 제어
 $(".checkAll").click(function() {
 	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
 	else $("input[name=check]").prop("checked", false);
