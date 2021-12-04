@@ -31,10 +31,8 @@
 		<script type="text/javascript" src="<%= request.getContextPath() %>/caleandar/js/caleandar.js"></script>
 <%--         <script type="text/javascript" src="<%= request.getContextPath() %>/caleandar/js/demo.js"></script>
  --%>
+ <button type="button" class="btn btn-primary" id="survey">설문조사 참여</button>
  
- 	<form>
- 		<input type="hidden" name="curYearMonth" id="curYearMonth" value="" />
- 	</form>
 
  		<script>
  		
@@ -85,6 +83,10 @@
  				curYear++;
  			}
   			location.href = "./calendar?year=" + curYear + "&month=" + (curMonth + 1);
+ 		});
+ 		
+ 		survey.addEventListener("click", () => {
+ 			location.href = "./survey?year=" + curYear + "&month=" + curMonth;
  		});
  		
  		</script>
