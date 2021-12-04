@@ -19,7 +19,7 @@ public class OtoChatAlarmWebsocketConfig extends Configurator {
 		Emp	ssEmp	=	(Emp)session.getAttribute("loginEmp"); 
 		
 		if(ssEmp != null) {
-			String userId	=	""+ssEmp.getNo();
+			String userId	=	""+ssEmp.getEmpNo();
 			
 			// config 
 			Map<String, Object> userProp = sec.getUserProperties();
