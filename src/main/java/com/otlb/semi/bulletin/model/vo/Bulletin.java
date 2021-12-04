@@ -6,10 +6,11 @@ import java.sql.Date;
 	/**
 	 *	VO 클래스 상속 관계도  
 	 *	Bulletin
-	 *  	|_ noticeEntity
+	 *  	|_ NoticeEntity
+	 *  	|	|_ Notice
 	 *  	|_ BoardEntity
 	 *  		|_ Board
-	 *  		|_ AnonymousBoard
+	 * 삭제 							|_ AnonymousBoard
 	 */
 abstract public class Bulletin implements Serializable {
 	
