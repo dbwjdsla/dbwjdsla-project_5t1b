@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 <%@ page import="java.util.*"%>
 <%@ page import="mainpage.model.vo.*" %>
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
 
 
@@ -24,15 +24,12 @@
 								공지사항 <i class="fas fa-thumbtack"></i>
 							</h6>
 						</div>
-
 						<%
 						NoticeVo noticeVo = (NoticeVo) request.getAttribute("noticeVo");
 						%>
-
 						<div class="card-body">
 					    <a href="<%= request.getContextPath()%>/mainpage/Notice"></a>
 							<!-- 공지사항 내용 띄울 부분 -->
-
 							<ul>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
 							<li><%= noticeVo.getTitle()%>:<%= noticeVo.getContent() %></li>
@@ -154,5 +151,16 @@
 			<!-- /.container-fluid -->
 		</div>
 	</div>
+	
+	<script>
+	// li 태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
+	$( 'li' ).click( function() {
+  if(loginEmp = null){
+	  alert('로그인 후 이용 해주세요');
+	  $('.btn btn-sm btn-primary shadow-sm').focus();
+  }
+} );
+	
+	</script>
 	<!-- End of Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
