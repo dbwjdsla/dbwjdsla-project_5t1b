@@ -87,6 +87,36 @@ public class MessageService {
 		
 		return result;
 	}
+
+	public int updateReceiverDelYn(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn= getConnection();
+			result = messageDao.updateReceiverDelYn(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
+
+	public int updateSenderDelYn(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn= getConnection();
+			result = messageDao.updateSenderDelYn(conn, no);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		}
+		return result;
+	}
 	
 	
 	

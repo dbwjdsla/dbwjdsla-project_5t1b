@@ -18,7 +18,7 @@ import com.otlb.semi.foodMenu.model.vo.FoodMenu;
  * Servlet implementation class foodMenuServlet
  */
 @WebServlet("/foodMenu/calendar")
-public class foodMenuServlet extends HttpServlet {
+public class FoodMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private FoodMenuService foodMenuService = new FoodMenuService();
 	
@@ -34,10 +34,7 @@ public class foodMenuServlet extends HttpServlet {
 
 		Date date = null;
 		if(curYear == null || curMonth == null) {
-//			curDate = formatter.format(date);
-			System.out.println(formatter.format(curDate));
 			date = Date.valueOf(formatter.format(curDate) + "-01");
-			System.out.println("hi" + date);
 		} else {
 			date = Date.valueOf(curYear + "-" + curMonth + "-01");
 		}

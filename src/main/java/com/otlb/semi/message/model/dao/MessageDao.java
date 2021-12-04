@@ -47,8 +47,8 @@ public class MessageDao {
 				message.setContent(rset.getString("content"));
 				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setReceiverEmpNo(rset.getInt("receiver_emp_no"));
-				message.setSentDate(rset.getDate("sent_date"));
-				message.setReadDate(rset.getDate("read_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
+				message.setReadDate(rset.getTimestamp("read_date"));
 				message.setSenderDelYn(rset.getString("sender_del_yn"));
 				message.setReceiverDelYn(rset.getString("receiver_del_yn"));
 				
@@ -85,8 +85,8 @@ public class MessageDao {
 				message.setContent(rset.getString("content"));
 				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setReceiverEmpNo(rset.getInt("receiver_emp_no"));
-				message.setSentDate(rset.getDate("sent_date"));
-				message.setReadDate(rset.getDate("read_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
+				message.setReadDate(rset.getTimestamp("read_date"));
 				message.setSenderDelYn(rset.getString("sender_del_yn"));
 				message.setReceiverDelYn(rset.getString("receiver_del_yn"));
 				
@@ -117,7 +117,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				message.setSentDate(rset.getDate("sent_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 				
 				Emp emp = new Emp();
@@ -144,7 +144,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
-				message.setSentDate(rset.getDate("sent_date"));
+				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));
 				
@@ -218,6 +218,46 @@ public class MessageDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new MessageException("쪽지 읽음처리 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateReceiverDelYn(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReceiverDelYn");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("받은 쪽지 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateSenderDelYn(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateSenderDelYn");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("보낸 쪽지 삭제 오류", e);
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;

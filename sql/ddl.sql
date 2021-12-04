@@ -93,7 +93,7 @@ create table board (
     constraint ck_board_report_yn check(report_yn in ('Y', 'N')),
     constraint ck_board_delete_yn check(delete_yn in ('Y', 'N'))
 );
-create SEQUENCE seq_board_no;
+create sequence seq_board_no nocache;
 
 create table attachment (
 	no number,
@@ -193,7 +193,7 @@ create table survey (
 	answer4 number not null,
 	answer5 number not null,
 	short_answer varchar2(100),
-    constraint pk_survey_date primary key(survey_date),
+    constraint pk_survey_date primary key(survey_date, emp_no),
     constraint ck_survey_answer1 check(answer1 in (1, 2, 3, 4, 5)),
     constraint ck_survey_answer2 check(answer1 in (1, 2, 3, 4, 5)),
     constraint ck_survey_answer3 check(answer1 in (1, 2, 3, 4, 5)),
