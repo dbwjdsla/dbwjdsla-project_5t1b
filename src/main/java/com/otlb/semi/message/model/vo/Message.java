@@ -2,6 +2,7 @@ package com.otlb.semi.message.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import com.otlb.semi.emp.model.vo.Emp;
 
@@ -14,7 +15,7 @@ public class Message extends MessageEntity implements Serializable{
 		super();
 	}
 
-	public Message(int no, String content, int senderEmpNo, int receiverEmpNo, Date sentDate, Date readDate,
+	public Message(int no, String content, int senderEmpNo, int receiverEmpNo, Timestamp sentDate, Timestamp readDate,
 			String senderDelYn, String receiverDelYn) {
 		super(no, content, senderEmpNo, receiverEmpNo, sentDate, readDate, senderDelYn, receiverDelYn);
 	}

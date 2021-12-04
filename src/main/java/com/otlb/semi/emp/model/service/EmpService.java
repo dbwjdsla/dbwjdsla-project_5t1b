@@ -6,6 +6,7 @@ import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.List;
 
 import com.otlb.semi.emp.model.dao.EmpDao;
@@ -70,5 +71,38 @@ public class EmpService {
 		}
 		return result;
 	}
+
+
+	public int updatePassword(Emp emp) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = empDao.updatePassword(conn, emp);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int countEmpNo(int empNo) {
+		Connection conn = getConnection();
+		int result = empDao.countEmpNo(conn, empNo);
+		close(conn);
+
+		return result;
+	}
+
+	public int checkEmpInfo(int empNo, String empName, String email) {
+		Connection conn = getConnection();
+		int result = empDao.checkEmpInfo(conn, empNo, empName, email);
+		close(conn);
+		return result;
+	}
+
 
 }

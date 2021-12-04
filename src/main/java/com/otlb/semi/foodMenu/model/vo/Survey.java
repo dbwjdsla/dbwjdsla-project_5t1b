@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class Survey {
 	private Date surveyDate;
-	private int user_no;
+	private int empNo;
 	private int answer1;
 	private int answer2;
 	private int answer3;
@@ -16,11 +16,11 @@ public class Survey {
 		super();
 	}
 
-	public Survey(Date surveyDate, int user_no, int answer1, int answer2, int answer3, int answer4, int answer5,
+	public Survey(Date surveyDate, int empNo, int answer1, int answer2, int answer3, int answer4, int answer5,
 			String shortAnswer) {
 		super();
 		this.surveyDate = surveyDate;
-		this.user_no = user_no;
+		this.empNo = empNo;
 		this.answer1 = answer1;
 		this.answer2 = answer2;
 		this.answer3 = answer3;
@@ -37,12 +37,12 @@ public class Survey {
 		this.surveyDate = surveyDate;
 	}
 
-	public int getUser_no() {
-		return user_no;
+	public int getEmpNo() {
+		return empNo;
 	}
 
-	public void setUser_no(int user_no) {
-		this.user_no = user_no;
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
 	}
 
 	public int getAnswer1() {
@@ -95,7 +95,7 @@ public class Survey {
 
 	@Override
 	public String toString() {
-		return "Survey [surveyDate=" + surveyDate + ", user_no=" + user_no + ", answer1=" + answer1 + ", answer2="
+		return "Survey [surveyDate=" + surveyDate + ", empNo=" + empNo + ", answer1=" + answer1 + ", answer2="
 				+ answer2 + ", answer3=" + answer3 + ", answer4=" + answer4 + ", answer5=" + answer5 + ", shortAnswer="
 				+ shortAnswer + "]";
 	}

@@ -1,8 +1,13 @@
 <%@page import="com.otlb.semi.emp.model.vo.Department"%>
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
+
+
+<% 
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,11 +56,13 @@
 							</div>
 							<div class="row">
 								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
-									<p>
-										프사프사 넣을예정 <br /> <br /> <br /> <br /> <br /> <br />
-									</p>
+									<div class="form-group">
+									<br /><br />
+										<img src="${pageContext.request.contextPath}/img/profile/profile.png" 
+											width="320px" height="300px" />
+									</div>
 									<input type="button" class="btn btn-primary btn-user btn-block"
-										onclick="updateProfileimg();" value="사진변경" />
+										onclick="updateProfileImg();" value="사진변경" />
 								</div>
 								<div class="col-lg-6">
 									<form id="empUpdateFrm"
@@ -69,28 +76,33 @@
 										<div class="form-group">
 											<p>
 												사원번호 :
-												<%=loginEmp.getNo()%></p>
+												<%=loginEmp.getEmpNo() %></p>
 										</div>
-										<div class="form-group">
+										<!-- <div class="form-group">
 											<p>
-												비밀번호 :<input type="password" name="password"
-													class="form-control form-control-user"
-													value="<%=loginEmp.getPassword()%>" required>
+												현재 비밀번호 :<input type="password" name="oldpassword"
+													class="form-control form-control-user" required>
 											</p>
 										</div>
 										<div class="form-group">
 											<p>
+												새로운 비밀번호 :<input type="password" name="newpassword"
+													class="form-control form-control-user" required>
+											</p>
+										</div> -->
+										<div class="form-group">
+											<p>
 												전화번호 :<input type="tel" placeholder="(-없이)01012345678"
-													name="phone" maxlength="11"
+													name="phone" id="phone" maxlength="11"
 													class="form-control form-control-user"
-													value="<%=loginEmp.getPhone()%>" required>
+													value="<%=loginEmp.getPhone() %>" required>
 											</p>
 										</div>
 										<div class="form-group">
 											<p>
 												이메일 :<input type="email" placeholder="abc@5t1b.com"
-													name="email" class="form-control form-control-user"
-													value="<%=loginEmp.getEmail()%>" required>
+													name="email" id="email" class="form-control form-control-user"
+													value="<%=loginEmp.getEmail() %>" required>
 											</p>
 										</div>
 										<div class="form-group">
@@ -114,12 +126,12 @@
 											<p>
 												직급 :<%=loginEmp.getJobName()%></p>
 										</div>
-										<input type="button"
-											class="btn btn-primary btn-user btn-block"
-											onclick="updatePassword();" value="비밀번호변경" /> 
 										<input type="button" 
 											class="btn btn-primary btn-user btn-block"
 											onclick="updateEmp();" value="정보수정" />
+										<input type="button"
+											class="btn btn-primary btn-user btn-block"
+											onclick="updatePassword();" value="비밀번호변경" /> 
 									</form>
 								</div>
 							</div>
@@ -134,29 +146,19 @@
 	</div>
 
 <script>
+const updateProfileImg = () => location.href = "<%= request.getContextPath() %>/emp/updateProfileImg";
+const updatePassword = () => location.href = "<%= request.getContextPath() %>/emp/updatePassword";
+
 const updateEmp = () => {
 	$(empUpdateFrm)
-		.attr("action", "<%=request.getContextPath()%>/emp/empUpdate")
+		.attr("action", "<%= request.getContextPath() %>/emp/empUpdate")
 		.submit();
 };
 
 /**
- * 유효성검사
+ * #empUpdateFrm 유효성검사
  */
 $(empUpdateFrm).submit((e) => {
-	
-	/* password
-	const $password = $(password);
-	const $passwordCheck = $(passwordCheck);
-	
-	if(!/^[a-zA-Z0-9!@#$]{4,}$/.test($password.val())){
-		alert("유효한 패스워드를 입력하세요.");
-		return false;
-	}
-	if($password.val() != $passwordCheck.val()){
-		alert("패스워드가 일치하지 않습니다.");
-		return false;
-	} */
 	
 	//phone
 	const $phone = $(phone);
@@ -164,6 +166,15 @@ $(empUpdateFrm).submit((e) => {
 		alert("유효한 전화번호가 아닙니다.");
 		return false;
 	}
+
+
+	//email
+	const $email = $(email);
+	if(!/^[\w]{4,}@[\w]+(\.[\w]+){1,3}$/.test($email.val())){
+		alert("올바른 이메일 형식이 아닙니다.");
+		return false;
+	}
+	
 	return true;
 });
 

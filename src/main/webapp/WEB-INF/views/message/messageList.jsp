@@ -44,14 +44,14 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-           
-
         </ul>
-        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+        	<div class="container">
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+			</div>
+		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
             <div id="content">
 	 		<div class="row">
@@ -59,7 +59,7 @@
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
                            <tr>
-                               <th><input type="checkbox" id="allCheck"/></th>
+                               <th><input type="checkbox" class="checkAll"/></th>
                                <th>보낸사람</th>
                                <th>내용</th>
                                <th>날짜</th>
@@ -71,21 +71,41 @@
 	로그인 회원이 받은 쪽지데이터 출력
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
-	for(Message message : list){
+List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
+	//for(Message message : list){
+	for(int i = 0; i < list.size(); i++){	
+		Message message = list.get(i);
+		if(message.getReceiverDelYn().equals("N")){
 %>
                          	<tr>
-                         		<td><input type="checkbox" /></td>
+                         		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
                          		<td><%= message.getEmp().getEmpName() %></td>
-                         		<td><a href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
-                         		<td><%= message.getSentDate() %></td>
+                         		<td>
+                         			<a 
+                       				href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>" 
+
+									<%= message.getReadDate() != null ? "style=\"color: black;\"" : "" %>>
+                       				<%= message.getContent() %>
+                       				</a>
+                   				</td>
+                         		<%-- <td><%= message.getSentDate() %></td> --%>
+                         		<td><%= sentDateList.get(i) %></td>
                          	</tr>
 <% 
+		}
 	}
  %>
                          </tbody>
  					</table>
 	 			</div>
+	 		<form
 	 		
+	 			id = "delFrm"
+				name="messageDelFrm"
+				method="POST" 
+				action="<%= request.getContextPath() %>/message/receivedMessageDelete" >
+				<input type="hidden" id="no" name="no" value="" />
+			</form>	
 	 		</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -98,37 +118,53 @@ List<Message> list = (List<Message>) request.getAttribute("list");
             </div>
             <!-- End of Main Content -->
 <script>
+//메세지 삭제 제어
+function delMessage(){
+	// 선택된 갯수 
+	var count = $("input:checkbox[name=check]:checked").length;  
 
-	/**
-     * 전체체크박스 -> 개별체크박스 제어
-     */ 
-	function checkAllSubject(checkAll){
-        const subjects = document.querySelectorAll("[type=checkbox]");
-        
-        for(let i = 0; i < subjects.length; i++){
-          subjects[i].checked = checkAll.checked;
-          manageTdClassOn(subjects[i], checkAll.checked);
-        }
-     }
-  
-  
-    /**
-     * 개별체크박스 -> 전체체크박스 제어
-     */ 
-    function checkSubject(subject){
-        //1. 부모td
-		manageTdClassOn(subject, subject.checked);
-		
-		// 2. 전체체크박스 제어
-		const subjects = document.querySelectorAll("[type=checkbox]");
-		for(let i = 0; i < subjects.length; i++){
-		  if(!subjects[i].checked) {
-		    checkAll2.checked = false;
-		    return;
-		  }
+	//선택한 쪽지가 1개 이상일때
+	if(count > 0){
+		if(confirm("삭제하시겠습니까?")){
+			
+			//check박스 요소들 변수 저장
+			var check = document.getElementsByName("check");
+			//글번호 저장
+			var no = "";
+			//check박스 전체순회
+			for(let i = 0; i < check.length; i++){
+				//해당순번의 체크박스가 체크되어 있으면
+				if(check[i].checked){
+					//,를 구분자로 값을 연결
+					no += check[i].value + ",";
+				}
+			}
+			var inputNo = document.getElementById("no");
+			//input value에 글번호 대입
+			inputNo.value = no;
+			console.log("input value: " + inputNo.value);
+			$("form[name=messageDelFrm]").submit();	
+			//$(document.messageDelFrm).submit();
+			
 		}
-		checkAll2.checked = true;
-    }
+	//선택한 쪽지가 0개일때
+	}else{
+		alert("선택한 쪽지가 없습니다.");
+	}
+}
 
+// 체크박스 제어
+$(".checkAll").click(function() {
+	if($(".checkAll").is(":checked")) $("input[name=check]").prop("checked", true);
+	else $("input[name=check]").prop("checked", false);
+});
+
+$("input[name=check]").click(function() {
+	var total = $("input[name=check]").length;
+	var checked = $("input[name=check]:checked").length;
+	
+	if(total != checked) $(".checkAll").prop("checked", false);
+	else $(".checkAll").prop("checked", true); 
+});
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

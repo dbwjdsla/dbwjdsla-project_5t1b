@@ -4,33 +4,35 @@ import java.sql.Date;
 
 public class FoodMenu {
 
-	private Date menu_date;
+	private Date menuDate;
 	private String main;
 	private String soup;
 	private String side1;
 	private String side2;
+	private String side3;
 	private String dessert;
 
 	public FoodMenu() {
 		super();
 	}
 
-	public FoodMenu(Date menu_date, String main, String soup, String side1, String side2, String dessert) {
+	public FoodMenu(Date menuDate, String main, String soup, String side1, String side2, String side3, String dessert) {
 		super();
-		this.menu_date = menu_date;
+		this.menuDate = menuDate;
 		this.main = main;
 		this.soup = soup;
 		this.side1 = side1;
 		this.side2 = side2;
+		this.side3 = side3;
 		this.dessert = dessert;
 	}
 
-	public Date getMenu_date() {
-		return menu_date;
+	public Date getMenuDate() {
+		return menuDate;
 	}
 
-	public void setMenu_date(Date menu_date) {
-		this.menu_date = menu_date;
+	public void setMenuDate(Date menuDate) {
+		this.menuDate = menuDate;
 	}
 
 	public String getMain() {
@@ -65,6 +67,14 @@ public class FoodMenu {
 		this.side2 = side2;
 	}
 
+	public String getSide3() {
+		return side3;
+	}
+
+	public void setSide3(String side3) {
+		this.side3 = side3;
+	}
+
 	public String getDessert() {
 		return dessert;
 	}
@@ -75,8 +85,12 @@ public class FoodMenu {
 
 	@Override
 	public String toString() {
-		return "foodMenu [menu_date=" + menu_date + ", main=" + main + ", soup=" + soup + ", side1=" + side1
-				+ ", side2=" + side2 + ", dessert=" + dessert + "]";
+		return "FoodMenu [menuDate=" + menuDate + ", main=" + main + ", soup=" + soup + ", side1=" + side1 + ", side2="
+				+ side2 + ", side3=" + side3 + ", dessert=" + dessert + "]";
+	}
+	
+	public String listMenu() {
+		return main + "<br />" + soup + "<br />" + side1 + "<br />" + side2 + "<br />" + side3 + "<br />" + dessert;
 	}
 
 }
