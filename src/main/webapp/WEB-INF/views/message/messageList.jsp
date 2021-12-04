@@ -49,9 +49,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
         	<div class="container">
-				<a href="" class="btn btn-primary btn-icon-split" onclick="delMessage();">
-					<span class="text">삭제</span>
-				</a>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
 			</div>
 		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
@@ -74,6 +72,7 @@
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
 	for(Message message : list){
+		if(message.getReceiverDelYn().equals("N")){
 %>
                          	<tr>
                          		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
@@ -89,6 +88,7 @@ List<Message> list = (List<Message>) request.getAttribute("list");
                          		<td><%= message.getSentDate() %></td>
                          	</tr>
 <% 
+		}
 	}
  %>
                          </tbody>
@@ -139,8 +139,8 @@ function delMessage(){
 			//input value에 글번호 대입
 			inputNo.value = no;
 			console.log("input value: " + inputNo.value);
-			//$("form[name=messageDelFrm]").submit();	
-			$(document.messageDelFrm).submit();
+			$("form[name=messageDelFrm]").submit();	
+			//$(document.messageDelFrm).submit();
 			
 		}
 	//선택한 쪽지가 0개일때

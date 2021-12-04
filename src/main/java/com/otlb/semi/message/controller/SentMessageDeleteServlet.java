@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.otlb.semi.message.model.service.MessageService;
 
 /**
- * Servlet implementation class MessageDeleteServlet
+ * Servlet implementation class SentMessageDeleteServlet
  */
-@WebServlet("/message/receivedMessageDelete")
-public class ReceivedMessageDeleteServlet extends HttpServlet {
+@WebServlet("/message/sentMessageDelete")
+public class SentMessageDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MessageService messageService = new MessageService();
 
@@ -37,7 +37,7 @@ public class ReceivedMessageDeleteServlet extends HttpServlet {
 		}
 		String msg = "";
 		for(int i = 0; i < list.size(); i++) {
-			int result = messageService.updateReceiverDelYn(list.get(i));
+			int result = messageService.updateSenderDelYn(list.get(i));
 			if(result > 0) {
 				msg = (i+1) + "개의 쪽지 삭제에 성공하였습니다.";
 			}else {

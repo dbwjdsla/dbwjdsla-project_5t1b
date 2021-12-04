@@ -218,6 +218,46 @@ public class MessageDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			throw new MessageException("쪽지 읽음처리 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateReceiverDelYn(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateReceiverDelYn");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("받은 쪽지 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateSenderDelYn(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateSenderDelYn");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new MessageException("보낸 쪽지 삭제 오류", e);
+		} finally {
+			close(pstmt);
 		}
 		
 		return result;
