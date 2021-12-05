@@ -153,8 +153,8 @@ $(() =>{
  		try {
 
 	 		Boolean ownProfileImageExists = (boolean) ((session.getAttribute("ownProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
-			if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
-	 		if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
+/* 			if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
+ */	 		if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
 			else profileImagePath = "/img/profile/profile.png";
 		} catch(NullPointerException e) {
 			e.printStackTrace();
