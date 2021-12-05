@@ -131,8 +131,8 @@
 											class="btn btn-primary btn-user btn-block"
 											onclick="updatePassword();" value="비밀번호변경" /> 
 									</form>
-								</div>
-							</div>
+								<!-- </div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -180,3 +180,4 @@ $(empUpdateFrm).submit((e) => {
 
 </body>
 </html>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
