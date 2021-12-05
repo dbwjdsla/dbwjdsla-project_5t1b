@@ -1,8 +1,6 @@
 package com.otlb.semi.message.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,18 +24,18 @@ public class SentMessageLoadServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("@WebServlet(\"/message/messageLoadCount\") 호출성공");
+		//System.out.println("@WebServlet(\"/message/messageLoadCount\") 호출성공");
 		HttpSession session = request.getSession();
 		Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		int empNo = loginEmp.getEmpNo();
-		System.out.println("empNO = " + empNo);
+//		System.out.println("empNO = " + empNo);
 		
 		int sentCount = messageService.selectSentMessageCount(empNo);
-		System.out.println("servlet = " + sentCount);
+//		System.out.println("servlet = " + sentCount);
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append(sentCount);
-		System.out.println(sb);
+//		System.out.println(sb);
 		response.setContentType("text/csv; charset=utf-8");
 		response.getWriter().append(sb);
 	}

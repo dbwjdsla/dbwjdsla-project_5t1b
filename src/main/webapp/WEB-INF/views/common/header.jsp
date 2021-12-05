@@ -5,12 +5,7 @@
 <%
 Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 String msg = (String) session.getAttribute("msg");
-//System.out.println(session.getAttribute("sentCount"));
-//int sentCount = (int) (session.getAttribute("sentCount") != null ? session.getAttribute("sentCount") : 0);
 if(msg != null) session.removeAttribute("msg");
-//System.out.println(request.getRequestURI());
-//String count = (String) response.getHeader("sentCount");
-//System.out.println("count = " + sentCount);
 %>
 
 <!DOCTYPE html>
@@ -160,6 +155,7 @@ $(() =>{
 				<!-- Counter - Messages --> 
 				<!-- 안읽은 받은쪽지 카운터 -->
 				<span class="badge badge-danger badge-counter" id="counter"></span>
+				<input type="hidden" id="hiddenCnt" value=""/>
 			</a> 
 <%
 	}
@@ -275,9 +271,10 @@ $( document ).ready(function() {
 		url: "<%= request.getContextPath() %>/message/messageLoadCount.do",
 		method: "GET",
 		success(data){
-			//console.log(data);
+
 			//span태그에 count데이터 삽입
-			counter.innerHTML = data;
+			counter.innerText = data;
+
 		},
 		error: console.log
 

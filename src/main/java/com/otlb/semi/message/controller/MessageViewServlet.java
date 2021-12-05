@@ -31,10 +31,10 @@ public class MessageViewServlet extends HttpServlet {
 		
 		int result = messageService.updateReadDate(no);
 		String msg = result > 0 ? null : "쪽지 읽음처리 오류";
-		System.out.println("쪽지 읽음처리 결과: " + result);
 		
-		Message message = messageService.selectOneSentMessage(no);
+		Message message = messageService.selectOneReceivedMessage(no);
 		message.setContent(LineFormatUtils.formatLine(message.getContent()));
+		System.out.println("%%%%" + message);
 	
 		String date = DateFormatUtils.formatDate(message.getSentDate());
 		

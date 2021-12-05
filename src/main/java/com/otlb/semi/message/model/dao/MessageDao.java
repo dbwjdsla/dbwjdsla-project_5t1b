@@ -107,6 +107,7 @@ public class MessageDao {
 	}
 
 	public Message selectOneReceivedMessage(Connection conn, int no) {
+		//받은 쪽지함 상세
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectOneReceivedMessage");
 		Message message = new Message();
@@ -123,6 +124,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("sender_emp_name"));
+				System.out.println(emp.getEmpName());
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
