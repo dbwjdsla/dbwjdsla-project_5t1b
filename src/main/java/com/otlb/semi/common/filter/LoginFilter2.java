@@ -51,7 +51,7 @@ public class LoginFilter2 implements Filter {
 		if(loginEmp == null) {
 			System.out.println("++++++++통화후");
 			session.setAttribute("msg", "로그인이 필요한 페이지 입니다.");
-			httpResponse.sendRedirect(httpRequest.getContextPath() + "/emp/login");
+			httpResponse.sendRedirect(httpRequest.getContextPath());
 			return;
 		} else {
 			System.out.println("---------------------ddd-------");

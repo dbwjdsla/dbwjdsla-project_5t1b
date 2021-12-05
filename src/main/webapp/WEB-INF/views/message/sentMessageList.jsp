@@ -45,7 +45,12 @@ List<String> readDateList = (List<String>) request.getAttribute("readDateList");
 %>
                          	<tr>
                          		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td><%= message.getEmp().getEmpName() %></td>
+                         		<td>
+                         			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getReceiverEmpNo()%>"
+                         			style="color: #858796;" >
+                         				<%= message.getEmp().getEmpName() %>
+                         			</a>
+                         		</td>
                          		
                          		<td>
                          			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"
