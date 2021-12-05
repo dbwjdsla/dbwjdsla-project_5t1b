@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.otlb.semi.bulletin.model.dao.BulletinDao;
+import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.Board;
 
@@ -28,10 +29,22 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertBoard(conn, board);
+			
+			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
+			int boardNo = bulletinDao.selectLastBoardNo(conn);
+			System.out.println("[bulletinService] boardNo = " + boardNo);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null) {
+				// insert into attachment values(seq_attachment_no.nextval, ?, ?, default, 0)
+				for(Attachment attach : attachments) {
+					attach.setBoardNo(boardNo); // FK컬럼값 설정(중요)
+					result = bulletinDao.insertAttachment(conn, attach);
+				}
+			}
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);
-			e.printStackTrace();
 		} finally {
 			close(conn);
 		}
