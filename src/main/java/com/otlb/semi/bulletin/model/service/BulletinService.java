@@ -32,4 +32,31 @@ public class BulletinService {
 		}
 		return result;
 	}
+
+	public int deleteBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteBoard(conn, no);
+			commit(conn);
+			
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public Board selectOneBoard(int no) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public int updateBoard(Board board) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
