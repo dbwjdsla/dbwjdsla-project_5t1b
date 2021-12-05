@@ -31,16 +31,13 @@ public class OtoChatWebsocket {
 	@OnOpen
 	public void onOpen(EndpointConfig config, Session session) throws IOException {
 		
-		System.out.println("////otoChatWebsocket////////////");	
+		System.out.println("[getParameterMap][onOpen]");	
 	
 		
 		// userId - session 
 		Map<String, Object> userProp = config.getUserProperties();
 		
 		// 1.first get UserId from session
-//		String userId = (String) userProp.get("userId");
-//		String userNm = (String) userProp.get("userNm");
-		
 		String otoSenderId = (String) userProp.get("otoSenderId");
 		String otoReceiverId = (String) userProp.get("otoReceiverId");
 		String otoSenderNm = (String) userProp.get("otoSenderNm");
@@ -49,13 +46,7 @@ public class OtoChatWebsocket {
 		String userId = (String) userProp.get("userId");
 		String userNm = (String) userProp.get("userNm");
 
-System.out.println("////otoChatWebsocket/////otoSenderId///////"+otoSenderId);	
-System.out.println("////otoChatWebsocket/////otoReceiverId///////"+otoReceiverId);	
-System.out.println("////otoChatWebsocket/////otoSenderNm///////"+otoSenderNm);	
-System.out.println("////otoChatWebsocket/////otoReceiverNm///////"+otoReceiverNm);	
-System.out.println("////otoChatWebsocket/////otoSRTp///////"+otoSRTp);	
-System.out.println("////otoChatWebsocket/////userId///////"+userId);	
-System.out.println("////otoChatWebsocket/////userNm///////"+userNm);	
+		System.out.println("[OtoChatWebsocket][userProp]"+userProp); 
 		
 		//	아이디 설정 처리 
 		clients.put(userId, session);
@@ -63,9 +54,9 @@ System.out.println("////otoChatWebsocket/////userNm///////"+userNm);
 		OtoChatInfo.setPersonInfo(otoSenderId, otoReceiverId);
 		
 		//  접속 시작은 동시에 모두 출력 
-		String jsonMsg = msgToJson("welcome", otoSenderId,otoReceiverId, otoSenderNm+" 님과 1:1 대화를 시작합니다");
+		String jsonMsg = msgToJson("[CHATST]", otoSenderId,otoReceiverId, otoSenderNm+" 님과 1:1 대화를 시작합니다");
 		//onMessage(jsonMsg, session);
-		jsonMsg = msgToJson("welcome", otoReceiverId,otoSenderId, otoReceiverNm+" 님과 1:1 대화를 시작합니다");
+		jsonMsg = msgToJson("[CHATST]", otoReceiverId,otoSenderId, otoReceiverNm+" 님과 1:1 대화를 시작합니다");
 		//onMessage(jsonMsg, session);
 		
 		logClients();
@@ -97,9 +88,6 @@ System.out.println("////otoChatWebsocket/////userNm///////"+userNm);
 			Collection<Session> sessions = clients.values();
 			
 			for(Session sess : sessions) {
-System.out.println("////onMessage////sess///////"+sess);
-System.out.println("////onMessage////session.getUserProperties///////"+session.getUserProperties());
-System.out.println("////onMessage////msg///////"+msg);				
 				//	사용자 아이디를 체크한다 
 				String targetId	=	""+map.get("receiver");
 				Map<String, Object> sessionUserProp = sess.getUserProperties();
@@ -128,7 +116,7 @@ System.out.println("////onMessage////msg///////"+msg);
 		clients.remove(userId);
 		
 		//  
-		String msg = msgToJson("goodbye", "",userId, userNm+" 님과의 대화방이 종료 되었습니다");
+		String msg = msgToJson("[CHATED]", "",userId, userNm+" 님과의 대화방이 종료 되었습니다");
 		onMessage(msg, session);
 	}
 }

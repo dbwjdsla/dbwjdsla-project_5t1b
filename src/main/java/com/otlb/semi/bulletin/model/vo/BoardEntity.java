@@ -15,10 +15,34 @@ public class BoardEntity extends Bulletin implements Serializable {
 		super();
 	}
 
-	public BoardEntity(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn, int userNo, String category, String deleteYn) {
-		super(no, title, content, regDate, readCount, userNo, deleteYn);
+	public BoardEntity(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn, int empNo, String category, String deleteYn) {
+		super(no, title, content, regDate, readCount, empNo, deleteYn);
 		this.likeCount = likeCount;
 		this.reportYn = reportYn;
+		this.category = category;
+	}
+	
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public String getReportYn() {
+		return reportYn;
+	}
+
+	public void setReportYn(String reportYn) {
+		this.reportYn = reportYn;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
