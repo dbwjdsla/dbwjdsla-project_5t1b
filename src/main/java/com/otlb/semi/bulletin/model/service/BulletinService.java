@@ -1,10 +1,15 @@
 package com.otlb.semi.bulletin.model.service;
 
-import static com.otlb.semi.common.JdbcTemplate.*;
+import static com.otlb.semi.common.JdbcTemplate.close;
+import static com.otlb.semi.common.JdbcTemplate.commit;
+import static com.otlb.semi.common.JdbcTemplate.getConnection;
+import static com.otlb.semi.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.otlb.semi.bulletin.model.dao.BulletinDao;
+import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.Board;
 
 public class BulletinService {
@@ -31,5 +36,12 @@ public class BulletinService {
 			close(conn);
 		}
 		return result;
+	}
+
+	public List<Board> selectAllBoard() {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllBoard(conn);
+		close(conn);
+		return list;
 	}
 }

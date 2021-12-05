@@ -22,7 +22,7 @@ public class EmpUpdateServlet extends HttpServlet {
 	
 	/**
 	 * 회원정보 수정쿼리
-	 *  
+	 * 
 	 * update emp
 	 * set password = ?, gender = ?, phone = ?, email = ?
 	 * where no = ?
