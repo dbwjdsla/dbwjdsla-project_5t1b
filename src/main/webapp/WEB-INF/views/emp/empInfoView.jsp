@@ -8,13 +8,13 @@
 
 <%
 	Emp emp = (Emp) request.getAttribute("emp");
-	Boolean ownProfileImageExists = (boolean) request.getAttribute("ownProfileImageExists");
+	/* Boolean ownProfileImageExists = (boolean) request.getAttribute("ownProfileImageExists");
 	String profileImagePath = "";
 	if(ownProfileImageExists) {
 		profileImagePath = "/img/profile/" + emp.getEmpNo() + ".png";		
 	} else {
 		profileImagePath = "/img/profile/profile.png";
-	}
+	} */
 
 %>
 

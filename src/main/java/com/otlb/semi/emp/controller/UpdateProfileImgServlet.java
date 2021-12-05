@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+//import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 import com.otlb.semi.common.ProfileRenamePolicy;
 import com.otlb.semi.emp.model.vo.Emp;
-import com.otlb.semi.message.model.dao.MessageDao;
+//import com.otlb.semi.message.model.dao.MessageDao;
 
 /**
  * Servlet implementation class UpdateProfileImgServlet
@@ -76,7 +76,10 @@ public class UpdateProfileImgServlet extends HttpServlet {
 			file = multi.getFilesystemName(str); // 업로드 된 파일 이름 가져옴
 			originalFile = multi.getOriginalFileName(str); // 원래의 파일이름 가져옴
 
-			String location = request.getContextPath() + "/emp/updateProfileImg";
+			String msg = "프로필사진 변경 성공";
+			session.setAttribute("msg", msg);
+
+			String location = request.getContextPath() + "/emp/empView";
 			response.sendRedirect(location);
 
 		} catch (Exception e) {

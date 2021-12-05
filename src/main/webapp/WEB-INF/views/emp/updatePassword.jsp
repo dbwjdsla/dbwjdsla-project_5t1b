@@ -75,8 +75,8 @@
 									</form>
 								<!-- </div>
 							</div> -->
-						</div>
-					</div>
+						<!-- </div>
+					</div> -->
 				</div>
 
 			</div>
@@ -128,3 +128,4 @@ function passwordValidate(){
 
 </body>
 </html>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
