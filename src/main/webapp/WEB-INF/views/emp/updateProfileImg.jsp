@@ -80,8 +80,8 @@
 									</div>
 								<!-- </div> -->
 							<!-- </div> -->
-						</div>
-					</div>
+						<!-- </div>
+					</div> -->
 				</div>
 
 			</div>
@@ -113,3 +113,4 @@ $("#img__preview").on("change", function(e){
 
 </body>
 </html>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
