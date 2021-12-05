@@ -4,13 +4,13 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
-<%
+<%-- <%
  	Boolean ownProfileImageExists = (boolean) session.getAttribute("ownProfileImageExists");
 	if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
 	String profileImagePath = "";
  	if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
 	else profileImagePath = "/img/profile/profile.png";
-%>
+%> --%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,8 +63,6 @@
 										atcion="<%=request.getContextPath()%>/emp/updateProfileImg"
 										method="post" enctype="multipart/form-data">
 										<div class="form-group">
-										<%-- <img id="img__wrap" 
-											src="${sessionScope.principal.userProfile}" width="350px" height="300px" /> --%>
 											<img id="img__wrap" 
 												src="<%= request.getContextPath() + profileImagePath %>" 
 												width="320px" height="300px" />
@@ -101,23 +99,13 @@ $("#img__preview").on("change", function(e){
 		return;
 	}
 
-	// f.size = 1024*1024*2
+	// f.size = 1024*1024*10
 
-	if(f.size>1024*1024*2){
-		alert("2mb까지의 사진만 업데이트 할 수 있습니다.");
+	if(f.size>1024*1024*10){
+		alert("10mb까지의 사진만 업데이트 할 수 있습니다.");
 		$("#img__preview").val('');
 		return;
 	}
-
-	/* var reader=new FileReader(); */
-
-
-
-	/* reader.onload=function(e){
-		$("#img__wrap").attr("src",e.target.result);
-	}
-	reader.readAsDataURL(f); //비동기적 진행(파일 읽기) */
-
 
 
 });

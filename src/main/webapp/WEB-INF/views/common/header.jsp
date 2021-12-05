@@ -8,6 +8,9 @@ String msg = (String) session.getAttribute("msg");
 if(msg != null) session.removeAttribute("msg");
 %>
 
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +147,18 @@ $(() =>{
 
 		<!-- Nav Item - Messages -->
 <%
+	String profileImagePath = "/img/profile/profile.png";
 	if(loginEmp != null){
+
+ 		try {
+
+	 		Boolean ownProfileImageExists = (boolean) ((session.getAttribute("ownProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
+			if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
+	 		if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
+			else profileImagePath = "/img/profile/profile.png";
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+		}
 %>
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a
@@ -235,7 +249,7 @@ $(() =>{
 			aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small"><%=loginEmp.getEmpName()%></span>
 				<img class="img-profile rounded-circle"
-				src="${pageContext.request.contextPath}/img/profile/profile.png">
+				src="<%= request.getContextPath() + profileImagePath %>">
 		</a> <!-- Dropdown - User Information -->
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
