@@ -8,9 +8,6 @@ String msg = (String) session.getAttribute("msg");
 if(msg != null) session.removeAttribute("msg");
 %>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
