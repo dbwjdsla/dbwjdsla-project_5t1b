@@ -263,8 +263,10 @@ $(() =>{
 
 </nav>
 <!-- End of Topbar -->
+<% if (loginEmp != null) { %>
 <script>
 $( document ).ready(function() {
+
 	//console.log("test");
 	var counter = document.getElementById("counter");
     $.ajax({
@@ -279,8 +281,12 @@ $( document ).ready(function() {
 		error: console.log
 
 	})
+		
+
 });
-
-
-
 </script>
+<%
+}
+%>
+
+
