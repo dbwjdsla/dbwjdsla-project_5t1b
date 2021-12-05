@@ -6,8 +6,6 @@
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
 
-<% 
-%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,7 +56,7 @@
 								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
 									<div class="form-group">
 									<br /><br />
-										<img src="${pageContext.request.contextPath}/img/profile/profile.png" 
+										<img src="<%= request.getContextPath() + profileImagePath %>" 
 											width="320px" height="300px" />
 									</div>
 									<input type="button" class="btn btn-primary btn-user btn-block"
@@ -133,8 +131,8 @@
 											class="btn btn-primary btn-user btn-block"
 											onclick="updatePassword();" value="비밀번호변경" /> 
 									</form>
-								</div>
-							</div>
+								<!-- </div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -182,3 +180,4 @@ $(empUpdateFrm).submit((e) => {
 
 </body>
 </html>
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>

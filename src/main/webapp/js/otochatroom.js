@@ -1,6 +1,6 @@
 //	채팅 체크 소켓 
-var otoChatHostAddr	=	window.location.host+"/5t1b/";
-var otoChatHostHttpAddr	=	"http://"+window.location.host+"/5t1b/";
+var otoChatHostAddr	= window.location.host+"/5t1b/";
+var otoChatHostHttpAddr	= "http://"+window.location.host+"/5t1b/";
 
 
 const otoChatAlarmWS = new WebSocket("ws://"+otoChatHostAddr+"/otoChatAlarmWebsocket");
@@ -48,11 +48,11 @@ const otoChatAlarmMsgToHtmlRcv = ({type, sender,receiver,sRTp,senderNm,receiverN
 
 	//	REQCHAT가 오면 채팅창을 출력해준다 
 	if(type == "REQCHAT"){
-		var	otoNm	=	"";
+		var	otoNm =	"";
 		if(sRTp == "R"){
-			otoNm	=	senderNm;
+			otoNm =	senderNm;
 		}else{
-			otoNm	=	receiverNm;
+			otoNm =	receiverNm;
 		}		
 		fnOpenOtoChatPop(sender, receiver, sRTp, otoNm+"님과 1:1 대화중");
 	}  	
