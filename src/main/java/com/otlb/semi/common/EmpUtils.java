@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 import java.util.Base64.Encoder;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.otlb.semi.bulletin.model.vo.Attachment;
+
 public class EmpUtils {
 
 	/**
@@ -32,6 +35,15 @@ public class EmpUtils {
 		//System.out.println(encryptedPassword);
 		
 		return encryptedPassword;
+	}
+
+	public static Attachment makeAttachment(MultipartRequest multipartRequest, String name) {
+		Attachment attach = new Attachment();
+		String originalFilename = multipartRequest.getOriginalFileName(name);
+		String renamedFilename = multipartRequest.getFilesystemName(name);
+		attach.setOriginalFilename(originalFilename);
+		attach.setRenamedFilename(renamedFilename);
+		return attach;
 	}
 
 	

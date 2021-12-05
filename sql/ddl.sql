@@ -104,6 +104,7 @@ create table attachment (
     constraint pk_attachment_no primary key(no),
     constraint fk_attachment_board_no foreign key(board_no) references board(no) on delete cascade
 );
+create sequence seq_attachment_no nocache;
 
 create table board_comment (
 	no number,
