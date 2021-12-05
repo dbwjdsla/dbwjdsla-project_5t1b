@@ -25,15 +25,23 @@ public class SentMessageDeleteServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//넘어온 글 번호
-		String _no = request.getParameter("no");
+		String no = request.getParameter("no");
 		
-		//,기준으로 문자열 split
-		String[] no = _no.split(",");
 		List<Integer> list = new ArrayList<>();
 		
-		//문자열 숫자를 정수형으로 형변환
-		for(String str : no) {
-			list.add(Integer.parseInt(str));
+		//,가 넘어온 경우만 split처리
+		if(no.contains(",")) {
+			//,기준으로 문자열 split
+			String[] noArr = no.split(",");
+			
+			//문자열 숫자를 정수형으로 형변환
+			for(String str : noArr) {
+				list.add(Integer.parseInt(str));
+			}
+			
+		}else {
+			//no가 단일값일경우
+			list.add(Integer.parseInt(no));
 		}
 		String msg = "";
 		for(int i = 0; i < list.size(); i++) {
@@ -48,7 +56,7 @@ public class SentMessageDeleteServlet extends HttpServlet {
 		}
 		
 		request.getSession().setAttribute("msg", msg);
-		response.sendRedirect(request.getContextPath() + "/message/messageList");
+		response.sendRedirect(request.getContextPath() + "/message/sentMessageList");
 	}
 
 }

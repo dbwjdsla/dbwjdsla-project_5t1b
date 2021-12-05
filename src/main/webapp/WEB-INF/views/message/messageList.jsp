@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+<!-- 받은 쪽지함 jsp -->
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -80,12 +81,14 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 %>
                          	<tr>
                          		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td><%= message.getEmp().getEmpName() %></td>
+                         		<td <%= message.getReadDate() == null ? "style=\"color: #4e73df;\"" : "" %>>
+                         			<%= message.getEmp().getEmpName() %>
+                         		</td>
                          		<td>
                          			<a 
                        				href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>" 
 
-									<%= message.getReadDate() != null ? "style=\"color: black;\"" : "" %>>
+									<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
                        				<%= message.getContent() %>
                        				</a>
                    				</td>

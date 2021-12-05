@@ -87,7 +87,11 @@ List<String> readDateList = (List<String>) request.getAttribute("readDateList");
                          		<td><%= message.getEmp().getEmpName() %></td>
                          		
                          		<td>
-                         			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
+                         			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"
+                         			style="color: #858796;" >
+                         				<%= message.getContent() %>
+                       				</a>
+                    			</td>
                          		<%-- <td><%= message.getSentDate() %></td> --%>
                          		<%-- <td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td> --%>
                          		<td><%= sentDateList.get(i) %></td>

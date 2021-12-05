@@ -6,6 +6,7 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 	Message message = (Message) request.getAttribute("message");
+	String date = (String) request.getAttribute("date");
 %>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -54,13 +55,15 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+			<div class="container">
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+			</div>
             <!-- Main Content -->
             <div id="content">
-	 		<div class="row">
-	 			
-	 		
-	 		</div>
+				<div class="row">
+					
+				
+				</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 					<hr class="sidebar-divider">
@@ -72,7 +75,7 @@
                            </tr>
                          	<tr>
                          		<th>받은시간</th>
-                         		<td><%= message.getSentDate() %></td>
+                         		<td><%= date %></td>
                          	</tr>
 	 					</table>
  					
@@ -84,10 +87,18 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+				<form
+		 			id = "delFrm"
+					name="messageDelFrm"
+					method="POST" 
+					action="<%= request.getContextPath() %>/message/receivedMessageDelete" >
+					<input type="hidden" id="no" name="no" value="<%= message.getNo() %>" />
+				</form>	
             </div>
             <!-- End of Main Content -->
 <script>
-
+function delMessage(){
+	$("form[name=messageDelFrm]").submit();	
+}
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
