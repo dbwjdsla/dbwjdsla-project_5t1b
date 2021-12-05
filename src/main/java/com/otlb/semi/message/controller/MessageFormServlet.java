@@ -19,6 +19,15 @@ public class MessageFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String _senderNo = request.getParameter("senderNo");
+		//System.out.println("_empNo" + _senderNo);
+		
+		//empNo의 값이 넘어올때만
+		if(_senderNo != null) {
+			int senderNo = Integer.valueOf(_senderNo);
+			request.setAttribute("senderNo", senderNo);
+		}
+		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageForm.jsp")
 			.forward(request, response);
