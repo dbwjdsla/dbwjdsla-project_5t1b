@@ -67,6 +67,8 @@
 							name="receiver" 
 							id="receiver"
 							placeholder="받는 사람을 검색하세요(사번/이름)" />
+							
+							<!-- 실제 받는사람 전송 입력부 -->
 						<input 
 							type="text" class="form-control form-control-sm"
 							name="receiverList"

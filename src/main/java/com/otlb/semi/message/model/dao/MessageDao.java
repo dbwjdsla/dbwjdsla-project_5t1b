@@ -264,6 +264,29 @@ public class MessageDao {
 		
 		return result;
 	}
+
+	public int selectSentMessageCount(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		int count = 0;
+		String sql = prop.getProperty("selectSentMessageCount");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			throw new MessageException("받은 쪽지 갯수 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 }
 
 
