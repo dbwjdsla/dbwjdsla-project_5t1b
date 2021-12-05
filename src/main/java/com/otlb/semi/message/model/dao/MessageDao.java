@@ -117,6 +117,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setNo(rset.getInt("no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 				
@@ -144,6 +145,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setNo(rset.getInt("no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));

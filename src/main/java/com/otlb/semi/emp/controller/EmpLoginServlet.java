@@ -1,5 +1,6 @@
 package com.otlb.semi.emp.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -45,6 +46,12 @@ public class EmpLoginServlet extends HttpServlet {
 		System.out.println("[EmpLoginServlet] emp = " + emp);
 		
 		HttpSession session = request.getSession();
+		String empNoString = String.valueOf(emp.getEmpNo());
+
+		String filepath = UpdateProfileImgServlet.class.getResource("/../../img/profile").getPath();
+		File ownProfileImage = new File(filepath + empNo + ".png");
+		if(ownProfileImage.exists()) session.setAttribute("ownProfileImageExists", true);
+		else session.setAttribute("ownProfileImageExists", false);
 		
 		// 로그인 성공여부
 		if(emp != null && password.equals(emp.getPassword())) {

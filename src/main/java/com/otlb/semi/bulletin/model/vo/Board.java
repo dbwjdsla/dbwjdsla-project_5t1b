@@ -39,6 +39,4 @@ public class Board extends BoardEntity implements Serializable {
 		return "Board [attachCount=" + attachCount + ", attachments=" + attachments + "]";
 	}
 	
-
-	
 }

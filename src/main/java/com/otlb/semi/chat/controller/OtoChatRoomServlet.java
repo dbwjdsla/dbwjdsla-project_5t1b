@@ -8,12 +8,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.otlb.semi.emp.model.service.EmpService;
+import com.otlb.semi.emp.model.vo.Emp;
+
 /**
  * Servlet implementation class ChatroomServlet
  */
 @WebServlet("/otochat/otochatroom")
 public class OtoChatRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EmpService empService = new EmpService();
 
 	public OtoChatRoomServlet() {
 		System.out.println("////ChatroomServlet////...create");
@@ -24,19 +28,12 @@ public class OtoChatRoomServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-System.out.println("////ChatroomServlet///////doGet//////");		
-		
 		// 1. 
 		String otoSenderId = request.getParameter("otoSenderId");
 		String otoReceiverId = request.getParameter("otoReceiverId");	
 		String otoSRTp = request.getParameter("otoSRTp");
  		
-System.out.println("////ChatroomServlet///////otoSenderId//////"+otoSenderId);		
-System.out.println("////ChatroomServlet///////otoReceiverId//////"+otoReceiverId);		
-System.out.println("////ChatroomServlet///////otoSRTp//////"+otoSRTp);		
-		
-		String otoSenderNm = "";		
-		String otoReceiverNm = "";		
+System.out.println("[OtoChatRoomServlet]"+otoSenderId+":"+otoReceiverId+":"+otoSRTp);		
 		
 		// initialize
 		if (otoSenderId == null) {
@@ -45,32 +42,29 @@ System.out.println("////ChatroomServlet///////otoSRTp//////"+otoSRTp);
 		if (otoReceiverId == null) {
 			otoReceiverId = "";
 		}
-
-		//GET REceiver's Name
-		//Need DB check
-		if(otoSenderId.equals("202002")) {
-			otoSenderNm	=	"양소영";
-		}else if(otoSenderId.equals("202103")){
-			otoSenderNm	=	"홍길동";
-		}else{
-			otoSenderNm	=	"이송이";
+		if(otoSenderId.trim().equals("") || otoReceiverId.trim().equals("")) {
+			request.setAttribute("errorMsg", "파라미터 확인이 실패했습니다.");
+			request
+					.getRequestDispatcher("/WEB-INF/views/chat/otoChatRoomError.jsp")
+					.forward(request, response);
+			return;
 		}
-		if(otoReceiverId.equals("202002")) {
-			otoReceiverNm	=	"양소영";
-		}else if(otoReceiverId.equals("202103")){
-			otoReceiverNm	=	"홍길동";
-		}else {
-			otoReceiverNm	=	"이송이";
-		} 
+		
+		Emp sndEmp = empService.selectOneEmp(Integer.parseInt(otoSenderId));
+		Emp rcvEmp = empService.selectOneEmp(Integer.parseInt(otoReceiverId));
+
+ 
 		// 2. 
 		// websocket session 
 		request.getSession().setAttribute("otoSenderId", otoSenderId);
 		request.getSession().setAttribute("otoReceiverId", otoReceiverId);
 
 		request.setAttribute("otoSenderId", otoSenderId);
-		request.setAttribute("otoSenderNm", otoSenderNm);
+		request.setAttribute("otoSenderNm", sndEmp.getEmpName());
+		request.setAttribute("otoSenderDeptNm", sndEmp.getDeptName());
 		request.setAttribute("otoReceiverId", otoReceiverId);
-		request.setAttribute("otoReceiverNm", otoReceiverNm);
+		request.setAttribute("otoReceiverNm", rcvEmp.getEmpName());
+		request.setAttribute("otoReceiverDeptNm", rcvEmp.getDeptName());
 		request.setAttribute("otoSRTp", otoSRTp);
 
 		// 3. view 
