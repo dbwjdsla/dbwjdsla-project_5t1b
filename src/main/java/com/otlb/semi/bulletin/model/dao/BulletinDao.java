@@ -126,11 +126,16 @@ public class BulletinDao {
 				Board board = new Board();
 				
 				board.setNo(rset.getInt("no"));
+				board.setCategory(rset.getString("category"));
 				board.setTitle(rset.getString("title"));
+				board.setEmpName(rset.getString("emp_name"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setAttachCount(rset.getInt("attach_count"));
 				
 				list.add(board);
 			}

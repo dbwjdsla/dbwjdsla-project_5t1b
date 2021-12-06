@@ -27,7 +27,7 @@
 		<span>
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 	</a>
-	<p class="mb-4">익명게시판 입니다.</p>
+	<p class="mb-4">자유게시판 입니다.</p>
 
 	<!-- DataTales Example -->
 	<%-- <div class="card shadow mb-4">
@@ -61,7 +61,8 @@
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td><a
-								href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>"><span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
+								href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
+								<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
 							</a> 
 							<% if (board.getAttachCount() > 0) { %> 
 							 <span><i class="fa fa-paperclip"></i></span> 
