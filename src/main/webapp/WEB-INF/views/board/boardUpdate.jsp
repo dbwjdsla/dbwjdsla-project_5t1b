@@ -1,8 +1,14 @@
+<%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
+<%@page import="java.util.List"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
-
+<%
+	Board board = (Board) request.getAttribute("board");
+	System.out.println("board = " + board);
+%>
 <!-- Bootstrap core JavaScript-->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -24,100 +30,126 @@
 				<div class="card-body p-0">
 					<div class="p-5">
 						<br />
-						<div class="form-group">
-							<div class="row ">
-								<div class="col-7">자유 게시판 글쓰기</div>
 
-								<div class="col-2">
-									<input type="button" value="임시 저장"
-										class="btn btn-primary btn-user btn-block"
-										style="font-size: .8rem;" />
+						<div class="mx-auto" style="width: 150px;">자유 게시판 수정</div>
+
+						<br />
+						<!-- boardEnrollForm -->
+						<form id="boardUpdateForm" class="user"
+							action="<%=request.getContextPath()%>/board/boardUpdate"
+							method="POST" enctype="multipart/form-data">
+							<div class="row">
+								<div class="col-2 form-group">
+									<select class="form-control" name="category">
+										<option value="사담" <%= "사담".equals(board.getCategory()) ? "selected" : "" %>>사담</option>
+										<option value="취미" <%= "취미".equals(board.getCategory()) ? "selected" : "" %>>취미</option>
+									</select>
 								</div>
-								<div class="col-3">
-									<button class="btn btn-primary btn-user btn-block"
-										style="font-size: .8rem;">임시 저장 글 블러오기</button>
+								<div class="col-10 form-group">
+									<input type="text" class="form-control" name="title" id="title" value="<%= board.getTitle() %>"
+										placeholder="제목">
 								</div>
 							</div>
+							<div class="row">
+								<div class="form-group col-12">
+									<label for="textContent">내용</label>
+									<textarea name="content" id="textContent" cols="30" rows="12"
+										placeholder="내용을 입력해주세요." class="form-control"
+										style="resize: none;"><%= board.getContent() %></textarea>
+									<div class="counter" style="float: right;">
+										<span id="count">0</span><span>/1000</span>
+									</div>
+								</div>
+							</div>
+							<!-- 사원번호 -->
+							<input type="hidden" name="empNo"
+								value="<%=loginEmp.getEmpNo()%>" />
+							<!-- 게시물 번호 -->
+							<input type="hidden" name="no" value="<%= board.getNo() %>" />
+<hr />
+<%
+	List<Attachment> attachments = board.getAttachments();
+	if(attachments != null && !attachments.isEmpty()){
+%>
+							<div class="row justify-content-between">
+								<div class="col-10">기존 첨부파일</div>
+								<div class="col-1">삭제</div>
+							</div>
 							<br />
-							<!-- boardEnrollForm -->
-							<form 
-								id="boardEnrollForm" 
-								class="user" 
-								action="<%= request.getContextPath() %>/board/boardEnroll" 
-								method="POST"
-								enctype="multipart/form-data">
-								<div class="row">
-									<div class="col-2 form-group">
-									<select class="form-control" name="category">
-											<option value="" selected hidden disabled>말머리</option>
-											<option value="사담" >사담</option>
-											<option value="취미">취미</option>
-											<option value="정보">정보</option>
-											<option value="홍보">홍보</option>
-											<% if("FM".equals(loginEmp.getDeptCode())) { %>	
-											<option value="공지" style="color: red;">공지</option>							
-											<% } %>
-										</select> 									
-									</div>
-									<div class="col-10 form-group">
-										<input type="text" class="form-control" name="title" id="title" placeholder="제목">									
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group col-12">
-										<label for="textContent">내용</label>
-										<textarea name="content" id="textContent" cols="30" rows="12"
-											placeholder="내용을 입력해주세요." class="form-control"
-											style="resize: none;"></textarea>
-										<div class="counter" style="float: right;">
-											<span id="count">0</span><span>/1000</span>
-										</div>
-									</div>
-								</div>
-								<!-- 사원번호 -->
-								<input type="hidden" name="empNo" value="<%= loginEmp.getEmpNo() %>"/>
-
-								<!-- 첨부파일 -->
-								<span id="createInputFileByButton">
-									<div class="form-group">
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<button class="btn btn-primary" type="button" onclick="createInputFile()"
-													style="width: 50px;" id="button-addon1">+</button>
-											</div>
-											<div class="custom-file">
-												<input type="file" name="upFile1" class="w-70 custom-file-input" id="inputGroupFile01"
-													aria-describedby="button-addon1" style="cursor:pointer;"/>
-											    <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
-											</div>
-										</div>
-									</div>
-								</span>
-									<div style="color: red;" id="fileMessage"></div>
-
-								<br /> <br />
+<%
+		for(Attachment attach : attachments) {
+%>
+							<!-- 기존 첨부파일 -->
+							<span id="">
 								<div class="form-group">
-									<div class="row justify-content-around">
-										<div class="col-4">
-											<input type="button" value="작성 취소" id="cancelWriting"
-												class="btn btn-primary btn-block" onclick="cancel();" />
+									<div class="row justify-content-between">
+										<div class="col-10">
+											<div class="custom-file">
+												<input type="text"
+													class="w-70 custom-file-input" id="inputGroupFile01"
+													aria-describedby="button-addon1" style="cursor: pointer;" />
+												<label class="custom-file-label" for="inputGroupFile01"><%= attach.getOriginalFilename() %></label>
+											</div>	
 										</div>
-										<div class="col-4">
-											<input type="submit" value="작성 완료" id="submitButton"
-												class="btn btn-primary btn-block" />
+										<div class="col-1">
+											<div class="custom-control custom-switch" style="margin-top: 5px;">
+												<input type="checkbox" value="<%= attach.getNo() %>" name="delFile" class="custom-control-input" id="<%= attach.getNo() %>" />
+												<label for="<%= attach.getNo() %>" class="custom-control-label"></label>
+											</div>
 										</div>
 									</div>
 								</div>
+							</span>
+<%
 
-							</form>
+		}
+	}
+%>
+<hr />			
+							<!-- 새 첨부파일 -->
+							<div>첨부파일 추가</div>
+							<span id="createInputFileByButton">
+								<div class="form-group">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<button class="btn btn-primary" type="button" onclick="createInputFile()"
+												style="width: 50px;" id="button-addon1">+</button>
+										</div>
+										<div class="custom-file">
+											<input type="file" name="upFile1" class="w-70 custom-file-input" id="inputGroupFile01"
+												aria-describedby="button-addon1" style="cursor:pointer;"/>
+										    <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
+										</div>
+									</div>
+								</div>
+							</span>
+							<div style="color: red;" id="fileMessage"></div>
+
+
 							<br /> <br />
-						</div>
+							<div class="form-group">
+								<div class="row justify-content-around">
+									<div class="col-4">
+										<input type="button" value="수정 취소" id="cancelWriting"
+											class="btn btn-primary btn-block" onclick="cancel();" />
+									</div>
+									<div class="col-4">
+										<input type="submit" value="수정 완료" id="submitButton"
+											class="btn btn-primary btn-block" />
+									</div>
+								</div>
+							</div>
+
+						</form>
+						<br /> <br />
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <script>
 
 // 페이지 로딩시 제목으로 포커스됨
@@ -157,7 +189,7 @@ function boardValidate(){
 	
 	return true;
 }; 
-$("#boardEnrollForm").submit(boardValidate);
+$("#boardUpdateForm").submit(boardValidate);
 
 // 제목은 33글자 이상 입력 못함
 $("#title").keyup(({target}) => {
@@ -220,7 +252,6 @@ function createInputFile(){
 	if(count <= 5){
 		//console.log(count);
 		const idValue = "inputGroupFile0" + count;
-		const attrValue = "upFile" + count;
 		const buttonAddon = "button-addon" + count;
 		const inputFile = `
 		<div class="form-group" id="createdTag">
@@ -230,7 +261,7 @@ function createInputFile(){
 						style="width: 50px;" id=\${buttonAddon}>-</button>
 				</div>
 				<div class="custom-file">
-					<input type="file" class="w-70 custom-file-input" id=\${idValue} name=\${attrValue}
+					<input type="file" class="w-70 custom-file-input" id=\${idValue} name="upFile"
 						aria-describedby=\${buttonAddon} style="cursor:pointer;"/>
 						 <label class="custom-file-label" for=\${idValue} >클릭해서 파일 추가하기</label>
 				</div>
@@ -276,8 +307,5 @@ function removeTag(){
 }
 
 </script>
-
-
-
 
 

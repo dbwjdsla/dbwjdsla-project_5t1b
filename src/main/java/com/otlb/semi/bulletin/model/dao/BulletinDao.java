@@ -145,6 +145,57 @@ public class BulletinDao {
 		}
 		return list;
 	}
+
+	public List<Attachment> selectAttachmentByBoardNo(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachmentByBoardNo");
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attachments.add(attach);
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return attachments;
+	}
+
+	public int updateBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getContent());
+			pstmt.setInt(4, board.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 수정 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	public int selectTotalBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectTotalBoardCount");
@@ -164,6 +215,58 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return totalCount;
+
+	}
+
+	public int deleteAttachment(Connection conn, int delFileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, delFileNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Attachment selectOneAttachment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneAttachment");
+		ResultSet rset = null;
+		Attachment attach = null;
+		
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			throw new BulletinException("첨부파일 조회 오류!", e);
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
 	}
 
 	
@@ -245,3 +348,20 @@ public class BulletinDao {
 
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
