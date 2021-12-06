@@ -51,10 +51,15 @@ public class NoticeServlet extends HttpServlet {
 
 		
 		request.getSession().setAttribute("noticeSelvlet",notice);
+		System.out.println("notice getSession" + notice);
 		request.getSession().setAttribute("board",board);
+		System.out.println("notice getSession" + board);
 		request.getSession().setAttribute("anonymousBoard",anonymousBoard);
+		System.out.println("notice getSession" + anonymousBoard);
 		request.getSession().setAttribute("likeContent",likeContent);
+		System.out.println("notice getSession" + likeContent);
 		request.getSession().setAttribute("foodMenu",foodMenu);
+		System.out.println("notice getSession" + foodMenu);
 		String location = request.getContextPath() + "/index.jsp";
 		response.sendRedirect(location);
 		

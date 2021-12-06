@@ -1,4 +1,3 @@
-<%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,23 +15,23 @@
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">자유게시판</h1>
+	<h1 class="h3 mb-2 text-gray-800">익명 게시판</h1>
 	<%-- <div>
                     	<button class="btn btn-primary btn-icon-split" 
                     			onclick="location.href='<%= request.getContextPath() %>/board/boardForm'">글쓰기
                 		<i class="fa fa-pencil"></i>
                 		</button>
                     </div> --%>
+
 	<a class="btn btn-light btn-icon-split"
-		href="<%=request.getContextPath()%>/board/boardForm">
-		<span>
-		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
-	</a>	
+		href="<%=request.getContextPath()%>/board/anonymousBoardForm"> <span
+		class="text"><i class="fas fa-envelope fa-fw"></i>글쓰기</span>
+	</a>
 
 	<%-- <i class="fa fa-pencil">
                     <input type="button" value="글쓰기" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"
                     		class="btn btn-primary btn-icon-split" /></i> --%>
-	<p class="mb-4">자유롭게 글 작성하는 공간</p>
+	<p class="mb-4">익명 게시판입니다.</p>
 
 	<!-- DataTales Example -->
 	<!-- <div class="card shadow mb-4">
@@ -41,41 +40,32 @@
                         </div> -->
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<table class="table table-bordered" id="dataTable" width="100%"
+				cellspacing="0">
 				<thead>
 					<tr>
 						<th>글 번호</th>
-						<th>제목</th>						
+						<th>제목</th>
 						<th>작성자</th>
 						<th>추천수</th>
 						<th>작성일</th>
 						<th>조회</th>
 					</tr>
 				</thead>
-<%
+<%-- <%
 	List<Board> list = (List<Board>) request.getAttribute("list");
 	for(Board board : list){
 %>
 				<tbody>
 					<tr>
 						<td><%= board.getNo() %></td>
-						<td>
-							<a href="<%= request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>"><span>[<%= board.getCategory() %>]</span><%= board.getTitle() %>
-							</a>
-<% if(board.getAttachCount() > 0){ %>
-								<span>
-								<i class="fa fa-paperclip"></i></span>
-<% }	%>
-						</td>
-							
-							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
+						<td><%= board.getTitle() %></td>
 						<td><%= board.getEmpNo() %></td>
 						<td><%= board.getLikeCount() %></td>
 						<td><%= board.getRegDate() %></td>
 						<td><%= board.getReadCount() %></td>
 					</tr>
-<% } %>
-				</tbody>
+				</tbody> --%>
 			</table>
 		</div>
 	</div>

@@ -20,7 +20,8 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/borad/noticeList">
+
 					<span>공지사항</span>
 			</a></li>
 			
@@ -30,8 +31,6 @@
 
 
 			<!-- Nav Item - Charts -->
-
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
 
 			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/board/boardList">
 
@@ -43,7 +42,9 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>">
+
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/board/anonymousBoardList">
+
 					<span>익명게시판</span>
 			</a></li>
 
