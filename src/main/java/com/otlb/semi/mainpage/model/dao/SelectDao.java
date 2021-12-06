@@ -133,7 +133,7 @@ public class SelectDao {
 				likeContent= new LikeContent();
 				likeContent.setTitle(rset.getString("TITLE"));
 				likeContent.setContent(rset.getString("CONTENT"));
-				System.out.println("likeContentDao = " + likeContent);
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

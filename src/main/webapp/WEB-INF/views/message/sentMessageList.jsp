@@ -8,46 +8,8 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-			<div class="my-2"></div>
-			
-            <!-- 쪽지보내기 버튼 -->
-            <a class="btn btn-light btn-icon-split" href="<%=request.getContextPath()%>/message/messageForm">            
-                <span class="text"><i class="fas fa-envelope fa-fw"></i>쪽지쓰기</span>
-               </a>
-           	<div class="my-2"></div>
-            
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-           
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath() %>/message/messageList" >
-                    <i class="fa fa-envelope-open"></i>
-                    <span>받은쪽지함</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath() %>/message/sentMessageList" >
-                    <i class="fa fa-paper-plane"></i>
-                    <span>보낸쪽지함</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-           
-
-        </ul>
-        <!-- End of Sidebar -->
+         <!-- 쪽지합 nav -->
+		<%@ include file="/WEB-INF/views/message/common/messageNav.jsp"%>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
@@ -80,21 +42,28 @@ List<String> readDateList = (List<String>) request.getAttribute("readDateList");
 	//for(Message message : list){
 	for(int i = 0; i < list.size(); i++){
 		Message message = list.get(i);
-		if(message.getSenderDelYn().equals("N")){
 %>
                          	<tr>
                          		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td><%= message.getEmp().getEmpName() %></td>
+                         		<td>
+                         			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getReceiverEmpNo()%>"
+                         			style="color: #858796;" >
+                         				<%= message.getEmp().getEmpName() %>
+                         			</a>
+                         		</td>
                          		
                          		<td>
-                         			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"><%= message.getContent() %></a></td>
+                         			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"
+                         			style="color: #858796;" >
+                         				<%= message.getContent() %>
+                       				</a>
+                    			</td>
                          		<%-- <td><%= message.getSentDate() %></td> --%>
                          		<%-- <td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td> --%>
                          		<td><%= sentDateList.get(i) %></td>
                          		<td><%= readDateList.get(i) != null ? readDateList.get(i) : "읽지 않음" %></td>
                          	</tr>
 <% 
-		}
 	}
  %>
                          </tbody>

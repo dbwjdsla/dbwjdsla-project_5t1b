@@ -33,7 +33,6 @@ if(msg != null) session.removeAttribute("msg");
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script> 
 $(() =>{
-	
 <% if(msg != null){ %>
 	alert("<%= msg %>");
 <%  } %>
@@ -146,7 +145,18 @@ $(() =>{
 
 		<!-- Nav Item - Messages -->
 <%
+	String profileImagePath = "/img/profile/profile.png";
 	if(loginEmp != null){
+
+ 		try {
+
+	 		Boolean ownProfileImageExists = (boolean) ((session.getAttribute("ownProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
+/* 			if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
+ */	 		if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
+			else profileImagePath = "/img/profile/profile.png";
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+		}
 %>
 		<li class="nav-item dropdown no-arrow mx-1">
 			<a
@@ -156,7 +166,9 @@ $(() =>{
 				aria-haspopup="true" aria-expanded="false"> 
 				<i class="fas fa-envelope fa-fw"></i> 
 				<!-- Counter - Messages --> 
-				<span class="badge badge-danger badge-counter">7</span>
+				<!-- 안읽은 받은쪽지 카운터 -->
+				<span class="badge badge-danger badge-counter" id="counter"></span>
+				<input type="hidden" id="hiddenCnt" value=""/>
 			</a> 
 <%
 	}
@@ -237,7 +249,7 @@ $(() =>{
 			aria-expanded="false"> <span
 				class="mr-2 d-none d-lg-inline text-gray-600 small"><%=loginEmp.getEmpName()%></span>
 				<img class="img-profile rounded-circle"
-				src="${pageContext.request.contextPath}/img/profile/profile.png">
+				src="<%= request.getContextPath() + profileImagePath %>">
 		</a> <!-- Dropdown - User Information -->
 			<div
 				class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -264,3 +276,30 @@ $(() =>{
 
 </nav>
 <!-- End of Topbar -->
+<% if (loginEmp != null) { %>
+<script>
+$( document ).ready(function() {
+
+	//console.log("test");
+	var counter = document.getElementById("counter");
+    $.ajax({
+		url: "<%= request.getContextPath() %>/message/messageLoadCount.do",
+		method: "GET",
+		success(data){
+
+			//span태그에 count데이터 삽입
+			counter.innerText = data;
+
+		},
+		error: console.log
+
+	})
+		
+
+});
+</script>
+<%
+}
+%>
+
+

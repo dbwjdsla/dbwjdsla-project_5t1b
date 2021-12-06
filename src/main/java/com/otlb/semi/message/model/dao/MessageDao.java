@@ -107,6 +107,7 @@ public class MessageDao {
 	}
 
 	public Message selectOneReceivedMessage(Connection conn, int no) {
+		//받은 쪽지함 상세
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectOneReceivedMessage");
 		Message message = new Message();
@@ -117,11 +118,12 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setNo(rset.getInt("no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 				
 				Emp emp = new Emp();
-				emp.setEmpName(rset.getString("sender_emp_name"));
+				emp.setEmpName(rset.getString("sender_emp_name")); 
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
@@ -144,6 +146,7 @@ public class MessageDao {
 			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
+				message.setNo(rset.getInt("no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));
@@ -261,6 +264,29 @@ public class MessageDao {
 		}
 		
 		return result;
+	}
+
+	public int selectSentMessageCount(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		int count = 0;
+		String sql = prop.getProperty("selectSentMessageCount");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			throw new MessageException("받은 쪽지 갯수 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 }
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.otlb.semi.mainpage.model.service.SelectService;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
 import com.otlb.semi.mainpage.model.vo.Board;
@@ -19,7 +20,7 @@ import com.otlb.semi.mainpage.model.vo.Notice;
  * Servlet implementation class Notice
  */
 
-@WebServlet("/indexbyebye")
+@WebServlet("")
 public class NoticeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	SelectService selectService = new SelectService();
@@ -36,24 +37,28 @@ public class NoticeServlet extends HttpServlet {
 		Notice notice = selectService.selectNoticeContent();
 		System.out.println("notice Servlet" + notice);
 
+		Board board = selectService.selectBoardContent();
+		System.out.println("board  Servlet" + board);
+
+		AnonymousBoard anonymousBoard = selectService.selectAnonymousBoardContent();
+		System.out.println("AnonymousBoard Servlet" + anonymousBoard);
+		
 		LikeContent likeContent = selectService.selectLikeContent();
 		System.out.println("likeContent Servlet" + likeContent);
 
 		FoodMenu foodMenu = selectService.selectFoodMenu();
 		System.out.println("foodMenu Servlet" + foodMenu);
 
-		Board board = selectService.selectBoardContent();
-		System.out.println("board  Servlet" + board);
-
-		AnonymousBoard anonymousBoard = selectService.selectAnonymousBoardContent();
-		System.out.println("AnonymousBoard Servlet" + anonymousBoard);
-
-		request.setAttribute("noticeSelvlet", notice);
-		request.setAttribute("likeContent", likeContent);
-		request.setAttribute("foodMenu", foodMenu);
-		request.setAttribute("board", board);
-		request.setAttribute("anonymousBoard", anonymousBoard);
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		
+		request.getSession().setAttribute("noticeSelvlet",notice);
+		request.getSession().setAttribute("board",board);
+		request.getSession().setAttribute("anonymousBoard",anonymousBoard);
+		request.getSession().setAttribute("likeContent",likeContent);
+		request.getSession().setAttribute("foodMenu",foodMenu);
+		String location = request.getContextPath() + "/index.jsp";
+		response.sendRedirect(location);
+		
+		
 
 	}
 

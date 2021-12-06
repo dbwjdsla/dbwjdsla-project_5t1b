@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.otlb.semi.mainpage.model.vo.*" %>
+<%@ page import="com.otlb.semi.mainpage.model.vo.*"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
@@ -23,17 +23,12 @@
 							</h6>
 						</div>
 						<%
-						//Notice notice = (Notice) request.getAttribute("notice");
-						Notice notice = new Notice();
+						Notice notice = (Notice) session.getAttribute("notice");
 						%>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
 							<ul>
-							<li><%= notice.getTitle()%><%= notice.getContent() %></li>
-							<li><%= notice.getTitle()%><%= notice.getContent() %></li>
-							<li><%= notice.getTitle()%><%= notice.getContent() %></li>
-							<li><%= notice.getTitle()%><%= notice.getContent() %></li>
-							<li><%= notice.getTitle()%><%= notice.getContent() %></li>
+								<li><%=notice%></li>
 							</ul>
 
 						</div>
@@ -43,28 +38,19 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
 								자유게시판 <i class="fas fa-users"></i>
-						
 							</h6>
 						</div>
 						<%
-						//Board board = (Board) request.getAttribute("board");
-						Board board = new Board();
-						board.setTitle("testdate");
+						Board board = (Board) session.getAttribute("board");
 						%>
-						
+
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
-							
-							<ul>
-							<li><%= board.getTitle() %><%= board.getContent() %></li>
-							<li><%= board.getTitle() %><%= board.getContent() %></li>
-							<li><%= board.getTitle() %><%= board.getContent() %></li>
-							<li><%= board.getTitle() %><%= board.getContent() %></li>
-							<li><%= board.getTitle() %><%= board.getContent() %></li>
-							</ul>
-							
 
-						
+							<ul>
+								<li><%=board%></li>
+							</ul>
+
 						</div>
 					</div>
 				</div>
@@ -75,25 +61,19 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
 								인기게시글 <i class="far fa-thumbs-up"></i>
-						
+
 							</h6>
 						</div>
 						<%
-						//LikeContent likeContent = (LikeContent) request.getAttribute("likeContent");
-						LikeContent likeContent = new LikeContent();
-						likeContent.setTitle("testdata");
+						LikeContent likeContent = (LikeContent) session.getAttribute("likeContent");
 						%>
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
 							<ul>
-							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
-							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
-							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
-							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
-							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
+								<li><%=likeContent%></li>
 							</ul>
-							
+
 						</div>
 					</div>
 					<!-- 익명게시판부분 -->
@@ -101,29 +81,25 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
 								익명게시판 <i class="fas fa-user-secret"></i>
-						
+
 							</h6>
 						</div>
 						<%
-						//AnonymousBoard anonymousBoard = (AnonymousBoard) request.getAttribute("anonymousBoard");
-						AnonymousBoard anonymousBoard = new AnonymousBoard();
-						anonymousBoard.setTitle("testdata");
+						AnonymousBoard anonymousBoard = (AnonymousBoard) session.getAttribute("anonymousBoard");
 						%>
+
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
 							<ul>
-							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
-							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
-							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
-							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
-							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
+								<li><%=anonymousBoard%></li>
 							</ul>
 						</div>
 					</div>
 				</div>
 				<!-- 캘린더 & 오늘의 메뉴 부분-->
 				<div class="col-lg-6 mb-4">
-					<!-- 캘린더 부분  -->
+
+					<!-- 캘린더 부분 			
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
@@ -131,23 +107,26 @@
 							</h6>
 						</div>
 						<div class="card-body">
-
 						</div>
 					</div>
+				 -->
+
 					<!-- 오늘의 메뉴 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
 								오늘의 메뉴 <i class="fas fa-utensils"></i>
-						
+
 							</h6>
 						</div>
 						<%
-						//FoodMenu foodMenu = (FoodMenu)request.getAttribute("foodMenu");
-						
+						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
 						%>
 						<div class="card-body">
-							
+							<ul>
+								<li><%=foodMenu%></li>
+							</ul>
+
 						</div>
 					</div>
 				</div>
@@ -157,15 +136,13 @@
 	</div>
 
 	<script>
-	// li 태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
-	$( 'li' ).click( function() {
-  if(loginEmp = null){
-	  alert('로그인 후 이용 해주세요');
-	  $('.btn btn-sm btn-primary shadow-sm').focus();
-  }
-} );
-	
-	
- 
-	<!-- End of Main Content -->
+		// li 태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
+		$('li').click(function() {
+			if (loginEmp = null) {
+				alert('로그인 후 이용 해주세요');
+				$('.btn btn-sm btn-primary shadow-sm').focus();
+			}
+		});
+
+		<!--End of Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

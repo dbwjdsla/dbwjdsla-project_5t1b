@@ -6,61 +6,27 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
 	Message message = (Message) request.getAttribute("message");
+	String date = (String) request.getAttribute("date");
 %>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-			<div class="my-2"></div>
-			
-            <!-- 쪽지보내기 버튼 -->
-            <a class="btn btn-light btn-icon-split" href="<%=request.getContextPath()%>/message/messageForm">            
-                <span class="text"><i class="fas fa-envelope fa-fw"></i>쪽지쓰기</span>
-               </a>
-           	<div class="my-2"></div>
-            
-
-            <!-- Divider -->
-            <hr class="sidebar-divider my-0">
-
-           
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath() %>/message/messageList" >
-                    <i class="fa fa-envelope-open"></i>
-                    <span>받은쪽지함</span>
-                </a>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="<%= request.getContextPath() %>/message/sentMessageList" >
-                    <i class="fa fa-paper-plane"></i>
-                    <span>보낸쪽지함</span>
-                </a>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-           
-
-        </ul>
-        <!-- End of Sidebar -->
+         <!-- 쪽지합 nav -->
+		<%@ include file="/WEB-INF/views/message/common/messageNav.jsp"%>
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+			<div class="container">
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="replyMessage();">답장</button>
+			</div>
             <!-- Main Content -->
             <div id="content">
-	 		<div class="row">
-	 			
-	 		
-	 		</div>
+				<div class="row">
+					
+				
+				</div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 					<hr class="sidebar-divider">
@@ -72,7 +38,7 @@
                            </tr>
                          	<tr>
                          		<th>받은시간</th>
-                         		<td><%= message.getSentDate() %></td>
+                         		<td><%= date %></td>
                          	</tr>
 	 					</table>
  					
@@ -84,10 +50,31 @@
 
                 </div>
                 <!-- /.container-fluid -->
-
+				<form
+		 			id = "delFrm"
+					name="messageDelFrm"
+					method="POST" 
+					action="<%= request.getContextPath() %>/message/receivedMessageDelete" >
+					<input type="hidden" id="no" name="no" value="<%= message.getNo() %>" />
+				</form>	
+				<form
+		 			id = "replyFrm"
+					name="messageReplyFrm"
+					method="GET" 
+					action="<%= request.getContextPath() %>/message/messageForm" >
+					<input type="hidden" id="senderNo" name="senderNo" value="<%= message.getSenderEmpNo() %>" />
+				</form>	
             </div>
             <!-- End of Main Content -->
 <script>
+//삭제버튼
+function delMessage(){
+	$("form[name=messageDelFrm]").submit();	
+}
 
+//답장버튼
+function replyMessage() {
+	$("form[name=messageReplyFrm]").submit();	
+}
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

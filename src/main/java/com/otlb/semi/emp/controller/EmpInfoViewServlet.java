@@ -28,6 +28,7 @@ public class EmpInfoViewServlet extends HttpServlet {
 		
 		try {
 			int empNo = Integer.parseInt(request.getParameter("empNo"));
+			System.out.println(empNo);
 			Emp emp = empService.selectOneEmp(empNo);
 			
 			request.setAttribute("emp", emp);

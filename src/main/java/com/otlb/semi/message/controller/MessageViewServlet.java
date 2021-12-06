@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.otlb.semi.common.DateFormatUtils;
+import com.otlb.semi.common.LineFormatUtils;
 import com.otlb.semi.message.model.service.MessageService;
 import com.otlb.semi.message.model.vo.Message;
 
@@ -22,16 +24,22 @@ public class MessageViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//받은쪽지함
+		
 		//글번호
 		int no = Integer.valueOf(request.getParameter("no"));
 		
 		int result = messageService.updateReadDate(no);
 		String msg = result > 0 ? null : "쪽지 읽음처리 오류";
-		System.out.println("쪽지 읽음처리 결과: " + result);
 		
-		Message message = messageService.selectOneSentMessage(no);
+		Message message = messageService.selectOneReceivedMessage(no);
+		message.setContent(LineFormatUtils.formatLine(message.getContent()));
+		System.out.println("%%%%" + message);
+	
+		String date = DateFormatUtils.formatDate(message.getSentDate());
 		
 		request.setAttribute("message", message);
+		request.setAttribute("date", date);
 		request.setAttribute("msg", msg);
 		
 		request

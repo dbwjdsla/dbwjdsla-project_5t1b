@@ -17,7 +17,7 @@ import com.otlb.semi.emp.model.vo.Emp;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter(urlPatterns = {"/message/*"})
+@WebFilter(urlPatterns = {"/messagejj/*"})
 public class LoginFilter implements Filter {
 
     /**
@@ -40,12 +40,14 @@ public class LoginFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		
+
+    
 		//로그인여부 검사
 		HttpSession session = httpRequest.getSession();
 		Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		
 		if(loginEmp == null) {
+			System.out.println("파솔라시도");
 			session.setAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			httpResponse.sendRedirect(httpRequest.getContextPath() + "/");
 			return;
