@@ -26,7 +26,7 @@
 						<br />
 						<div class="form-group">
 							<div class="row ">
-								<div class="col-7">자유 게시판 글쓰기</div>
+								<div class="col-7">공지사항 글쓰기</div>
 
 								<div class="col-2">
 									<input type="button" value="임시 저장"
@@ -88,7 +88,6 @@
 										</div>
 									</div>
 								</span>
-									<div style="color: red;" id="fileMessage"></div>
 
 								<br /> <br />
 								<div class="form-group">
@@ -221,7 +220,7 @@ function createInputFile(){
 		<div class="form-group" id="createdTag">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<button class="btn btn-danger" type="button" onclick="removeTag();"
+					<button class="btn btn-danger" type="button" onclick="document.getElementById('createdTag').remove();"
 						style="width: 50px;" id=\${buttonAddon}>-</button>
 				</div>
 				<div class="custom-file">
@@ -242,33 +241,17 @@ function createInputFile(){
 			$(e.target).next().html(fileName);	
 			console.log($(e.target).next());
 		});
-	
-		switch(count){
-		case 4: $("#button-addon2").prop("disabled", true); break;
-		case 5: $("#button-addon3").prop("disabled", true); break;
-		case 6: $("#button-addon4").prop("disabled", true); 
-				$("#fileMessage").html("파일은 최대 5개까지 첨부 가능합니다.");		
-				$("#button-addon1").prop("disabled", true);
-				break;		
+		
+		if(count > 5) {
+			$("#button-addon1")
+				.prop("disabled", true);	
 		}
 		
+		
 	}	
-	
 };
 
-function removeTag(){
-	count--;
-	$('#createInputFileByButton').children().last().remove(); 
-	switch(count){
-	case 3: $("#button-addon2").prop("disabled", false); break;
-	case 4: $("#button-addon3").prop("disabled", false); break;
-	case 5: $("#button-addon4").prop("disabled", false); 
-			$("#fileMessage").html("");		
-			$("#button-addon1").prop("disabled", false);
-			break;
-	}
-	
-}
+
 
 </script>
 
