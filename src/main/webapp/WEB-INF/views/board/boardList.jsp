@@ -78,7 +78,7 @@
 							 </td>
 
 							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
-							<td><%= board.getEmpName()%></td>
+							<%-- <td><%= board.getEmpName()%></td> --%>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
 							<td><%= board.getReadCount()%></td>

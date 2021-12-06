@@ -1,7 +1,6 @@
 package com.otlb.semi.message.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.otlb.semi.emp.model.vo.Emp;

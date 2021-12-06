@@ -16,6 +16,7 @@ import com.otlb.semi.bulletin.model.exception.BulletinException;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.Notice;
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class BulletinDao {
 
@@ -128,7 +129,7 @@ public class BulletinDao {
 				board.setNo(rset.getInt("no"));
 				board.setTitle(rset.getString("title"));
 				board.setContent(rset.getString("content"));
-				board.setRegDate(rset.getDate("reg_date"));
+				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
@@ -285,13 +286,18 @@ public class BulletinDao {
                 board.setNo(rset.getInt("no"));
                 board.setTitle(rset.getString("title"));
                 board.setContent(rset.getString("content"));
-                board.setRegDate(rset.getDate("reg_date"));
+                board.setRegDate(rset.getTimestamp("reg_date"));
                 board.setReadCount(rset.getInt("read_count"));
                 board.setLikeCount(rset.getInt("like_count"));
                 board.setReportYn(rset.getString("report_yn"));
                 board.setEmpNo(rset.getInt("emp_no"));
                 board.setCategory(rset.getString("category"));
                 board.setDeleteYn(rset.getString("delete_yn"));
+                
+                Emp emp = new Emp();
+                emp.setEmpName(rset.getString("emp_name"));
+                emp.setDeptName(rset.getString("dept_name"));
+                board.setEmp(emp);
             }
         } catch (SQLException e) {
             throw new BulletinException("게시판 조회 오류", e);
@@ -319,8 +325,10 @@ public class BulletinDao {
 				notice.setNo(rset.getInt("no"));
 				notice.setTitle(rset.getString("title"));
 				notice.setContent(rset.getString("content"));
-				notice.setEmpName(rset.getString("emp_name"));
-				notice.setRegDate(rset.getDate("reg_date"));
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				notice.setEmp(emp);
+				notice.setRegDate(rset.getTimestamp("reg_date"));
 				notice.setReadCount(rset.getInt("read_count"));
 				
 //				board.setCommentCount(rset.getInt("comment_count"));

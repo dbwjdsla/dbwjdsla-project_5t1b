@@ -2,6 +2,9 @@ package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
+
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class BoardEntity extends Bulletin implements Serializable {
 
@@ -15,8 +18,8 @@ public class BoardEntity extends Bulletin implements Serializable {
 		super();
 	}
 
-	public BoardEntity(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn, int empNo, String category, String deleteYn, String empName) {
-		super(no, title, content, regDate, readCount, empNo, deleteYn, empName);
+	public BoardEntity(int no, String title, String content, Timestamp regDate, int readCount, int likeCount, String reportYn, int empNo, String category, String deleteYn, Emp emp) {
+		super(no, title, content, regDate, readCount, empNo, deleteYn, emp);
 		this.likeCount = likeCount;
 		this.reportYn = reportYn;
 		this.category = category;
