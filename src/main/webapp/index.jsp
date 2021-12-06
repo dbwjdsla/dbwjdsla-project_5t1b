@@ -27,9 +27,9 @@
 						%>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
-							<ul>
-								<li><%= notice %></li>
-							</ul>
+				
+							<p><a href="#">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a></p>
+							 
 
 						</div>
 					</div>
@@ -46,7 +46,8 @@
 
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
-							<p>[<%= board.getTitle() %>] : <%= board.getContent() %></p>
+							
+							<p><a href="#">[<%= board.getTitle() %>] : <%= board.getContent() %></a></p>
 
 						</div>
 					</div>
@@ -67,7 +68,7 @@
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
-							<p>[<%= likeContent.getTitle() %>] : <%= likeContent.getContent() %></p>
+							<p><a href="#">[<%= likeContent.getTitle() %>] : <%= likeContent.getContent() %></a></p>
 						</div>
 					</div>
 					<!-- 익명게시판부분 -->
@@ -84,7 +85,7 @@
 
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
-							<p>[<%= anonymousBoard.getTitle() %>] : <%= anonymousBoard.getContent() %></p>
+							<p><a href="#">[<%= anonymousBoard.getTitle() %>] : <%= anonymousBoard.getContent() %></a></p>
 						</div>
 					</div>
 				</div>
@@ -116,8 +117,6 @@
 						%>
 						<div class="card-body">
 						
-						    <p style = "text-align:center;"><%= foodMenu.getMenu_date() %></p>
-						    <hr>
 							<p style ="list-style-type : none; text-align:center; ">[밥]</p>
 							<p style = "text-align:center;"><%= foodMenu.getMain() %></p>
 							<p style ="list-style-type : none; text-align:center; ">[국]</p>
@@ -139,8 +138,8 @@
 	</div>
 
 	<script>
-		// li 태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
-		$('li').click(function() {
+		//  태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
+		$('p').click(function() {
 			if (loginEmp = null) {
 				alert('로그인 후 이용 해주세요');
 				$('.btn btn-sm btn-primary shadow-sm').focus();

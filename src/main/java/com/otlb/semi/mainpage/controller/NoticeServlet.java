@@ -50,7 +50,7 @@ public class NoticeServlet extends HttpServlet {
 		System.out.println("foodMenu Servlet" + foodMenu);
 
 		
-		request.getSession().setAttribute("noticeSelvlet",notice);
+		request.getSession().setAttribute("notice",notice);
 		request.getSession().setAttribute("board",board);
 		request.getSession().setAttribute("anonymousBoard",anonymousBoard);
 		request.getSession().setAttribute("likeContent",likeContent);
