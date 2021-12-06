@@ -1,7 +1,7 @@
 package com.otlb.semi.mainpage.model.service;
 
 import java.sql.Connection;
-
+import java.util.List;
 
 import com.otlb.semi.mainpage.model.dao.SelectDao;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
@@ -13,41 +13,39 @@ import com.otlb.semi.mainpage.model.vo.Notice;
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.close;
 
-
 public class SelectService {
 	SelectDao selectDao = new SelectDao();
 
-
 	// 공지사항 조회
-	public Notice selectNoticeContent() {
+	public List<Notice> selectNoticeContent() {
 		Connection conn = getConnection();
-		Notice notice = selectDao.selectNoticeContent(conn);
+		List<Notice> noticeList = selectDao.selectNoticeContent(conn);
 		close(conn);
-		return notice;
+		return noticeList;
 	}
 
 	// 자유게시판 조회
-	public Board selectBoardContent() {
+	public List<Board> selectBoardContent() {
 		Connection conn = getConnection();
-		Board board = SelectDao.selectBoardContent(conn);
+		List<Board> boardList = SelectDao.selectBoardContent(conn);
 		close(conn);
-		return board;
+		return boardList;
 	}
 
-	// 익명 게시판 조회 
-	public AnonymousBoard selectAnonymousBoardContent() {
+	// 익명 게시판 조회
+	public List<AnonymousBoard> selectAnonymousBoardContent() {
 		Connection conn = getConnection();
-		AnonymousBoard anonymousBoard = SelectDao.selectAnonymousBoardContent(conn);
+		List<AnonymousBoard> anonymousBoardList = SelectDao.selectAnonymousBoardContent(conn);
 		close(conn);
-		return anonymousBoard;
+		return anonymousBoardList;
 	}
 
-	// 인기 게시글 조회 
-	public LikeContent selectLikeContent() {
+	// 인기 게시글 조회
+	public List<LikeContent> selectLikeContent() {
 		Connection conn = getConnection();
-		LikeContent likeContent = SelectDao.selectLikeContent(conn);
+		List<LikeContent> likeContentList = SelectDao.selectLikeContent(conn);
 		close(conn);
-		return likeContent;
+		return likeContentList;
 	}
 
 	// 오늘의 메뉴 조회

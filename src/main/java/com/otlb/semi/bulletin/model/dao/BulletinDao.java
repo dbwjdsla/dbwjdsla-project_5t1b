@@ -16,6 +16,7 @@ import com.otlb.semi.bulletin.model.exception.BulletinException;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.Notice;
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class BulletinDao {
 
@@ -130,7 +131,7 @@ public class BulletinDao {
 				board.setTitle(rset.getString("title"));
 				board.setEmpName(rset.getString("emp_name"));
 				board.setContent(rset.getString("content"));
-				board.setRegDate(rset.getDate("reg_date"));
+				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
@@ -149,6 +150,57 @@ public class BulletinDao {
 		}
 		return list;
 	}
+
+	public List<Attachment> selectAttachmentByBoardNo(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachmentByBoardNo");
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attachments.add(attach);
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return attachments;
+	}
+
+	public int updateBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getContent());
+			pstmt.setInt(4, board.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 수정 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
 	public int selectTotalBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectTotalBoardCount");
@@ -168,6 +220,58 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return totalCount;
+
+	}
+
+	public int deleteAttachment(Connection conn, int delFileNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, delFileNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 삭제 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public Attachment selectOneAttachment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectOneAttachment");
+		ResultSet rset = null;
+		Attachment attach = null;
+		
+		try{
+			//미완성쿼리문을 가지고 객체생성.
+			pstmt = conn.prepareStatement(sql);
+			//쿼리문미완성
+			pstmt.setInt(1, no);
+			//쿼리문실행
+			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()){
+				attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+			}
+		}catch(Exception e){
+			throw new BulletinException("첨부파일 조회 오류!", e);
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return attach;
 	}
 
 	
@@ -187,13 +291,18 @@ public class BulletinDao {
                 board.setNo(rset.getInt("no"));
                 board.setTitle(rset.getString("title"));
                 board.setContent(rset.getString("content"));
-                board.setRegDate(rset.getDate("reg_date"));
+                board.setRegDate(rset.getTimestamp("reg_date"));
                 board.setReadCount(rset.getInt("read_count"));
                 board.setLikeCount(rset.getInt("like_count"));
                 board.setReportYn(rset.getString("report_yn"));
                 board.setEmpNo(rset.getInt("emp_no"));
                 board.setCategory(rset.getString("category"));
                 board.setDeleteYn(rset.getString("delete_yn"));
+                
+                Emp emp = new Emp();
+                emp.setEmpName(rset.getString("emp_name"));
+                emp.setDeptName(rset.getString("dept_name"));
+                board.setEmp(emp);
             }
         } catch (SQLException e) {
             throw new BulletinException("게시판 조회 오류", e);
@@ -221,8 +330,10 @@ public class BulletinDao {
 				notice.setNo(rset.getInt("no"));
 				notice.setTitle(rset.getString("title"));
 				notice.setContent(rset.getString("content"));
-				notice.setEmpName(rset.getString("emp_name"));
-				notice.setRegDate(rset.getDate("reg_date"));
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				notice.setEmp(emp);
+				notice.setRegDate(rset.getTimestamp("reg_date"));
 				notice.setReadCount(rset.getInt("read_count"));
 				
 //				board.setCommentCount(rset.getInt("comment_count"));
@@ -242,3 +353,20 @@ public class BulletinDao {
 
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

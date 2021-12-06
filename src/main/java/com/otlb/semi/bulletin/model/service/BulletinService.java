@@ -69,15 +69,36 @@ public class BulletinService {
 	}
 
 	public Board selectOneBoard(int no) {
-        Connection conn = getConnection();
-        Board board = bulletinDao.selectOneBoard(conn, no);
-        close(conn);
-        return board;
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneBoard(conn, no);
+		List<Attachment> attachments = bulletinDao.selectAttachmentByBoardNo(conn, no);
+		board.setAttachments(attachments);
+		close(conn);
+		return board;
 	}
 
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateBoard(conn, board);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = bulletinDao.insertAttachment(conn, attach);
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 
 	public List<Board> selectAllBoard() {
@@ -94,6 +115,32 @@ public class BulletinService {
 		return totalCount;
 	}
 
+
+	public Attachment selectOneAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = bulletinDao.selectOneAttachment(conn, no);
+		close(conn);
+		return attach;
+
+	}
+
+	public int deleteAttachment(int delFileNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteAttachment(conn, delFileNo);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	
 	public List<Notice> selectAllNotice() {
 		Connection conn = getConnection();
 		List<Notice> list = bulletinDao.selectAllNotice(conn);

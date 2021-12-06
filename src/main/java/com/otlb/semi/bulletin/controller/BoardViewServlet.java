@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.common.DateFormatUtils;
+import com.otlb.semi.common.LineFormatUtils;
 import com.otlb.semi.message.model.service.MessageService;
 
 /**
@@ -27,11 +29,16 @@ public class BoardViewServlet extends HttpServlet {
 		
 		Board board = blletinService.selectOneBoard(no);
 		System.out.println(board);
+		String regDate = DateFormatUtils.formatDate(board.getRegDate());
+		String content = LineFormatUtils.formatLine(board.getContent());
+		
 		request.setAttribute("board", board);
+		request.setAttribute("regDate", regDate);
+		request.setAttribute("content", content);
 
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")
-			.forward(request, response);;
+			.forward(request, response);
 	}
 
 }

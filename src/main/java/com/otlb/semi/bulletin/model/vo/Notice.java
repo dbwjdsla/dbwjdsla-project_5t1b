@@ -1,8 +1,10 @@
 package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
+
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class Notice extends Bulletin implements Serializable {
 
@@ -13,9 +15,9 @@ public class Notice extends Bulletin implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Notice(int no, String title, String content, Date regDate, int readCount, int empNo, String deleteYn,
-			String empName, int attachCount) {
-		super(no, title, content, regDate, readCount, empNo, deleteYn, empName);
+	public Notice(int no, String title, String content, Timestamp regDate, int readCount, int empNo, String deleteYn,
+			Emp emp, int attachCount) {
+		super(no, title, content, regDate, readCount, empNo, deleteYn, emp);
 	}
 
 	public Notice(int attachCount, List<Attachment> attachments) {
@@ -37,7 +39,7 @@ public class Notice extends Bulletin implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Notice [attachCount=" + attachCount + ", attachments=" + attachments + "]";
+		return super.toString() + "Notice [attachCount=" + attachCount + ", attachments=" + attachments + "]";
 	}
 	
 }

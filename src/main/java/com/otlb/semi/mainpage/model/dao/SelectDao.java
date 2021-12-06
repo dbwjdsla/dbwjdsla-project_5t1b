@@ -9,7 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
@@ -35,10 +36,11 @@ public class SelectDao {
 	}
 
 	// 공지사항 조회
-	public Notice selectNoticeContent(Connection conn) {
+	public List<Notice> selectNoticeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("noticeSelect");
 		ResultSet rset = null;
+		List<Notice> noticeList = new ArrayList<>();
 		Notice notice = null;
 
 		try {
@@ -50,6 +52,7 @@ public class SelectDao {
 				notice.setTitle(rset.getString("TITLE"));
 				notice.setContent(rset.getString("CONTENT"));
 				
+				noticeList.add(notice);
 
 			}
 		} catch (SQLException e) {
@@ -58,15 +61,16 @@ public class SelectDao {
 			close(rset);
 			close(pstmt);
 		}
-		return notice;
+		return noticeList;
 	}
 
 
 	// 자유게시판 조회
-	public static Board selectBoardContent(Connection conn) {
+	public static List<Board> selectBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("boardSelect");
 		ResultSet rset = null;
+		List<Board> boardList = new ArrayList<>();
 		Board board = null;
 
 		try {
@@ -77,6 +81,7 @@ public class SelectDao {
 				board = new Board();
 				board.setTitle(rset.getString("TITLE"));
 				board.setContent(rset.getString("CONTENT"));
+				boardList.add(board);
 
 			}
 		} catch (SQLException e) {
@@ -87,16 +92,17 @@ public class SelectDao {
 			
 		}
 
-		return board;
+		return boardList;
 	}
 
 	// 익명 게시판 조회
-	public static AnonymousBoard selectAnonymousBoardContent(Connection conn) {
+	public static List<AnonymousBoard> selectAnonymousBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("anonymousBoardSelect");
 		ResultSet rset = null;
+		List<AnonymousBoard> anonymousBoardList = new ArrayList<>();
 		AnonymousBoard anonymousBoard = null;
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
@@ -105,6 +111,7 @@ public class SelectDao {
 				anonymousBoard = new AnonymousBoard();
 				anonymousBoard.setTitle(rset.getString("TITLE"));
 				anonymousBoard.setContent(rset.getString("CONTENT"));
+				anonymousBoardList.add(anonymousBoard);
 
 			}
 		} catch (SQLException e) {
@@ -115,14 +122,15 @@ public class SelectDao {
 			close(pstmt);
 		}
 
-		return anonymousBoard;
+		return anonymousBoardList;
 	}
 
 	// 인기 게시글
-	public static LikeContent selectLikeContent(Connection conn) {
+	public static List<LikeContent> selectLikeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("likeContentSelect");
 		ResultSet rset = null;
+		List<LikeContent> likeContentList = new ArrayList<>();
 		LikeContent likeContent = null;
 
 		try {
@@ -133,7 +141,7 @@ public class SelectDao {
 				likeContent= new LikeContent();
 				likeContent.setTitle(rset.getString("TITLE"));
 				likeContent.setContent(rset.getString("CONTENT"));
-				
+				likeContentList.add(likeContent);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -142,7 +150,7 @@ public class SelectDao {
 			close(pstmt);
 		}
 
-		return likeContent;
+		return likeContentList;
 	}
 	
     // 오늘의 메뉴 조회 

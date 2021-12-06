@@ -1,7 +1,9 @@
 package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
+
+import com.otlb.semi.emp.model.vo.Emp;
 
 	/**
 	 *	VO 클래스 상속 관계도  
@@ -19,17 +21,17 @@ abstract public class Bulletin implements Serializable {
 	private int no;
 	private String title;
 	private String content;
-	private Date regDate;
+	private Timestamp regDate;
 	private int readCount;
 	private int empNo;
 	private String deleteYn;
-	private String empName;
+	private Emp emp;
 	
 	public Bulletin() {
 		super();
 	}
 
-	public Bulletin(int no, String title, String content, Date regDate, int readCount, int empNo, String deleteYn, String empName) {
+	public Bulletin(int no, String title, String content, Timestamp regDate, int readCount, int empNo, String deleteYn, Emp emp) {
 		super();
 		this.no = no;
 		this.title = title;
@@ -38,7 +40,7 @@ abstract public class Bulletin implements Serializable {
 		this.readCount = readCount;
 		this.empNo = empNo;
 		this.deleteYn = deleteYn;
-		this.empName = empName;
+		this.emp = emp;
 	}
 
 	public int getNo() {
@@ -65,11 +67,11 @@ abstract public class Bulletin implements Serializable {
 		this.content = content;
 	}
 
-	public Date getRegDate() {
+	public Timestamp getRegDate() {
 		return regDate;
 	}
 
-	public void setRegDate(Date regDate) {
+	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
 	}
 
@@ -97,18 +99,18 @@ abstract public class Bulletin implements Serializable {
 		this.deleteYn = deleteYn;
 	}
 	
-	public String getEmpName() {
-		return empName;
+	public Emp getEmp() {
+		return emp;
 	}
 	
-	public void setEmpName(String empName) {
-		this.empName = empName;
+	public void setEmp(Emp emp) {
+		this.emp = emp;
 	}
 
 	@Override
 	public String toString() {
 		return "Bulletin [no=" + no + ", title=" + title + ", content=" + content + ", regDate=" + regDate
-				+ ", readCount=" + readCount + ", empNo=" + empNo + ", deleteYn=" + deleteYn + ", empName=" + "]";
+				+ ", readCount=" + readCount + ", empNo=" + empNo + ", deleteYn=" + deleteYn + ", emp=" + emp + "]";
 	}
 	
 }
