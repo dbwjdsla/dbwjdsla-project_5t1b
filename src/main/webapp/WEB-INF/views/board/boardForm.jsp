@@ -83,11 +83,10 @@
 											<div class="custom-file">
 												<input type="file" name="upFile1" class="w-70 custom-file-input" id="inputGroupFile01"
 													aria-describedby="button-addon1" style="cursor:pointer;"/>
-													 <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
+											    <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
 											</div>
 										</div>
 									</div>
-								
 								</span>
 
 								<br /> <br />
@@ -98,7 +97,7 @@
 												class="btn btn-primary btn-block" onclick="cancel();" />
 										</div>
 										<div class="col-4">
-											<input type="submit" value="작성 완료"
+											<input type="submit" value="작성 완료" id="submitButton"
 												class="btn btn-primary btn-block" />
 										</div>
 									</div>
@@ -114,6 +113,7 @@
 	</div>
 </div>
 <script>
+
 // 페이지 로딩시 제목으로 포커스됨
 window.onload = () => {
 	title.focus();
@@ -153,9 +153,24 @@ function boardValidate(){
 }; 
 $("#boardEnrollForm").submit(boardValidate);
 
+// 제목은 33글자 이상 입력 못함
+$("#title").keyup(({target}) => {
+	const $target = $(target);
+	const len = $target.val().length;
+	if(len > 33){
+		alert("제목은 33글자 이상 작성할 수 없습니다.");
+		$("#title").focus();
+		$("#submitButton")
+		.attr("class", "btn btn-danger btn-block")
+		.prop("disabled", true);	
+	} else {
+		$("#submitButton")
+		.attr("class", "btn btn-primary btn-block")
+		.prop("disabled", false);	
+	}
+})
 
-
-// 3000글자 이상 타이핑시 #textContent 빨간색으로 변경
+// 1000글자 이상 타이핑시 #textContent & 작성완료 버튼 빨간색으로 변경
 $("#textContent").keyup(({target}) => {
 	//console.log(target);
 	//console.log(target.value);
@@ -164,52 +179,79 @@ $("#textContent").keyup(({target}) => {
 	$("#count")
 		.html(len)
 		.css("color", len > 1000 ? "red" : "gray");
+	if(len > 1000) {
+		$("#submitButton")
+				.attr("class", "btn btn-danger btn-block")
+				.prop("disabled", true);		
+	} else {
+		$("#submitButton")
+				.attr("class", "btn btn-primary btn-block")
+				.prop("disabled", false);	
+	}
 });
 
 // 작성 취소 클릭시 실행됨
 function cancel(){
-	console.log("close");
+	if(confirm(`사이트에서 나가시겠습니다? 
+변경사항이 저장되지 않을 수 있습니다.`)){
+		location.href="<%= request.getContextPath() %>/board/boardList";
+	}
 };
 
 // 파일 등록했을 때 input:file에 파일명이 바뀌지 않는 문제 해결
 $('input:file').change(function(e){
-	//console.log(e.target.files[0].name);
+	console.log(e.target.files[0].name);
 	const fileName = e.target.files[0].name;
-	$(e.target).next().html(fileName);
+	$(e.target).next().html(fileName);	
+	console.log($(e.target).next());
+	
 });
 
-
+// 동적으로 input:file 태그 생성
 let count = 2;
-function createInputFileLogic(count){
+function createInputFile(){
+	
 	if(count <= 5){
-	//console.log(count);
-	const idValue = "inputGroupFile0" + count;
-	const attrValue = "upFile" + count;
-	const inputFile = `
-		<div class="form-group">
-		<div class="input-group mb-3">
-			<div class="input-group-prepend">
-				<button class="btn btn-primary" type="button" onclick="createInputFile()"
-					style="width: 50px;" id="button-addon1">+</button>
-			</div>
-			<div class="custom-file">
-				<input type="file" class="w-70 custom-file-input" id=\${idValue} name=\${attrValue}
-					aria-describedby="button-addon1" style="cursor:pointer;"/>
-					 <label class="custom-file-label" for=\${idValue} >클릭해서 파일 추가하기</label>
+		//console.log(count);
+		const idValue = "inputGroupFile0" + count;
+		const attrValue = "upFile" + count;
+		const buttonAddon = "button-addon" + count;
+		const inputFile = `
+		<div class="form-group" id="createdTag">
+			<div class="input-group mb-3">
+				<div class="input-group-prepend">
+					<button class="btn btn-danger" type="button" onclick="document.getElementById('createdTag').remove();"
+						style="width: 50px;" id=\${buttonAddon}>-</button>
+				</div>
+				<div class="custom-file">
+					<input type="file" class="w-70 custom-file-input" id=\${idValue} name=\${attrValue}
+						aria-describedby=\${buttonAddon} style="cursor:pointer;"/>
+						 <label class="custom-file-label" for=\${idValue} >클릭해서 파일 추가하기</label>
+				</div>
 			</div>
 		</div>
-	</div>
-	`;
-	$("#createInputFileByButton").append(inputFile);		
+		`;
+		$("#createInputFileByButton").append(inputFile);		
+		count++;
+		
+		// 동적으로 생성된 input:file에는 기존의 이벤트가 적용되지 않아서 한번 더 적용
+		$('input:file').change(function(e){
+			console.log(e.target.files[0].name);
+			const fileName = e.target.files[0].name;
+			$(e.target).next().html(fileName);	
+			console.log($(e.target).next());
+		});
+		
+		if(count > 5) {
+			$("#button-addon1")
+				.prop("disabled", true);	
+		}
+		
+		
 	}	
 };
 
-// closure
-function createInputFile(){
-	// input:file 동적 생성
-	//let count = 2;
-	createInputFileLogic(count++);
-};
+
 
 </script>
 
