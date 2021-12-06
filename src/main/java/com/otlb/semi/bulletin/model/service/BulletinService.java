@@ -69,13 +69,36 @@ public class BulletinService {
 	}
 
 	public Board selectOneBoard(int no) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneBoard(conn, no);
+		List<Attachment> attachments = bulletinDao.selectAttachmentByBoardNo(conn, no);
+		board.setAttachments(attachments);
+		close(conn);
+		return board;
 	}
 
 	public int updateBoard(Board board) {
-		// TODO Auto-generated method stub
-		return 0;
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateBoard(conn, board);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = bulletinDao.insertAttachment(conn, attach);
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 
 	public List<Board> selectAllBoard() {

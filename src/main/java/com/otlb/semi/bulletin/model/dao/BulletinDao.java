@@ -143,4 +143,104 @@ public class BulletinDao {
 		}
 		return list;
 	}
+
+	public Board selectOneBoard(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOneBoard");
+		Board board = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				board = new Board();
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setContent(rset.getString("content"));
+				board.setRegDate(rset.getDate("reg_date"));
+				board.setReadCount(rset.getInt("read_count"));
+				board.setLikeCount(rset.getInt("like_count"));
+				board.setReportYn(rset.getString("report_yn"));
+				board.setEmpNo(rset.getInt("emp_no"));
+				board.setCategory(rset.getString("category"));
+				board.setDeleteYn(rset.getString("delete_yn"));
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return board;
+	}
+
+	public List<Attachment> selectAttachmentByBoardNo(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectAttachmentByBoardNo");
+		List<Attachment> attachments = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Attachment attach = new Attachment();
+				attach.setNo(rset.getInt("no"));
+				attach.setOriginalFilename(rset.getString("original_filename"));
+				attach.setRenamedFilename(rset.getString("renamed_filename"));
+				attach.setRegDate(rset.getDate("reg_date"));
+				attach.setBoardNo(rset.getInt("board_no"));
+				attachments.add(attach);
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return attachments;
+	}
+
+	public int updateBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getContent());
+			pstmt.setInt(4, board.getNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 수정 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
