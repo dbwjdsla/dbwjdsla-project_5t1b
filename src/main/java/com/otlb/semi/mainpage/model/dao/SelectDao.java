@@ -61,6 +61,7 @@ public class SelectDao {
 		return notice;
 	}
 
+
 	// 자유게시판 조회
 	public static Board selectBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -132,6 +133,7 @@ public class SelectDao {
 				likeContent= new LikeContent();
 				likeContent.setTitle(rset.getString("TITLE"));
 				likeContent.setContent(rset.getString("CONTENT"));
+				System.out.println("likeContentDao = " + likeContent);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

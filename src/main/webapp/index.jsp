@@ -25,7 +25,6 @@
 						<%
 						//Notice notice = (Notice) request.getAttribute("notice");
 						Notice notice = new Notice();
-						notice.setTitle("testdate");
 						%>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
@@ -53,10 +52,10 @@
 						board.setTitle("testdate");
 						%>
 						
-						<div class="card-body" <a href="<%= request.getContextPath() %>/mainpage/Board"></a>>
+						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
 							
-							< <ul>
+							<ul>
 							<li><%= board.getTitle() %><%= board.getContent() %></li>
 							<li><%= board.getTitle() %><%= board.getContent() %></li>
 							<li><%= board.getTitle() %><%= board.getContent() %></li>
@@ -85,7 +84,7 @@
 						likeContent.setTitle("testdata");
 						%>
 
-						<div class="card-body" <a href="<%= request.getContextPath() %>/mainpage/likeContent"></a>>
+						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
 							<ul>
 							<li><%= likeContent.getTitle()%><%= likeContent.getContent() %></li>
@@ -110,7 +109,7 @@
 						AnonymousBoard anonymousBoard = new AnonymousBoard();
 						anonymousBoard.setTitle("testdata");
 						%>
-						<div class="card-body" <a href="<%= request.getContextPath() %>/mainpage/Anonymous_board"></a>>
+						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
 							<ul>
 							<li><%= anonymousBoard.getTitle()%><%= anonymousBoard.getContent()%></li>
@@ -147,7 +146,7 @@
 						//FoodMenu foodMenu = (FoodMenu)request.getAttribute("foodMenu");
 						
 						%>
-						<div class="card-body" <a href="<%= request.getContextPath() %>/mainpage/FoodMenu"></a>>
+						<div class="card-body">
 							
 						</div>
 					</div>
@@ -156,7 +155,7 @@
 			<!-- /.container-fluid -->
 		</div>
 	</div>
-	
+
 	<script>
 	// li 태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
 	$( 'li' ).click( function() {
@@ -166,6 +165,7 @@
   }
 } );
 	
-	</script>
+	
+ 
 	<!-- End of Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
