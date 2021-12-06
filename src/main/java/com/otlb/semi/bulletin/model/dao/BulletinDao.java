@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.otlb.semi.bulletin.model.exception.BulletinException;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.Notice;
 
 public class BulletinDao {
 
@@ -163,6 +164,7 @@ public class BulletinDao {
 		}
 		return totalCount;
 	}
+
 	
 	public Board selectOneBoard(Connection conn, int no) {
         PreparedStatement pstmt = null;
@@ -196,5 +198,42 @@ public class BulletinDao {
         }
         return board;
     }
+
+
+	public List<Notice> selectAllNotice(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllNotice");
+		ResultSet rset = null;
+		List<Notice> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice notice = new Notice();
+				
+				notice.setNo(rset.getInt("no"));
+				notice.setTitle(rset.getString("title"));
+				notice.setContent(rset.getString("content"));
+				notice.setEmpName(rset.getString("emp_name"));
+				notice.setRegDate(rset.getDate("reg_date"));
+				notice.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+//				notice.setAttachCount(rset.getInt("attach_count"));
+				list.add(notice);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 	
 }
