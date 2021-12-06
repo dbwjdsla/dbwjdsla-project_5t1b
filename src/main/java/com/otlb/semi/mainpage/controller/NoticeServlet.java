@@ -1,6 +1,7 @@
 package com.otlb.semi.mainpage.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,26 +35,26 @@ public class NoticeServlet extends HttpServlet {
 		System.out.println("-------------servlet test ---------------");
 		
 		
-		Notice notice = selectService.selectNoticeContent();
-		System.out.println("notice Servlet" + notice);
+		List<Notice> noticeList = selectService.selectNoticeContent();
+		System.out.println("notice Servlet" + noticeList);
 
-		Board board = selectService.selectBoardContent();
-		System.out.println("board  Servlet" + board);
+		List<Board> boardList = selectService.selectBoardContent();
+		System.out.println("board  Servlet" + boardList);
 
-		AnonymousBoard anonymousBoard = selectService.selectAnonymousBoardContent();
-		System.out.println("AnonymousBoard Servlet" + anonymousBoard);
+		List<AnonymousBoard> anonymousBoardList = selectService.selectAnonymousBoardContent();
+		System.out.println("AnonymousBoard Servlet" + anonymousBoardList);
 		
-		LikeContent likeContent = selectService.selectLikeContent();
-		System.out.println("likeContent Servlet" + likeContent);
+		List<LikeContent> likeContentList = selectService.selectLikeContent();
+		System.out.println("likeContent Servlet" + likeContentList);
 
 		FoodMenu foodMenu = selectService.selectFoodMenu();
 		System.out.println("foodMenu Servlet" + foodMenu);
 
 		
-		request.getSession().setAttribute("notice",notice);
-		request.getSession().setAttribute("board",board);
-		request.getSession().setAttribute("anonymousBoard",anonymousBoard);
-		request.getSession().setAttribute("likeContent",likeContent);
+		request.getSession().setAttribute("noticeList",noticeList);
+		request.getSession().setAttribute("boardList",boardList);
+		request.getSession().setAttribute("anonymousBoardList",anonymousBoardList);
+		request.getSession().setAttribute("likeContentList", likeContentList);
 		request.getSession().setAttribute("foodMenu",foodMenu);
 		String location = request.getContextPath() + "/index.jsp";
 		response.sendRedirect(location);

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.otlb.semi.mainpage.model.vo.*"%>
+<%@ page import="com.otlb.semi.emp.controller.*"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
@@ -23,13 +24,21 @@
 							</h6>
 						</div>
 						<%
-						Notice notice = (Notice) session.getAttribute("notice");
+						List<Notice> noticeList = (List<Notice>) session.getAttribute("noticeList");
 						%>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
-				
-							<p><a href="#">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a></p>
-							 
+							<%
+							for (Notice notice : noticeList) {
+							%>
+							<p>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=notice.getTitle()%>] : <%=notice.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
+
 
 						</div>
 					</div>
@@ -41,14 +50,21 @@
 							</h6>
 						</div>
 						<%
-						Board board = (Board) session.getAttribute("board");
+						List<Board> boardList = (List<Board>) session.getAttribute("boardList");
 						%>
 
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
-							
-							<p><a href="#">[<%= board.getTitle() %>] : <%= board.getContent() %></a></p>
-
+							<%
+							for (Board board : boardList) {
+							%>
+							<p>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				</div>
@@ -63,12 +79,22 @@
 							</h6>
 						</div>
 						<%
-						LikeContent likeContent = (LikeContent) session.getAttribute("likeContent");
+						List<LikeContent> likeContentList = (List<LikeContent>) session.getAttribute("likeContentList");
 						%>
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
-							<p><a href="#">[<%= likeContent.getTitle() %>] : <%= likeContent.getContent() %></a></p>
+							<%
+							for (LikeContent likeContent : likeContentList) {
+							%>
+							<p>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=likeContent.getTitle()%>]
+									: <%=likeContent.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 					<!-- 익명게시판부분 -->
@@ -80,12 +106,22 @@
 							</h6>
 						</div>
 						<%
-						AnonymousBoard anonymousBoard = (AnonymousBoard) session.getAttribute("anonymousBoard");
+						List<AnonymousBoard> anonymousBoardList = (List<AnonymousBoard>) session.getAttribute("anonymousBoardList");
 						%>
 
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
-							<p><a href="#">[<%= anonymousBoard.getTitle() %>] : <%= anonymousBoard.getContent() %></a></p>
+							<%
+							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
+							%>
+							<p>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=anonymousBoard.getTitle()%>]
+									: <%=anonymousBoard.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				</div>
@@ -116,19 +152,19 @@
 						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
 						%>
 						<div class="card-body">
-						
-							<p style ="list-style-type : none; text-align:center; ">[밥]</p>
-							<p style = "text-align:center;"><%= foodMenu.getMain() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[국]</p>
-							<p style = "text-align:center;"><%= foodMenu.getSoup() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[반찬]</p>
-							<p style = "text-align:center;"><%= foodMenu.getSide1() %></p>
-							<p style = "text-align:center;"><%= foodMenu.getSide2() %></p>
-							<p style = "text-align:center;"><%= foodMenu.getSide3() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[디저트]</p>
-							<p style = "text-align:center;"><%= foodMenu.getDessert() %></p>
-					
-							
+
+							<p style="list-style-type: none; text-align: center;">[밥]</p>
+							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
+							<p style="list-style-type: none; text-align: center;">[국]</p>
+							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
+							<p style="list-style-type: none; text-align: center;">[반찬]</p>
+							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
+							<p style="list-style-type: none; text-align: center;">[디저트]</p>
+							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
+
+
 						</div>
 					</div>
 				</div>
@@ -137,14 +173,21 @@
 		</div>
 	</div>
 
-	<script>
-		//  태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
-		$('p').click(function() {
-			if (loginEmp = null) {
-				alert('로그인 후 이용 해주세요');
-				$('.btn btn-sm btn-primary shadow-sm').focus();
-			}
-		});
 
-		<!--End of Main Content -->
+<!-- 로그인 안하고 게시글 클릭시 alert 창    -->
+	<%
+	Emp emp = (Emp) session.getAttribute("loginEmp");
+	%>
+	<script>
+		function check() {
+	<%if (emp == null) {%>
+		alert('로그인 후 이용해주세요');
+	<%}%>
+	
+		};
+	</script>
+
+
+
+	<!--Endof Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
