@@ -18,11 +18,11 @@
 	<h1 class="h3 mb-2 text-gray-800">익명게시판</h1>
 	<div>
 	<a class="btn btn-light btn-icon-split"
-		href="<%=request.getContextPath()%>/board/boardForm">
+		href="<%=request.getContextPath()%>/anonymous/anonymousBoardForm">
 		<span>
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 	</a>	
-	<p class="mb-4">자유게시판 입니다.</p>
+	<p class="mb-4">익명게시판 입니다.</p>
 
 	<!-- DataTales Example -->
 	<%-- <div class="card shadow mb-4">
@@ -49,7 +49,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<%-- <%
+					<%
 					List<Board> list = (List<Board>) request.getAttribute("list");
 					for (Board board : list) {
 					%>
@@ -63,7 +63,7 @@
 							<% } %>
 							 </td>
 
-							<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
+							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
 							<td><%= board.getEmpName()%></td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
@@ -71,7 +71,7 @@
 						</tr>
 						<%
 						}
-						%> --%>
+						%>
 					</tbody>
 				</table>
 			</div>
