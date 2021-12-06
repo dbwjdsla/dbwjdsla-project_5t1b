@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -22,11 +23,11 @@
                 		<i class="fa fa-pencil"></i>
                 		</button>
                     </div> --%>
-
 	<a class="btn btn-light btn-icon-split"
-		href="<%=request.getContextPath()%>/board/boardForm"> <span
-		class="text"><i class="fas fa-envelope fa-fw"></i>글쓰기</span>
-	</a>
+		href="<%=request.getContextPath()%>/board/boardForm">
+		<span class="b">
+		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
+	</a>	
 
 	<%-- <i class="fa fa-pencil">
                     <input type="button" value="글쓰기" onclick="location.href='<%= request.getContextPath() %>/board/boardForm'"
@@ -40,8 +41,7 @@
                         </div> -->
 	<div class="card-body">
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%"
-				cellspacing="0">
+			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
 						<th>글 번호</th>
@@ -52,20 +52,25 @@
 						<th>조회</th>
 					</tr>
 				</thead>
-<%-- <%
+<%
 	List<Board> list = (List<Board>) request.getAttribute("list");
 	for(Board board : list){
 %>
 				<tbody>
 					<tr>
 						<td><%= board.getNo() %></td>
-						<td><%= board.getTitle() %></td>
+						<td>
+							<%= board.getCategory() %>
+							<a href="<%= request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
+							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
+						</td>
 						<td><%= board.getEmpNo() %></td>
 						<td><%= board.getLikeCount() %></td>
 						<td><%= board.getRegDate() %></td>
 						<td><%= board.getReadCount() %></td>
 					</tr>
-				</tbody> --%>
+				<% } %>
+				</tbody>
 			</table>
 		</div>
 	</div>
