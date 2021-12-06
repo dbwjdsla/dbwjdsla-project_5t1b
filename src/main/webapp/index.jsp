@@ -23,13 +23,20 @@
 							</h6>
 						</div>
 						<%
-						Notice notice = (Notice) session.getAttribute("notice");
+						List<Notice> noticeList = (List<Notice>) session.getAttribute("noticeList");
 						%>
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
-				
-							<p><a href="#">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a></p>
-							 
+							<%
+							for (Notice notice : noticeList) {
+							%>
+							<p>
+								<a href="#">[<%=notice.getTitle()%>] : <%=notice.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 
 						</div>
 					</div>
@@ -41,14 +48,21 @@
 							</h6>
 						</div>
 						<%
-						Board board = (Board) session.getAttribute("board");
+						List<Board> boardList = (List<Board>) session.getAttribute("boardList");
 						%>
 
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
-							
-							<p><a href="#">[<%= board.getTitle() %>] : <%= board.getContent() %></a></p>
-
+							<%
+							for (Board board : boardList) {
+							%>
+							<p>
+								<a href="#">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				</div>
@@ -63,12 +77,21 @@
 							</h6>
 						</div>
 						<%
-						LikeContent likeContent = (LikeContent) session.getAttribute("likeContent");
+						List<LikeContent> likeContentList = (List<LikeContent>) session.getAttribute("likeContentList");
 						%>
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
-							<p><a href="#">[<%= likeContent.getTitle() %>] : <%= likeContent.getContent() %></a></p>
+							<%
+							for (LikeContent likeContent : likeContentList) {
+							%>
+							<p>
+								<a href="#">[<%=likeContent.getTitle()%>] : <%=likeContent.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 					<!-- 익명게시판부분 -->
@@ -80,12 +103,21 @@
 							</h6>
 						</div>
 						<%
-						AnonymousBoard anonymousBoard = (AnonymousBoard) session.getAttribute("anonymousBoard");
+						List<AnonymousBoard> anonymousBoardList = (List<AnonymousBoard>) session.getAttribute("anonymousBoardList");
 						%>
 
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
-							<p><a href="#">[<%= anonymousBoard.getTitle() %>] : <%= anonymousBoard.getContent() %></a></p>
+							<%
+							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
+							%>
+							<p>
+								<a href="#">[<%=anonymousBoard.getTitle()%>] : <%=anonymousBoard.getContent()%></a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				</div>
@@ -116,19 +148,19 @@
 						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
 						%>
 						<div class="card-body">
-						
-							<p style ="list-style-type : none; text-align:center; ">[밥]</p>
-							<p style = "text-align:center;"><%= foodMenu.getMain() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[국]</p>
-							<p style = "text-align:center;"><%= foodMenu.getSoup() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[반찬]</p>
-							<p style = "text-align:center;"><%= foodMenu.getSide1() %></p>
-							<p style = "text-align:center;"><%= foodMenu.getSide2() %></p>
-							<p style = "text-align:center;"><%= foodMenu.getSide3() %></p>
-							<p style ="list-style-type : none; text-align:center; ">[디저트]</p>
-							<p style = "text-align:center;"><%= foodMenu.getDessert() %></p>
-					
-							
+
+							<p style="list-style-type: none; text-align: center;">[밥]</p>
+							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
+							<p style="list-style-type: none; text-align: center;">[국]</p>
+							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
+							<p style="list-style-type: none; text-align: center;">[반찬]</p>
+							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
+							<p style="list-style-type: none; text-align: center;">[디저트]</p>
+							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
+
+
 						</div>
 					</div>
 				</div>
@@ -146,5 +178,5 @@
 			}
 		});
 
-		<!--End of Main Content -->
+		<!--Endof Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
