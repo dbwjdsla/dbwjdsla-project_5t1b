@@ -1,8 +1,10 @@
 package com.otlb.semi.bulletin.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
+
+import com.otlb.semi.emp.model.vo.Emp;
 
 public class Board extends BoardEntity implements Serializable {
 
@@ -12,9 +14,9 @@ public class Board extends BoardEntity implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Board(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn,
-			int empNo, String category, String deleteYn) {
-		super(no, title, content, regDate, readCount, likeCount, reportYn, empNo, category, deleteYn);
+	public Board(int no, String title, String content, Timestamp regDate, int readCount, int likeCount, String reportYn,
+			int empNo, String category, String deleteYn, Emp emp) {
+		super(no, title, content, regDate, readCount, likeCount, reportYn, empNo, category, deleteYn, emp);
 		// TODO Auto-generated constructor stub
 	}
 	public Board(int attachCount, List<Attachment> attachments) {
@@ -36,7 +38,8 @@ public class Board extends BoardEntity implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Board [attachCount=" + attachCount + ", attachments=" + attachments + "]";
+		return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
 	}
+
 	
 }
