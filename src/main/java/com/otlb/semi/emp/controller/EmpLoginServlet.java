@@ -46,7 +46,7 @@ public class EmpLoginServlet extends HttpServlet {
 		System.out.println("[EmpLoginServlet] emp = " + emp);
 		
 		HttpSession session = request.getSession();
-		String empNoString = String.valueOf(emp.getEmpNo());
+		//String empNoString = String.valueOf(emp.getEmpNo());
 
 		String filepath = UpdateProfileImgServlet.class.getResource("/../../img/profile").getPath();
 		File ownProfileImage = new File(filepath + empNo + ".png");
