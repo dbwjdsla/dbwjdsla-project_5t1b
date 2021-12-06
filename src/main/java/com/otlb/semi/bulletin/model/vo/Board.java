@@ -36,7 +36,7 @@ public class Board extends BoardEntity implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "Board [attachCount=" + attachCount + ", attachments=" + attachments + "]";
+		return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
 	}
 	
 }
