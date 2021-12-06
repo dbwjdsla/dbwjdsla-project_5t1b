@@ -69,8 +69,10 @@ public class BulletinService {
 	}
 
 	public Board selectOneBoard(int no) {
-		// TODO Auto-generated method stub
-		return null;
+        Connection conn = getConnection();
+        Board board = bulletinDao.selectOneBoard(conn, no);
+        close(conn);
+        return board;
 	}
 
 	public int updateBoard(Board board) {
