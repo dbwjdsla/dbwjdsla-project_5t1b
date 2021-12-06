@@ -28,6 +28,7 @@ public class MessageListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//받은 메세지함
 		HttpSession session = request.getSession();
 		
 		System.out.println(session.getAttribute("loginEmp"));

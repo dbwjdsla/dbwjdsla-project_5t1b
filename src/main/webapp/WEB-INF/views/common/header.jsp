@@ -33,7 +33,6 @@ if(msg != null) session.removeAttribute("msg");
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script> 
 $(() =>{
-	
 <% if(msg != null){ %>
 	alert("<%= msg %>");
 <%  } %>
@@ -165,7 +164,9 @@ $(() =>{
 				aria-haspopup="true" aria-expanded="false"> 
 				<i class="fas fa-envelope fa-fw"></i> 
 				<!-- Counter - Messages --> 
-				<span class="badge badge-danger badge-counter">7</span>
+				<!-- 안읽은 받은쪽지 카운터 -->
+				<span class="badge badge-danger badge-counter" id="counter"></span>
+				<input type="hidden" id="hiddenCnt" value=""/>
 			</a> 
 <%
 	}
@@ -273,3 +274,24 @@ $(() =>{
 
 </nav>
 <!-- End of Topbar -->
+<script>
+$( document ).ready(function() {
+	//console.log("test");
+	var counter = document.getElementById("counter");
+    $.ajax({
+		url: "<%= request.getContextPath() %>/message/messageLoadCount.do",
+		method: "GET",
+		success(data){
+
+			//span태그에 count데이터 삽입
+			counter.innerText = data;
+
+		},
+		error: console.log
+
+	})
+});
+
+
+
+</script>

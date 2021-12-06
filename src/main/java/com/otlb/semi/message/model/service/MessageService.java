@@ -117,6 +117,14 @@ public class MessageService {
 		}
 		return result;
 	}
+
+	public int selectSentMessageCount(int empNo) {
+		Connection conn = getConnection();
+		int count = messageDao.selectSentMessageCount(conn, empNo);
+		close(conn);
+		
+		return count;
+	}
 	
 	
 	

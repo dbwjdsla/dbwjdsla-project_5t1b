@@ -50,6 +50,7 @@ public class EmpListServlet extends HttpServlet {
 //		response.getWriter().append(jsonStr);
 		
 //csv형식		
+		System.out.println("/message/empList.do 호출");
 		//사용자입력값 확인
 		String term = request.getParameter("term");
 		//System.out.println("[AutoCompleteServlet] term = " + term);

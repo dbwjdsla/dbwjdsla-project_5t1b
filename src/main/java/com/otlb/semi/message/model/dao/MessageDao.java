@@ -107,6 +107,7 @@ public class MessageDao {
 	}
 
 	public Message selectOneReceivedMessage(Connection conn, int no) {
+		//받은 쪽지함 상세
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectOneReceivedMessage");
 		Message message = new Message();
@@ -123,6 +124,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("sender_emp_name"));
+				System.out.println(emp.getEmpName());
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
@@ -263,6 +265,29 @@ public class MessageDao {
 		}
 		
 		return result;
+	}
+
+	public int selectSentMessageCount(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		int count = 0;
+		String sql = prop.getProperty("selectSentMessageCount");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				count = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			throw new MessageException("받은 쪽지 갯수 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
 	}
 }
 

@@ -26,7 +26,7 @@ public class JdbcTemplate {
 		// / -> /src/main/webapp/WEB-INF/classes/
 		final String datasourceConfigPath = 
 				JdbcTemplate.class.getResource("/datasource.properties").getPath();
-		System.out.println(datasourceConfigPath);
+		//System.out.println(datasourceConfigPath);
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileReader(datasourceConfigPath));
