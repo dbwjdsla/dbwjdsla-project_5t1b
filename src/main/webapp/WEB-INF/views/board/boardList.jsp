@@ -25,7 +25,7 @@
                     </div> --%>
 	<a class="btn btn-light btn-icon-split"
 		href="<%=request.getContextPath()%>/board/boardForm">
-		<span class="b">
+		<span>
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 	</a>	
 
@@ -45,7 +45,7 @@
 				<thead>
 					<tr>
 						<th>글 번호</th>
-						<th>제목</th>
+						<th>제목</th>						
 						<th>작성자</th>
 						<th>추천수</th>
 						<th>작성일</th>
@@ -60,16 +60,21 @@
 					<tr>
 						<td><%= board.getNo() %></td>
 						<td>
-							<%= board.getCategory() %>
-							<a href="<%= request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>"><%= board.getTitle() %></a>
-							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
+							<a href="<%= request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>"><span>[<%= board.getCategory() %>]</span><%= board.getTitle() %>
+							</a>
+<% if(board.getAttachCount() > 0){ %>
+								<span>
+								<i class="fa fa-paperclip"></i></span>
+<% }	%>
 						</td>
+							
+							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
 						<td><%= board.getEmpNo() %></td>
 						<td><%= board.getLikeCount() %></td>
 						<td><%= board.getRegDate() %></td>
 						<td><%= board.getReadCount() %></td>
 					</tr>
-				<% } %>
+<% } %>
 				</tbody>
 			</table>
 		</div>
