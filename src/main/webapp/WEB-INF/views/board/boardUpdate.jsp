@@ -41,9 +41,8 @@
 							<div class="row">
 								<div class="col-2 form-group">
 									<select class="form-control" name="category">
-										<option value="" selected hidden disabled><%= board.getCategory() %></option>
-										<option value="사담">사담</option>
-										<option value="취미">취미</option>
+										<option value="사담" <%= "사담".equals(board.getCategory()) ? "selected" : "" %>>사담</option>
+										<option value="취미" <%= "취미".equals(board.getCategory()) ? "selected" : "" %>>취미</option>
 									</select>
 								</div>
 								<div class="col-10 form-group">
@@ -87,7 +86,7 @@
 										<div class="col-10">
 											<div class="custom-file">
 												<input type="text"
-													class="w-70 custom-file-input" id="inputGroupFile01" onclick="checkTheCheckbox();"
+													class="w-70 custom-file-input" id="inputGroupFile01"
 													aria-describedby="button-addon1" style="cursor: pointer;" />
 												<label class="custom-file-label" for="inputGroupFile01"><%= attach.getOriginalFilename() %></label>
 											</div>	

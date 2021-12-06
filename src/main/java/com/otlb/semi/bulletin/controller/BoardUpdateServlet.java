@@ -94,12 +94,21 @@ public class BoardUpdateServlet extends HttpServlet {
 			// 업무로직
 			// a. 기존첨부파일 삭제
 			if(delFiles != null) {
-				for(String delFile : delFiles) {
-					//Attachment attach = bulletinService.selectOneAttachment(no);
+				for(String temp : delFiles) {
+					int delFileNo = Integer.parseInt(temp);
+					Attachment attach = bulletinService.selectOneAttachment(delFileNo);
 					//가. 첨부파일 삭제 
-					
+					String renamedFilename = attach.getRenamedFilename();
+					File delFile = new File(saveDirectory, renamedFilename);
+					boolean removed = delFile.delete();
 					
 					//나. DB 첨부파일 레코드 삭제
+					int result = bulletinService.deleteAttachment(delFileNo);
+					
+					System.out.println("[BoardUpdateServlet] " + renamedFilename + " 삭제 : " + removed);
+					System.out.println("[BoardUpdateServlet] " + renamedFilename + "  레코드 삭제 : " + result);
+					
+					
 				}
 			}
 			
