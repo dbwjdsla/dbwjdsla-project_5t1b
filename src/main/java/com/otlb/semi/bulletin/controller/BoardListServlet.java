@@ -27,6 +27,8 @@ public class BoardListServlet extends HttpServlet {
 		
 		List<Board> list = bulletinService.selectAllBoard();
 		
+		request.setAttribute("list", list);
+
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp")
 			.forward(request, response);

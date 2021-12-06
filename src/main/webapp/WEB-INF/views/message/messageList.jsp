@@ -44,13 +44,17 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 %>
                          	<tr>
                          		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td <%= message.getReadDate() == null ? "style=\"color: #4e73df;\"" : "" %>>
-                         			<%= message.getEmp().getEmpName() %>
+                         		<!-- 안읽었다면 파란글씨 -->
+                         		<td>
+                         			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getSenderEmpNo()%>"
+                         			<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
+                         				<%= message.getEmp().getEmpName() %>
+                         			</a>
                          		</td>
                          		<td>
+                         			<!-- 읽었다면 링크 회색글씨 처리-->
                          			<a 
                        				href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>" 
-
 									<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
                        				<%= message.getContent() %>
                        				</a>
