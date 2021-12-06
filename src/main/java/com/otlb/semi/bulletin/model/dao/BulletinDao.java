@@ -125,12 +125,16 @@ public class BulletinDao {
 				Board board = new Board();
 				
 				board.setNo(rset.getInt("no"));
+				board.setCategory(rset.getString("category"));
 				board.setTitle(rset.getString("title"));
 				board.setContent(rset.getString("content"));
+				board.setEmpName(rset.getString("emp_name"));
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
+//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setAttachCount(rset.getInt("attach_count"));
 				list.add(board);
 			}
 			
@@ -225,6 +229,29 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+
+	public int selectTotalBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalBoardCount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+
 	}
 }
 
