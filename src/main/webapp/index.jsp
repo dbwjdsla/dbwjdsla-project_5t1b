@@ -28,7 +28,7 @@
 						<div class="card-body">
 							<!-- 공지사항 내용 띄울 부분 -->
 							<ul>
-								<li><%=notice%></li>
+								<li><%= notice %></li>
 							</ul>
 
 						</div>
@@ -46,10 +46,7 @@
 
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
-
-							<ul>
-								<li><%=board%></li>
-							</ul>
+							<p>[<%= board.getTitle() %>] : <%= board.getContent() %></p>
 
 						</div>
 					</div>
@@ -70,10 +67,7 @@
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
-							<ul>
-								<li><%=likeContent%></li>
-							</ul>
-
+							<p>[<%= likeContent.getTitle() %>] : <%= likeContent.getContent() %></p>
 						</div>
 					</div>
 					<!-- 익명게시판부분 -->
@@ -90,9 +84,7 @@
 
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
-							<ul>
-								<li><%=anonymousBoard%></li>
-							</ul>
+							<p>[<%= anonymousBoard.getTitle() %>] : <%= anonymousBoard.getContent() %></p>
 						</div>
 					</div>
 				</div>
@@ -123,10 +115,21 @@
 						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
 						%>
 						<div class="card-body">
-							<ul>
-								<li><%=foodMenu%></li>
-							</ul>
-
+						
+						    <p style = "text-align:center;"><%= foodMenu.getMenu_date() %></p>
+						    <hr>
+							<p style ="list-style-type : none; text-align:center; ">[밥]</p>
+							<p style = "text-align:center;"><%= foodMenu.getMain() %></p>
+							<p style ="list-style-type : none; text-align:center; ">[국]</p>
+							<p style = "text-align:center;"><%= foodMenu.getSoup() %></p>
+							<p style ="list-style-type : none; text-align:center; ">[반찬]</p>
+							<p style = "text-align:center;"><%= foodMenu.getSide1() %></p>
+							<p style = "text-align:center;"><%= foodMenu.getSide2() %></p>
+							<p style = "text-align:center;"><%= foodMenu.getSide3() %></p>
+							<p style ="list-style-type : none; text-align:center; ">[디저트]</p>
+							<p style = "text-align:center;"><%= foodMenu.getDessert() %></p>
+					
+							
 						</div>
 					</div>
 				</div>

@@ -84,7 +84,7 @@ public class SelectDao {
 		} finally {
 			close(rset);
 			close(pstmt);
-			System.out.println("dao" + board);
+			
 		}
 
 		return board;
