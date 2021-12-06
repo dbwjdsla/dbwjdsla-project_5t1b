@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.otlb.semi.mainpage.model.vo.*"%>
+<%@ page import="com.otlb.semi.emp.controller.*"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
@@ -31,12 +32,13 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="#">[<%=notice.getTitle()%>] : <%=notice.getContent()%></a>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=notice.getTitle()%>] : <%=notice.getContent()%></a>
 							</p>
 							<hr>
 							<%
 							}
 							%>
+
 
 						</div>
 					</div>
@@ -57,7 +59,7 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="#">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -86,7 +88,8 @@
 							for (LikeContent likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="#">[<%=likeContent.getTitle()%>] : <%=likeContent.getContent()%></a>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=likeContent.getTitle()%>]
+									: <%=likeContent.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -112,7 +115,8 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="#">[<%=anonymousBoard.getTitle()%>] : <%=anonymousBoard.getContent()%></a>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=anonymousBoard.getTitle()%>]
+									: <%=anonymousBoard.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -169,14 +173,21 @@
 		</div>
 	</div>
 
-	<script>
-		//  태그(게시물) 클릭시 로그인이 안되어있다면 경고창 후 로그인 으로 포커스
-		$('p').click(function() {
-			if (loginEmp = null) {
-				alert('로그인 후 이용 해주세요');
-				$('.btn btn-sm btn-primary shadow-sm').focus();
-			}
-		});
 
-		<!--Endof Main Content -->
+<!-- 로그인 안하고 게시글 클릭시 alert 창    -->
+	<%
+	Emp emp = (Emp) session.getAttribute("loginEmp");
+	%>
+	<script>
+		function check() {
+	<%if (emp == null) {%>
+		alert('로그인 후 이용해주세요');
+	<%}%>
+	
+		};
+	</script>
+
+
+
+	<!--Endof Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
