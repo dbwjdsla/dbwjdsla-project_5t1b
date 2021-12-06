@@ -53,7 +53,7 @@ public class Test extends HttpServlet {
 			JdbcTemplate.close(conn);
 			
 		request.setAttribute("list", list);
-		request.getRequestDispatcher("/WEB-INF/views/testView.jsp").forward(request, response);;
+		request.getRequestDispatcher("/WEB-INF/views/test.jsp").forward(request, response);;
 	}
 
 	/**
