@@ -143,6 +143,27 @@ public class BulletinDao {
 		}
 		return list;
 	}
+	public int selectTotalBoardCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalBoardCount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
+	
 	public Board selectOneBoard(Connection conn, int no) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;

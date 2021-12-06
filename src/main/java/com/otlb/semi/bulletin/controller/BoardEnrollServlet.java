@@ -3,7 +3,10 @@ package com.otlb.semi.bulletin.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Attachment;
@@ -70,8 +72,32 @@ public class BoardEnrollServlet extends HttpServlet {
 			// 저장된 파일정보 -> Attachment객체 생성 -> List<Attachment>객체에 추가 -> Board객체에 추가
 			File upFile1 = multipartRequest.getFile("upFile1");
 			File upFile2 = multipartRequest.getFile("upFile2");
+			File upFile3 = multipartRequest.getFile("upFile3");
+			File upFile4 = multipartRequest.getFile("upFile4");
+			File upFile5 = multipartRequest.getFile("upFile5");
+			Map<String, File> map = new HashMap<>();
+			map.put("upFile1", upFile1);
+			map.put("upFile2", upFile2);
+			map.put("upFile3", upFile3);
+			map.put("upFile4", upFile4);
+			map.put("upFile5", upFile5);
 
-			if(upFile1 != null || upFile2 != null) {
+			if(upFile1 != null || upFile2 != null || upFile3 != null || upFile4 != null || upFile5 != null) {
+				List<Attachment> attachments = new ArrayList<>();
+				Set<String> keySet = map.keySet();
+				for(String key : keySet) {
+					File file = map.get(key);
+					if(file != null) {
+						Attachment attach = EmpUtils.makeAttachment(multipartRequest, key);
+						attachments.add(attach);
+					}
+				}
+				board.setAttachments(attachments);
+				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
+			}
+
+/*			
+			if(upFile1 != null || upFile2 != null || upFile3 != null || upFile4 != null || upFile5 != null) {
 				List<Attachment> attachments = new ArrayList<>();
 				// 현재 fk인 boardNo 필드값은 비어있다.
 				if(upFile1 != null) {
@@ -82,10 +108,22 @@ public class BoardEnrollServlet extends HttpServlet {
 					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile2");
 					attachments.add(attach2);
 				}	
+				if(upFile3 != null) {
+					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile3");
+					attachments.add(attach2);
+				}	
+				if(upFile4 != null) {
+					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile4");
+					attachments.add(attach2);
+				}	
+				if(upFile5 != null) {
+					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile5");
+					attachments.add(attach2);
+				}	
 				board.setAttachments(attachments);
 				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
 			}
-			
+*/			
 			System.out.println("[BoardEnrollServlet] board = " + board);
 			
 			// 2. 업무로직

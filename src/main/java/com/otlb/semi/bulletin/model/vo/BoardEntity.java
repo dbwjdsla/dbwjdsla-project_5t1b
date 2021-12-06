@@ -15,8 +15,8 @@ public class BoardEntity extends Bulletin implements Serializable {
 		super();
 	}
 
-	public BoardEntity(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn, int empNo, String category, String deleteYn) {
-		super(no, title, content, regDate, readCount, empNo, deleteYn);
+	public BoardEntity(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn, int empNo, String category, String deleteYn, String empName) {
+		super(no, title, content, regDate, readCount, empNo, deleteYn, empName);
 		this.likeCount = likeCount;
 		this.reportYn = reportYn;
 		this.category = category;

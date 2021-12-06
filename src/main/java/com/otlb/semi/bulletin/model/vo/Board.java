@@ -13,8 +13,8 @@ public class Board extends BoardEntity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	public Board(int no, String title, String content, Date regDate, int readCount, int likeCount, String reportYn,
-			int empNo, String category, String deleteYn) {
-		super(no, title, content, regDate, readCount, likeCount, reportYn, empNo, category, deleteYn);
+			int empNo, String category, String deleteYn, String empName) {
+		super(no, title, content, regDate, readCount, likeCount, reportYn, empNo, category, deleteYn, empName);
 		// TODO Auto-generated constructor stub
 	}
 	public Board(int attachCount, List<Attachment> attachments) {
