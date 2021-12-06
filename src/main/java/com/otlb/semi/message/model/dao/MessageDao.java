@@ -123,8 +123,7 @@ public class MessageDao {
 				message.setContent(rset.getString("content"));
 				
 				Emp emp = new Emp();
-				emp.setEmpName(rset.getString("sender_emp_name"));
-				System.out.println(emp.getEmpName());
+				emp.setEmpName(rset.getString("sender_emp_name")); 
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
