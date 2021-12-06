@@ -143,4 +143,37 @@ public class BulletinDao {
 		}
 		return list;
 	}
+	public Board selectOneBoard(Connection conn, int no) {
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        String sql = prop.getProperty("selectOneBoard");
+        Board board = null;
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, no);
+
+            rset = pstmt.executeQuery();
+            while(rset.next()) {
+                board = new Board();
+                board.setNo(rset.getInt("no"));
+                board.setTitle(rset.getString("title"));
+                board.setContent(rset.getString("content"));
+                board.setRegDate(rset.getDate("reg_date"));
+                board.setReadCount(rset.getInt("read_count"));
+                board.setLikeCount(rset.getInt("like_count"));
+                board.setReportYn(rset.getString("report_yn"));
+                board.setEmpNo(rset.getInt("emp_no"));
+                board.setCategory(rset.getString("category"));
+                board.setDeleteYn(rset.getString("delete_yn"));
+            }
+        } catch (SQLException e) {
+            throw new BulletinException("게시판 조회 오류", e);
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+        return board;
+    }
+	
 }

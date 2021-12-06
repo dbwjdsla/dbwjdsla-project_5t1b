@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
+
 <!-- 받은 쪽지함 jsp -->
 <body id="page-top">
     <!-- Page Wrapper -->

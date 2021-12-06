@@ -4,7 +4,6 @@
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 
-
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
