@@ -35,8 +35,9 @@ public class Board extends BoardEntity implements Serializable {
 		this.attachments = attachments;
 	}
 	@Override
-    public String toString() {
-        return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
-    }
+	public String toString() {
+		return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
+	}
+
 	
 }

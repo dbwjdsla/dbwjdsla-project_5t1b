@@ -15,6 +15,7 @@ import java.util.Properties;
 import com.otlb.semi.bulletin.model.exception.BulletinException;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.Notice;
 
 public class BulletinDao {
 
@@ -125,16 +126,12 @@ public class BulletinDao {
 				Board board = new Board();
 				
 				board.setNo(rset.getInt("no"));
-				board.setCategory(rset.getString("category"));
 				board.setTitle(rset.getString("title"));
 				board.setContent(rset.getString("content"));
-				board.setEmpName(rset.getString("emp_name"));
 				board.setRegDate(rset.getDate("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
-//				board.setCommentCount(rset.getInt("comment_count"));
-				board.setAttachCount(rset.getInt("attach_count"));
 				list.add(board);
 			}
 			
@@ -146,39 +143,6 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return list;
-	}
-
-	public Board selectOneBoard(Connection conn, int no) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		String sql = prop.getProperty("selectOneBoard");
-		Board board = null;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, no);
-			
-			rset = pstmt.executeQuery();
-			while(rset.next()) {
-				board = new Board();
-				board.setNo(rset.getInt("no"));
-				board.setTitle(rset.getString("title"));
-				board.setContent(rset.getString("content"));
-				board.setRegDate(rset.getDate("reg_date"));
-				board.setReadCount(rset.getInt("read_count"));
-				board.setLikeCount(rset.getInt("like_count"));
-				board.setReportYn(rset.getString("report_yn"));
-				board.setEmpNo(rset.getInt("emp_no"));
-				board.setCategory(rset.getString("category"));
-				board.setDeleteYn(rset.getString("delete_yn"));
-			}
-		} catch (SQLException e) {
-			throw new BulletinException("게시판 조회 오류", e);
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return board;
 	}
 
 	public List<Attachment> selectAttachmentByBoardNo(Connection conn, int no) {
@@ -230,7 +194,6 @@ public class BulletinDao {
 		}
 		return result;
 	}
-
 
 	public int selectTotalBoardCount(Connection conn) {
 		PreparedStatement pstmt = null;
@@ -304,6 +267,78 @@ public class BulletinDao {
 		}
 		return attach;
 	}
+
+	
+	public Board selectOneBoard(Connection conn, int no) {
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        String sql = prop.getProperty("selectOneBoard");
+        Board board = null;
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, no);
+
+            rset = pstmt.executeQuery();
+            while(rset.next()) {
+                board = new Board();
+                board.setNo(rset.getInt("no"));
+                board.setTitle(rset.getString("title"));
+                board.setContent(rset.getString("content"));
+                board.setRegDate(rset.getDate("reg_date"));
+                board.setReadCount(rset.getInt("read_count"));
+                board.setLikeCount(rset.getInt("like_count"));
+                board.setReportYn(rset.getString("report_yn"));
+                board.setEmpNo(rset.getInt("emp_no"));
+                board.setCategory(rset.getString("category"));
+                board.setDeleteYn(rset.getString("delete_yn"));
+            }
+        } catch (SQLException e) {
+            throw new BulletinException("게시판 조회 오류", e);
+        } finally {
+            close(rset);
+            close(pstmt);
+        }
+        return board;
+    }
+
+
+	public List<Notice> selectAllNotice(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllNotice");
+		ResultSet rset = null;
+		List<Notice> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Notice notice = new Notice();
+				
+				notice.setNo(rset.getInt("no"));
+				notice.setTitle(rset.getString("title"));
+				notice.setContent(rset.getString("content"));
+				notice.setEmpName(rset.getString("emp_name"));
+				notice.setRegDate(rset.getDate("reg_date"));
+				notice.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+//				notice.setAttachCount(rset.getInt("attach_count"));
+				list.add(notice);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	
 }
 
 
