@@ -11,7 +11,6 @@ import java.util.List;
 import com.otlb.semi.bulletin.model.dao.BulletinDao;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
-import com.otlb.semi.bulletin.model.vo.Board;
 
 public class BulletinService {
 
@@ -83,5 +82,12 @@ public class BulletinService {
 		List<Board> list = bulletinDao.selectAllBoard(conn);
 		close(conn);
 		return list;
+	}
+	
+	public int selectTotalBoardCount() {
+		Connection conn = getConnection();
+		int totalCount = bulletinDao.selectTotalBoardCount(conn);
+		close(conn);
+		return totalCount;
 	}
 }
