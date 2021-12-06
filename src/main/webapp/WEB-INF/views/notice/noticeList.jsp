@@ -57,8 +57,7 @@
 					%>
 						<tr>
 							<td><%= notice.getNo()%></td>
-							<td><a
-								href="<%= request.getContextPath()%>/notice/noticeView?no=<%= notice.getNo()%>">
+							<td><a href="<%= request.getContextPath()%>/notice/noticeView?no=<%= notice.getNo()%>">
 								<%= notice.getTitle()%></a>
 							</td>
 							<td><%= notice.getEmpName() %></td>
