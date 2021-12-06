@@ -38,5 +38,6 @@ public class Board extends BoardEntity implements Serializable {
 	public String toString() {
 		return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
 	}
+
 	
 }
