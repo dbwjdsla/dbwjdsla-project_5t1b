@@ -90,4 +90,5 @@ public class BulletinService {
 		close(conn);
 		return totalCount;
 	}
+	
 }
