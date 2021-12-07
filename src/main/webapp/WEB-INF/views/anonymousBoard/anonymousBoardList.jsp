@@ -58,7 +58,7 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 
 							<td>
 								<a href="<%= request.getContextPath()%>/board/anonymousBoardView?no=<%=board.getNo()%>">
-								<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%></a> 
+										<%=board.getTitle()%></a> 
 								<% if (board.getAttachCount() > 0) { %> 
 								<span><i class="fa fa-paperclip"></i></span> 
 								<% } %>
