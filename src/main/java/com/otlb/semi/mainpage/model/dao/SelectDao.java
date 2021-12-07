@@ -46,7 +46,9 @@ public class SelectDao {
 
 		try {
 			pstmt = conn.prepareStatement(sql);
+//			pstmt.setInt(1, no);
 			rset = pstmt.executeQuery();
+//			System.out.println("공지 사항 " + no);
 
 			while (rset.next()) {
 				notice= new Notice();

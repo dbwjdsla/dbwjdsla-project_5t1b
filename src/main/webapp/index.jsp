@@ -6,6 +6,7 @@
 <%@ page import="com.otlb.semi.foodMenu.model.vo.FoodMenu"%>
 <%@ page import="com.otlb.semi.mainpage.model.vo.AnonymousBoard"%>
 <%@ page import="com.otlb.semi.emp.controller.*"%>
+
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
@@ -35,7 +36,7 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
+								<a href="<%=request.getContextPath()%>/notice/noticeview %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -54,6 +55,7 @@
 						</div>
 						<%
 						List<Board> boardList = (List<Board>) session.getAttribute("boardList");
+						
 						%>
 
 						<div class="card-body">
@@ -63,6 +65,7 @@
 							%>
 							<p>
 								<a href="<%=request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
+
 							</p>
 							<hr>
 							<%
@@ -91,7 +94,7 @@
 							for (BoardEntity likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%= likeContent.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/board/boardList" onclick="check()">[<%= likeContent.getTitle() %>]
 									: <%= likeContent.getContent() %></a>
 							</p>
 							<hr>
@@ -118,7 +121,7 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%= anonymousBoard.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/anonymousBoard/anonymousBoardList" onclick="check()">[<%= anonymousBoard.getTitle() %>]
 									: <%= anonymousBoard.getContent() %></a>
 							</p>
 							<hr>

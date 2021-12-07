@@ -1,7 +1,7 @@
 package com.otlb.semi.mainpage.model.vo;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class AnonymousBoard implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -9,7 +9,7 @@ public class AnonymousBoard implements Serializable {
 	private int no;
 	private String title;
 	private String content;
-	private Date reg_date;
+	private Timestamp reg_date;
 	private int read_count;
 	private int like_count; // 추천수
 	private int user_no;
@@ -19,7 +19,7 @@ public class AnonymousBoard implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnonymousBoard(int no, String title, String content, Date reg_date, int read_count, int like_count,
+	public AnonymousBoard(int no, String title, String content, Timestamp reg_date, int read_count, int like_count,
 			int user_no) {
 		super();
 		this.no = no;
@@ -55,11 +55,11 @@ public class AnonymousBoard implements Serializable {
 		this.content = content;
 	}
 
-	public Date getReg_date() {
+	public Timestamp getReg_date() {
 		return reg_date;
 	}
 
-	public void setReg_date(Date reg_date) {
+	public void setReg_date(Timestamp reg_date) {
 		this.reg_date = reg_date;
 	}
 
