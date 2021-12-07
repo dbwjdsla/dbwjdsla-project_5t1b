@@ -41,8 +41,6 @@ public class BoardListServlet extends HttpServlet {
 		
 		List<Board> list = bulletinService.selectAllBoard(param);
 		System.out.println("list@servlet = " + list);
-//		String regDate = DateFormatUtils.formatDate();
-
 		
 		int totalContent = bulletinService.selectTotalBoardCount();
 		String url = request.getRequestURI();
@@ -52,8 +50,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request.setAttribute("pagebar", pagebar);
-//		request.setAttribute("regDate", regDate);
-
+		
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp")
 			.forward(request, response);

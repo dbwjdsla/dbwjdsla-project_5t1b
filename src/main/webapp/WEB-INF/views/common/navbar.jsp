@@ -20,7 +20,7 @@
 
 
 			<!-- Nav Item - Charts -->
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/notice/noticeList">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/board/noticeList">
 
 					<span>공지사항</span>
 			</a></li>
