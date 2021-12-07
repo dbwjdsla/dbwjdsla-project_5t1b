@@ -1,7 +1,12 @@
 <%@page import="java.util.List"%>
-<%@page import="com.otlb.semi.bulletin.model.vo.Notice"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% 
+	List<Board> list = (List<Board>) request.getAttribute("list"); 
+	String searchType = request.getParameter("searchType");
+	String searchKeyword = request.getParameter("searchKeyword");
+%>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
@@ -13,6 +18,11 @@
 <!-- Custom styles for this page -->
 <link href="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
+
+<style>
+div#search-container {margin:0 0 10px 0; padding:3px; width:100%; text-align:center;}
+div#search-title {display: <%= searchType == null || "title".equals(searchType) ? "inline-block" : "none" %>;}
+</style>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -27,19 +37,10 @@
 		</a>
 		<p class="mb-4">공지사항 입니다.</p>
 
-	<!-- DataTales Example -->
-	<%-- <div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h2 class="m-0 font-weight-bold text-primary">자유게시판</h2>
-			<a class="btn btn-light btn-icon-split"
-				href="<%=request.getContextPath()%>/board/boardForm"> <span>
-					<i class="fas fa-envelope fa-fw"></i>글쓰기
-			</span>
-			</a>
-		</div> --%>
+		</div>
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%"
+				<table class="table table-bordered" width="100%"
 					cellspacing="0">
 					<thead>
 						<tr>
@@ -52,17 +53,16 @@
 					</thead>
 					<tbody>
 					<%
-						List<Notice> list = (List<Notice>) request.getAttribute("list");
-						for (Notice notice : list) {
+						for (Board board : list) {
 					%>
 						<tr>
-							<td><%= notice.getNo()%></td>
-							<td><a href="<%= request.getContextPath()%>/notice/noticeView?no=<%= notice.getNo()%>">
-								<%= notice.getTitle()%></a>
+							<td><%= board.getNo()%></td>
+							<td><a href="<%= request.getContextPath()%>/board/noticeView?no=<%= board.getNo()%>">
+								<%= board.getTitle()%></a>
 							</td>
-							<td><%= notice.getEmp().getEmpName() %></td>
-							<td><%= notice.getRegDate() %></td>
-							<td><%= notice.getReadCount() %></td>
+							<td><%= board.getEmp().getEmpName() %></td>
+							<td><%= board.getRegDate() %></td>
+							<td><%= board.getReadCount() %></td>
 						</tr>
 						<%
 						}
@@ -70,6 +70,20 @@
 					</tbody>
 				</table>
 			</div>
+				<div id="search-container">
+		        <select id="searchType">
+		            <option value="title" <%= "title".equals(searchType) ? "selected" : "" %>>제목</option>		
+		        </select>
+		        <div id="search-title" class="search-type">
+		            <form action="<%=request.getContextPath()%>/board/boardFinder">
+		                <input type="hidden" name="searchType" value="title"/>
+		                <input type="text" name="searchKeyword" value="<%= "title".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 제목을 입력하세요."/>
+		                <button type="submit" class="btn btn-light btn-icon-split">검색
+		                <i class="fa fa-search" aria-hidden="true"></i></button>			
+		            </form>	
+		        </div>
+			</div>
+			<%-- <div id="pageBar"><%= request.getAttribute("pagebar") %></div> --%>
 		</div>
 	</div>
 </div>

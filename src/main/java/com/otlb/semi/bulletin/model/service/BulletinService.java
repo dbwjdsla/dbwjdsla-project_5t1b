@@ -13,7 +13,6 @@ import com.otlb.semi.bulletin.model.dao.BulletinDao;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
-import com.otlb.semi.bulletin.model.vo.Notice;
 
 import oracle.net.nt.TcpNTAdapter;
 
@@ -112,6 +111,13 @@ public class BulletinService {
 		return list;
 	}
 	
+	public List<Board> selectAllNotice(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllNotice(conn, param);
+		close(conn);
+		return list;
+	}
+	
 	public int selectTotalBoardCount() {
 		Connection conn = getConnection();
 		int totalCount = bulletinDao.selectTotalBoardCount(conn);
@@ -143,13 +149,6 @@ public class BulletinService {
 			close(conn);
 		}
 		return result;
-	}
-	
-	public List<Notice> selectAllNotice() {
-		Connection conn = getConnection();
-		List<Notice> list = bulletinDao.selectAllNotice(conn);
-		close(conn);
-		return list;
 	}
 
 	public List<BoardComment> selectBoardCommentList(int no) {
@@ -190,6 +189,7 @@ public class BulletinService {
 		}
 		return result;
 	}
+	
 	public List<Board> searchBoard(Map<String, Object> param) {
 		Connection conn = getConnection();
 		List<Board> list = bulletinDao.searchBoard(conn, param);
@@ -213,5 +213,11 @@ public class BulletinService {
 		}
 		return result;
 	}
+//	public List<Notice> searchNotice(Map<String, Object> param) {
+//		Connection conn = getConnection();
+//		List<Notice> list = bulletinDao.searchNotice(conn, param);
+//		close(conn);
+//		return list;
+//	}
 	
 }

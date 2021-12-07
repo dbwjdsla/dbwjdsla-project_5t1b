@@ -2,18 +2,18 @@
     pageEncoding="UTF-8"%>
 <% 
 	//	check parameters
-	String otoSenderId	=	(String)request.getAttribute("otoSenderId");
-	String otoReceiverId=	(String)request.getAttribute("otoReceiverId");
-	String otoSRTp		=	(String)request.getAttribute("otoSRTp");
-	String thisUserId	=	"";
-	String targetUserId	=	"";
+	String otoSenderId = (String)request.getAttribute("otoSenderId");
+	String otoReceiverId= (String)request.getAttribute("otoReceiverId");
+	String otoSRTp = (String)request.getAttribute("otoSRTp");
+	String thisUserId =	"";
+	String targetUserId	= "";
 	
 	if(otoSRTp.equals("S")){
-		thisUserId		=	otoSenderId;
-		targetUserId	=	otoReceiverId;		
+		thisUserId = otoSenderId;
+		targetUserId = otoReceiverId;		
 	}else{
-		thisUserId		=	otoReceiverId;
-		targetUserId	=	otoSenderId;		
+		thisUserId = otoReceiverId;
+		targetUserId = otoSenderId;		
 	}
 %>
 <!DOCTYPE html>
@@ -145,8 +145,6 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
  function sendMsg(){
 		//const $sendingMsg = $(sendingMsg);
 
-		//if(!/^(.|\n)+$/.test($sendingMsg.val()))
-			//return;
 		var sendMsg = $("#sendingMsg").val();
 		
 		const msg = {
@@ -185,9 +183,7 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
     </script>
 
 </head>
-<!-- 	String otoSenderId	=	(String)request.getAttribute("otoSenderId");
-	String otoReceiverId=	(String)request.getAttribute("otoReceiverId");
- -->
+
  <%
 
 	Boolean ownProfileImageExists = (boolean) ((session.getAttribute("ownProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
@@ -207,10 +203,10 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 	    <div class="chatwith">
 		<% if(otoSRTp.equals("S")){ %>
 	    <img src="<%=request.getContextPath() + profileImagePath2 %>" width=30px; height=30px; />
-		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverDeptNm") %>)</h1>
+		<h1><%= request.getAttribute("otoSenderNm") %>(<%= request.getAttribute("otoSenderDeptNm") %>)</h1>
 		<% }else{ %>
 	    <img src="<%=request.getContextPath() + profileImagePath %>" width=30px; height=30px; />
-		<h1><%= request.getAttribute("otoSenderNm") %>(<%= request.getAttribute("otoSenderDeptNm") %>)</h1>
+		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverDeptNm") %>)</h1>
 		<% } %>
 	</div>
         <div class="inner">&nbsp;</div>
