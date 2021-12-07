@@ -309,6 +309,30 @@ public class BulletinService {
 		return boardCommentList;
 	}
 
+	public int updateAnonyBoardLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateAnonyBoardLikeCount(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateAnonyReadCount(int no) {
+		Connection conn = getConnection();
+		int result = bulletinDao.updateAnonyReadCount(conn,no);
+		close(conn);
+		return result;
+	}
+
 
 	
 }

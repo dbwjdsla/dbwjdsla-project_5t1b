@@ -53,8 +53,9 @@
 			String commentDate = commentListDate.get(i);
 			String commentContent = commentListContent.get(i);
 			//댓글 작성자의 사번이 map에 있으면
-			if(anonyName.containsKey(bc.getEmp().getEmpName())){
-				name = anonyName.get(bc.getEmp().getEmpName());
+			if(anonyName.containsKey(bc.getEmp().getEmpNo())){
+				name = anonyName.get(bc.getEmp().getEmpNo());
+				System.out.println(anonyName.get(bc.getEmp().getEmpNo()));
 			}
 			
 			if(bc.getCommentLevel() == 1){
@@ -122,7 +123,7 @@
 				method="POST" 
 				action="<%= request.getContextPath() %>/board/boardLikeCount" >
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
-				<input type="hidden" name="board" value="board" />
+				<input type="hidden" name="board" value="anonyBoard" />
 			</form>	
 
 <script>

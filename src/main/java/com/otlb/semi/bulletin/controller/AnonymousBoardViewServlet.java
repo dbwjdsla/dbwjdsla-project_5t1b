@@ -42,7 +42,7 @@ public class AnonymousBoardViewServlet extends HttpServlet {
 			for(Cookie cookie : cookies) {
 				String name = cookie.getName();
 				String value = cookie.getValue();
-				if("boardCookie".equals(name)) {
+				if("anonyBoardCookie".equals(name)) {
 					boardCookieVal = value;
 					if(value.contains("[" + no + "]")) {
 						hasRead = true;
@@ -53,10 +53,10 @@ public class AnonymousBoardViewServlet extends HttpServlet {
 		}
 		// 조회수 증가 및 쿠키 생성 
 		if(!hasRead) {
-			int result = bulletinService.updateReadCount(no);
+			int result = bulletinService.updateAnonyReadCount(no);
 			
-			Cookie cookie = new Cookie("boardCookie",boardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/boardView");
+			Cookie cookie = new Cookie("anonyBoardCookie",boardCookieVal + "[" + no + "]");
+			cookie.setPath(request.getContextPath() + "/board/anonymousBoardView");
 			cookie.setMaxAge(365 * 24 * 60 * 60);
 			response.addCookie(cookie);
 			System.out.println("조회수 증가 & 쿠키 생성 ");
@@ -74,11 +74,16 @@ public class AnonymousBoardViewServlet extends HttpServlet {
 		Map<Integer, String> anonyName = new HashMap<>();
 		int count = 1;
 		for(int i = 0; i < boardCommentList.size(); i++) {
+			System.out.println(boardCommentList.get(i));
+			//사번 저장
 			int empNo = boardCommentList.get(i).getEmpNo();
+			System.out.println(empNo);
 			//댓글작성자가 map에 없으면
 			if(!anonyName.containsKey(empNo)) {
+				System.out.println(12345678);
 				String temp = "익명" + count++;
 				anonyName.put(empNo, temp);
+				System.out.println(anonyName.get(empNo));
 			}
 		}
 		
