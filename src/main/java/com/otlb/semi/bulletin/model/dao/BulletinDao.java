@@ -227,6 +227,7 @@ public class BulletinDao {
 //				board.setEmp(emp);
 				board.setCategory(rset.getString("category"));
 				board.setRegDate(rset.getTimestamp("reg_date"));
+				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
 				board.setCommentCount(rset.getInt("comment_count"));
@@ -699,6 +700,7 @@ public class BulletinDao {
 //			board.setEmp(emp);
 			board.setCategory(rset.getString("category"));
 			board.setRegDate(rset.getTimestamp("reg_date"));
+			board.setLikeCount(rset.getInt("like_count"));
 			board.setReadCount(rset.getInt("read_count"));
 			
 			board.setCommentCount(rset.getInt("comment_count"));
@@ -841,6 +843,91 @@ public class BulletinDao {
 		}
 		
 		return boardCommentList;
+	}
+
+	public int updateAnonyBoardLikeCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAnonyBoardLikeCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new BulletinException("좋아요 +1 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateAnonyReadCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAnonyReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Board selectOneNotice(Connection conn, int no) {
+		 PreparedStatement pstmt = null;
+	        ResultSet rset = null;
+	        String sql = prop.getProperty("selectOneNotice");
+	        Board board = null;
+
+	        try {
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, no);
+
+	            rset = pstmt.executeQuery();
+	            while(rset.next()) {
+	                board = new Board();
+	                board.setNo(rset.getInt("no"));
+	                board.setTitle(rset.getString("title"));
+	                board.setContent(rset.getString("content"));
+	                board.setRegDate(rset.getTimestamp("reg_date"));
+	                board.setReadCount(rset.getInt("read_count"));
+	                board.setEmpNo(rset.getInt("emp_no"));
+	                board.setDeleteYn(rset.getString("delete_yn"));
+	                
+	            }
+	        } catch (SQLException e) {
+	            throw new BulletinException("게시판 조회 오류", e);
+	        } finally {
+	            close(rset);
+	            close(pstmt);
+	        }
+	        return board;
+	}
+
+	public int updateNoticeReadCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNoticeReadCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 	

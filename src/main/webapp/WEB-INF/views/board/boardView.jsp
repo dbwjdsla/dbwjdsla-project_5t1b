@@ -114,18 +114,18 @@
 			 </div>
 			 
 
-<script src="<%= request.getContextPath() %>/js/empPopup.js">
-</script>
 			 <form
 				name=recommendFrm
 				method="POST" 
 				action="<%= request.getContextPath() %>/board/boardLikeCount" >
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
-				<input type="hidden" name="board" value="board" />
 			</form>	
 
+<script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
-setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");
+	setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");
+</script>
+<script>
 //추천하기 버튼
 function recommend(){
 	$("form[name=recommendFrm]").submit();	

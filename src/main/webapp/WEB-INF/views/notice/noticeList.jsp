@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <% 
 	List<Board> list = (List<Board>) request.getAttribute("list"); 
+	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -52,15 +53,19 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 					</thead>
 					<tbody>
 					<%
-						for (Board board : list) {
+						for(int i = 0; i < list.size(); i++){
+							Board board = list.get(i);
+						
+						//for (Board board : list) {
+							
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
-							<td><a href="<%= request.getContextPath()%>/board/noticeView?no=<%= board.getNo()%>">
+							<td><a href="<%= request.getContextPath()%>/notice/noticeView?no=<%= board.getNo()%>">
 								<%= board.getTitle()%></a>
 							</td>
 							<td><%= board.getEmp().getEmpName() %></td>
-							<td><%= board.getRegDate() %></td>
+							<td><%= regDate.get(i) %></td>
 							<td><%= board.getReadCount() %></td>
 						</tr>
 						<%
