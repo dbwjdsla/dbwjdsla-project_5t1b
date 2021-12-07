@@ -170,5 +170,22 @@ public class BulletinService {
 		close(conn);
 		return list;
 	}
+
+	public int insertBoardComment(BoardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertBoardComment(conn, bc);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 	
 }
