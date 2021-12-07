@@ -49,10 +49,10 @@
 						</tr>
 					</thead>
 					<tbody>
-					<%
+					<%-- <%
 					List<Board> list = (List<Board>) request.getAttribute("list");
 					for (Board board : list) {
-					%>
+					%> --%>
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td><a
