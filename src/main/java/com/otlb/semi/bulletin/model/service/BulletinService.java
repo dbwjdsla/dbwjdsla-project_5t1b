@@ -145,7 +145,7 @@ public class BulletinService {
 		Connection conn = getConnection();
 		List<Notice> list = bulletinDao.selectAllNotice(conn);
 		close(conn);
-		return null;
+		return list;
 	}
 
 	public int updateReadCount(int no) {

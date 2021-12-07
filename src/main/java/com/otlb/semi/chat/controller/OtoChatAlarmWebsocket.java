@@ -138,7 +138,8 @@ public class OtoChatAlarmWebsocket {
 				String	chatReqErrMsg	=	"대화 상대방이 로그인 상태가 아닙니다.";
 				Basic basic = session.getBasicRemote();
 				basic.sendText(msgToJson("ERRCHAT",otoSenderId, otoReceiverId, "S", otoSenderNm,otoReceiverNm, chatReqErrMsg)); // 액션을 실행하게 한다 
-			}else if(thisHH > 21 || thisHH < 6){
+//			}else if(thisHH > 21 || thisHH < 6){
+			}else if(false){
 				//	현재 시간이 9시에서 6시 사이면 채팅 불가처리 한다  
 				String	chatReqErrMsg	=	"현재 채팅 가능 시간이 아닙니다.";
 				Basic basic = session.getBasicRemote();

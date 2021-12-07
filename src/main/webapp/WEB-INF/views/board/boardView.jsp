@@ -30,6 +30,9 @@
 			 <div class="container-fluid" id="Content">
 			 	<span><%= content %></span>
 			 </div>
+			  <div class="container-fluid" id="commentContent">
+			 	<span>댓글 <%=  %></span>
+			 </div>
 <script>
 function moveList() {
 	location.href = "<%= request.getContextPath()%>/board/moveBoardList";
