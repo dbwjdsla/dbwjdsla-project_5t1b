@@ -62,7 +62,7 @@
 					name="messageReplyFrm"
 					method="GET" 
 					action="<%= request.getContextPath() %>/message/messageForm" >
-					<input type="hidden" id="senderNo" name="receiverNo" value="<%= message.getEmp().getEmpNo() %>" />
+					<input type="hidden" id="senderNo" name="senderNo" value="<%= message.getSenderEmpNo() %>" />
 				</form>	
             </div>
             <!-- End of Main Content -->
