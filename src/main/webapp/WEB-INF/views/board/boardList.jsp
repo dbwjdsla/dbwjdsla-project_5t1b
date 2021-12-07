@@ -31,15 +31,12 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 <div class="container-fluid">
 
 	<!-- Page Heading -->
-	<h1 class="h3 mb-2 text-gray-800">자유게시판</h1>
-	<div>
-	<a class="btn btn-primary btn-icon-split"
-		href="<%=request.getContextPath()%>/board/boardForm">
-		<span>
-		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
-	</a>
-	<p class="mb-4">자유게시판 입니다.</p>
-
+	<h1 style=" color: black; font-weight:bolder; text-shadow: 1px 1px skyblue; margin-left:20px; margin-top:30px">자유 게시판</h1>
+		<a class="btn btn-primary btn-icon-split"
+			href="<%=request.getContextPath()%>/board/boardForm" style="margin-left:90%; width: 100px; height:35px; border-radius:10px; padding-top:5px;;">
+			<span>
+			<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
+		</a>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" width="100%"
@@ -92,7 +89,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		            <form action="<%=request.getContextPath()%>/board/boardFinder">
 		                <input type="hidden" name="searchType" value="title"/>
 		                <input type="text" name="searchKeyword" value="<%= "title".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 제목을 입력하세요."/>
-		                <button type="submit" class="btn btn-light btn-icon-split">검색
+		                <button type="submit" class="btn btn-primary btn-icon-split" style="padding: 2px">검색
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>	
 		        </div>
@@ -100,7 +97,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		            <form action="<%=request.getContextPath()%>/board/boardFinder">
 		                <input type="hidden" name="searchType" value="empName"/>
 		                <input type="text" name="searchKeyword" value="<%= "empName".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 이름을 입력하세요."/>
-		                <button type="submit" class="btn btn-light btn-icon-split">검색
+		                <button type="submit" class="btn btn-primary btn-icon-split" style="padding: 2px">검색
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>
 		        </div>
@@ -108,7 +105,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		            <form action="<%=request.getContextPath()%>/board/boardFinder">
 		                <input type="hidden" name="searchType" value="category"/>
 		                <input type="text" name="searchKeyword" value="<%= "category".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 말머리를 입력하세요."/>
-		                <button type="submit" class="btn btn-light btn-icon-split">검색
+		                <button type="submit" class="btn btn-primary btn-icon-split" style="padding: 2px">검색
 		                <i class="fa fa-search" aria-hidden="true"></i></button>
 		            </form>
 		        </div>
