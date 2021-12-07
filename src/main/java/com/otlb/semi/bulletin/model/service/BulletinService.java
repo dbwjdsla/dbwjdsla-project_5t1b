@@ -172,6 +172,22 @@ public class BulletinService {
 		return list;
 	}
 
+	public int insertBoardComment(BoardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertBoardComment(conn, bc);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
 	public List<Board> searchBoard(Map<String, Object> param) {
 		Connection conn = getConnection();
 		List<Board> list = bulletinDao.searchBoard(conn, param);
