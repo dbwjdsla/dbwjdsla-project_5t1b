@@ -36,7 +36,9 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/noticeView?no=<%= notice.getNo() %>">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
+								<a
+									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]
+									: <%=notice.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -55,7 +57,6 @@
 						</div>
 						<%
 						List<Board> boardList = (List<Board>) session.getAttribute("boardList");
-						
 						%>
 
 						<div class="card-body">
@@ -64,7 +65,9 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
+								<a
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getTitle()%>]
+									: <%=board.getContent()%></a>
 
 							</p>
 							<hr>
@@ -94,8 +97,9 @@
 							for (BoardEntity likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView?no=<%= likeContent.getNo() %>">[<%= likeContent.getTitle() %>]
-									: <%= likeContent.getContent() %></a>
+								<a
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[<%=likeContent.getTitle()%>]
+									: <%=likeContent.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -121,8 +125,9 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%= anonymousBoard.getNo() %>">[<%= anonymousBoard.getTitle() %>]
-									: <%= anonymousBoard.getContent() %></a>
+								<a
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]
+									: <%=anonymousBoard.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -133,18 +138,6 @@
 				</div>
 				<!-- 캘린더 & 오늘의 메뉴 부분-->
 				<div class="col-lg-6 mb-4">
-
-					<!-- 캘린더 부분 			
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">
-								캘린더 <i class="far fa-calendar-check"></i>
-							</h6>
-						</div>
-						<div class="card-body">
-						</div>
-					</div>
-				 -->
 
 					<!-- 오늘의 메뉴 부분 -->
 					<div class="card shadow mb-4">
@@ -160,15 +153,15 @@
 						<div class="card-body">
 
 							<p style="list-style-type: none; text-align: center;">[밥]</p>
-							<p style="text-align: center;"><%=foodMenu.getMain() %></p>
+							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
 							<p style="list-style-type: none; text-align: center;">[국]</p>
-							<p style="text-align: center;"><%=foodMenu.getSoup() %></p>
+							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
 							<p style="list-style-type: none; text-align: center;">[반찬]</p>
-							<p style="text-align: center;"><%=foodMenu.getSide1() %></p>
-							<p style="text-align: center;"><%=foodMenu.getSide2() %></p>
-							<p style="text-align: center;"><%=foodMenu.getSide3() %></p>
+							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
 							<p style="list-style-type: none; text-align: center;">[디저트]</p>
-							<p style="text-align: center;"><%=foodMenu.getDessert() %></p>
+							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
 
 
 						</div>
