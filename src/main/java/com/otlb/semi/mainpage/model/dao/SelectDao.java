@@ -13,11 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+
+import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.Notice;
+import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
-import com.otlb.semi.mainpage.model.vo.Board;
-import com.otlb.semi.mainpage.model.vo.FoodMenu;
-import com.otlb.semi.mainpage.model.vo.LikeContent;
-import com.otlb.semi.mainpage.model.vo.Notice;
+import com.otlb.semi.bulletin.model.vo.*;
 
 
 
@@ -126,19 +127,19 @@ public class SelectDao {
 	}
 
 	// 인기 게시글
-	public static List<LikeContent> selectLikeContent(Connection conn) {
+	public static List<BoardEntity> selectLikeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("likeContentSelect");
 		ResultSet rset = null;
-		List<LikeContent> likeContentList = new ArrayList<>();
-		LikeContent likeContent = null;
+		List<BoardEntity> likeContentList = new ArrayList<>();
+		BoardEntity likeContent = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				likeContent= new LikeContent();
+				likeContent= new BoardEntity();
 				likeContent.setTitle(rset.getString("TITLE"));
 				likeContent.setContent(rset.getString("CONTENT"));
 				likeContentList.add(likeContent);
