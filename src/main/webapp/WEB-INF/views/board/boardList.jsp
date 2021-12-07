@@ -36,18 +36,10 @@
 	<p class="mb-4">자유게시판 입니다.</p>
 
 	<!-- DataTales Example -->
-	<%-- <div class="card shadow mb-4">
-		<div class="card-header py-3">
-			<h2 class="m-0 font-weight-bold text-primary">자유게시판</h2>
-			<a class="btn btn-light btn-icon-split"
-				href="<%=request.getContextPath()%>/board/boardForm"> <span>
-					<i class="fas fa-envelope fa-fw"></i>글쓰기
-			</span>
-			</a>
-		</div> --%>
+
 		<div class="card-body">
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%"
+				<table class="table table-bordered" width="100%"
 					cellspacing="0">
 					<thead>
 						<tr>
@@ -88,6 +80,7 @@
 					</tbody>
 				</table>
 			</div>
+			<div id='pageBar'><%= request.getAttribute("pagebar") %></div>
 		</div>
 	</div>
 </div>
@@ -147,6 +140,7 @@
 <!-- Page level custom scripts -->
 <script
 	src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
+	
 
 </body>
 
