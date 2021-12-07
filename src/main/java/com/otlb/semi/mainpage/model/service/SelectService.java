@@ -10,8 +10,6 @@ import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
 import com.otlb.semi.bulletin.model.vo.*;
 
-
-
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.close;
 
