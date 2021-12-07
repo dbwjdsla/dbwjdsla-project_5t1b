@@ -12,18 +12,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
-import com.otlb.semi.bulletin.model.vo.Notice;
+import com.otlb.semi.bulletin.model.vo.Board;
 
 /**
  * Servlet implementation class NoticeFinderServlet
  */
-@WebServlet("/notice/noticeFinder")
+@WebServlet("/board/noticeFinder")
 public class NoticeFinderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
 	/**
-	 * select * from board where title like ?
+	 * select * from notice where title like ?
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchType = request.getParameter("searchType");
@@ -33,7 +33,7 @@ public class NoticeFinderServlet extends HttpServlet {
 		param.put("searchKeyword", searchKeyword);
 		System.out.println("param@servlet = " + param);
 		
-		List<Notice> list = bulletinService.searchNotice(param);
+		List<Board> list = bulletinService.searchNotice(param);
 		System.out.println("list : " + list);
 
 		request.setAttribute("list", list);

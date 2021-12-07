@@ -82,8 +82,8 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>	
 		        </div>
+				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 			</div>
-			<%-- <div id="pageBar"><%= request.getAttribute("pagebar") %></div> --%>
 		</div>
 	</div>
 </div>

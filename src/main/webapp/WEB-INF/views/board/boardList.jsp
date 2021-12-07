@@ -112,8 +112,8 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		                <i class="fa fa-search" aria-hidden="true"></i></button>
 		            </form>
 		        </div>
+				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 		    </div>
-			<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 		</div>
 	</div>
 </div>
