@@ -36,7 +36,7 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/notice/noticeview %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
+								<a href="<%=request.getContextPath()%>/notice/noticeview?no=<%= notice.getNo() %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -95,7 +95,7 @@
 							for (BoardEntity likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardList" onclick="check()">[<%= likeContent.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/board/boardList?no=<%= likeContent.getNo() %>" onclick="check()">[<%= likeContent.getTitle() %>]
 									: <%= likeContent.getContent() %></a>
 							</p>
 							<hr>
@@ -122,7 +122,7 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/anonymousBoard/anonymousBoardList" onclick="check()">[<%= anonymousBoard.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/anonymousBoard/anonymousBoardList?no=<%= anonymousBoard.getNo() %>" onclick="check()">[<%= anonymousBoard.getTitle() %>]
 									: <%= anonymousBoard.getContent() %></a>
 							</p>
 							<hr>
@@ -189,6 +189,7 @@
 		function check() {
 	<%if (emp == null) {%>
 		alert('로그인 후 이용해주세요');
+		break;
 	<%}%>
 	
 		};

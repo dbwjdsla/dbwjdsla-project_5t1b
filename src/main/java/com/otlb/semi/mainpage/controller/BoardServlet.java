@@ -36,7 +36,7 @@ public class BoardServlet extends HttpServlet {
 		System.out.println("-------------servlet test ---------------");
 		
 	
-
+		
 	
 		List<Notice> noticeList = selectService.selectNoticeContent();
 		System.out.println("notice Servlet" + noticeList);
