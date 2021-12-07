@@ -15,15 +15,15 @@ import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Board;
 
 /**
- * Servlet implementation class NoticeFinderServlet
+ * Servlet implementation class AnonymousBoardFinder
  */
-@WebServlet("/board/noticeFinder")
-public class NoticeFinderServlet extends HttpServlet {
+@WebServlet("/board/anonymousBoardFinder")
+public class AnonymousBoardFinder extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
 	/**
-	 * select * from notice where title like ?
+	 * select * from board where title like ?
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String searchType = request.getParameter("searchType");
@@ -33,12 +33,12 @@ public class NoticeFinderServlet extends HttpServlet {
 		param.put("searchKeyword", searchKeyword);
 		System.out.println("param@servlet = " + param);
 		
-		List<Board> list = bulletinService.searchNotice(param);
+		List<Board> list = bulletinService.searchAnonymousBoard(param);
 		System.out.println("list : " + list);
-
+		
 		request.setAttribute("list", list);
 		request
-			.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp")
+			.getRequestDispatcher("/WEB-INF/views/board/anonymousBoardList.jsp")
 			.forward(request, response);
 	}
 
