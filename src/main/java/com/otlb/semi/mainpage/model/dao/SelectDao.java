@@ -80,6 +80,7 @@ public class SelectDao {
 
 			while (rset.next()) {
 				board = new Board();
+				board.setNo(rset.getInt("no"));
 				board.setTitle(rset.getString("TITLE"));
 				board.setContent(rset.getString("CONTENT"));
 				boardList.add(board);

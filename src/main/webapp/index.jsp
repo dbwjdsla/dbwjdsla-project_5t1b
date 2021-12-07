@@ -62,7 +62,7 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath() %>/board/boardView" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
+								<a href="<%=request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
 							</p>
 							<hr>
 							<%

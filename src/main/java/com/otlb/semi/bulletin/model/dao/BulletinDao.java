@@ -736,6 +736,113 @@ public class BulletinDao {
 		return result;
 	}
 
+	public Board selectOneAnonyBoard(Connection conn, int no) {
+		 PreparedStatement pstmt = null;
+	        ResultSet rset = null;
+	        String sql = prop.getProperty("selectOneAnonyBoard");
+	        Board board = null;
+
+	        try {
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, no);
+				pstmt.setInt(2, no);
+
+	            rset = pstmt.executeQuery();
+	            while(rset.next()) {
+	                board = new Board();
+	                board.setNo(rset.getInt("no"));
+	                board.setTitle(rset.getString("title"));
+	                board.setContent(rset.getString("content"));
+	                board.setRegDate(rset.getTimestamp("reg_date"));
+	                board.setReadCount(rset.getInt("read_count"));
+	                board.setLikeCount(rset.getInt("like_count"));
+	                board.setReportYn(rset.getString("report_yn"));
+	                board.setEmpNo(rset.getInt("emp_no"));
+	                board.setCategory(rset.getString("category"));
+	                board.setDeleteYn(rset.getString("delete_yn"));
+	                board.setCommentCount(rset.getInt("count"));
+	                
+	                Emp emp = new Emp();
+	                emp.setEmpName(rset.getString("emp_name"));
+	                emp.setDeptName(rset.getString("dept_name"));
+	                board.setEmp(emp);
+	            }
+	        } catch (SQLException e) {
+	            throw new BulletinException("게시판 조회 오류", e);
+	        } finally {
+	            close(rset);
+	            close(pstmt);
+	        }
+	        return board;
+	}
+
+	public int insertAnonyBoardComment(Connection conn, BoardComment bc) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAnonyBoardComment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bc.getCommentLevel());
+			pstmt.setString(2, bc.getContent());
+			//정수형 null 처리
+			pstmt.setObject(3, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			pstmt.setInt(4, bc.getBoardNo());
+			pstmt.setInt(5, bc.getEmpNo());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new BulletinException("댓글 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public List<BoardComment> selectAnonyBoardCommentList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAnonyBoardCommentList");
+		ResultSet rset = null;
+		List<BoardComment> boardCommentList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				BoardComment bc = new BoardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setContent(rset.getString("content"));
+				bc.setReportYn(rset.getString("report_yn"));
+				bc.setCommentRef(rset.getInt("comment_ref"));
+				bc.setRegDate(rset.getTimestamp("reg_date"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				bc.setEmpNo(rset.getInt("emp_no"));
+				bc.setDeleteYn(rset.getString("delete_yn"));
+				
+				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				emp.setDeptName(rset.getString("dept_name"));
+				
+				bc.setEmp(emp);
+				
+				boardCommentList.add(bc);
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 댓글 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return boardCommentList;
+	}
+
 	
 }
 
