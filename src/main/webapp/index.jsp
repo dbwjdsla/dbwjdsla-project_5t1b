@@ -37,8 +37,7 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]
-									: <%=notice.getContent()%></a>
+									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]</a>
 							</p>
 							<hr>
 							<%
@@ -66,8 +65,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getTitle()%>]
-									: <%=board.getContent()%></a>
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getCategory() %>]
+									: <%=board.getTitle()%></a>
 
 							</p>
 							<hr>
@@ -98,8 +97,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[<%=likeContent.getTitle()%>]
-									: <%=likeContent.getContent()%></a>
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[<%=likeContent.getCategory() %>]
+									: <%=likeContent.getTitle()%></a>
 							</p>
 							<hr>
 							<%
@@ -126,8 +125,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]
-									: <%=anonymousBoard.getContent()%></a>
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getCategory() %>]
+									: <%=anonymousBoard.getTitle()%></a>
 							</p>
 							<hr>
 							<%
