@@ -55,7 +55,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 </style>
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
-<script src="<%= request.getContextPath() %>/js/01809a491f.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/01809a491f.js" crossorigin="anonymous"></script>
 <script>
 /**
  * websocket client설정
@@ -87,13 +87,14 @@ const msgToHtml = ({type, msg, sender,receiver, time}) => {
 
 		setText1(msg);
 	}
-	// close가 나타나면 창을 종료한다 
+		// close가 나타나면 창을 종료한다 
 	if(type == "CLOSE"){
 		alert("1:1 대화가 종료되었습니다.");
 		$("#sendingMsg").attr("disabled", true); //설정
 	}
 	
 };
+
 
 const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 	//	자신이 입력하는 것은 무조건 보이게 처리한다  
@@ -161,7 +162,6 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 		const jsonStr = JSON.stringify(msg);
 		ws.send(jsonStr); // 웹소켓 통해 전송
  }
- 
 </script>
     <script>
         $(function(){
@@ -189,7 +189,7 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
 	<div class="chat-container"></div>
 	    <div class="chat_wrap">
 	    <div class="chatwith">
-	    <img src="<%=request.getContextPath()%>/honggd.png" width=30px; height=30px; />
+	    <img src="<%=request.getContextPath()%>/img/profile/profile.png" width=30px; height=30px; />
 		<% if(otoSRTp.equals("S")){ %>
 		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverDeptNm") %>)</h1>
 		<% }else{ %>
