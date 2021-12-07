@@ -227,7 +227,7 @@ public class BulletinDao {
 //				board.setEmp(emp);
 				board.setCategory(rset.getString("category"));
 				board.setRegDate(rset.getTimestamp("reg_date"));
-				board.setReadCount(rset.getInt("read_count"));
+				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
 				board.setCommentCount(rset.getInt("comment_count"));
@@ -700,7 +700,7 @@ public class BulletinDao {
 //			board.setEmp(emp);
 			board.setCategory(rset.getString("category"));
 			board.setRegDate(rset.getTimestamp("reg_date"));
-			board.setReadCount(rset.getInt("read_count"));
+			board.setLikeCount(rset.getInt("like_count"));
 			board.setReadCount(rset.getInt("read_count"));
 			
 			board.setCommentCount(rset.getInt("comment_count"));
