@@ -30,13 +30,13 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 	<!-- Page Heading -->
 
 	<div>
-			<h1 style=" color: black; font-weight:bolder; text-shadow: 1px 1px skyblue; margin-left:20px; margin-top:30px">공지사항</h1>
+		<h1 style=" color: black; font-weight:bolder; text-shadow: 1px 1px skyblue; margin-left:20px; margin-top:30px">공지사항</h1>
 		<a class="btn btn-primary btn-icon-split"
 			href="<%=request.getContextPath()%>/board/noticeForm" style="margin-left:90%; width: 100px; height:35px; border-radius:10px; padding-top:5px;;">
-			<span>
-			<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
-		</a>
-		</div>
+		<span>
+		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
+	</a>
+	</div>
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" width="100%"
