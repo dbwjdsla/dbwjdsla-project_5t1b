@@ -36,7 +36,7 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/notice/noticeview?no=<%= notice.getNo() %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
+								<a href="<%=request.getContextPath()%>/board/noticeView?no=<%= notice.getNo() %>">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -64,7 +64,7 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
+								<a href="<%=request.getContextPath() %>/board/boardView?no=<%= board.getNo() %>">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
 
 							</p>
 							<hr>
@@ -94,7 +94,7 @@
 							for (BoardEntity likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardList?no=<%= likeContent.getNo() %>" onclick="check()">[<%= likeContent.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/board/boardView?no=<%= likeContent.getNo() %>">[<%= likeContent.getTitle() %>]
 									: <%= likeContent.getContent() %></a>
 							</p>
 							<hr>
@@ -121,7 +121,7 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/anonymousBoard/anonymousBoardList?no=<%= anonymousBoard.getNo() %>" onclick="check()">[<%= anonymousBoard.getTitle() %>]
+								<a href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%= anonymousBoard.getNo() %>">[<%= anonymousBoard.getTitle() %>]
 									: <%= anonymousBoard.getContent() %></a>
 							</p>
 							<hr>
@@ -178,22 +178,6 @@
 			<!-- /.container-fluid -->
 		</div>
 	</div>
-
-
-<!-- 로그인 안하고 게시글 클릭시 alert 창    -->
-	<%
-	Emp emp = (Emp) session.getAttribute("loginEmp");
-	%>
-	<script>
-		function check() {
-	<%if (emp == null) {%>
-		alert('로그인 후 이용해주세요');
-		break;
-	<%}%>
-	
-		};
-	</script>
-
 
 
 	<!--Endof Main Content -->
