@@ -47,14 +47,7 @@
 								method="POST"
 								enctype="multipart/form-data">
 								<div class="row">
-									<div class="col-2 form-group">
-										<select class="form-control" name="category">
-											<option value="" selected hidden disabled>말머리</option>
-											<option value="사담" >사담</option>
-											<option value="취미">취미</option>
-										</select> 									
-									</div>
-									<div class="col-10 form-group">
+									<div class="col form-group">
 										<input type="text" class="form-control" name="title" id="title" placeholder="제목">									
 									</div>
 								</div>
@@ -71,23 +64,6 @@
 								</div>
 								<!-- 사원번호 -->
 								<input type="hidden" name="empNo" value="<%= loginEmp.getEmpNo() %>"/>
-
-								<!-- 첨부파일 -->
-								<span id="createInputFileByButton">
-									<div class="form-group">
-										<div class="input-group mb-3">
-											<div class="input-group-prepend">
-												<button class="btn btn-primary" type="button" onclick="createInputFile()"
-													style="width: 50px;" id="button-addon1">+</button>
-											</div>
-											<div class="custom-file">
-												<input type="file" name="upFile1" class="w-70 custom-file-input" id="inputGroupFile01"
-													aria-describedby="button-addon1" style="cursor:pointer;"/>
-											    <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
-											</div>
-										</div>
-									</div>
-								</span>
 
 								<br /> <br />
 								<div class="form-group">
@@ -123,16 +99,9 @@ window.onload = () => {
  * boardEnrollForm 유효성 검사
  */
 function boardValidate(){
-	const $category = $("[name=category]");
 	const $title = $("[name=title]");
 	const $content = $("[name=content]");
 	
-	// 말머리를 작성하지 않은 경우 폼을 제출할 수 없음.
-	if($category.val() == null){
-		alert("말머리를 선택하세요.");
-		$category.focus();
-		return false;
-	}
 	
 	// 제목을 작성하지 않은 경우 폼을 제출할 수 없음.
 	if(!/^.+$/.test($title.val())){

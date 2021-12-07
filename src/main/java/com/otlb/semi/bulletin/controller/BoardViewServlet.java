@@ -27,10 +27,14 @@ public class BoardViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.valueOf(request.getParameter("no"));
 		
+		//게시판 데이터 가져오기
 		Board board = blletinService.selectOneBoard(no);
 		System.out.println(board);
 		String regDate = DateFormatUtils.formatDate(board.getRegDate());
 		String content = LineFormatUtils.formatLine(board.getContent());
+		
+		//게시판 댓글 가져오기
+		
 		
 		request.setAttribute("board", board);
 		request.setAttribute("regDate", regDate);
