@@ -119,7 +119,6 @@
 				method="POST" 
 				action="<%= request.getContextPath() %>/board/boardLikeCount" >
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
-				<input type="hidden" name="board" value="board" />
 			</form>	
 
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>

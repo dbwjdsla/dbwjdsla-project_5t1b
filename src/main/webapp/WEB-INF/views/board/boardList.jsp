@@ -3,6 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% 
+	List<Board> list = (List<Board>) request.getAttribute("list"); 
+	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -52,12 +54,9 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 					</thead>
 					<tbody>
 					<%
-					List<Board> list = (List<Board>) request.getAttribute("list"); 
-					List<String> regDate = (List<String>) request.getAttribute("regDate");
 					for(int i = 0; i < list.size(); i++){
-	
-					//for (Board board : list) {
 						Board board = list.get(i);
+					//for (Board board : list) {
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>

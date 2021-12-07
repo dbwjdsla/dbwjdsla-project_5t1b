@@ -147,6 +147,7 @@ public class MessageDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				message.setNo(rset.getInt("no"));
+				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));

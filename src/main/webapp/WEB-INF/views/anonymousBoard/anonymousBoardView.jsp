@@ -23,7 +23,7 @@
 			</div>
 			 <div class="container-fluid" id="titleContent">
 			 	<p>익명게시판</p>
-		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
+		 		<h5 style="font-weight: bold;"><%= board.getTitle() %></h5>
 			 	<span>익명</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
@@ -53,9 +53,10 @@
 			String commentDate = commentListDate.get(i);
 			String commentContent = commentListContent.get(i);
 			//댓글 작성자의 사번이 map에 있으면
-			if(anonyName.containsKey(bc.getEmp().getEmpNo())){
-				name = anonyName.get(bc.getEmp().getEmpNo());
-				System.out.println(anonyName.get(bc.getEmp().getEmpNo()));
+			int empNo = bc.getEmpNo();
+			if(anonyName.containsKey(empNo)){
+				name = anonyName.get(empNo);
+				System.out.println(name);
 			}
 			
 			if(bc.getCommentLevel() == 1){
@@ -121,7 +122,7 @@
 			 <form
 				name=recommendFrm
 				method="POST" 
-				action="<%= request.getContextPath() %>/board/boardLikeCount" >
+				action="<%= request.getContextPath() %>/board/anonyLikeCount" >
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
 				<input type="hidden" name="board" value="anonyBoard" />
 			</form>	
