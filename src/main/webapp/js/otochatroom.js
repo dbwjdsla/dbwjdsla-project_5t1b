@@ -18,7 +18,7 @@ otoChatAlarmWS.onclose = (e) => {
 };
 
 //	채팅 요청 
-function fnGoOtoChat(otoSenderId, otoReceiverId, otoSRTp, otoSenderNm,otoReceiverNm,otoChatNm ){ 
+function fnGoOtoChat(otoSenderId, otoReceiverId, otoSRTp, otoSenderNm, otoReceiverNm,otoChatNm ){ 
 
 	const reqChatMsg = {
 			type: "REQCHAT",
