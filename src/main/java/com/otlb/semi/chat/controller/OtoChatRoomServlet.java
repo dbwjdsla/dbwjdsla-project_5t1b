@@ -1,5 +1,6 @@
 package com.otlb.semi.chat.controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.otlb.semi.emp.model.service.EmpService;
 import com.otlb.semi.emp.model.vo.Emp;
@@ -32,6 +34,27 @@ public class OtoChatRoomServlet extends HttpServlet {
 		String otoSenderId = request.getParameter("otoSenderId");
 		String otoReceiverId = request.getParameter("otoReceiverId");	
 		String otoSRTp = request.getParameter("otoSRTp");
+		
+		HttpSession session = request.getSession();
+		String filepath = OtoChatRoomServlet.class.getResource("/../../img/profile").getPath();
+		File ownProfileImage = new File(filepath + otoSenderId + ".png");
+		File senderProfileImage = new File(filepath + otoSenderId + ".png");
+
+		if(ownProfileImage.exists()) {
+			session.setAttribute("ownProfileExists", true);
+		} else {
+			session.setAttribute("ownProfileImageExists", false);
+		}
+		
+		if(senderProfileImage.exists()) {
+			session.setAttribute("senderProfileExists", true);
+		} else {
+			session.setAttribute("senderProfileExists", false);
+		}
+		
+		String path = getServletContext().getRealPath("/img/profile");
+		System.out.println("경로:" + path);
+		
  		
 System.out.println("[OtoChatRoomServlet]"+otoSenderId+":"+otoReceiverId+":"+otoSRTp);		
 		
