@@ -7,6 +7,7 @@ import static com.otlb.semi.common.JdbcTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
 
 import com.otlb.semi.bulletin.model.dao.BulletinDao;
 import com.otlb.semi.bulletin.model.vo.Attachment;
@@ -102,9 +103,9 @@ public class BulletinService {
 		return result;
 	}
 
-	public List<Board> selectAllBoard() {
+	public List<Board> selectAllBoard(Map<String, Integer> param) {
 		Connection conn = getConnection();
-		List<Board> list = bulletinDao.selectAllBoard(conn);
+		List<Board> list = bulletinDao.selectAllBoard(conn, param);
 		close(conn);
 		return list;
 	}
@@ -167,6 +168,29 @@ public class BulletinService {
 	public List<Board> selectAllAnonymousBoard() {
 		Connection conn = getConnection();
 		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
+		close(conn);
+		return list;
+	}
+
+	public int insertBoardComment(BoardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertBoardComment(conn, bc);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+	public List<Board> searchBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchBoard(conn, param);
 		close(conn);
 		return list;
 	}
