@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <% 
 	List<Board> list = (List<Board>) request.getAttribute("list"); 
+	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -48,7 +49,9 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 					</thead>
 					<tbody>
 					<%
-					for (Board board : list) {
+					for(int i = 0; i < list.size(); i++){
+						Board board = list.get(i);
+					//for (Board board : list) {
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
@@ -60,11 +63,11 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 								<span><i class="fa fa-paperclip"></i></span> 
 								<% } %>
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
-
 							 </td>
+							 
 							<td>익명</td>
 							<td><%= board.getLikeCount()%></td>
-							<td><%= board.getRegDate()%></td>
+							<td><%= regDate.get(i) %></td>
 							<td><%= board.getReadCount()%></td>
 						</tr>
 						<%
@@ -90,9 +93,6 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 		</div>
 	</div>
 </div>
-<!-- </div>
-</div>
-</div> -->
 
 
 
