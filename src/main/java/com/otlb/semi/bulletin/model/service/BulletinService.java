@@ -13,6 +13,7 @@ import com.otlb.semi.bulletin.model.dao.BulletinDao;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
+import com.otlb.semi.bulletin.model.vo.Notice;
 
 import oracle.net.nt.TcpNTAdapter;
 
@@ -118,6 +119,14 @@ public class BulletinService {
 		return list;
 	}
 	
+	public List<Board> selectAllAnonymousBoard(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	
 	public int selectTotalBoardCount() {
 		Connection conn = getConnection();
 		int totalCount = bulletinDao.selectTotalBoardCount(conn);
@@ -166,13 +175,6 @@ public class BulletinService {
 		return result;
 	}
 
-	public List<Board> selectAllAnonymousBoard() {
-		Connection conn = getConnection();
-		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
-		close(conn);
-		return list;
-	}
-
 	public int insertBoardComment(BoardComment bc) {
 		Connection conn = null;
 		int result = 0;
@@ -197,6 +199,20 @@ public class BulletinService {
 		return list;
 	}
 
+	public List<Board> searchNotice(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchNotice(conn, param);
+		close(conn);
+		return list;
+	}
+
+	public List<Board> searchAnonymousBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
 	public int updateBoardLikeCount(int no) {
 		Connection conn = null;
 		int result = 0;
@@ -213,11 +229,6 @@ public class BulletinService {
 		}
 		return result;
 	}
-//	public List<Notice> searchNotice(Map<String, Object> param) {
-//		Connection conn = getConnection();
-//		List<Notice> list = bulletinDao.searchNotice(conn, param);
-//		close(conn);
-//		return list;
-//	}
+
 	
 }

@@ -75,15 +75,15 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 		            <option value="title" <%= "title".equals(searchType) ? "selected" : "" %>>제목</option>		
 		        </select>
 		        <div id="search-title" class="search-type">
-		            <form action="<%=request.getContextPath()%>/board/boardFinder">
+		            <form action="<%=request.getContextPath()%>/board/noticeFinder">
 		                <input type="hidden" name="searchType" value="title"/>
 		                <input type="text" name="searchKeyword" value="<%= "title".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 제목을 입력하세요."/>
 		                <button type="submit" class="btn btn-light btn-icon-split">검색
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>	
 		        </div>
+				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 			</div>
-			<%-- <div id="pageBar"><%= request.getAttribute("pagebar") %></div> --%>
 		</div>
 	</div>
 </div>
