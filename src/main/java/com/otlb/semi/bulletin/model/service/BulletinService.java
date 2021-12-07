@@ -206,6 +206,13 @@ public class BulletinService {
 		return list;
 	}
 
+	public List<Board> searchAnonymousBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
 	public int updateBoardLikeCount(int no) {
 		Connection conn = null;
 		int result = 0;
@@ -222,5 +229,6 @@ public class BulletinService {
 		}
 		return result;
 	}
+
 	
 }

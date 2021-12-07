@@ -585,6 +585,51 @@ public class BulletinDao {
 		}
 		return list;
 	}
+	
+	public List<Board> searchAnonymousBoard(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchAnonymousBoard");
+		ResultSet rset = null;
+		List<Board> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				
+			Board board = new Board();
+			
+			board.setNo(rset.getInt("no"));
+			board.setTitle(rset.getString("title"));
+			board.setContent(rset.getString("content"));
+//			Emp emp = new Emp();
+//			emp.setEmpName(rset.getString("emp_name"));
+//			board.setEmp(emp);
+			board.setCategory(rset.getString("category"));
+			board.setRegDate(rset.getTimestamp("reg_date"));
+			board.setReadCount(rset.getInt("read_count"));
+			
+			board.setCommentCount(rset.getInt("comment_count"));
+			board.setAttachCount(rset.getInt("attach_count"));
+			list.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
+	}
 
 	public int updateBoardLikeCount(Connection conn, int no) {
 		PreparedStatement pstmt = null;
