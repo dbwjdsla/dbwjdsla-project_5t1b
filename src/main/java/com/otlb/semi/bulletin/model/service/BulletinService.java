@@ -15,6 +15,8 @@ import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.bulletin.model.vo.Notice;
 
+import oracle.net.nt.TcpNTAdapter;
+
 public class BulletinService {
 
 	public static final String hasDeleted = "Y";
@@ -202,6 +204,23 @@ public class BulletinService {
 		List<Board> list = bulletinDao.searchNotice(conn, param);
 		close(conn);
 		return list;
+	}
+
+	public int updateBoardLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateBoardLikeCount(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
 	
 }
