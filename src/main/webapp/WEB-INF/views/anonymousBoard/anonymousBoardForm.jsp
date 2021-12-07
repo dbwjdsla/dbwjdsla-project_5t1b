@@ -52,6 +52,11 @@
 											<option value="" selected hidden disabled>말머리</option>
 											<option value="사담" >사담</option>
 											<option value="취미">취미</option>
+											<option value="정보">정보</option>
+											<option value="홍보">홍보</option>
+											<% if("FM".equals(loginEmp.getDeptCode())) { %>	
+											<option value="공지" style="color: red;">공지</option>							
+											<% } %>
 										</select> 									
 									</div>
 									<div class="col-10 form-group">

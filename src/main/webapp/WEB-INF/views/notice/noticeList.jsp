@@ -21,7 +21,7 @@
 	<h1 class="h3 mb-2 text-gray-800">공지사항</h1>
 	<div>
 		<a class="btn btn-light btn-icon-split"
-			href="<%=request.getContextPath()%>/notice/noticeForm">
+			href="<%=request.getContextPath()%>/board/noticeForm">
 			<span>
 			<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 		</a>
@@ -60,7 +60,7 @@
 							<td><a href="<%= request.getContextPath()%>/notice/noticeView?no=<%= notice.getNo()%>">
 								<%= notice.getTitle()%></a>
 							</td>
-							<td><%= notice.getEmpName() %></td>
+							<td><%= notice.getEmp().getEmpName() %></td>
 							<td><%= notice.getRegDate() %></td>
 							<td><%= notice.getReadCount() %></td>
 						</tr>
