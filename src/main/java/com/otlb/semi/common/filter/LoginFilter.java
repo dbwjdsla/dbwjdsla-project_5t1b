@@ -46,15 +46,15 @@ public class LoginFilter implements Filter {
 		HttpSession session = httpRequest.getSession();
 		Emp loginEmp = (Emp) session.getAttribute("loginEmp");
 		
-		System.out.println("++++++++++++++++++++통과전");
+		//System.out.println("++++++++++++++++++++통과전");
 		
 		if(loginEmp == null) {
-			System.out.println("++++++++통화후");
+			//System.out.println("++++++++통화후");
 			session.setAttribute("msg", "로그인이 필요한 페이지 입니다.");
 			httpResponse.sendRedirect(httpRequest.getContextPath());
 			return;
 		} else {
-			System.out.println("---------------------ddd-------");
+			//System.out.println("---------------------ddd-------");
 			String empNo = String.valueOf(loginEmp.getEmpNo());
 			String filepath = LoginFilter.class.getResource("/../../img/profile").getPath();
 			File ownProfileImage = new File(filepath + empNo + ".png");

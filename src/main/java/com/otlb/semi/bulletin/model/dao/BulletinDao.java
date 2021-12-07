@@ -1,6 +1,6 @@
 package com.otlb.semi.bulletin.model.dao;
 
-import static com.otlb.semi.common.JdbcTemplate.close;
+import static com.otlb.semi.common.JdbcTemplate.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +16,7 @@ import java.util.Properties;
 import com.otlb.semi.bulletin.model.exception.BulletinException;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.bulletin.model.vo.Notice;
 import com.otlb.semi.emp.model.vo.Emp;
 
@@ -292,6 +293,7 @@ public class BulletinDao {
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, no);
+			pstmt.setInt(2, no);
 
             rset = pstmt.executeQuery();
             while(rset.next()) {
@@ -306,6 +308,7 @@ public class BulletinDao {
                 board.setEmpNo(rset.getInt("emp_no"));
                 board.setCategory(rset.getString("category"));
                 board.setDeleteYn(rset.getString("delete_yn"));
+                board.setCommentCount(rset.getInt("count"));
                 
                 Emp emp = new Emp();
                 emp.setEmpName(rset.getString("emp_name"));
@@ -357,6 +360,49 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public List<BoardComment> selectBoardCommentList(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectBoardCommentList");
+		ResultSet rset = null;
+		List<BoardComment> boardCommentList = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				BoardComment bc = new BoardComment();
+				bc.setNo(rset.getInt("no"));
+				bc.setCommentLevel(rset.getInt("comment_level"));
+				bc.setContent(rset.getString("content"));
+				bc.setReportYn(rset.getString("report_yn"));
+				bc.setCommentRef(rset.getInt("comment_ref"));
+				bc.setRegDate(rset.getTimestamp("reg_date"));
+				bc.setBoardNo(rset.getInt("board_no"));
+				bc.setEmpNo(rset.getInt("emp_no"));
+				bc.setDeleteYn(rset.getString("delete_yn"));
+				
+				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				emp.setDeptName(rset.getString("dept_name"));
+				
+				bc.setEmp(emp);
+				
+				boardCommentList.add(bc);
+			}
+		} catch (SQLException e) {
+			throw new BulletinException("게시판 댓글 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return boardCommentList;
 	}
 
 	public int updateReadCount(Connection conn, int no) {
@@ -419,11 +465,7 @@ public class BulletinDao {
 		String sql = prop.getProperty("searchBoard");
 		ResultSet rset = null;
 		List<Board> list = new ArrayList<>();
-		/**
-		 * select * from board where title like ?
-		 * select * from board where writer like ?
-		 * select * from board where category like ?
-		 */
+		
 		String searchType = (String) param.get("searchType");
 		String searchKeyword = (String) param.get("searchKeyword");
 		switch(searchType) {
