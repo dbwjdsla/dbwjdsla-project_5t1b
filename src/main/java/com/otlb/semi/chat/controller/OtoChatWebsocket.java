@@ -62,7 +62,6 @@ public class OtoChatWebsocket {
 		// 아이디가 있는지 체크 한다
 		// 없으면 추가한다
 		if (thisUserListStr.indexOf(partyId) == -1) {
-//			partyMap.put(userId, thisUserListStr+","+partyId);
 			OtoChatInfo.setOtoChatParty(userId, thisUserListStr+","+partyId);
 		}
 		
