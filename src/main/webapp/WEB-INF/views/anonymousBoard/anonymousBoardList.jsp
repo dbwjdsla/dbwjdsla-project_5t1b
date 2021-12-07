@@ -28,7 +28,7 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 	<!-- Page Heading -->
 	<h1 class="h3 mb-2 text-gray-800">익명게시판</h1>
 	<div>
-	<a class="btn btn-light btn-icon-split"
+	<a class="btn btn-primary btn-icon-split"
 		href="<%=request.getContextPath()%>/board/anonymousBoardForm">
 		<span>
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
