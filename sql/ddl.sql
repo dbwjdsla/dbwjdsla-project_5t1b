@@ -170,6 +170,7 @@ create table anonymous_attachment (
     constraint pk_anonymous_attachment_no primary key(no),
     constraint fk_anonymous_attachment_board_no foreign key(board_no) references anonymous_board(no) on delete cascade
 );
+create sequence seq_anonymous_attachment_no nocache;
 
 create table notice (
 	no number,
@@ -183,7 +184,7 @@ create table notice (
     constraint fk_notice_emp_no foreign key(emp_no) REFERENCES emp(emp_no),
     constraint ck_notice_delete_yn check(delete_yn in ('Y', 'N'))
 );
-create SEQUENCE seq_notice_no;
+create sequence seq_notice_no nocache;
 
 create table survey (
 	survey_date date,
