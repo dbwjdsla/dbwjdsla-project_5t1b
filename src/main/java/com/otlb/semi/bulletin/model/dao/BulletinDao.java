@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.otlb.semi.bulletin.model.exception.BulletinException;
@@ -114,7 +115,7 @@ public class BulletinDao {
 		return result;
 	}
 
-	public List<Board> selectAllBoard(Connection conn) {
+	public List<Board> selectAllBoard(Connection conn, Map<String, Integer> param) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectAllBoard");
 		ResultSet rset = null;
@@ -122,6 +123,9 @@ public class BulletinDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, param.get("start"));
+			pstmt.setInt(2, param.get("end"));
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -130,10 +134,11 @@ public class BulletinDao {
 				board.setNo(rset.getInt("no"));
 				board.setCategory(rset.getString("category"));
 				board.setTitle(rset.getString("title"));
+				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("emp_name"));
 				board.setEmp(emp);
-				//board.setEmpName(rset.getString("emp_name"));
+//				board.setEmpName(rset.getString("emp_name"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
@@ -454,6 +459,55 @@ public class BulletinDao {
 		}
 		return list;
 	}
+
+	public List<Board> searchBoard(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchBoard");
+		ResultSet rset = null;
+		List<Board> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+		case "emp_name": sql += " emp_name like '%" + searchKeyword + "%'"; break;
+		case "category": sql += " category like '%" + searchKeyword + "%'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board board = new Board();
+				board.setNo(rset.getInt("no"));
+				board.setCategory(rset.getString("category"));
+				board.setTitle(rset.getString("title"));
+				
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				board.setEmp(emp);
+//				board.setEmpName(rset.getString("emp_name"));
+				board.setContent(rset.getString("content"));
+				board.setRegDate(rset.getTimestamp("reg_date"));
+				board.setLikeCount(rset.getInt("like_count"));
+				board.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setAttachCount(rset.getInt("attach_count"));
+				
+				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
 
 	
 }
