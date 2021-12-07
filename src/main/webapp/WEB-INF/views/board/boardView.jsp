@@ -89,6 +89,7 @@
 <%
 	}
 %>
+
 				<hr class="sidebar-divider my-3">
 				<!-- 댓글입력칸 -->
 				<form 
