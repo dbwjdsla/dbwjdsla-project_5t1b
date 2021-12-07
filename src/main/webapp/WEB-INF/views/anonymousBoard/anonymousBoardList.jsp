@@ -22,7 +22,7 @@
 		<span>
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 	</a>	
-	<p class="mb-4">자유게시판 입니다.</p>
+	<p class="mb-4">익명게시판 입니다.</p>
 
 	<!-- DataTales Example -->
 	<%-- <div class="card shadow mb-4">
@@ -52,7 +52,7 @@
 					<%-- <%
 					List<Board> list = (List<Board>) request.getAttribute("list");
 					for (Board board : list) {
-					%>
+					%> --%>
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td><a
@@ -63,7 +63,7 @@
 							<% } %>
 							 </td>
 
-							<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
+							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
 							<td><%= board.getEmpName()%></td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
@@ -71,7 +71,7 @@
 						</tr>
 						<%
 						}
-						%> --%>
+						%>
 					</tbody>
 				</table>
 			</div>
