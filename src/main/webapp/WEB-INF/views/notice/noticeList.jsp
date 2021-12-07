@@ -56,7 +56,7 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
-							<td><a href="<%= request.getContextPath()%>/board/noticeView?no=<%= board.getNo()%>">
+							<td><a href="<%= request.getContextPath()%>/notice/noticeView?no=<%= board.getNo()%>">
 								<%= board.getTitle()%></a>
 							</td>
 							<td><%= board.getEmp().getEmpName() %></td>

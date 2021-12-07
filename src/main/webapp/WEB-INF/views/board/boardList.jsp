@@ -3,7 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <% 
-	List<Board> list = (List<Board>) request.getAttribute("list"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -53,7 +52,12 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 					</thead>
 					<tbody>
 					<%
-					for (Board board : list) {
+					List<Board> list = (List<Board>) request.getAttribute("list"); 
+					List<String> regDate = (List<String>) request.getAttribute("regDate");
+					for(int i = 0; i < list.size(); i++){
+	
+					//for (Board board : list) {
+						Board board = list.get(i);
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
@@ -70,7 +74,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 
 							<td class="empPopover" data-toggle="popover"><%= board.getEmp().getEmpName() %></td>
 							<td><%= board.getLikeCount()%></td>
-							<td><%= board.getRegDate()%></td>
+							<td><%= regDate.get(i) %></td>
 							<td><%= board.getReadCount()%></td>
 						</tr>
 						<%
@@ -141,9 +145,12 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		</div>
 	</div>
 </div>
+
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
-	setPopovers("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");</script>
+	setPopovers("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");
+</script>
+
 <script>
 
 $(searchType).change((e) => {
