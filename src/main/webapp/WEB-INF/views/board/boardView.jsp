@@ -31,7 +31,7 @@
 			 	<span><%= content %></span>
 			 </div>
 			  <div class="container-fluid" id="commentContent">
-			 	<span>댓글 <%=  %></span>
+			 	<span>댓글</span>
 			 </div>
 <script>
 function moveList() {

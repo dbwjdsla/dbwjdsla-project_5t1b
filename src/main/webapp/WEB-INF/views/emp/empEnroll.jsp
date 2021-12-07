@@ -393,17 +393,20 @@ const validateEmail = ({target = email}) =>{
 
 // 비밀번호 유효성 검사
 const validatePassword = ({target = password}) => {
-	let regExpArr = [/^.{8,15}$/, /\d/, /[a-zA-Z]/, /[!@#$%^&*()&]/];
+	let checkLen = /^.{8,15}$/;
+	let checkNum = /\d/;
+	let checkEng = /[a-zA-Z]/;
+	let checkSpc = /[~!@#$%^&*()_+|<>?:{}]/;
 	let password = $("#password").val();
-	for(let i = 0; i < regExpArr.length; i++){
-        if(!regExpArr[i].test(password)){
-        	$("#passwordCheckMessage").html("비밀번호는 8~15자리 숫자/문자/특수문자를 포함해야합니다.");
-        	return false;
-        } else {
-        	$("#passwordCheckMessage").html("");
-        	return true;
-        }
-    }
+	
+	if(!checkLen.test(password) || !checkNum.test(password) || !checkEng.test(password) || !checkSpc.test(password)){
+		$("#passwordCheckMessage").html("비밀번호는 8~15자리 숫자/문자/특수문자를 포함해야합니다.");
+    	return false;
+	} else {
+		$("#passwordCheckMessage").html("");
+    	return true;
+	}
+	
 };
 
 // 비밀번호 확인 유효성 검사
