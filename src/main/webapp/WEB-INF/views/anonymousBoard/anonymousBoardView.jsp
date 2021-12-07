@@ -41,23 +41,27 @@
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
 	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
-	Map<String, String> anonyName = (Map<String, String>) request.getAttribute("anonyName");
+	Map<Integer, String> anonyName = (Map<Integer, String>) request.getAttribute("anonyName");
 	if(commentList != null && !commentList.isEmpty()){
 %>
 				<table>
 <%
+		String name = "";
 		for(int i = 0; i < commentList.size(); i++){
 		//for(BoardComment bc : commentList){
 			BoardComment bc = commentList.get(i);
 			String commentDate = commentListDate.get(i);
 			String commentContent = commentListContent.get(i);
-			
+			//댓글 작성자의 사번이 map에 있으면
+			if(anonyName.containsKey(bc.getEmp().getEmpName())){
+				name = anonyName.get(bc.getEmp().getEmpName());
+			}
 			
 			if(bc.getCommentLevel() == 1){
 %>				
 					<tr class="level1">
 						<td style="padding: 10px;">
-							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer" style="font-weight: bold;"><%= name %></sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -72,7 +76,7 @@
 %>
 					<tr class="level2">
 						<td style="padding-left: 50px; padding-bottom: 5px;">
-							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer" style="font-weight: bold;"><%= name %></sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 대댓글내용 -->
