@@ -532,6 +532,26 @@ public class BulletinDao {
 		}
 		return list;
 	}
+
+	public int updateBoardLikeCount(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateBoardLikeCount");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new BulletinException("좋아요 +1 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 	
 
 	

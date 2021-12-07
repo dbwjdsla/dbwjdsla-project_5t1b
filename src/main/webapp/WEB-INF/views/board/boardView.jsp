@@ -29,11 +29,12 @@
 			 	<span><%= regDate %></span>
 			 </div>
 			 <br />
-			 <div class="container-fluid" id="Content">
+			 <div class="container-fluid" id="Content" style="margin: 10px">
 			 	<span><%= content %></span>
 			 </div>
 			  <div class="container-fluid" id="commentContent">
 			 	<span>댓글 <%= board.getCommentCount() %></span>
+			 	<button class="btn btn-primary btn-icon-split" id="recommend-btn" onclick="recommend();">추천하기</button>
 			 	<hr class="sidebar-divider my-3">
 <% 
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
@@ -52,8 +53,8 @@
 			if(bc.getCommentLevel() == 1){
 %>				
 					<tr class="level1">
-						<td>
-							<sub class="comment-writer"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+						<td style="padding: 10px;">
+							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -67,8 +68,8 @@
 			} else{
 %>
 					<tr class="level2">
-						<td style="padding-left: 50px;">
-							<sub class="comment-writer"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+						<td style="padding-left: 50px; padding-bottom: 5px;">
+							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 대댓글내용 -->
@@ -108,11 +109,23 @@
 					</div>
 				</form>
 			 </div>
+			 <form
+				name=recommendFrm
+				method="POST" 
+				action="<%= request.getContextPath() %>/board/boardLikeCount" >
+				<input type="hidden" name="no" value="<%= board.getNo() %>" />
+				<input type="hidden" name="board" value="board" />
+			</form>	
 
 <script>
+//추천하기 버튼
+function recommend(){
+	$("form[name=recommendFrm]").submit();	
+}
+
 /* 댓글 쓰기 100자 제한 코드 */
 $('textarea[name=content]').on('keyup', function() {
-	console.log($(this).val().length);
+	//console.log($(this).val().length);
 	
 	$('#count').html($(this).val().length);
 	
