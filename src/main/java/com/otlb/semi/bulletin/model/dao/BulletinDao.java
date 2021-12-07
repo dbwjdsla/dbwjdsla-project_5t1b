@@ -371,6 +371,44 @@ public class BulletinDao {
 		return result;
 	}
 
+	public List<Board> selectAllAnonymousBoard(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectAllAnonymousBoard");
+		ResultSet rset = null;
+		List<Board> list = new ArrayList();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board board = new Board();
+				
+				board.setNo(rset.getInt("no"));
+				board.setTitle(rset.getString("title"));
+				board.setContent(rset.getString("content"));
+//				Emp emp = new Emp();
+//				emp.setEmpName(rset.getString("emp_name"));
+//				board.setEmp(emp);
+				board.setCategory(rset.getString("category"));
+				board.setRegDate(rset.getTimestamp("reg_date"));
+				board.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setAttachCount(rset.getInt("attach_count"));
+				list.add(board);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
 	
 }
 

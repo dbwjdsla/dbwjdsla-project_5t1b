@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -49,28 +50,27 @@
 						</tr>
 					</thead>
 					<tbody>
-					<%-- <%
+					<%
 					List<Board> list = (List<Board>) request.getAttribute("list");
 					for (Board board : list) {
-					%> --%>
+					%>
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td><a
-								href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>"><span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
-							</a> 
+								href="<%= request.getContextPath()%>/anonymousboard/anonymousboardView?no=<%=board.getNo()%>">
+								<%=board.getTitle()%></a> 
 							<% if (board.getAttachCount() > 0) { %> 
 							 <span><i class="fa fa-paperclip"></i></span> 
 							<% } %>
 							 </td>
-
 							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
-							<td><%= board.getEmpName()%></td>
+							<td><%= board.getCategory()%></td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
 							<td><%= board.getReadCount()%></td>
 						</tr>
 						<%
-						}
+					}
 						%>
 					</tbody>
 				</table>
