@@ -28,15 +28,14 @@ public class BoardLikeCountServlet extends HttpServlet {
 		String msg = "";
 		// 쿠키 생성 
 		Cookie[] cookies = request.getCookies();
-		
 		boolean hasRead = false;
-		String boardCookieVal = "";
+		String boardLikeCookieVal = "";
 		if(cookies != null ) {
 			for(Cookie cookie : cookies) {
 				String name = cookie.getName();
 				String value = cookie.getValue();
 				if("boardLikeCookie".equals(name)) {
-					boardCookieVal = value;
+					boardLikeCookieVal = value;
 					if(value.contains("[" + no + "]")) {
 						hasRead = true;
 						break;
@@ -48,8 +47,8 @@ public class BoardLikeCountServlet extends HttpServlet {
 		if(!hasRead) {
 			int result = bulletinService.updateBoardLikeCount(no);
 			
-			Cookie cookie = new Cookie("boardLikeCookie",boardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/boardView");
+			Cookie cookie = new Cookie("boardLikeCookie",boardLikeCookieVal + "[" + no + "]");
+			cookie.setPath(request.getContextPath());
 			cookie.setMaxAge(365 * 24 * 60 * 60);
 			response.addCookie(cookie);
 			//System.out.println("조회수 증가 & 쿠키 생성 ");
