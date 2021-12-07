@@ -60,8 +60,8 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 								<span><i class="fa fa-paperclip"></i></span> 
 								<% } %>
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
-
 							 </td>
+							 
 							<td>익명</td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
@@ -90,9 +90,6 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 		</div>
 	</div>
 </div>
-<!-- </div>
-</div>
-</div> -->
 
 
 
