@@ -15,6 +15,8 @@ import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.bulletin.model.vo.Notice;
 
+import oracle.net.nt.TcpNTAdapter;
+
 public class BulletinService {
 
 	public static final String hasDeleted = "Y";
@@ -110,6 +112,21 @@ public class BulletinService {
 		return list;
 	}
 	
+	public List<Board> selectAllNotice(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllNotice(conn, param);
+		close(conn);
+		return list;
+	}
+	
+	public List<Board> selectAllAnonymousBoard(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	
 	public int selectTotalBoardCount() {
 		Connection conn = getConnection();
 		int totalCount = bulletinDao.selectTotalBoardCount(conn);
@@ -142,13 +159,6 @@ public class BulletinService {
 		}
 		return result;
 	}
-	
-	public List<Notice> selectAllNotice() {
-		Connection conn = getConnection();
-		List<Notice> list = bulletinDao.selectAllNotice(conn);
-		close(conn);
-		return list;
-	}
 
 	public List<BoardComment> selectBoardCommentList(int no) {
 		Connection conn = getConnection();
@@ -163,13 +173,6 @@ public class BulletinService {
 		int result = bulletinDao.updateReadCount(conn,no);
 		close(conn);
 		return result;
-	}
-
-	public List<Board> selectAllAnonymousBoard() {
-		Connection conn = getConnection();
-		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
-		close(conn);
-		return list;
 	}
 
 	public int insertBoardComment(BoardComment bc) {
@@ -188,6 +191,7 @@ public class BulletinService {
 		}
 		return result;
 	}
+	
 	public List<Board> searchBoard(Map<String, Object> param) {
 		Connection conn = getConnection();
 		List<Board> list = bulletinDao.searchBoard(conn, param);
@@ -239,5 +243,38 @@ public class BulletinService {
 		}
 		return result;
 	}
+
+	public List<Board> searchNotice(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchNotice(conn, param);
+		close(conn);
+		return list;
+	}
+
+	public List<Board> searchAnonymousBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	public int updateBoardLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateBoardLikeCount(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
 	
 }
