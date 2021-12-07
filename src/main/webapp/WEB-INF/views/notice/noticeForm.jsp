@@ -43,7 +43,7 @@
 							<form 
 								id="boardEnrollForm" 
 								class="user" 
-								action="<%= request.getContextPath() %>/board/boardEnroll" 
+								action="<%= request.getContextPath() %>/board/noticeEnroll" 
 								method="POST"
 								enctype="multipart/form-data">
 								<div class="row">

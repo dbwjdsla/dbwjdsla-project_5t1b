@@ -25,13 +25,13 @@ import com.otlb.semi.common.EmpUtils;
 /**
  * Servlet implementation class BoardEnrollServlet
  */
-@WebServlet("/board/boardEnroll")
-public class BoardEnrollServlet extends HttpServlet {
+@WebServlet("/board/noticeEnroll")
+public class NoticeEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
 	/**
-	 * insert into board(no, category, title, content) values(?, ?, ?, ?)
+	 * insert into notice(no, title, content) values(?, ?, ?)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
@@ -58,81 +58,26 @@ public class BoardEnrollServlet extends HttpServlet {
 			
 			// 1. 사용자입력값 처리
 			// MultipartRequest객체 생성하는 경우, 기존 request가 아닌 MultipartRequest객체에서 값을 가져와야 한다.
-			String category = multipartRequest.getParameter("category");
+			//String category = multipartRequest.getParameter("category");
 			String title = multipartRequest.getParameter("title");
 			String content = multipartRequest.getParameter("content");
 			int empNo = Integer.parseInt(multipartRequest.getParameter("empNo"));
 			
 			Board board = new Board();
-			board.setCategory(category);
+			//board.setCategory(category);
 			board.setTitle(title);
 			board.setContent(content);
 			board.setEmpNo(empNo);
 			
-			// 저장된 파일정보 -> Attachment객체 생성 -> List<Attachment>객체에 추가 -> Board객체에 추가
-			File upFile1 = multipartRequest.getFile("upFile1");
-			File upFile2 = multipartRequest.getFile("upFile2");
-			File upFile3 = multipartRequest.getFile("upFile3");
-			File upFile4 = multipartRequest.getFile("upFile4");
-			File upFile5 = multipartRequest.getFile("upFile5");
-			Map<String, File> map = new HashMap<>();
-			map.put("upFile1", upFile1);
-			map.put("upFile2", upFile2);
-			map.put("upFile3", upFile3);
-			map.put("upFile4", upFile4);
-			map.put("upFile5", upFile5);
-
-			if(upFile1 != null || upFile2 != null || upFile3 != null || upFile4 != null || upFile5 != null) {
-				List<Attachment> attachments = new ArrayList<>();
-				Set<String> keySet = map.keySet();
-				for(String key : keySet) {
-					File file = map.get(key);
-					if(file != null) {
-						Attachment attach = EmpUtils.makeAttachment(multipartRequest, key);
-						attachments.add(attach);
-					}
-				}
-				board.setAttachments(attachments);
-				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
-			}
-
-/*			
-			if(upFile1 != null || upFile2 != null || upFile3 != null || upFile4 != null || upFile5 != null) {
-				List<Attachment> attachments = new ArrayList<>();
-				// 현재 fk인 boardNo 필드값은 비어있다.
-				if(upFile1 != null) {
-					Attachment attach1 = EmpUtils.makeAttachment(multipartRequest, "upFile1");
-					attachments.add(attach1);
-				}
-				if(upFile2 != null) {
-					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile2");
-					attachments.add(attach2);
-				}	
-				if(upFile3 != null) {
-					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile3");
-					attachments.add(attach2);
-				}	
-				if(upFile4 != null) {
-					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile4");
-					attachments.add(attach2);
-				}	
-				if(upFile5 != null) {
-					Attachment attach2 = EmpUtils.makeAttachment(multipartRequest, "upFile5");
-					attachments.add(attach2);
-				}	
-				board.setAttachments(attachments);
-				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
-			}
-*/			
 			System.out.println("[BoardEnrollServlet] board = " + board);
 			
 			// 2. 업무로직
-			int result = bulletinService.insertBoard(board);
+			int result = bulletinService.insertNotice(board);
 			String msg = result > 0 ? "게시물 등록 성공" : "게시물 등록 실패";
 			
 			// 3. 응답요청
 			request.getSession().setAttribute("msg", msg);
-			String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
+			String location = request.getContextPath() + "/notice/noticeView?no=" + board.getNo();
 			response.sendRedirect(location);
 		} catch (NumberFormatException | IOException e) {
 			throw e;

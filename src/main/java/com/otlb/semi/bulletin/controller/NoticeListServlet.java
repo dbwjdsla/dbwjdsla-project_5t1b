@@ -15,7 +15,7 @@ import com.otlb.semi.bulletin.model.vo.Notice;
 /**
  * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/notice/noticeList")
+@WebServlet("/board/noticeList")
 public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();

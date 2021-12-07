@@ -57,7 +57,7 @@
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td><a
-								href="<%= request.getContextPath()%>/anonymousboard/anonymousboardView?no=<%=board.getNo()%>">
+								href="<%= request.getContextPath()%>/board/anonymousboardView?no=<%=board.getNo()%>">
 								<%=board.getTitle()%></a> 
 							<% if (board.getAttachCount() > 0) { %> 
 							 <span><i class="fa fa-paperclip"></i></span> 
