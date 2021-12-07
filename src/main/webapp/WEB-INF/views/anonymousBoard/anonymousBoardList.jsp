@@ -57,7 +57,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 						<tr>
 							<td><%= board.getNo()%></td>
 							<td>
-								<a href="<%= request.getContextPath()%>/board/anonymousboardView?no=<%=board.getNo()%>">
+								<a href="<%= request.getContextPath()%>/board/anonymousBoardView?no=<%=board.getNo()%>">
 								<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%></a> 
 								<% if (board.getAttachCount() > 0) { %> 
 								<span><i class="fa fa-paperclip"></i></span> 
