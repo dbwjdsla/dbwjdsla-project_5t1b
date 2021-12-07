@@ -1,5 +1,6 @@
 package com.otlb.semi.bulletin.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +11,14 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.common.DateFormatUtils;
 import com.otlb.semi.common.LineFormatUtils;
+import com.otlb.semi.emp.model.vo.Emp;
 
 /**
  * Servlet implementation class BoardViewServlet
@@ -30,6 +33,7 @@ public class BoardViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.valueOf(request.getParameter("no"));
+		
 		
 		// 쿠키 생성 
 		Cookie[] cookies = request.getCookies();
@@ -62,6 +66,12 @@ public class BoardViewServlet extends HttpServlet {
 		//게시판 데이터 가져오기
 		Board board = bulletinService.selectOneBoard(no);
 
+		String filepath = BoardViewServlet.class.getResource("/../../img/profile").getPath();
+		File writerProfileImage = new File(filepath + board.getEmpNo() + ".png");
+		if(writerProfileImage.exists()) request.setAttribute("writerProfileImageExists", true);
+		else request.setAttribute("writerProfileImageExists", false);
+		
+
 		//System.out.println(board);
 		String regDate = DateFormatUtils.formatDate(board.getRegDate());
 		String content = LineFormatUtils.formatLine(board.getContent());
@@ -71,10 +81,16 @@ public class BoardViewServlet extends HttpServlet {
 		List<String> commentListContent = new ArrayList<>();
 		List<String> commentListDate = new ArrayList<>();
 		
+		List<Boolean> commenterImageList = new ArrayList<>();
 		for(BoardComment bc : boardCommentList) {
+			File commenterProfileImage = new File(filepath + bc.getEmpNo() + ".png");
+			if(commenterProfileImage.exists()) commenterImageList.add(true);
+			else commenterImageList.add(false);
+
 			commentListContent.add(LineFormatUtils.formatLine(bc.getContent()));
 			commentListDate.add(DateFormatUtils.formatDateBoard(bc.getRegDate()));
 		}
+		request.setAttribute("commenterImageList", commenterImageList);
 		request.setAttribute("board", board);
 		request.setAttribute("regDate", regDate);
 		request.setAttribute("content", content);
