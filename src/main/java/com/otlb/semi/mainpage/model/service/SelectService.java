@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.otlb.semi.mainpage.model.dao.SelectDao;
+import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.Notice;
+import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
-import com.otlb.semi.mainpage.model.vo.Board;
-import com.otlb.semi.mainpage.model.vo.FoodMenu;
-import com.otlb.semi.mainpage.model.vo.LikeContent;
-import com.otlb.semi.mainpage.model.vo.Notice;
+import com.otlb.semi.bulletin.model.vo.*;
+
+
 
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
 import static com.otlb.semi.common.JdbcTemplate.close;
@@ -41,9 +43,9 @@ public class SelectService {
 	}
 
 	// 인기 게시글 조회
-	public List<LikeContent> selectLikeContent() {
+	public List<BoardEntity> selectLikeContent() {
 		Connection conn = getConnection();
-		List<LikeContent> likeContentList = SelectDao.selectLikeContent(conn);
+		List<BoardEntity> likeContentList = SelectDao.selectLikeContent(conn);
 		close(conn);
 		return likeContentList;
 	}
