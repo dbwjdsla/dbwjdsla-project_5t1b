@@ -60,19 +60,22 @@
 							<%= commentContent %>
 						</td>
 						<td>
-							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>">답글</button>
+							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
 						</td>
 					</tr>
 <%
 			} else{
 %>
 					<tr class="level2">
-						<td>
+						<td style="padding-left: 50px;">
 							<sub class="comment-writer"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
-							<!-- 댓글내용 -->
+							<!-- 대댓글내용 -->
 							<%= commentContent %>
+						</td>
+						<td>
+							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
 						</td>
 					</tr>
 
@@ -86,8 +89,84 @@
 <%
 	}
 %>
+				<hr class="sidebar-divider my-3">
+				<!-- 댓글입력칸 -->
+				<form 
+					action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
+					method="post"
+					name="boardCommentFrm">
+				    <input type="hidden" name="no" value="<%= board.getNo() %>" />
+				    <input type="hidden" name="commentLevel" value="1" />
+				    <input type="hidden" name="commentRef" value="0" />    
+				    <div id="comment-input">
+						<textarea name="content" cols="100" rows="3" style="resize: none;" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+					   	<div class="counter" style="float: right;">
+								<span id="count">0</span><span>/100</span>
+                   		</div>
+					   	<br />
+					    <button type="submit" class="btn btn-primary btn-icon-split" >등록</button>
+					</div>
+				</form>
 			 </div>
+
 <script>
+/* 댓글 쓰기 100자 제한 코드 */
+$('textarea[name=content]').on('keyup', function() {
+	console.log($(this).val().length);
+	
+	$('#count').html($(this).val().length);
+	
+	if($(this).val().length > 100) {
+		alert("100자까지만 입력할 수 있습니다.");
+           $(this).val($(this).val().substring(0, 500));
+           $('#count').html("100");
+       }
+});
+
+
+//댓글등록전 검사
+$(document.boardCommentFrm).submit((e) => {
+
+	const $content = $("[name=content]", e.target);
+	if(!/^(.|\n)+$/.test($content.val())){
+		alert("댓글을 작성해주세요.");
+		e.preventDefault();
+	}
+});
+
+//대댓글 기능
+function commentReply(e) {
+	//대댓글 상위댓글 저장
+	const commentRef = e.value;
+	const tr = `<tr>
+		<td colspan="2" style="text-align:left">
+			<form 
+				action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
+				method="post">
+			    <input type="hidden" name="no" value="<%= board.getNo() %>" />
+			    <input type="hidden" name="commentLevel" value="2" />
+			    <input type="hidden" name="commentRef" value="\${commentRef}" />    
+				<textarea name="content" cols="60" rows="3" style="resize: none;"></textarea>
+			    <button type="submit" class="btn btn-primary btn-icon-split">등록</button>
+			</form>
+		</td>`;
+	const baseTr = e.parentNode.parentNode;
+	const $baseTr = $(e.target).parent().parent();
+	const $tr = $(tr);
+
+	$tr.insertAfter(baseTr)	
+	.find("form")
+	.submit((e) => {
+		const $content = $("[name=content]", e.target);
+		if(!/^(.|\n)+$/.test($content.val())){
+			alert("댓글을 작성해주세요.");
+			e.preventDefault();
+		}
+	});
+
+	//$(e.target).off("click");
+		
+}
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {

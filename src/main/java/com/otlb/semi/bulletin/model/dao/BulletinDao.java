@@ -460,6 +460,31 @@ public class BulletinDao {
 		return list;
 	}
 
+
+	public int insertBoardComment(Connection conn, BoardComment bc) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertBoardComment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bc.getCommentLevel());
+			pstmt.setString(2, bc.getContent());
+			//정수형 null 처리
+			pstmt.setObject(3, bc.getCommentRef() == 0 ? null : bc.getCommentRef());
+			pstmt.setInt(4, bc.getBoardNo());
+			pstmt.setInt(5, bc.getEmpNo());
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			throw new BulletinException("댓글 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	public List<Board> searchBoard(Connection conn, Map<String, Object> param) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("searchBoard");
