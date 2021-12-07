@@ -178,5 +178,12 @@ public class BulletinService {
 		close(conn);
 		return list;
 	}
+
+	public List<Notice> searchNotice(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Notice> list = bulletinDao.searchNotice(conn, param);
+		close(conn);
+		return list;
+	}
 	
 }

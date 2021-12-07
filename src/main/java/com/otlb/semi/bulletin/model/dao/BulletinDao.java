@@ -144,7 +144,7 @@ public class BulletinDao {
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
-//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 				board.setAttachCount(rset.getInt("attach_count"));
 				
 				list.add(board);
@@ -445,7 +445,7 @@ public class BulletinDao {
 				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setReadCount(rset.getInt("read_count"));
 				
-//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 				board.setAttachCount(rset.getInt("attach_count"));
 				list.add(board);
 			}
@@ -470,7 +470,7 @@ public class BulletinDao {
 		String searchKeyword = (String) param.get("searchKeyword");
 		switch(searchType) {
 		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
-		case "emp_name": sql += " emp_name like '%" + searchKeyword + "%'"; break;
+		case "empName": sql += " emp_name like '%" + searchKeyword + "%'"; break;
 		case "category": sql += " category like '%" + searchKeyword + "%'"; break;
 		}
 		System.out.println("sql@dao = " + sql);
@@ -493,10 +493,52 @@ public class BulletinDao {
 				board.setLikeCount(rset.getInt("like_count"));
 				board.setReadCount(rset.getInt("read_count"));
 				
-//				board.setCommentCount(rset.getInt("comment_count"));
+				board.setCommentCount(rset.getInt("comment_count"));
 				board.setAttachCount(rset.getInt("attach_count"));
 				
 				list.add(board);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public List<Notice> searchNotice(Connection conn, Map<String, Object> param) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchNotice");
+		ResultSet rset = null;
+		List<Notice> list = new ArrayList<>();
+		
+		String searchType = (String) param.get("searchType");
+		String searchKeyword = (String) param.get("searchKeyword");
+		switch(searchType) {
+		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
+		}
+		System.out.println("sql@dao = " + sql);
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Notice notice = new Notice();
+				
+				notice.setNo(rset.getInt("no"));
+				notice.setTitle(rset.getString("title"));
+				notice.setContent(rset.getString("content"));
+				Emp emp = new Emp();
+				emp.setEmpName(rset.getString("emp_name"));
+				notice.setEmp(emp);
+				notice.setRegDate(rset.getTimestamp("reg_date"));
+				notice.setReadCount(rset.getInt("read_count"));
+				
+//				board.setCommentCount(rset.getInt("comment_count"));
+//				notice.setAttachCount(rset.getInt("attach_count"));
+				list.add(notice);
 			}
 			
 		} catch (SQLException e) {

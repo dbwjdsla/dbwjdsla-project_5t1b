@@ -2,17 +2,13 @@
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ include file="/WEB-INF/views/common/header.jsp"%>
-<%@ include file="/WEB-INF/views/common/navbar.jsp"%>
-
-
 <% 
 	List<Board> list = (List<Board>) request.getAttribute("list"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
-
+<%@ include file="/WEB-INF/views/common/header.jsp"%>
+<%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
 <!-- Custom styles for this template -->
 <link
@@ -24,9 +20,9 @@
 	href="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.min.css"
 	rel="stylesheet">
 <style>
-div#search-container {margin:10px 0 10px 400px; padding:3px; width:100%}
+div#search-container {margin:0 0 10px 0; padding:3px; width:100%; text-align:center;}
 div#search-title {display: <%= searchType == null || "title".equals(searchType) ? "inline-block" : "none" %>;}
-div#search-emp_name{display: <%= "emp_name".equals(searchType) ? "inline-block" : "none" %>;}
+div#search-empName{display: <%= "empName".equals(searchType) ? "inline-block" : "none" %>;}
 div#search-category{display: <%= "category".equals(searchType) ? "inline-block" : "none" %>;}
 </style>
 
@@ -65,16 +61,16 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
-							<td><a
-								href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
-								<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
-							</a> 
-							<% if (board.getAttachCount() > 0) { %> 
-							 <span><i class="fa fa-paperclip"></i></span> 
-							<% } %>
+							<td>
+								<a href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
+									<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
+								</a> 
+								<% if (board.getAttachCount() > 0) { %> 
+								 <span><i class="fa fa-paperclip"></i></span> 
+								<% } %>
+								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
 							 </td>
 
-							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
 
 							<td><%= board.getEmp().getEmpName() %></td>
 							<td><%= board.getLikeCount()%></td>
@@ -90,7 +86,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 				<div id="search-container">
 		        <select id="searchType">
 		            <option value="title" <%= "title".equals(searchType) ? "selected" : "" %>>제목</option>		
-		            <option value="emp_name" <%= "emp_name".equals(searchType) ? "selected" : "" %>>작성자</option>
+		            <option value="empName" <%= "empName".equals(searchType) ? "selected" : "" %>>작성자</option>
 		            <option value="category" <%= "category".equals(searchType) ? "selected" : "" %>>말머리</option>
 		        </select>
 		        <div id="search-title" class="search-type">
@@ -101,10 +97,10 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>	
 		        </div>
-		        <div id="search-emp_name" class="search-type">
+		        <div id="search-empName" class="search-type">
 		            <form action="<%=request.getContextPath()%>/board/boardFinder">
-		                <input type="hidden" name="searchType" value="emp_name"/>
-		                <input type="text" name="searchKeyword" value="<%= "emp_name".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 이름을 입력하세요."/>
+		                <input type="hidden" name="searchType" value="empName"/>
+		                <input type="text" name="searchKeyword" value="<%= "empName".equals(searchType) ? searchKeyword : "" %>" size="25" placeholder="검색할 이름을 입력하세요."/>
 		                <button type="submit" class="btn btn-light btn-icon-split">검색
 		                <i class="fa fa-search" aria-hidden="true"></i></button>			
 		            </form>
