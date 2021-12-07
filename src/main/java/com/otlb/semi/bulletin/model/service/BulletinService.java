@@ -15,6 +15,8 @@ import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.bulletin.model.vo.Notice;
 
+import oracle.net.nt.TcpNTAdapter;
+
 public class BulletinService {
 
 	public static final String hasDeleted = "Y";
@@ -110,6 +112,21 @@ public class BulletinService {
 		return list;
 	}
 	
+	public List<Board> selectAllNotice(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllNotice(conn, param);
+		close(conn);
+		return list;
+	}
+	
+	public List<Board> selectAllAnonymousBoard(Map<String, Integer> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	
 	public int selectTotalBoardCount() {
 		Connection conn = getConnection();
 		int totalCount = bulletinDao.selectTotalBoardCount(conn);
@@ -142,13 +159,6 @@ public class BulletinService {
 		}
 		return result;
 	}
-	
-	public List<Notice> selectAllNotice() {
-		Connection conn = getConnection();
-		List<Notice> list = bulletinDao.selectAllNotice(conn);
-		close(conn);
-		return list;
-	}
 
 	public List<BoardComment> selectBoardCommentList(int no) {
 		Connection conn = getConnection();
@@ -165,18 +175,106 @@ public class BulletinService {
 		return result;
 	}
 
-	public List<Board> selectAllAnonymousBoard() {
-		Connection conn = getConnection();
-		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
-		close(conn);
-		return list;
+	public int insertBoardComment(BoardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertBoardComment(conn, bc);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
 	}
-
+	
 	public List<Board> searchBoard(Map<String, Object> param) {
 		Connection conn = getConnection();
 		List<Board> list = bulletinDao.searchBoard(conn, param);
 		close(conn);
 		return list;
 	}
+
+	public int insertAnonymousBoard(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertAnonymousBoard(conn, board);
+			
+			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
+			int boardNo = bulletinDao.selectLastAnonymousBoardNo(conn);
+			System.out.println("[bulletinService] boardNo = " + boardNo);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null) {
+				// insert into attachment values(seq_attachment_no.nextval, ?, ?, default, 0)
+				for(Attachment attach : attachments) {
+					attach.setBoardNo(boardNo); // FK컬럼값 설정(중요)
+					result = bulletinDao.insertAnonymousAttachment(conn, attach);
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int insertNotice(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertNotice(conn, board);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public List<Board> searchNotice(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchNotice(conn, param);
+		close(conn);
+		return list;
+	}
+
+	public List<Board> searchAnonymousBoard(Map<String, Object> param) {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.searchAnonymousBoard(conn, param);
+		close(conn);
+		return list;
+	}
+
+	public int updateBoardLikeCount(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateBoardLikeCount(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+
 	
 }

@@ -56,7 +56,8 @@ public class OtoChatWebsocketConfig extends Configurator {
 		userProp.put("otoReceiverNm", otoReceiverNm);
 		userProp.put("otoSRTp", otoSRTp);
 
-		// System.out.println("userProp = " + userProp);
+		userProp.put("alarmYn", "N"); // 알람인지 여부
+
 	}
 
 }

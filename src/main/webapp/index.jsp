@@ -36,7 +36,7 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/notice/noticeview?no=<%= notice.getNo() %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
+								<a href="<%=request.getContextPath()%>/notice/noticeview %>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -64,7 +64,9 @@
 							for (Board board : boardList) {
 							%>
 							<p>
+
 								<a href="<%=request.getContextPath()%>/board/boardview?no=<%= board.getNo() %>" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
+
 							</p>
 							<hr>
 							<%

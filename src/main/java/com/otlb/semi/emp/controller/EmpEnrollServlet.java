@@ -49,7 +49,7 @@ public class EmpEnrollServlet extends HttpServlet {
 				empNo = Integer.parseInt(request.getParameter("empNo"));
 			} catch (Exception e) {
 				// 사원번호를 입력하지 않은 경우 modal에 전달할 메세지 작성
-				modalMessage(request, response, ERROR_MESSAGE, "사원번호를 입력하세요.");
+				modalMessage(request, response, ERROR_MESSAGE, "사원번호에는 숫자만 입력하세요");
 				return;
 			}
 			

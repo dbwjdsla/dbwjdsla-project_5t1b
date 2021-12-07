@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
@@ -23,7 +24,7 @@
 			 <div class="container-fluid" id="titleContent">
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
-			 	<span><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
+			 	<span>익명</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
@@ -40,6 +41,7 @@
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
 	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
+	Map<String, String> anonyName = (Map<String, String>) request.getAttribute("anonyName");
 	if(commentList != null && !commentList.isEmpty()){
 %>
 				<table>
@@ -49,6 +51,7 @@
 			BoardComment bc = commentList.get(i);
 			String commentDate = commentListDate.get(i);
 			String commentContent = commentListContent.get(i);
+			
 			
 			if(bc.getCommentLevel() == 1){
 %>				

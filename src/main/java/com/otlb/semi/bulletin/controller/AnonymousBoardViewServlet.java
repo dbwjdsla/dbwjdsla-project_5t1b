@@ -2,7 +2,9 @@ package com.otlb.semi.bulletin.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +20,10 @@ import com.otlb.semi.common.DateFormatUtils;
 import com.otlb.semi.common.LineFormatUtils;
 
 /**
- * Servlet implementation class BoardViewServlet
+ * Servlet implementation class AnonymousBoardViewServlet
  */
-@WebServlet("/board/boardView")
-public class BoardViewServlet extends HttpServlet {
+@WebServlet("/board/anonymousBoardView")
+public class AnonymousBoardViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
@@ -29,8 +31,9 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.valueOf(request.getParameter("no"));
 		
+		int no = Integer.valueOf(request.getParameter("no"));
+		System.out.println(no);
 		// 쿠키 생성 
 		Cookie[] cookies = request.getCookies();
 		boolean hasRead = false;
@@ -68,6 +71,19 @@ public class BoardViewServlet extends HttpServlet {
 		
 		//게시판 댓글 가져오기
 		List<BoardComment> boardCommentList = bulletinService.selectBoardCommentList(no);
+		Map<String, String> anonyName = new HashMap<>();
+		int count = 1;
+		for(int i = 0; i < boardCommentList.size(); i++) {
+			String name = boardCommentList.get(i).getEmp().getEmpName();
+			//댓글작성자가 map에 없으면
+			if(!anonyName.containsValue(name)) {
+				String temp = "익명" + count++;
+				anonyName.put(name, temp);
+			}
+		}
+		
+		
+		
 		List<String> commentListContent = new ArrayList<>();
 		List<String> commentListDate = new ArrayList<>();
 		
@@ -81,10 +97,10 @@ public class BoardViewServlet extends HttpServlet {
 		request.setAttribute("boardCommentList", boardCommentList);
 		request.setAttribute("commentListContent", commentListContent);
 		request.setAttribute("commentListDate", commentListDate);
-		
+		request.setAttribute("anonyName", anonyName);
 		
 		request
-			.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")
+			.getRequestDispatcher("/WEB-INF/views/anonymousBoard/anonymousBoardView.jsp")
 			.forward(request, response);
 	}
 
