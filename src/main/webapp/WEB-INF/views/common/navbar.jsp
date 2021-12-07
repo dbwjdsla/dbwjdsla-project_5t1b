@@ -52,7 +52,7 @@
 			<hr class="sidebar-divider">
 
 			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/calendar">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/survey">
 					<span>사내식당메뉴</span>
 			</a></li>
 
