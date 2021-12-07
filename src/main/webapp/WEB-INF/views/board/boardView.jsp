@@ -12,7 +12,13 @@
 	Board board  = (Board) request.getAttribute("board");
 	String regDate = (String) request.getAttribute("regDate");
 	String content = (String) request.getAttribute("content");	
+	
+	String writerProfileImagePath = "/img/profile/profile.png";
+	Boolean writerProfileImageExists = (boolean) ((request.getAttribute("writerProfileImageExists") == null) ? false : request.getAttribute("writerProfileImageExists"));
+	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";
+
 %>
+
 
 
 
@@ -25,6 +31,7 @@
 			 <div class="container-fluid" id="titleContent">
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
+		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
 			 	<span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
@@ -42,6 +49,9 @@
 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
 	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
+	
+	List<Boolean> commenterImageList = (List<Boolean>) request.getAttribute("commenterImageList");
+	
 	if(commentList != null && !commentList.isEmpty()){
 %>
 				<table>
@@ -52,11 +62,18 @@
 			String commentDate = commentListDate.get(i);
 			String commentContent = commentListContent.get(i);
 			
+			String commenterProfileImagePath = "/img/profile/profile.png";
+			Boolean commenterProfileImageExists = commenterImageList.get(i);
+			
+//			Boolean commenterProfileImageExists = (boolean) ((request.getAttribute("commenterProfileImageExists") == null) ? false : request.getAttribute("commenterProfileImageExists"));
+			if(commenterProfileImageExists) commenterProfileImagePath = "/img/profile/" + bc.getEmpNo() + ".png";
+			
 			if(bc.getCommentLevel() == 1){
 %>				
 					<tr class="level1">
 						<td style="padding: 10px;">
-							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -71,7 +88,8 @@
 %>
 					<tr class="level2">
 						<td style="padding-left: 50px; padding-bottom: 5px;">
-							<sub class="comment-writer" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 대댓글내용 -->
