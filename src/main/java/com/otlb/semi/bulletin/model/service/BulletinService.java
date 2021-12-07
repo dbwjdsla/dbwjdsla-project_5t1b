@@ -147,5 +147,12 @@ public class BulletinService {
 		close(conn);
 		return list;
 	}
+
+	public int updateReadCount(int no) {
+		Connection conn = getConnection();
+		int result = bulletinDao.updateReadCount(conn,no);
+		close(conn);
+		return result;
+	}
 	
 }
