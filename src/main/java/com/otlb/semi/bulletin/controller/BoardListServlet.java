@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.common.DateFormatUtils;
 
 /**
  * Servlet implementation class BoardListServlet
@@ -26,8 +27,10 @@ public class BoardListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		List<Board> list = bulletinService.selectAllBoard();
-		
+//		String regDate = DateFormatUtils.formatDate();
+
 		request.setAttribute("list", list);
+//		request.setAttribute("regDate", regDate);
 
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardList.jsp")

@@ -10,6 +10,8 @@ public class Board extends BoardEntity implements Serializable {
 
 	private int attachCount; // 첨부 파일수
 	private List<Attachment> attachments;
+	private int commentCount; //댓글 수
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -36,9 +38,16 @@ public class Board extends BoardEntity implements Serializable {
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
+	public int getCommentCount() {
+		return commentCount;
+	}
+	public void setCommentCount(int commentCount) {
+		this.commentCount = commentCount;
+	}
 	@Override
 	public String toString() {
-		return super.toString() +  ", [attachCount=" + attachCount + ", attachments=" + attachments + "]";
+		return super.toString() + ", Board [attachCount=" + attachCount + ", attachments=" + attachments + ", commentCount=" + commentCount
+				+ "]";
 	}
 
 	
