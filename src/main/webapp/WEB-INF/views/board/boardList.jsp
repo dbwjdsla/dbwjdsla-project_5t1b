@@ -39,7 +39,6 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 			<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 		</a>
 
-
 		<div class="card-body">
 			<div class="table-responsive">
 				<table class="table table-bordered" width="100%"
@@ -71,7 +70,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 							 </td>
 
 
-							<td><%= board.getEmp().getEmpName() %></td>
+							<td><span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %></span></td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
 							<td><%= board.getReadCount()%></td>
@@ -144,7 +143,10 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		</div>
 	</div>
 </div>
-
+<script src="<%= request.getContextPath() %>/js/empPopup.js">
+</script>
+<script>
+setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");</script>
 <script>
 
 $(searchType).change((e) => {
