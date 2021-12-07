@@ -185,14 +185,31 @@ const msgToHtml2 = ({type, msg, sender,receiver, time}) => {
     </script>
 
 </head>
+<!-- 	String otoSenderId	=	(String)request.getAttribute("otoSenderId");
+	String otoReceiverId=	(String)request.getAttribute("otoReceiverId");
+ -->
+ <%
+
+	Boolean ownProfileImageExists = (boolean) ((session.getAttribute("ownProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
+	String profileImagePath = "/img/profile/profile.png";
+	if(ownProfileImageExists) profileImagePath = "/img/profile/" + otoReceiverId + ".png";
+	else profileImagePath = "/img/profile/profile.png";
+
+ 	Boolean senderProfileImageExists = (boolean) ((session.getAttribute("senderProfileImageExists") == null) ? false : session.getAttribute("ownProfileImageExists"));
+ 	String profileImagePath2 = "/img/profile/profile.png";
+	if(ownProfileImageExists) profileImagePath2 = "/img/profile/" + otoSenderId + ".png";
+	else profileImagePath2 = "/img/profile/profile.png";
+
+ %>
 <body>
 	<div class="chat-container"></div>
 	    <div class="chat_wrap">
 	    <div class="chatwith">
-	    <img src="<%=request.getContextPath()%>/img/profile/profile.png" width=30px; height=30px; />
 		<% if(otoSRTp.equals("S")){ %>
+	    <img src="<%=request.getContextPath() + profileImagePath2 %>" width=30px; height=30px; />
 		<h1><%= request.getAttribute("otoReceiverNm") %>(<%= request.getAttribute("otoReceiverDeptNm") %>)</h1>
 		<% }else{ %>
+	    <img src="<%=request.getContextPath() + profileImagePath %>" width=30px; height=30px; />
 		<h1><%= request.getAttribute("otoSenderNm") %>(<%= request.getAttribute("otoSenderDeptNm") %>)</h1>
 		<% } %>
 	</div>
