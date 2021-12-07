@@ -43,23 +43,11 @@
 							<form 
 								id="boardEnrollForm" 
 								class="user" 
-								action="<%= request.getContextPath() %>/board/boardEnroll" 
+								action="<%= request.getContextPath() %>/board/anonymousBoardEnroll" 
 								method="POST"
 								enctype="multipart/form-data">
 								<div class="row">
-									<div class="col-2 form-group">
-										<select class="form-control" name="category">
-											<option value="" selected hidden disabled>말머리</option>
-											<option value="사담" >사담</option>
-											<option value="취미">취미</option>
-											<option value="정보">정보</option>
-											<option value="홍보">홍보</option>
-											<% if("FM".equals(loginEmp.getDeptCode())) { %>	
-											<option value="공지" style="color: red;">공지</option>							
-											<% } %>
-										</select> 									
-									</div>
-									<div class="col-10 form-group">
+									<div class="col form-group">
 										<input type="text" class="form-control" name="title" id="title" placeholder="제목">									
 									</div>
 								</div>
@@ -131,13 +119,6 @@ function boardValidate(){
 	const $category = $("[name=category]");
 	const $title = $("[name=title]");
 	const $content = $("[name=content]");
-	
-	// 말머리를 작성하지 않은 경우 폼을 제출할 수 없음.
-	if($category.val() == null){
-		alert("말머리를 선택하세요.");
-		$category.focus();
-		return false;
-	}
 	
 	// 제목을 작성하지 않은 경우 폼을 제출할 수 없음.
 	if(!/^.+$/.test($title.val())){

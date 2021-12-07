@@ -23,22 +23,21 @@ import com.otlb.semi.common.AttachFileRenamePolicy;
 import com.otlb.semi.common.EmpUtils;
 
 /**
- * Servlet implementation class BoardEnrollServlet
+ * Servlet implementation class AnonymousBoardEnrollServlet
  */
-@WebServlet("/board/boardEnroll")
-public class BoardEnrollServlet extends HttpServlet {
+@WebServlet("/board/anonymousBoardEnroll")
+public class AnonymousBoardEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
 	/**
-	 * insert into board(no, category, title, content) values(?, ?, ?, ?)
+	 * insert into anonymous_board(no, category, title, content) values(?, ?, ?, ?)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
 			// A. server computer에 사용자 업로드파일 저장
 			String saveDirectory = getServletContext().getRealPath("/upload/board"); // 여기서 /는 webroot 디렉토리
-			System.out.println("[BoardEnrollServlet] saveDirectory = " + saveDirectory);
+			System.out.println("[AnonymousBoardEnrollServlet] saveDirectory = " + saveDirectory);
 			
 			int maxPostSize = 1024 * 1024 * 10; // 10MB //바이트 단위
 			String encoding = "utf-8";
@@ -93,7 +92,7 @@ public class BoardEnrollServlet extends HttpServlet {
 					}
 				}
 				board.setAttachments(attachments);
-				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
+				System.out.println("[AnonymousBoardEnrollServlet] attachments = " + attachments);
 			}
 
 /*			
@@ -121,18 +120,18 @@ public class BoardEnrollServlet extends HttpServlet {
 					attachments.add(attach2);
 				}	
 				board.setAttachments(attachments);
-				System.out.println("[BoardEnrollServlet] attachments = " + attachments);
+				System.out.println("[AnonymousBoardEnrollServlet] attachments = " + attachments);
 			}
 */			
-			System.out.println("[BoardEnrollServlet] board = " + board);
+			System.out.println("[AnonymousBoardEnrollServlet] board = " + board);
 			
 			// 2. 업무로직
-			int result = bulletinService.insertBoard(board);
+			int result = bulletinService.insertAnonymousBoard(board);
 			String msg = result > 0 ? "게시물 등록 성공" : "게시물 등록 실패";
 			
 			// 3. 응답요청
 			request.getSession().setAttribute("msg", msg);
-			String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
+			String location = request.getContextPath() + "/board/anonymousBoardView?no=" + board.getNo();
 			response.sendRedirect(location);
 		} catch (NumberFormatException | IOException e) {
 			throw e;
