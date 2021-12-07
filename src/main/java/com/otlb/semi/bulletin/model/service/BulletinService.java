@@ -333,6 +333,20 @@ public class BulletinService {
 		return result;
 	}
 
+	public Board selectOneNotice(int no) {
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneNotice(conn, no);
+		close(conn);
+		return board;
+	}
+
+	public int updateNoticeReadCount(int no) {
+		Connection conn = getConnection();
+		int result = bulletinDao.updateNoticeReadCount(conn,no);
+		close(conn);
+		return result;
+	}
+
 
 	
 }

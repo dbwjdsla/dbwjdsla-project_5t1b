@@ -1,6 +1,7 @@
 package com.otlb.semi.bulletin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.common.DateFormatUtils;
 import com.otlb.semi.common.EmpUtils;
 
 /**
@@ -40,8 +42,13 @@ public class NoticeListServlet extends HttpServlet {
 		param.put("end", end);
 		
 		List<Board> list = bulletinService.selectAllNotice(param);
+		List<String> regDate = new ArrayList<>();
 		System.out.println("list@servlet = " + list);
-
+		for(Board board : list) {
+			regDate.add(DateFormatUtils.formatDateBoard(board.getRegDate()));
+		}
+		
+		
 		int totalContent = bulletinService.selectTotalBoardCount();
 		String url = request.getRequestURI();
 		String pagebar = EmpUtils.getPagebar(cPage, numPerPage, totalContent, url);
@@ -49,6 +56,7 @@ public class NoticeListServlet extends HttpServlet {
 
 		request.setAttribute("list", list);
 		request.setAttribute("pagebar", pagebar);
+		request.setAttribute("regDate", regDate);
 		
 		request
 			.getRequestDispatcher("/WEB-INF/views/notice/noticeList.jsp")
