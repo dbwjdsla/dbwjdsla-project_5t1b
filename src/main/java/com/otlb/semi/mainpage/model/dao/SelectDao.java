@@ -51,7 +51,7 @@ public class SelectDao {
 
 			while (rset.next()) {
 				notice= new Notice();
-				notice.setNo(rset.getInt("No"));
+				notice.setNo(rset.getInt("no"));
 				notice.setTitle(rset.getString("TITLE"));
 				notice.setContent(rset.getString("CONTENT"));
 				
@@ -83,7 +83,9 @@ public class SelectDao {
 
 			while (rset.next()) {
 				board = new Board();
-				board.setNo(rset.getInt("No"));
+				
+//				board.setNo(rset.getInt("No"));
+				board.setNo(rset.getInt("no"));
 				board.setTitle(rset.getString("TITLE"));
 				board.setContent(rset.getString("CONTENT"));
 				boardList.add(board);
@@ -114,7 +116,7 @@ public class SelectDao {
 
 			while (rset.next()) {
 				anonymousBoard = new AnonymousBoard();
-				anonymousBoard.setNo(rset.getInt("No"));
+				anonymousBoard.setNo(rset.getInt("no"));
 				anonymousBoard.setTitle(rset.getString("TITLE"));
 				anonymousBoard.setContent(rset.getString("CONTENT"));
 				anonymousBoardList.add(anonymousBoard);
@@ -145,7 +147,7 @@ public class SelectDao {
 
 			while (rset.next()) {
 				likeContent= new BoardEntity();
-				likeContent.setNo(rset.getInt("No"));
+				likeContent.setNo(rset.getInt("no"));
 				likeContent.setTitle(rset.getString("TITLE"));
 				likeContent.setContent(rset.getString("CONTENT"));
 				likeContentList.add(likeContent);

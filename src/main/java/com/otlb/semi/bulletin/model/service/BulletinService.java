@@ -275,6 +275,40 @@ public class BulletinService {
 		return result;
 	}
 
+	public Board selectOneAnonyBoard(int no) {
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneAnonyBoard(conn, no);
+		List<Attachment> attachments = bulletinDao.selectAttachmentByBoardNo(conn, no);
+		board.setAttachments(attachments);
+		close(conn);
+		return board;
+	}
+
+	public int insertAnonyBoardComment(BoardComment bc) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.insertAnonyBoardComment(conn, bc);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public List<BoardComment> selectAnonyBoardCommentList(int no) {
+		Connection conn = getConnection();
+		List<BoardComment> boardCommentList = bulletinDao.selectAnonyBoardCommentList(conn, no);
+		close(conn);
+		
+		return boardCommentList;
+	}
+
 
 	
 }
