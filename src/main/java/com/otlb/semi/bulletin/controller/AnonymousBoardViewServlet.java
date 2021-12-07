@@ -74,16 +74,16 @@ public class AnonymousBoardViewServlet extends HttpServlet {
 		Map<Integer, String> anonyName = new HashMap<>();
 		int count = 1;
 		for(int i = 0; i < boardCommentList.size(); i++) {
-			System.out.println(boardCommentList.get(i));
+			//System.out.println(boardCommentList.get(i));
 			//사번 저장
 			int empNo = boardCommentList.get(i).getEmpNo();
-			System.out.println(empNo);
+			//System.out.println(empNo);
 			//댓글작성자가 map에 없으면
 			if(!anonyName.containsKey(empNo)) {
-				System.out.println(12345678);
+				//System.out.println(12345678);
 				String temp = "익명" + count++;
 				anonyName.put(empNo, temp);
-				System.out.println(anonyName.get(empNo));
+				//System.out.println(anonyName.get(empNo));
 			}
 		}
 		

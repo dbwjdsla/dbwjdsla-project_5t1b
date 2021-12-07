@@ -9,33 +9,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
-import com.otlb.semi.mainpage.controller.BoardServlet;
 
 /**
- * Servlet implementation class BoardLikeCountServlet
+ * Servlet implementation class AnonyBoardLikeServlet
  */
-@WebServlet("/board/boardLikeCount")
-public class BoardLikeCountServlet extends HttpServlet {
+@WebServlet("/board/anonyLikeCount")
+public class AnonyBoardLikeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int no = Integer.valueOf(request.getParameter("no"));
-
+		
 		String msg = "";
 		// 쿠키 생성 
 		Cookie[] cookies = request.getCookies();
-		
 		boolean hasRead = false;
 		String boardCookieVal = "";
 		if(cookies != null ) {
 			for(Cookie cookie : cookies) {
 				String name = cookie.getName();
 				String value = cookie.getValue();
-				if("boardLikeCookie".equals(name)) {
+				if("anonyBoardLikeCookie".equals(name)) {
 					boardCookieVal = value;
 					if(value.contains("[" + no + "]")) {
 						hasRead = true;
@@ -44,29 +42,26 @@ public class BoardLikeCountServlet extends HttpServlet {
 				}
 			}
 		}
+
 		// 좋아요 증가 및 쿠키 생성 
 		if(!hasRead) {
-			int result = bulletinService.updateBoardLikeCount(no);
+			int result = bulletinService.updateAnonyBoardLikeCount(no);
 			
-			Cookie cookie = new Cookie("boardLikeCookie",boardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/boardView");
+			Cookie cookie = new Cookie("anonyBoardLikeCookie",boardCookieVal + "[" + no + "]");
+			cookie.setPath(request.getContextPath() + "/board/anonymousBoardView");
 			cookie.setMaxAge(365 * 24 * 60 * 60);
 			response.addCookie(cookie);
 			//System.out.println("조회수 증가 & 쿠키 생성 ");
 			msg = result > 0 ? "추천하셨습니다!" : "추천에 오류가 있습니다...";
-		}else {
+		} else {
 			msg = "이미 추천하셨습니다.";
 		}
 
 		
 		request.getSession().setAttribute("msg", msg);
 		
-		String location = request.getContextPath() + "/board/boardView?no=" + no;
+		String location = request.getContextPath() + "/board/anonymousBoardView?no=" + no;
 		response.sendRedirect(location);
-			
-	
-		
-		
 	}
-	
+
 }
