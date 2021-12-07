@@ -82,6 +82,7 @@ public class BoardViewServlet extends HttpServlet {
 		request.setAttribute("commentListContent", commentListContent);
 		request.setAttribute("commentListDate", commentListDate);
 		
+		
 		request
 			.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")
 			.forward(request, response);
