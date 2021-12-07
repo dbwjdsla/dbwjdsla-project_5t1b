@@ -9,14 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.otlb.semi.mainpage.model.service.SelectService;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.Notice;
 import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.bulletin.model.vo.*;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
-
 
 /**
  * Servlet implementation class Notice
@@ -34,10 +32,7 @@ public class BoardServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("-------------servlet test ---------------");
-		
-	
 
-	
 		List<Notice> noticeList = selectService.selectNoticeContent();
 		System.out.println("notice Servlet" + noticeList);
 
@@ -46,24 +41,20 @@ public class BoardServlet extends HttpServlet {
 
 		List<AnonymousBoard> anonymousBoardList = selectService.selectAnonymousBoardContent();
 		System.out.println("AnonymousBoard Servlet" + anonymousBoardList);
-		
+
 		List<BoardEntity> likeContentList = selectService.selectLikeContent();
 		System.out.println("likeContent Servlet" + likeContentList);
 
 		FoodMenu foodMenu = selectService.selectFoodMenu();
 		System.out.println("foodMenu Servlet" + foodMenu);
 
-		
-		request.getSession().setAttribute("noticeList",noticeList);
-		request.getSession().setAttribute("boardList",boardList);
-		request.getSession().setAttribute("anonymousBoardList",anonymousBoardList);
+		request.getSession().setAttribute("noticeList", noticeList);
+		request.getSession().setAttribute("boardList", boardList);
+		request.getSession().setAttribute("anonymousBoardList", anonymousBoardList);
 		request.getSession().setAttribute("likeContentList", likeContentList);
-		request.getSession().setAttribute("foodMenu",foodMenu);
+		request.getSession().setAttribute("foodMenu", foodMenu);
 		String location = request.getContextPath() + "/index.jsp";
 		response.sendRedirect(location);
-		
-	
-		
 
 	}
 
