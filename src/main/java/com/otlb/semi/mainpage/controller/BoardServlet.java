@@ -35,7 +35,9 @@ public class BoardServlet extends HttpServlet {
 			throws ServletException, IOException {
 		System.out.println("-------------servlet test ---------------");
 		
-		
+	
+
+	
 		List<Notice> noticeList = selectService.selectNoticeContent();
 		System.out.println("notice Servlet" + noticeList);
 
@@ -60,6 +62,7 @@ public class BoardServlet extends HttpServlet {
 		String location = request.getContextPath() + "/index.jsp";
 		response.sendRedirect(location);
 		
+	
 		
 
 	}

@@ -38,7 +38,7 @@ public class AnonymousBoardFinder extends HttpServlet {
 		
 		request.setAttribute("list", list);
 		request
-			.getRequestDispatcher("/WEB-INF/views/board/anonymousBoardList.jsp")
+			.getRequestDispatcher("/WEB-INF/views/anonymousBoard/anonymousBoardList.jsp")
 			.forward(request, response);
 	}
 

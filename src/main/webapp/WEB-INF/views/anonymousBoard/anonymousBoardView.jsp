@@ -18,11 +18,11 @@
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
-		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="moveAnonymousList();">목록</button>
 				<hr class="sidebar-divider my-3">
 			</div>
 			 <div class="container-fluid" id="titleContent">
-			 	<p>자유게시판</p>
+			 	<p>익명게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
 			 	<span>익명</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
@@ -101,7 +101,7 @@
 				<hr class="sidebar-divider my-3">
 				<!-- 댓글입력칸 -->
 				<form 
-					action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
+					action="<%=request.getContextPath()%>/board/anonymousBoardCommentEnroll" 
 					method="post"
 					name="boardCommentFrm">
 				    <input type="hidden" name="no" value="<%= board.getNo() %>" />
@@ -162,7 +162,7 @@ function commentReply(e) {
 	const tr = `<tr>
 		<td colspan="2" style="text-align:left">
 			<form 
-				action="<%=request.getContextPath()%>/board/boardCommentEnroll" 
+				action="<%=request.getContextPath()%>/board/anonymousBoardCommentEnroll" 
 				method="post">
 			    <input type="hidden" name="no" value="<%= board.getNo() %>" />
 			    <input type="hidden" name="commentLevel" value="2" />
@@ -190,8 +190,8 @@ function commentReply(e) {
 }
 
 //게시판 리스트로 돌아가는 함수
-function moveBoardList() {
-	location.href = "<%= request.getContextPath()%>/board/boardList";
+function moveAnonymousList() {
+	location.href = "<%= request.getContextPath()%>/board/anonymousBoardList";
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
