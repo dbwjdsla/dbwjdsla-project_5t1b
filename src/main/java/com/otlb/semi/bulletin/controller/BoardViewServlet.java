@@ -62,7 +62,7 @@ public class BoardViewServlet extends HttpServlet {
 		//게시판 데이터 가져오기
 		Board board = bulletinService.selectOneBoard(no);
 
-		System.out.println(board);
+		//System.out.println(board);
 		String regDate = DateFormatUtils.formatDate(board.getRegDate());
 		String content = LineFormatUtils.formatLine(board.getContent());
 		
