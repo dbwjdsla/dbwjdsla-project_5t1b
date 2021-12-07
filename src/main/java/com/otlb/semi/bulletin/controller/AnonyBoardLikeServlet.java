@@ -28,13 +28,13 @@ public class AnonyBoardLikeServlet extends HttpServlet {
 		// 쿠키 생성 
 		Cookie[] cookies = request.getCookies();
 		boolean hasRead = false;
-		String boardCookieVal = "";
+		String anonyBoardLikeCookieVal = "";
 		if(cookies != null ) {
 			for(Cookie cookie : cookies) {
 				String name = cookie.getName();
 				String value = cookie.getValue();
 				if("anonyBoardLikeCookie".equals(name)) {
-					boardCookieVal = value;
+					anonyBoardLikeCookieVal = value;
 					if(value.contains("[" + no + "]")) {
 						hasRead = true;
 						break;
@@ -47,8 +47,8 @@ public class AnonyBoardLikeServlet extends HttpServlet {
 		if(!hasRead) {
 			int result = bulletinService.updateAnonyBoardLikeCount(no);
 			
-			Cookie cookie = new Cookie("anonyBoardLikeCookie",boardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/anonymousBoardView");
+			Cookie cookie = new Cookie("anonyBoardLikeCookie",anonyBoardLikeCookieVal + "[" + no + "]");
+			cookie.setPath(request.getContextPath());
 			cookie.setMaxAge(365 * 24 * 60 * 60);
 			response.addCookie(cookie);
 			//System.out.println("조회수 증가 & 쿠키 생성 ");
