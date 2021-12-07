@@ -57,8 +57,8 @@ public class OtoChatInfo {
 	 * 채팅을 위한 저장소
 	 **************************************************************** 
 	 */
-	public static Map<String, Session> 			clients   = new HashMap<>();  //  사용자의 세션 정보 저장 
-	public static Map<String, String>           partyMap  = new HashMap<>();  //  사용자의 대화 상대방을 저장 
+	public static Map<String, Session> clients = new HashMap<>();  //  사용자의 세션 정보 저장 
+	public static Map<String, String> partyMap = new HashMap<>();  //  사용자의 대화 상대방을 저장 
 	
 	
 	public static void logOtoClients() {
@@ -80,18 +80,23 @@ public class OtoChatInfo {
 		return partyMap;
 	}
 	
-	public static Collection<Session>  getOtoChatClientList(){
+	// 파티 대상자 세션 설정 
+	public static void setOtoChatParty(String userId,String partyStr) {
+		partyMap.put(userId, partyStr);
+	}
+	
+	public static Collection<Session> etOtoChatClientList(){
 		return clients.values();
 	}
 	
 	//	채팅을 주려는 대상자를 조회한다 
-	public static Session  getOtoChatClientUser(String userId){
+	public static Session getOtoChatClientUser(String userId){
 		Collection<Session> sessions = clients.values();
 		
 		for(Session sess : sessions) {
 			//	사용자 아이디를 체크한다  
 			Map<String, Object> sessionUserProp = sess.getUserProperties();
-			String sessUserId	=	""+sessionUserProp.get("userId");
+			String sessUserId =	""+sessionUserProp.get("userId");
 			//	대상이 같을 때만 메세지를 출력한다 
 			if(userId.equals(sessUserId)) {
 				return sess;
@@ -99,7 +104,7 @@ public class OtoChatInfo {
 		}		
 		return null;
 	}
-	public static void  removeOtoChatClientsUser(String userId){
+	public static void removeOtoChatClientsUser(String userId){
 		clients.remove(userId);
 	}
  

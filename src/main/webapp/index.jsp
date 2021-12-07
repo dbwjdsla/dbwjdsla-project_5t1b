@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.otlb.semi.mainpage.model.vo.*"%>
+
+<%@ page import="com.otlb.semi.bulletin.model.vo.*"%>
+<%@ page import="com.otlb.semi.foodMenu.model.vo.FoodMenu"%>
+<%@ page import="com.otlb.semi.mainpage.model.vo.AnonymousBoard"%>
 <%@ page import="com.otlb.semi.emp.controller.*"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
@@ -32,7 +35,7 @@
 							for (Notice notice : noticeList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=notice.getTitle()%>] : <%=notice.getContent()%></a>
+								<a href="<%=request.getContextPath()%>" onclick="check()">[<%= notice.getTitle() %>] : <%= notice.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -59,7 +62,7 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
+								<a href="<%=request.getContextPath() %>/board/boardView" onclick="check()">[<%= board.getTitle() %>] : <%= board.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -79,17 +82,17 @@
 							</h6>
 						</div>
 						<%
-						List<LikeContent> likeContentList = (List<LikeContent>) session.getAttribute("likeContentList");
+						List<BoardEntity> likeContentList = (List<BoardEntity>) session.getAttribute("likeContentList");
 						%>
 
 						<div class="card-body">
 							<!-- 인기게시글 내용 띄울 부분 -->
 							<%
-							for (LikeContent likeContent : likeContentList) {
+							for (BoardEntity likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=likeContent.getTitle()%>]
-									: <%=likeContent.getContent()%></a>
+								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%= likeContent.getTitle() %>]
+									: <%= likeContent.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -115,8 +118,8 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=anonymousBoard.getTitle()%>]
-									: <%=anonymousBoard.getContent()%></a>
+								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%= anonymousBoard.getTitle() %>]
+									: <%= anonymousBoard.getContent() %></a>
 							</p>
 							<hr>
 							<%
@@ -154,15 +157,15 @@
 						<div class="card-body">
 
 							<p style="list-style-type: none; text-align: center;">[밥]</p>
-							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
+							<p style="text-align: center;"><%=foodMenu.getMain() %></p>
 							<p style="list-style-type: none; text-align: center;">[국]</p>
-							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSoup() %></p>
 							<p style="list-style-type: none; text-align: center;">[반찬]</p>
-							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
-							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
-							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide1() %></p>
+							<p style="text-align: center;"><%=foodMenu.getSide2() %></p>
+							<p style="text-align: center;"><%=foodMenu.getSide3() %></p>
 							<p style="list-style-type: none; text-align: center;">[디저트]</p>
-							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
+							<p style="text-align: center;"><%=foodMenu.getDessert() %></p>
 
 
 						</div>
