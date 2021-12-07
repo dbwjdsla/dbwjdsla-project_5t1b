@@ -1,9 +1,13 @@
+<%@page import="com.otlb.semi.message.model.vo.Message"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
-
+<%
+String sender = (String) request.getAttribute("sender");
+System.out.println(sender + "2#@#!#13131");
+%>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -38,6 +42,7 @@
 							name="receiverList"
 							id="receiverList"
 							readonly="readonly" 
+							value="<%= sender != null ? sender  : "" %>"
 							style="margin-top: 10px"/>
 							
 	                    <textarea 
@@ -94,7 +99,7 @@ $(receiver).autocomplete({
 	},
     focus: function(event, selected) {
         const selected2 = document.getElementsByClassName("ui-state-active")[0];
-        console.log("+++++++++" + selected2.innerText);
+        //console.log("+++++++++" + selected2.innerText);
         receiver.value =  selected2.innerText;
         return false;
     } 
@@ -105,7 +110,12 @@ $("#ui-id-1").click(() => {
      else receiverList.value = receiver.value;
     receiver.value = '';    
 });
-	
+<%-- //답장기능 적용
+window.onload = function(){
+	console.log(123);
+	const $receiver = $(receiver);
+	$receiver.val(<%= senderNo %>);
+}; --%>
 
 /* 쪽지 쓰기 500자 제한 코드 */
 $(document).ready(function() {

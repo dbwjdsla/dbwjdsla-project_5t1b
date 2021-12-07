@@ -30,8 +30,8 @@ public class UpdateProfileImgServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		HttpSession session = request.getSession(); Emp emp = (Emp)
-		session.getAttribute("loginEmp");
+		HttpSession session = request.getSession();
+		Emp emp = (Emp) session.getAttribute("loginEmp");
 		String empNo = String.valueOf(emp.getEmpNo());
 
 		String filepath = UpdateProfileImgServlet.class.getResource("/../../img/profile").getPath();
