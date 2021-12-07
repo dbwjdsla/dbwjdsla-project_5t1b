@@ -59,7 +59,7 @@
 							for (Board board : boardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
+								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=board.getTitle()%>] : <%=board.getContent()%></a>
 							</p>
 							<hr>
 							<%
@@ -88,7 +88,7 @@
 							for (LikeContent likeContent : likeContentList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=likeContent.getTitle()%>]
+								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=likeContent.getTitle()%>]
 									: <%=likeContent.getContent()%></a>
 							</p>
 							<hr>
@@ -115,7 +115,7 @@
 							for (AnonymousBoard anonymousBoard : anonymousBoardList) {
 							%>
 							<p>
-								<a href="<%=request.getContextPath()%>" onclick="check()">[<%=anonymousBoard.getTitle()%>]
+								<a href="<%=request.getContextPath()%>/board/boardView" onclick="check()">[<%=anonymousBoard.getTitle()%>]
 									: <%=anonymousBoard.getContent()%></a>
 							</p>
 							<hr>

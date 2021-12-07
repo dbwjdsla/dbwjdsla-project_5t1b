@@ -157,4 +157,18 @@ public class BulletinService {
 		return boardCommentList;
 	}
 	
+	public int updateReadCount(int no) {
+		Connection conn = getConnection();
+		int result = bulletinDao.updateReadCount(conn,no);
+		close(conn);
+		return result;
+	}
+
+	public List<Board> selectAllAnonymousBoard() {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
+		close(conn);
+		return list;
+	}
+	
 }
