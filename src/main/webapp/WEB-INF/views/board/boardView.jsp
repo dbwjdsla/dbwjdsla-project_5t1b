@@ -14,6 +14,8 @@
 	String content = (String) request.getAttribute("content");	
 %>
 
+
+
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
@@ -23,7 +25,7 @@
 			 <div class="container-fluid" id="titleContent">
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
-			 	<span><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
+			 	<span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
@@ -110,6 +112,10 @@
 					</div>
 				</form>
 			 </div>
+			 
+
+<script src="<%= request.getContextPath() %>/js/empPopup.js">
+</script>
 			 <form
 				name=recommendFrm
 				method="POST" 
@@ -119,6 +125,7 @@
 			</form>	
 
 <script>
+setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");
 //추천하기 버튼
 function recommend(){
 	$("form[name=recommendFrm]").submit();	
