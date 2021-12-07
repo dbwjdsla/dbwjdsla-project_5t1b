@@ -55,6 +55,7 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 					%>
 						<tr>
 							<td><%= board.getNo()%></td>
+
 							<td>
 								<a href="<%= request.getContextPath()%>/board/anonymousBoardView?no=<%=board.getNo()%>">
 								<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%></a> 
@@ -62,6 +63,7 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 								<span><i class="fa fa-paperclip"></i></span> 
 								<% } %>
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
+
 							 </td>
 							<td>익명</td>
 							<td><%= board.getLikeCount()%></td>

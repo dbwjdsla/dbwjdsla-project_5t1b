@@ -541,6 +541,90 @@ public class BulletinDao {
 		return list;
 	}
 
+	public int insertAnonymousBoard(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertAnonymousBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getCategory());
+			pstmt.setString(2, board.getTitle());
+			pstmt.setString(3, board.getContent());
+			pstmt.setInt(4, board.getEmpNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("게시글 등록 실패", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectLastAnonymousBoardNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastAnonymousBoardNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				boardNo = rset.getInt(1);
+		} catch (SQLException e) {
+			throw new BulletinException("최근 게시글 번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return boardNo;
+	}
+
+	public int insertAnonymousAttachment(Connection conn, Attachment attach) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertAnonymousAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, attach.getOriginalFilename());
+			pstmt.setString(2, attach.getRenamedFilename());
+			pstmt.setInt(3, attach.getBoardNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("첨부파일 등록 오류", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int insertNotice(Connection conn, Board board) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("insertNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, board.getTitle());
+			pstmt.setString(2, board.getContent());
+			pstmt.setInt(3, board.getEmpNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("게시글 등록 실패", e);
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 	public List<Board> searchNotice(Connection conn, Map<String, Object> param) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("searchNotice");
@@ -584,6 +668,7 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return list;
+
 	}
 	
 	public List<Board> searchAnonymousBoard(Connection conn, Map<String, Object> param) {
