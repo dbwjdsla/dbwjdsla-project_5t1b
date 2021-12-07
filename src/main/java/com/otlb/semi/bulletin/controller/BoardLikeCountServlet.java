@@ -29,16 +29,25 @@ public class BoardLikeCountServlet extends HttpServlet {
 		//일반게시판 좋아요 요청이면
 		if(board.equals("board")) {
 			result = bulletinService.updateBoardLikeCount(no);
-		}else if(board.equals("board")) {
-			result = bulletinService.updateBoardLikeCount(no);
+			
+			String msg = result > 0 ? "추천하셨습니다!" : "추천에 오류가 있습니다...";
+			
+			request.getSession().setAttribute("msg", msg);
+			
+			String location = request.getContextPath() + "/board/boardView?no=" + no;
+			response.sendRedirect(location);
+		}else if(board.equals("anonyBoard")) {
+			result = bulletinService.updateAnonyBoardLikeCount(no);
+
+			String msg = result > 0 ? "추천하셨습니다!" : "추천에 오류가 있습니다...";
+			
+			request.getSession().setAttribute("msg", msg);
+			
+			String location = request.getContextPath() + "/board/anonymousBoardView?no=" + no;
+			response.sendRedirect(location);
 		}
 		
-		String msg = result > 0 ? "추천하셨습니다!" : "추천에 오류가 있습니다...";
 		
-		request.getSession().setAttribute("msg", msg);
-		
-		String location = request.getContextPath() + "/board/boardView?no=" + no;
-		response.sendRedirect(location);
 	}
 	
 }
