@@ -154,5 +154,12 @@ public class BulletinService {
 		close(conn);
 		return result;
 	}
+
+	public List<Board> selectAllAnonymousBoard() {
+		Connection conn = getConnection();
+		List<Board> list = bulletinDao.selectAllAnonymousBoard(conn);
+		close(conn);
+		return list;
+	}
 	
 }

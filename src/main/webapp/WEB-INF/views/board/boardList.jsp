@@ -6,6 +6,12 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
+
+<%-- <%
+	String regDate = (String) request.getAttribute("regDate");
+%> --%>
+
+
 <!-- Custom styles for this template -->
 <link
 	href="<%=request.getContextPath()%>/resources/css/sb-admin-2.min.css"
@@ -70,7 +76,8 @@
 							 </td>
 
 							<%-- <%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %> --%>
-							<%-- <td><%= board.getEmpName()%></td> --%>
+
+							<td><%= board.getEmp().getEmpName() %></td>
 							<td><%= board.getLikeCount()%></td>
 							<td><%= board.getRegDate()%></td>
 							<td><%= board.getReadCount()%></td>
