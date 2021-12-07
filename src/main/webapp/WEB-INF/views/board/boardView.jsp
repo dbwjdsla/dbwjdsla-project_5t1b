@@ -1,3 +1,5 @@
+<%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
+<%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -14,7 +16,7 @@
 
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-	        <div class="container">
+	        <div class="container-fluid">
 		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
 				<hr class="sidebar-divider my-3">
 			</div>
@@ -31,11 +33,67 @@
 			 	<span><%= content %></span>
 			 </div>
 			  <div class="container-fluid" id="commentContent">
-			 	<span>댓글 </span>
+			 	<span>댓글 <%= board.getCommentCount() %></span>
+			 	<hr class="sidebar-divider my-3">
+<% 
+	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
+	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
+	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
+	if(commentList != null && !commentList.isEmpty()){
+%>
+				<table>
+<%
+		for(int i = 0; i < commentList.size(); i++){
+		//for(BoardComment bc : commentList){
+			BoardComment bc = commentList.get(i);
+			String commentDate = commentListDate.get(i);
+			String commentContent = commentListContent.get(i);
+			
+			if(bc.getCommentLevel() == 1){
+%>				
+					<tr class="level1">
+						<td>
+							<sub class="comment-writer"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-date"><%= commentDate %></sub>
+							<br />
+							<!-- 댓글내용 -->
+							<%= commentContent %>
+						</td>
+						<td>
+							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>">답글</button>
+						</td>
+					</tr>
+<%
+			} else{
+%>
+					<tr class="level2">
+						<td>
+							<sub class="comment-writer"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-date"><%= commentDate %></sub>
+							<br />
+							<!-- 댓글내용 -->
+							<%= commentContent %>
+						</td>
+					</tr>
+
+<% 
+			}
+		}
+%>
+			
+
+				</table>
+<%
+	}
+%>
+
+			 	
 			 </div>
 <script>
-function moveList() {
-	location.href = "<%= request.getContextPath()%>/board/moveBoardList";
+
+//게시판 리스트로 돌아가는 함수
+function moveBoardList() {
+	location.href = "<%= request.getContextPath()%>/board/boardList";
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

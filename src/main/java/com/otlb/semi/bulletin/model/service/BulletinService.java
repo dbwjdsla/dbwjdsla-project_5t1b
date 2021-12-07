@@ -11,6 +11,7 @@ import java.util.List;
 import com.otlb.semi.bulletin.model.dao.BulletinDao;
 import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
+import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.bulletin.model.vo.Notice;
 
 public class BulletinService {
@@ -146,6 +147,14 @@ public class BulletinService {
 		List<Notice> list = bulletinDao.selectAllNotice(conn);
 		close(conn);
 		return list;
+	}
+
+	public List<BoardComment> selectBoardCommentList(int no) {
+		Connection conn = getConnection();
+		List<BoardComment> boardCommentList = bulletinDao.selectBoardCommentList(conn, no);
+		close(conn);
+		
+		return boardCommentList;
 	}
 	
 }
