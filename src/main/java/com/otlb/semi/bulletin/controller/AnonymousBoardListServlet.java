@@ -15,7 +15,7 @@ import com.otlb.semi.bulletin.model.vo.Board;
 /**
  * Servlet implementation class AnonymousBoardList
  */
-@WebServlet("/anonymousBoard/anonymousBoardList")
+@WebServlet("/board/anonymousBoardList")
 public class AnonymousBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();

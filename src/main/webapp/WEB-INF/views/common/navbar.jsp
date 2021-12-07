@@ -43,7 +43,7 @@
 
 			<!-- Nav Item - Charts -->
 
-			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/anonymousBoard/anonymousBoardList">
+			<li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/board/anonymousBoardList">
 
 					<span>익명게시판</span>
 			</a></li>

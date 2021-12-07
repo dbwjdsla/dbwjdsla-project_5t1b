@@ -7,6 +7,7 @@
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
+
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
@@ -38,8 +39,6 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		<i class="fas fa-envelope fa-fw"></i>글쓰기</span>
 	</a>
 	<p class="mb-4">자유게시판 입니다.</p>
-
-	<!-- DataTales Example -->
 
 		<div class="card-body">
 			<div class="table-responsive">
