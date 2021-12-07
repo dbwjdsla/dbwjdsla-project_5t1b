@@ -470,10 +470,11 @@ public class BulletinDao {
 		String searchKeyword = (String) param.get("searchKeyword");
 		switch(searchType) {
 		case "title": sql += " title like '%" + searchKeyword + "%'"; break;
-		case "writer": sql += " writer like '%" + searchKeyword + "%'"; break;
-		case "category": sql += " category '%" + searchKeyword + "%'"; break;
+		case "emp_name": sql += " emp_name like '%" + searchKeyword + "%'"; break;
+		case "category": sql += " category like '%" + searchKeyword + "%'"; break;
 		}
-		
+		System.out.println("sql@dao = " + sql);
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
