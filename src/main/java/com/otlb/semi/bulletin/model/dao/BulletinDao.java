@@ -948,6 +948,62 @@ public class BulletinDao {
 		return result;
 	}
 
+	public int deleteAnonymousBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAnonymousBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteNotice(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectLastNoticeNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastNoticeNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				boardNo = rset.getInt(1);
+		} catch (SQLException e) {
+			throw new BulletinException("최근 게시글 번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return boardNo;
+	}
+
 	
 }
 
