@@ -1,8 +1,14 @@
+<%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
+<%@page import="java.util.List"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
-
+<%
+	Board board = (Board) request.getAttribute("board");
+	System.out.println("board = " + board);
+%>
 <!-- Bootstrap core JavaScript-->
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
@@ -24,69 +30,61 @@
 				<div class="card-body p-0">
 					<div class="p-5">
 						<br />
-						<div class="form-group">
-							<div class="row ">
-								<div class="col-7">공지사항 글쓰기</div>
 
-								<div class="col-2">
-									<input type="button" value="임시 저장"
-										class="btn btn-primary btn-user btn-block"
-										style="font-size: .8rem;" />
-								</div>
-								<div class="col-3">
-									<button class="btn btn-primary btn-user btn-block"
-										style="font-size: .8rem;">임시 저장 글 블러오기</button>
+						<div class="mx-auto" style="width: 150px;">공지사항 수정</div>
+
+						<br />
+						<!-- boardEnrollForm -->
+						<form id="boardUpdateForm" class="user"
+							action="<%=request.getContextPath()%>/board/noticeUpdate"
+							method="POST">
+							<div class="row">
+								<div class="col form-group">
+									<input type="text" class="form-control" name="title" id="title" value="<%= board.getTitle() %>"
+										placeholder="제목">
 								</div>
 							</div>
-							<br />
-							<!-- boardEnrollForm -->
-							<form 
-								id="boardEnrollForm" 
-								class="user" 
-								action="<%= request.getContextPath() %>/board/noticeEnroll" 
-								method="POST">
-								<div class="row">
-									<div class="col form-group">
-										<input type="text" class="form-control" name="title" id="title" placeholder="제목">									
+							<div class="row">
+								<div class="form-group col-12">
+									<label for="textContent">내용</label>
+									<textarea name="content" id="textContent" cols="30" rows="12"
+										placeholder="내용을 입력해주세요." class="form-control"
+										style="resize: none;"><%= board.getContent() %></textarea>
+									<div class="counter" style="float: right;">
+										<span id="count">0</span><span>/1000</span>
 									</div>
 								</div>
-								<div class="row">
-									<div class="form-group col-12">
-										<label for="textContent">내용</label>
-										<textarea name="content" id="textContent" cols="30" rows="12"
-											placeholder="내용을 입력해주세요." class="form-control"
-											style="resize: none;"></textarea>
-										<div class="counter" style="float: right;">
-											<span id="count">0</span><span>/1000</span>
-										</div>
-									</div>
-								</div>
-								<!-- 사원번호 -->
-								<input type="hidden" name="empNo" value="<%= loginEmp.getEmpNo() %>"/>
+							</div>
+							<!-- 사원번호 -->
+							<input type="hidden" name="empNo"
+								value="<%=loginEmp.getEmpNo()%>" />
+							<!-- 게시물 번호 -->
+							<input type="hidden" name="no" value="<%= board.getNo() %>" />
 
-								<br /> <br />
-								<div class="form-group">
-									<div class="row justify-content-around">
-										<div class="col-4">
-											<input type="button" value="작성 취소" id="cancelWriting"
-												class="btn btn-primary btn-block" onclick="cancel();" />
-										</div>
-										<div class="col-4">
-											<input type="submit" value="작성 완료" id="submitButton"
-												class="btn btn-primary btn-block" />
-										</div>
-									</div>
-								</div>
-
-							</form>
 							<br /> <br />
-						</div>
+							<div class="form-group">
+								<div class="row justify-content-around">
+									<div class="col-4">
+										<input type="button" value="수정 취소" id="cancelWriting"
+											class="btn btn-primary btn-block" onclick="cancel();" />
+									</div>
+									<div class="col-4">
+										<input type="submit" value="수정 완료" id="submitButton"
+											class="btn btn-primary btn-block" />
+									</div>
+								</div>
+							</div>
+
+						</form>
+						<br /> <br />
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <script>
 
 // 페이지 로딩시 제목으로 포커스됨
@@ -98,9 +96,9 @@ window.onload = () => {
  * boardEnrollForm 유효성 검사
  */
 function boardValidate(){
+	const $category = $("[name=category]");
 	const $title = $("[name=title]");
 	const $content = $("[name=content]");
-	
 	
 	// 제목을 작성하지 않은 경우 폼을 제출할 수 없음.
 	if(!/^.+$/.test($title.val())){
@@ -119,7 +117,7 @@ function boardValidate(){
 	
 	return true;
 }; 
-$("#boardEnrollForm").submit(boardValidate);
+$("#boardUpdateForm").submit(boardValidate);
 
 // 제목은 33글자 이상 입력 못함
 $("#title").keyup(({target}) => {
@@ -182,17 +180,16 @@ function createInputFile(){
 	if(count <= 5){
 		//console.log(count);
 		const idValue = "inputGroupFile0" + count;
-		const attrValue = "upFile" + count;
 		const buttonAddon = "button-addon" + count;
 		const inputFile = `
 		<div class="form-group" id="createdTag">
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
-					<button class="btn btn-danger" type="button" onclick="document.getElementById('createdTag').remove();"
+					<button class="btn btn-danger" type="button" onclick="removeTag();"
 						style="width: 50px;" id=\${buttonAddon}>-</button>
 				</div>
 				<div class="custom-file">
-					<input type="file" class="w-70 custom-file-input" id=\${idValue} name=\${attrValue}
+					<input type="file" class="w-70 custom-file-input" id=\${idValue} name="upFile"
 						aria-describedby=\${buttonAddon} style="cursor:pointer;"/>
 						 <label class="custom-file-label" for=\${idValue} >클릭해서 파일 추가하기</label>
 				</div>
@@ -209,21 +206,34 @@ function createInputFile(){
 			$(e.target).next().html(fileName);	
 			console.log($(e.target).next());
 		});
-		
-		if(count > 5) {
-			$("#button-addon1")
-				.prop("disabled", true);	
+	
+		switch(count){
+		case 4: $("#button-addon2").prop("disabled", true); break;
+		case 5: $("#button-addon3").prop("disabled", true); break;
+		case 6: $("#button-addon4").prop("disabled", true); 
+				$("#fileMessage").html("파일은 최대 5개까지 첨부 가능합니다.");		
+				$("#button-addon1").prop("disabled", true);
+				break;		
 		}
 		
-		
 	}	
+	
 };
 
-
+function removeTag(){
+	count--;
+	$('#createInputFileByButton').children().last().remove(); 
+	switch(count){
+	case 3: $("#button-addon2").prop("disabled", false); break;
+	case 4: $("#button-addon3").prop("disabled", false); break;
+	case 5: $("#button-addon4").prop("disabled", false); 
+			$("#fileMessage").html("");		
+			$("#button-addon1").prop("disabled", false);
+			break;
+	}
+	
+}
 
 </script>
-
-
-
 
 
