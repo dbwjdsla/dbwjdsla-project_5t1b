@@ -138,6 +138,7 @@ public class BulletinDao {
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("emp_name"));
 				board.setEmp(emp);				
+				board.setEmpNo(rset.getInt("emp_no"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
@@ -341,10 +342,11 @@ public class BulletinDao {
 		String sql = prop.getProperty("selectOneAttachment");
 		ResultSet rset = null;
 		Attachment attach = null;
-		
+
 		try{
 			//미완성쿼리문을 가지고 객체생성.
 			pstmt = conn.prepareStatement(sql);
+			System.out.println("pstmt Dao = " + pstmt );
 			//쿼리문미완성
 			pstmt.setInt(1, no);
 			//쿼리문실행
@@ -359,14 +361,15 @@ public class BulletinDao {
 				attach.setOriginalFilename(rset.getString("original_filename"));
 				attach.setRenamedFilename(rset.getString("renamed_filename"));
 				attach.setRegDate(rset.getDate("reg_date"));
-				
+
 			}
+			System.out.println("if문끝 =" + attach);
 		}catch(Exception e){
 			throw new BulletinException("첨부파일 조회 오류!", e);
 		}finally{
 			close(rset);
 			close(pstmt);
-			System.out.println("attachDao = " + attach );
+			
 		}
 		return attach;
 	}
@@ -948,6 +951,62 @@ public class BulletinDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int deleteAnonymousBoard(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteAnonymousBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteNotice(Connection conn, int no) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteNotice");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1,  no);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int selectLastNoticeNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastNoticeNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				boardNo = rset.getInt(1);
+		} catch (SQLException e) {
+			throw new BulletinException("최근 게시글 번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return boardNo;
 	}
 
 	

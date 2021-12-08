@@ -12,8 +12,8 @@ import com.otlb.semi.bulletin.model.service.BulletinService;
 /**
  * Servlet implementation class BoardDeleteServlet
  */
-@WebServlet("/board/boardDelete")
-public class BoardDeleteServlet extends HttpServlet {
+@WebServlet("/board/anonymousBoardDelete")
+public class AnonymousBoardDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
 
@@ -21,13 +21,13 @@ public class BoardDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt( request.getParameter("no"));
-		int result = bulletinService.deleteBoard(no);
+		int no = Integer.parseInt(request.getParameter("no"));
+		int result = bulletinService.deleteAnonymousBoard(no);
 		
 		String msg = result > 0 ? "게시물 삭제 성공" : "게시물 삭제 실패";
 		
 		request.getSession().setAttribute("msg", msg);
-		String location = request.getContextPath() + "/board/boardList";
+		String location = request.getContextPath() + "/anonymousBoard/anonymousBoardList";
 		response.sendRedirect(location);
 	}
 

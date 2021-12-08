@@ -66,11 +66,11 @@
 								value="<%=loginEmp.getEmpNo()%>" />
 							<!-- 게시물 번호 -->
 							<input type="hidden" name="no" value="<%= board.getNo() %>" />
-<hr />
 <%
 	List<Attachment> attachments = board.getAttachments();
 	if(attachments != null && !attachments.isEmpty()){
 %>
+<hr />
 							<div class="row justify-content-between">
 								<div class="col-10">기존 첨부파일</div>
 								<div class="col-1">삭제</div>
