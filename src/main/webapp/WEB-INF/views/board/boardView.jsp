@@ -51,7 +51,6 @@
 			 	<span><%= regDate %></span>
 <%
  	List<Attachment> attachments = board.getAttachments();
-    if(attachments != null && !attachments.isEmpty()){	
     	if (attachments != null && !attachments.isEmpty()) {
     		for(int i = 0; i < attachments.size(); i++){
     			Attachment attach = attachments.get(i);
@@ -59,11 +58,12 @@
 			<tr>
 			<td>
 			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
-			 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
 			</tr> 	
 <%	
-    		}
+    		
+    	}
 	}
 %>			 	
 			 	
@@ -328,9 +328,9 @@ function commentReply(e) {
 }
 
 //게시판 리스트로 돌아가는 함수
-function moveBoardList() {
+ function moveBoardList() {
 
-	location.href = "<%=request.getContextPath()/board/boardList %>";
+	 location.href = "<%= request.getContextPath() %>/board/boardList";
 
 }
 </script>
