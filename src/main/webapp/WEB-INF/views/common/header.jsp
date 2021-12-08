@@ -27,6 +27,7 @@ if(msg != null) session.removeAttribute("msg");
 <meta name="author" content="">
 
 <title>5T1B 커뮤니티에 오신것을 환영합니다!</title>
+<script src="<%= request.getContextPath() %>/js/otochatroom.js"></script>
 <!-- 제이쿼리 링크 -->
 <script src="<%= request.getContextPath() %>/js/jquery-3.6.0.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">

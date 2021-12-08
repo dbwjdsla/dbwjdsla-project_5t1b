@@ -155,7 +155,7 @@ if(category == '[공지]'){
 
 </script>
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
-<script src="<%= request.getContextPath() %>/js/otochatroom.js"></script>
+
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
