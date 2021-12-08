@@ -1,3 +1,4 @@
+<%@page import="com.otlb.semi.bulletin.model.service.BulletinService"%>
 <%@page import="com.otlb.semi.emp.model.service.EmpService"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
@@ -17,17 +18,26 @@
 	
 	String writerProfileImagePath = "/img/profile/profile.png";
 	Boolean writerProfileImageExists = (boolean) ((request.getAttribute("writerProfileImageExists") == null) ? false : request.getAttribute("writerProfileImageExists"));
-	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";
-
+	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";	
+	
 %>
-
-
-
-
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
 		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
+<%
+	if(board.getEmpNo() == loginEmp.getEmpNo()){
+%>
+		    	<button class="btn btn-primary btn-icon-split" onclick="updateBoard();">수정</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<%
+	}
+	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+%>
+				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<% 
+	}
+%>
 				<hr class="sidebar-divider my-3">
 			</div>
 			 <div class="container-fluid" id="titleContent">
@@ -58,13 +68,13 @@
 			 	<button class="btn btn-primary btn-icon-split" id="recommend-btn" onclick="recommend();">추천하기</button>
 			 	<hr class="sidebar-divider my-3">
 <% 
-	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
+ 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
 	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
 	
 	List<Boolean> commenterImageList = (List<Boolean>) request.getAttribute("commenterImageList");
 	
-	if(commentList != null && !commentList.isEmpty()){
+	if(commentList != null && !commentList.isEmpty()){ 
 %>
 				<table>
 <%
@@ -206,6 +216,12 @@
 				<input type="hidden" name="no" />
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
 			</form>
+			<form 
+				action="<%= request.getContextPath() %>/board/boardDelete" 
+				name="boardDeleteFrm"
+				method="POST">
+				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+			</form>
 
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
@@ -215,6 +231,16 @@
  }
 </script>
 <script>
+//삭제하기 버튼
+function deleteBoard() {
+	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
+		$(document.boardDeleteFrm).submit();		
+	}
+}
+//수정하기 버튼
+function updateBoard() {
+	location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+}
 //추천하기 버튼
 function recommend(){
 	$("form[name=recommendFrm]").submit();	

@@ -4,6 +4,7 @@
 	pageEncoding="UTF-8"%>
 <% 
 	List<Board> list = (List<Board>) request.getAttribute("list"); 
+	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
@@ -58,7 +59,9 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 					</thead>
 					<tbody class="list">
 					<%
-					for (Board board : list) {
+					for(int i = 0; i < list.size(); i++){
+						Board board = list.get(i);
+					// for (Board board : list) {
 					%>
 						<tr id="table-row">
 							<td id="no"><span></span><%= board.getNo()%></td>
@@ -74,7 +77,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 
 							<td id="writer" class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %></td>
 							<td id="like"><%= board.getLikeCount()%></td>
-							<td id="date"><%= board.getRegDate()%></td>
+							<td id="date"><%= regDate.get(i) %></td>
 							<td id="read"><%= board.getReadCount()%></td>
 						</tr>
 						<%
@@ -116,35 +119,15 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 		    </div>
 		</div>
-	</div>
-</div>
+	<!-- </div>
+</div> -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top"> <i
 	class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-				<button class="close" type="button" data-dismiss="modal"
-					aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body">Select "Logout" below if you are ready
-				to end your current session.</div>
-			<div class="modal-footer">
-				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-				<a class="btn btn-primary" href="login.html">Logout</a>
-			</div>
-		</div>
-	</div>
-</div>
+
 <script>
 const category = document.getElementById('category').textContent;
 const main = document.getElementById('main');
@@ -182,31 +165,8 @@ $(searchType).change((e) => {
 
 </script>
 
-<!-- Bootstrap core JavaScript-->
-<script
-	src="<%=request.getContextPath()%>/resources/vendor/jquery/jquery.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- Core plugin JavaScript-->
-<script
-	src="<%=request.getContextPath()%>/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script
-	src="<%=request.getContextPath()%>/resources/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script
-	src="<%=request.getContextPath()%>/resources/vendor/datatables/jquery.dataTables.min.js"></script>
-<script
-	src="<%=request.getContextPath()%>/resources/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-<!-- Page level custom scripts -->
-<script
-	src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
-
-
 </body>
 
 </html>
+<br /><br /><br /><br /><br />
+<%@ include file="/WEB-INF/views/common/footer.jsp"%>
