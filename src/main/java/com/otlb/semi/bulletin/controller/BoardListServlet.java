@@ -44,6 +44,7 @@ public class BoardListServlet extends HttpServlet {
 		List<Board> list = bulletinService.selectAllBoard(param);
 		List<String> regDate = new ArrayList<>();
 		System.out.println("list@servlet = " + list);
+		
 		for(Board board : list) {
 			regDate.add(DateFormatUtils.formatDateBoard(board.getRegDate()));
 		}

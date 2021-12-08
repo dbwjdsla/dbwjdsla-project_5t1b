@@ -119,8 +119,8 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 		    </div>
 		</div>
-	</div>
-</div>
+	<!-- </div>
+</div> -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top"> <i
