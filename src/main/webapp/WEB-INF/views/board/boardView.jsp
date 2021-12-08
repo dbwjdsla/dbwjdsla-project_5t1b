@@ -1,6 +1,8 @@
+<%@page import="com.otlb.semi.emp.model.service.EmpService"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -36,8 +38,18 @@
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
+<%
+ 	List<Attachment> attachments = board.getAttachments();
+    if(attachments != null && !attachments.isEmpty()){			 	
+%>	
+			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+<%	
+	}
+%>			 	
+			 	
 			 </div>
 			 <br />
+			 
 			 <div class="container-fluid" id="Content" style="margin: 10px">
 			 	<span><%= content %></span>
 			 </div>
@@ -67,11 +79,16 @@
 			
 //			Boolean commenterProfileImageExists = (boolean) ((request.getAttribute("commenterProfileImageExists") == null) ? false : request.getAttribute("commenterProfileImageExists"));
 			if(commenterProfileImageExists) commenterProfileImagePath = "/img/profile/" + bc.getEmpNo() + ".png";
-			
+			boolean removable = (
+					  loginEmp.getEmpNo() == bc.getEmpNo()
+					  || EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole()));
 			if(bc.getCommentLevel() == 1){
+				//댓글을 삭제했다면
+				if(bc.getDeleteYn().equals("N")){
+			
 %>				
 					<tr class="level1">
-						<td style="padding: 10px;">
+						<td style="padding: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
 							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
@@ -81,13 +98,36 @@
 						</td>
 						<td>
 							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
+<%
+					if(removable){
+%>						
+							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>">삭제</button>
+<%
+					}
+%>					
 						</td>
+					</tr>
+<%			
+
+				}else{					
+%>
+					<tr class="level1" style="color: #4e73df;">
+						<td style="padding: 15px;">
+							<!-- 댓글내용 -->
+							삭제된 댓글입니다.
+						</td>
+	
+<%
+				}
+%>					
 					</tr>
 <%
 			} else{
+				if(bc.getDeleteYn().equals("N")){
+			
 %>
 					<tr class="level2">
-						<td style="padding-left: 50px; padding-bottom: 5px;">
+						<td style="padding-left: 50px; padding-bottom: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
 							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
@@ -97,17 +137,38 @@
 						</td>
 						<td>
 							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
+<%
+					if(removable){
+%>	
+							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>">삭제</button>
+<%
+					}
+%>					
+						</td>	
+					</tr>
+<%
+
+				} else{
+%>						
+					<tr class="level2" style="color: #4e73df;">
+						<td style="padding-left: 50px; padding-bottom: 15px;">
+							<!-- 대댓글내용 -->
+							삭제된 댓글입니다.
 						</td>
 					</tr>
 
 <% 
+				}
 			}
-		}
 %>
 			
-
+<%
+		}
+%>
 				</table>
 <%
+
+		
 	}
 %>
 
@@ -138,18 +199,19 @@
 				action="<%= request.getContextPath() %>/board/boardLikeCount" >
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
 			</form>	
+			<form 
+				action="<%= request.getContextPath() %>/board/boardCommentDelete" 
+				name="boardCommentDelFrm"
+				method="POST">
+				<input type="hidden" name="no" />
+				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+			</form>
 
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
-
-<%--
- 		setPopover("<%= request.getContextPath() %>", "게시글보기 링크", pop.dataset.empNo, "대화 링크", "쪽지 보내기 링크");
- 		--%>
-
-
  }
 </script>
 <script>
@@ -181,7 +243,18 @@ $(document.boardCommentFrm).submit((e) => {
 		e.preventDefault();
 	}
 });
+//댓글 삭제 기능
+$("button[name=btn-delete]").click(function(){
+	console.log(12345);
 
+	if(confirm("해당 댓글을 삭제하시겠습니까?")){
+		var $frm = $(document.boardCommentDelFrm);
+		var no = $(this).val();
+		console.log(no);
+		$frm.find("[name=no]").val(no);
+		$frm.submit();
+	}
+});	
 //대댓글 기능
 function commentReply(e) {
 	//대댓글 상위댓글 저장

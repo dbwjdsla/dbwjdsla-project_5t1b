@@ -30,6 +30,10 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 
 </head>
+<style>
+#aa {margin-botton:2erm;}
+
+</style>
 
 <body class="mypage" id="mypage">
 
@@ -44,39 +48,46 @@
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="p-5">
+							<a href="<%= request.getContextPath() %>/emp/empView"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 							<div class="text-center">
 								<br /> <br />
 								<h1 class="h4 text-gray-900 mb-4">비밀번호 변경</h1>
-								<!-- <div class="row">
-								<div class="col-lg-6"> -->
+								<div class="row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<p style="height: 44px;">현재 비밀번호 :</p>
+									</div>
+									<div class="form-group">
+										<p style="height: 44px;">현재 비밀번호 :</p>
+									</div>
+									<div class="form-group">
+										<p>현재 비밀번호 :</p>
+									</div>
+								</div>
+								<div class="col-lg-6">
 									<form name="updatePwdFrm"
 										atcion="<%=request.getContextPath()%>/emp/updatePassword"
 										method="post">
 										<div class="form-group">
-											<p>
-												현재 비밀번호 :<input type="password" name="oldPassword" id="oldPassword"
+											<input type="password" name="oldPassword" id="oldPassword"
 													class="form-control form-control-user" required>
-											</p>
 										</div>
 										<div class="form-group">
-											<p>
-												새로운 비밀번호 :<input type="password" name="newPassword" id="newPassword"
+											<input type="password" name="newPassword" id="newPassword"
 													class="form-control form-control-user" required>
-											</p>
 										</div>
 										<div class="form-group">
-											<p>
-												비밀번호 확인 :<input type="password" id="newPasswordCheck"
-													class="form-control form-control-user" required>
-											</p><br />
+											<input type="password" id="newPasswordCheck"
+													class="form-control form-control-user" width="100px" required>
+											<br />
 										</div>
 										<input type="submit" value = "변경하기"
 											class="btn btn-primary btn-user btn-block" />
 									</form>
 								<!-- </div>
 							</div> -->
-						<!-- </div>
-					</div> -->
+						</div>
+					</div>
 				</div>
 
 			</div>
@@ -84,7 +95,7 @@
 		</div>
 
 	</div>
-</div>
+
 <script>
 
 /**
@@ -128,4 +139,5 @@ function passwordValidate(){
 
 </body>
 </html>
+<br /><br /><br /><br /><br />
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
