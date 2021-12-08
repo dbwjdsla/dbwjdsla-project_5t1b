@@ -18,7 +18,7 @@
 		<!-- Begin Page Content -->
 		<div class="container-fluid">
 			<div class="row" style="flex-wrap: nowrap; margin-right: 22.8rem;">
-				<!-- 공지사항 & 자유 게시판 부분  -->
+				<!-- 공지사항 & 오늘의 메뉴 부분  -->
 				<div class="col-lg-6 mb-4">
 					<!-- 공지사항 부분 -->
 					<div class="card shadow mb-4">
@@ -37,16 +37,42 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]</a>
+									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]
+								</a>
 							</p>
 							<hr>
 							<%
 							}
 							%>
-
-
 						</div>
 					</div>
+					<!-- 오늘의 메뉴 부분 -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">
+								오늘의 메뉴 <i class="fas fa-utensils"></i>
+							</h6>
+						</div>
+						<%
+						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
+						%>
+						<div class="card-body">
+							<p style="list-style-type: none; text-align: center;">[밥]</p>
+							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
+							<p style="list-style-type: none; text-align: center;">[국]</p>
+							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
+							<p style="list-style-type: none; text-align: center;">[반찬]</p>
+							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
+							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
+							<p style="list-style-type: none; text-align: center;">[디저트]</p>
+							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
+						</div>
+					</div>
+				</div>
+
+				<!-- 자유게시판 & 익명 게시판 부분  -->
+				<div class="col-lg-6 mb-4">
 					<!-- 자유게시판 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
@@ -57,7 +83,6 @@
 						<%
 						List<Board> boardList = (List<Board>) session.getAttribute("boardList");
 						%>
-
 						<div class="card-body">
 							<!-- 자유게시판 내용 띄울 부분 -->
 							<%
@@ -65,40 +90,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getCategory() %>]
-									: <%=board.getTitle()%></a>
-
-							</p>
-							<hr>
-							<%
-							}
-							%>
-						</div>
-					</div>
-				</div>
-				<!-- 인기게시글 & 익명 게시판 부분  -->
-				<div class="col-lg-6 mb-4">
-					<!-- 인기게시글 부분 -->
-					<div class="card shadow mb-4">
-						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">
-								인기게시글 <i class="far fa-thumbs-up"></i>
-
-							</h6>
-						</div>
-						<%
-						List<BoardEntity> likeContentList = (List<BoardEntity>) session.getAttribute("likeContentList");
-						%>
-
-						<div class="card-body">
-							<!-- 인기게시글 내용 띄울 부분 -->
-							<%
-							for (BoardEntity likeContent : likeContentList) {
-							%>
-							<p>
-								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[<%=likeContent.getCategory() %>]
-									: <%=likeContent.getTitle()%></a>
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getCategory()%>]
+									<%=board.getTitle()%></a>
 							</p>
 							<hr>
 							<%
@@ -111,13 +104,11 @@
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
 								익명게시판 <i class="fas fa-user-secret"></i>
-
 							</h6>
 						</div>
 						<%
 						List<AnonymousBoard> anonymousBoardList = (List<AnonymousBoard>) session.getAttribute("anonymousBoardList");
 						%>
-
 						<div class="card-body">
 							<!-- 익명 게시판 내용 띄울 부분 -->
 							<%
@@ -125,7 +116,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]</a>
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]
+								</a>
 							</p>
 							<hr>
 							<%
@@ -134,34 +126,58 @@
 						</div>
 					</div>
 				</div>
-				<!-- 캘린더 & 오늘의 메뉴 부분-->
-				<div class="col-lg-6 mb-4">
 
-					<!-- 오늘의 메뉴 부분 -->
+				<!-- 자유 & 익명 게시판 인기게시글 부분 -->
+				<div class="col-lg-6 mb-4">
+					<!-- 인기게시글 부분 -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
-								오늘의 메뉴 <i class="fas fa-utensils"></i>
+								인기게시글 <i class="far fa-thumbs-up"></i>
 
 							</h6>
 						</div>
 						<%
-						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
+						List<BoardEntity> likeContentBoardSelect = (List<BoardEntity>) session.getAttribute("likeContentBoardSelect");
 						%>
 						<div class="card-body">
+							<!-- 자유 게시판 인기게시글 내용 띄울 부분 -->
+							<%
+							for (BoardEntity likeContent : likeContentBoardSelect) {
+							%>
+							<p>
+								<a
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[인기]
+									<%=likeContent.getTitle()%>
+								</a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
+						</div>
 
-							<p style="list-style-type: none; text-align: center;">[밥]</p>
-							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
-							<p style="list-style-type: none; text-align: center;">[국]</p>
-							<p style="text-align: center;"><%=foodMenu.getSoup()%></p>
-							<p style="list-style-type: none; text-align: center;">[반찬]</p>
-							<p style="text-align: center;"><%=foodMenu.getSide1()%></p>
-							<p style="text-align: center;"><%=foodMenu.getSide2()%></p>
-							<p style="text-align: center;"><%=foodMenu.getSide3()%></p>
-							<p style="list-style-type: none; text-align: center;">[디저트]</p>
-							<p style="text-align: center;"><%=foodMenu.getDessert()%></p>
+						<hr>
 
-
+						<%
+						List<BoardEntity> likeContentAnonymous_boardSelect = (List<BoardEntity>) session
+								.getAttribute("likeContentAnonymous_boardSelect");
+						%>
+						<div class="card-body">
+							<!-- 익명 게시판 인기게시글 내용 띄울 부분 -->
+							<%
+							for (BoardEntity likeContent : likeContentAnonymous_boardSelect) {
+							%>
+							<p>
+								<a
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[인기]
+									<%=likeContent.getTitle()%>
+								</a>
+							</p>
+							<hr>
+							<%
+							}
+							%>
 						</div>
 					</div>
 				</div>
@@ -169,7 +185,6 @@
 			<!-- /.container-fluid -->
 		</div>
 	</div>
-
 
 	<!--Endof Main Content -->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

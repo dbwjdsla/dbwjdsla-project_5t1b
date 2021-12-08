@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.otlb.semi.bulletin.model.vo.Board;
-import com.otlb.semi.bulletin.model.vo.Notice;
 import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
 import com.otlb.semi.bulletin.model.vo.*;
@@ -49,7 +47,6 @@ public class SelectDao {
 				notice = new Notice();
 				notice.setNo(rset.getInt("no"));
 				notice.setTitle(rset.getString("TITLE"));
-			
 
 				noticeList.add(notice);
 
@@ -110,7 +107,6 @@ public class SelectDao {
 			while (rset.next()) {
 				anonymousBoard = new AnonymousBoard();
 				anonymousBoard.setNo(rset.getInt("no"));
-				anonymousBoard.setCategory(rset.getString("category"));
 				anonymousBoard.setTitle(rset.getString("TITLE"));
 				anonymousBoardList.add(anonymousBoard);
 
@@ -126,24 +122,23 @@ public class SelectDao {
 		return anonymousBoardList;
 	}
 
-	// 인기 게시글
-	public static List<BoardEntity> selectLikeContent(Connection conn) {
+	// 자유게시판 인기 게시글 조회
+	public static List<BoardEntity> selectBoardLikeContent(Connection conn) {
 		PreparedStatement pstmt = null;
-		String sql = prop.getProperty("likeContentSelect");
+		String sql = prop.getProperty("likeContentBoardSelect");
 		ResultSet rset = null;
-		List<BoardEntity> likeContentList = new ArrayList<>();
-		BoardEntity likeContent = null;
+		List<BoardEntity> likeContentBoardSelect = new ArrayList<>();
+		BoardEntity likeBoardContent = null;
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				likeContent = new BoardEntity();
-				likeContent.setNo(rset.getInt("no"));
-				likeContent.setCategory(rset.getString("category"));
-				likeContent.setTitle(rset.getString("TITLE"));
-				likeContentList.add(likeContent);
+				likeBoardContent = new BoardEntity();
+				likeBoardContent.setNo(rset.getInt("no"));
+				likeBoardContent.setTitle(rset.getString("TITLE"));
+				likeContentBoardSelect.add(likeBoardContent);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -152,7 +147,35 @@ public class SelectDao {
 			close(pstmt);
 		}
 
-		return likeContentList;
+		return likeContentBoardSelect;
+	}
+
+	// 익명 게시판 인기게시글 조회
+	public static List<BoardEntity> likeContentAnonymous_boardSelect(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("likeContentAnonymous_boardSelect");
+		ResultSet rset = null;
+		List<BoardEntity> selectAnonymous_boardLikeContent = new ArrayList<>();
+		BoardEntity likeBoardContent = null;
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				likeBoardContent = new BoardEntity();
+				likeBoardContent.setNo(rset.getInt("no"));
+				likeBoardContent.setTitle(rset.getString("TITLE"));
+				selectAnonymous_boardLikeContent.add(likeBoardContent);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return selectAnonymous_boardLikeContent;
 	}
 
 	// 오늘의 메뉴 조회
