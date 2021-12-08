@@ -138,6 +138,7 @@ public class BulletinDao {
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("emp_name"));
 				board.setEmp(emp);				
+				board.setEmpNo(rset.getInt("emp_no"));
 				board.setContent(rset.getString("content"));
 				board.setRegDate(rset.getTimestamp("reg_date"));
 				board.setLikeCount(rset.getInt("like_count"));
