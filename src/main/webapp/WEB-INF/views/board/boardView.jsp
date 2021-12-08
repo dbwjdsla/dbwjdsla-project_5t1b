@@ -57,7 +57,7 @@
 %>	
 			<tr>
 			<td>
-			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+			 	<i class="fa fa-paperclip" src="<%=request.getContextPath() %> width=16px alt="첨부파일" ></i>
 			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
 			</tr> 	
@@ -236,15 +236,9 @@
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
-<<<<<<< HEAD
-		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
- 	}
-=======
 		console.log(empPopover.dataset.empName);
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
-
  }
->>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
 </script>
 <script>
 //삭제하기 버튼

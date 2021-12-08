@@ -96,7 +96,7 @@ System.out.println("onMessage>>"+msgMap);
 			if (otoSenderId.equals(otoReceiverId)) {
 				System.out.println("[OtoChatAlarmWebsocket][onMessage]" + thisUserSession + ":" + otoSenderId + ":"
 						+ otoReceiverId);
-				String chatReqErrMsg = "대화 상대방이 본인 입니다.";
+				String chatReqErrMsg = "본인 입니다.";
 				Basic basic = session.getBasicRemote();
 				basic.sendText(msgToJson("ERRCHAT", otoSenderId, otoReceiverId, "S", otoSenderNm, otoReceiverNm,
 						chatReqErrMsg)); // 액션을 실행하게 한다
@@ -139,7 +139,7 @@ System.out.println("onMessage>>"+msgMap);
 				SimpleDateFormat thisFmt = new SimpleDateFormat("HH");
 				thisHH = Integer.parseInt(thisFmt.format(cal.getTime()));
 				
-				thisHH = 12;// 임시 
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -148,14 +148,14 @@ System.out.println("onMessage>>"+msgMap);
 			if (alramSession == null) {
 				System.out.println("[OtoChatAlarmWebsocket][onMessage]" + thisUserSession + ":" + otoSenderId + ":"
 						+ otoReceiverId + ":" + alramSession);
-				String chatReqErrMsg = "대화 상대방이 로그인 상태가 아닙니다.";
+				String chatReqErrMsg = "상대가 로그인 상태가 아닙니다.";
 				Basic basic = session.getBasicRemote();
 				basic.sendText(msgToJson("ERRCHAT", otoSenderId, otoReceiverId, "S", otoSenderNm, otoReceiverNm,
 						chatReqErrMsg)); // 액션을 실행하게 한다
 				return;
-			} else if (thisHH > 21 || thisHH < 6) {
+			} else if (thisHH > 18 || thisHH < 9) {
 				// 현재 시간이 9시에서 6시 사이면 채팅 불가처리 한다
-				String chatReqErrMsg = "현재 채팅 가능 시간이 아닙니다.";
+				String chatReqErrMsg = "채팅 가능 시간이 아닙니다.";
 				Basic basic = session.getBasicRemote();
 				basic.sendText(msgToJson("ERRCHAT", otoSenderId, otoReceiverId, "S", otoSenderNm, otoReceiverNm,
 						chatReqErrMsg));
