@@ -1,5 +1,6 @@
 package com.otlb.semi.bulletin.model.service;
 
+
 import static com.otlb.semi.common.JdbcTemplate.close;
 import static com.otlb.semi.common.JdbcTemplate.commit;
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
@@ -404,6 +405,13 @@ public class BulletinService {
 			close(conn);
 		}
 		return result;
+	}
+
+	public Attachment selectAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = bulletinDao.selectAttachment(conn, no);
+		close(conn);
+		return attach;
 	}
 
 

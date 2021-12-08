@@ -59,11 +59,11 @@
 			<tr>
 			<td>
 			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
-			 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
 			</tr> 	
 <%	
-    		}
+    		
     	}
 	}
 %>			 	
