@@ -23,17 +23,17 @@ public class MessageFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String _senderNo = request.getParameter("senderNo");
-		System.out.println(_senderNo);
+		String _receiverNo = request.getParameter("receiverNo");
+		System.out.println(_receiverNo);
 		//System.out.println("_empNo" + _senderNo);
-		String sender = null;
-		if(_senderNo != null) {
-			Emp emp = messageService.selectOneMember(Integer.valueOf(_senderNo));
-			sender = emp.getEmpNo() + "-" + emp.getEmpName();
+		String receiver = null;
+		if(_receiverNo != null) {
+			Emp emp = messageService.selectOneMember(Integer.valueOf(_receiverNo));
+			receiver = emp.getEmpNo() + "-" + emp.getEmpName();
 			
 		}
-		System.out.println(sender);
-		request.setAttribute("sender", sender);
+		System.out.println(receiver);
+		request.setAttribute("receiver", receiver);
 		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageForm.jsp")

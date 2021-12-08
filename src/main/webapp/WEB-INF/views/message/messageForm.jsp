@@ -5,8 +5,8 @@
     
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%
-String sender = (String) request.getAttribute("sender");
-System.out.println(sender + "2#@#!#13131");
+String receiver = (String) request.getAttribute("receiver");
+System.out.println(receiver + "2#@#!#13131");
 %>
 <body id="page-top">
     <!-- Page Wrapper -->
@@ -42,7 +42,7 @@ System.out.println(sender + "2#@#!#13131");
 							name="receiverList"
 							id="receiverList"
 							readonly="readonly" 
-							value="<%= sender != null ? sender  : "" %>"
+							value="<%= receiver != null ? receiver  : "" %>"
 							style="margin-top: 10px"/>
 							
 	                    <textarea 
