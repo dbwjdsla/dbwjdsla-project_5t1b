@@ -4,14 +4,6 @@
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
 
-<%-- <%
- 	Boolean ownProfileImageExists = (boolean) session.getAttribute("ownProfileImageExists");
-	if(ownProfileImageExists != null) session.removeAttribute("ownProfileImageExists");
-	String profileImagePath = "";
- 	if(ownProfileImageExists) profileImagePath = "/img/profile/" + loginEmp.getEmpNo() + ".png";
-	else profileImagePath = "/img/profile/profile.png";
-%> --%>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,6 +46,7 @@
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="p-5">
+							<a href="<%= request.getContextPath() %>/emp/empView"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 							<div class="text-center">
 								<br /> <br />
 								<h1 class="h4 text-gray-900 mb-4">프로필사진 변경</h1>
