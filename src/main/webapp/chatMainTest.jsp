@@ -11,11 +11,11 @@
 	<br />
 	<br /> 홍길동->양소영
 	<input type="button" name="대화하기" value="대화하기"
-		onClick="javascript:fnGoOtoChat('300102','202002','S','김이박','양소영','1:1');" />
+		onClick="javascript:fnGoOtoChat('202003','202002','S','노현하','양소영','1:1');" />
 	<br />
 	<br /> 양소영->홍길동
 	<input type="button" name="대화하기" value="대화하기"
-		onClick="javascript:fnGoOtoChat('202002','300102','S','양소영','김이박','1:1');" />
+		onClick="javascript:fnGoOtoChat('202002','202003','S','양소영','노현하','1:1');" />
 	<br />
 	<br /> 양소영->이송이
 	<input type="button" name="대화하기" value="대화하기"

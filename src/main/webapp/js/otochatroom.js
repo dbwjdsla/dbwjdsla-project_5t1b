@@ -16,10 +16,10 @@ otoChatAlarmWS.onerror = (e) => {
 otoChatAlarmWS.onclose = (e) => {
 	//console.log("close!", e);
 };
-
+ 
 //	채팅 요청 
 function fnGoOtoChat(otoSenderId, otoReceiverId, otoSRTp, otoSenderNm, otoReceiverNm,otoChatNm ){ 
-
+//alert("otoSenderId"+otoSenderId+otoReceiverId+otoSRTp+otoSenderNm+otoReceiverNm+otoChatNm);
 	const reqChatMsg = {
 			type: "REQCHAT",
 			sender: otoSenderId,
