@@ -45,7 +45,7 @@ $(() =>{
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css">
 <link
-	href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:wght@400;700&family=Nanum+Myeongjo&Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	href="https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding:wght@400;700"
 	rel="stylesheet">
 
 
