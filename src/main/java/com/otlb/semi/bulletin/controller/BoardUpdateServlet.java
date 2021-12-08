@@ -122,7 +122,7 @@ public class BoardUpdateServlet extends HttpServlet {
 			String msg = result > 0 ? "게시물 수정 성공" : "게시물 수정 실패";
 			
 			request.getSession().setAttribute("msg", msg);
-			String location = request.getContextPath() + "/board/boardView?no=?" + board.getNo();
+			String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
 			response.sendRedirect(location);
 
 		} catch (Exception e) {
