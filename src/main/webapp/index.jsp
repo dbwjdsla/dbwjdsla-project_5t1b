@@ -125,8 +125,7 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getCategory() %>]
-									: <%=anonymousBoard.getTitle()%></a>
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]</a>
 							</p>
 							<hr>
 							<%
