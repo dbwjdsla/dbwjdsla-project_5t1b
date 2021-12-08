@@ -1,3 +1,4 @@
+<%@page import="com.otlb.semi.emp.model.service.EmpService"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
@@ -19,6 +20,19 @@
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
 		    	<button class="btn btn-primary btn-icon-split" onclick="moveAnonymousList();">목록</button>
+<%
+	if(board.getEmpNo() == loginEmp.getEmpNo()){
+%>			
+				<button class="btn btn-primary btn-icon-split" onclick="updateBoard();">수정</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<%
+	}
+	else if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+%>			
+				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<% 
+	}
+%>			
 				<hr class="sidebar-divider my-3">
 			</div>
 			 <div class="container-fluid" id="titleContent">
@@ -126,8 +140,24 @@
 				<input type="hidden" name="no" value="<%= board.getNo() %>" />
 				<input type="hidden" name="board" value="anonyBoard" />
 			</form>	
+			<form 
+				action="<%= request.getContextPath() %>/board/boardDelete" 
+				name="boardDeleteFrm"
+				method="POST">
+				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+			</form>
 
 <script>
+//삭제하기 버튼
+function deleteBoard() {
+	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
+		$(document.boardDeleteFrm).submit();		
+	}
+}
+//수정하기 버튼
+function updateBoard() {
+	location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+}
 //추천하기 버튼
 function recommend(){
 	$("form[name=recommendFrm]").submit();	

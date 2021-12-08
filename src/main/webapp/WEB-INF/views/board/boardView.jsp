@@ -32,7 +32,7 @@
 		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <%
 	}
-	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+	else if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
 %>
 				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <% 
@@ -317,7 +317,7 @@ function commentReply(e) {
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
-	location.href = "<%= request.getContextPath()%>/board/boardList";
+	location.href = "<%= request.getContextPath()%>/board/boardList %>";
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
