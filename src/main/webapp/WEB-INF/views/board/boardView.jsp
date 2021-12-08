@@ -21,6 +21,7 @@
 	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";	
 	
 %>
+
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
@@ -32,7 +33,7 @@
 		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <%
 	}
-	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+	else if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
 %>
 				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <% 
@@ -50,10 +51,19 @@
 			 	<span><%= regDate %></span>
 <%
  	List<Attachment> attachments = board.getAttachments();
-    if(attachments != null && !attachments.isEmpty()){			 	
+    if(attachments != null && !attachments.isEmpty()){	
+    	if (attachments != null && !attachments.isEmpty()) {
+    		for(int i = 0; i < attachments.size(); i++){
+    			Attachment attach = attachments.get(i);
 %>	
+			<tr>
+			<td>
 			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+			 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			</td>
+			</tr> 	
 <%	
+    		}
 	}
 %>			 	
 			 	
@@ -217,7 +227,7 @@
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
 			</form>
 			<form 
-				action="<%= request.getContextPath() %>/board/boardDelete" 
+				action="<%= request.getContextPath() %>/board/boardDelete?no=<%= board.getNo() %>" 
 				name="boardDeleteFrm"
 				method="POST">
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
@@ -319,7 +329,9 @@ function commentReply(e) {
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
-	location.href = "<%= request.getContextPath()%>/board/boardList";
+
+	location.href = "<%=request.getContextPath()/board/boardList %>";
+
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>

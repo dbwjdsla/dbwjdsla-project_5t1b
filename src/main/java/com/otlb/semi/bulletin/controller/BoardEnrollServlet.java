@@ -35,7 +35,7 @@ public class BoardEnrollServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			
+			System.out.println("이게 찍혀야됨");
 			// A. server computer에 사용자 업로드파일 저장
 			String saveDirectory = getServletContext().getRealPath("/upload/board"); // 여기서 /는 webroot 디렉토리
 			System.out.println("[BoardEnrollServlet] saveDirectory = " + saveDirectory);
@@ -133,6 +133,7 @@ public class BoardEnrollServlet extends HttpServlet {
 			// 3. 응답요청
 			request.getSession().setAttribute("msg", msg);
 			String location = request.getContextPath() + "/board/boardView?no=" + board.getNo();
+			System.out.println(location);
 			response.sendRedirect(location);
 		} catch (NumberFormatException | IOException e) {
 			throw e;

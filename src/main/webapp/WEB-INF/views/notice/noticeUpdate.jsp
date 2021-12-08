@@ -31,21 +31,15 @@
 					<div class="p-5">
 						<br />
 
-						<div class="mx-auto" style="width: 150px;">자유 게시판 수정</div>
+						<div class="mx-auto" style="width: 150px;">공지사항 수정</div>
 
 						<br />
 						<!-- boardEnrollForm -->
 						<form id="boardUpdateForm" class="user"
-							action="<%=request.getContextPath()%>/board/boardUpdate"
-							method="POST" enctype="multipart/form-data">
+							action="<%=request.getContextPath()%>/board/noticeUpdate"
+							method="POST">
 							<div class="row">
-								<div class="col-2 form-group">
-									<select class="form-control" name="category">
-										<option value="사담" <%= "사담".equals(board.getCategory()) ? "selected" : "" %>>사담</option>
-										<option value="취미" <%= "취미".equals(board.getCategory()) ? "selected" : "" %>>취미</option>
-									</select>
-								</div>
-								<div class="col-10 form-group">
+								<div class="col form-group">
 									<input type="text" class="form-control" name="title" id="title" value="<%= board.getTitle() %>"
 										placeholder="제목">
 								</div>
@@ -66,65 +60,6 @@
 								value="<%=loginEmp.getEmpNo()%>" />
 							<!-- 게시물 번호 -->
 							<input type="hidden" name="no" value="<%= board.getNo() %>" />
-<%
-	List<Attachment> attachments = board.getAttachments();
-	if(attachments != null && !attachments.isEmpty()){
-%>
-<hr />
-							<div class="row justify-content-between">
-								<div class="col-10">기존 첨부파일</div>
-								<div class="col-1">삭제</div>
-							</div>
-							<br />
-<%
-		for(Attachment attach : attachments) {
-%>
-							<!-- 기존 첨부파일 -->
-							<span id="">
-								<div class="form-group">
-									<div class="row justify-content-between">
-										<div class="col-10">
-											<div class="custom-file">
-												<input type="text"
-													class="w-70 custom-file-input" id="inputGroupFile01"
-													aria-describedby="button-addon1" style="cursor: pointer;" />
-												<label class="custom-file-label" for="inputGroupFile01"><%= attach.getOriginalFilename() %></label>
-											</div>	
-										</div>
-										<div class="col-1">
-											<div class="custom-control custom-switch" style="margin-top: 5px;">
-												<input type="checkbox" value="<%= attach.getNo() %>" name="delFile" class="custom-control-input" id="<%= attach.getNo() %>" />
-												<label for="<%= attach.getNo() %>" class="custom-control-label"></label>
-											</div>
-										</div>
-									</div>
-								</div>
-							</span>
-<%
-
-		}
-	}
-%>
-<hr />			
-							<!-- 새 첨부파일 -->
-							<div>첨부파일 추가</div>
-							<span id="createInputFileByButton">
-								<div class="form-group">
-									<div class="input-group mb-3">
-										<div class="input-group-prepend">
-											<button class="btn btn-primary" type="button" onclick="createInputFile()"
-												style="width: 50px;" id="button-addon1">+</button>
-										</div>
-										<div class="custom-file">
-											<input type="file" name="upFile1" class="w-70 custom-file-input" id="inputGroupFile01"
-												aria-describedby="button-addon1" style="cursor:pointer;"/>
-										    <label class="custom-file-label" for="inputGroupFile01" >클릭해서 파일 추가하기</label>
-										</div>
-									</div>
-								</div>
-							</span>
-							<div style="color: red;" id="fileMessage"></div>
-
 
 							<br /> <br />
 							<div class="form-group">
@@ -164,13 +99,6 @@ function boardValidate(){
 	const $category = $("[name=category]");
 	const $title = $("[name=title]");
 	const $content = $("[name=content]");
-	
-	// 말머리를 작성하지 않은 경우 폼을 제출할 수 없음.
-	if($category.val() == null){
-		alert("말머리를 선택하세요.");
-		$category.focus();
-		return false;
-	}
 	
 	// 제목을 작성하지 않은 경우 폼을 제출할 수 없음.
 	if(!/^.+$/.test($title.val())){

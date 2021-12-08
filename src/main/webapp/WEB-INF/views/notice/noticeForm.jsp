@@ -44,8 +44,7 @@
 								id="boardEnrollForm" 
 								class="user" 
 								action="<%= request.getContextPath() %>/board/noticeEnroll" 
-								method="POST"
-								enctype="multipart/form-data">
+								method="POST">
 								<div class="row">
 									<div class="col form-group">
 										<input type="text" class="form-control" name="title" id="title" placeholder="제목">									

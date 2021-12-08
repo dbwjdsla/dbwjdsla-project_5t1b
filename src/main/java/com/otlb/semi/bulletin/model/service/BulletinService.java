@@ -33,10 +33,12 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertBoard(conn, board);
+			System.out.println(" insertBoard전");
 			
 			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
 			int boardNo = bulletinDao.selectLastBoardNo(conn);
 			System.out.println("[bulletinService] boardNo = " + boardNo);
+			board.setNo(boardNo);
 			
 			List<Attachment> attachments = board.getAttachments();
 			if(attachments != null) {
@@ -52,6 +54,7 @@ public class BulletinService {
 		} finally {
 			close(conn);
 		}
+		System.out.println("return 전");
 		return result;
 	}
 
@@ -211,6 +214,7 @@ public class BulletinService {
 			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
 			int boardNo = bulletinDao.selectLastAnonymousBoardNo(conn);
 			System.out.println("[bulletinService] boardNo = " + boardNo);
+			board.setNo(boardNo);
 			
 			List<Attachment> attachments = board.getAttachments();
 			if(attachments != null) {
@@ -236,6 +240,9 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertNotice(conn, board);
+			//int boardNo = bulletinDao.selectLastNoticeNo(conn);
+			//board.setNo(boardNo);
+			
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);
@@ -355,6 +362,115 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.deleteBoardComment(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteAnonymousBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteAnonymousBoard(conn, no);
+			commit(conn);
+			
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteNotice(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteNotice(conn, no);
+			commit(conn);
+			
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public Board selectOneAnonymousBoard(int no) {
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneAnonymousBoard(conn, no);
+		List<Attachment> attachments = bulletinDao.selectAttachmentByAnonymousBoardNo(conn, no);
+		System.out.println(attachments);
+		board.setAttachments(attachments);
+		close(conn);
+		return board;
+	}
+
+	public Attachment selectOneAnonymousAttachment(int delFileNo) {
+		Connection conn = getConnection();
+		Attachment attach = bulletinDao.selectOneAnonymousAttachment(conn, delFileNo);
+		close(conn);
+		return attach;
+	}
+
+	public int deleteAnonymousAttachment(int delFileNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteAnonymousAttachment(conn, delFileNo);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateAnonymousBoard(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateAnonymousBoard(conn, board);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = bulletinDao.insertAnonymousAttachment(conn, attach);
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateNotice(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateNotice(conn, board);
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);

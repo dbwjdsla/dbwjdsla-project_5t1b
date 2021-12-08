@@ -31,21 +31,15 @@
 					<div class="p-5">
 						<br />
 
-						<div class="mx-auto" style="width: 150px;">자유 게시판 수정</div>
+						<div class="mx-auto" style="width: 150px;">익명 게시판 수정</div>
 
 						<br />
 						<!-- boardEnrollForm -->
 						<form id="boardUpdateForm" class="user"
-							action="<%=request.getContextPath()%>/board/boardUpdate"
+							action="<%=request.getContextPath()%>/board/anonymousBoardUpdate"
 							method="POST" enctype="multipart/form-data">
 							<div class="row">
-								<div class="col-2 form-group">
-									<select class="form-control" name="category">
-										<option value="사담" <%= "사담".equals(board.getCategory()) ? "selected" : "" %>>사담</option>
-										<option value="취미" <%= "취미".equals(board.getCategory()) ? "selected" : "" %>>취미</option>
-									</select>
-								</div>
-								<div class="col-10 form-group">
+								<div class="col form-group">
 									<input type="text" class="form-control" name="title" id="title" value="<%= board.getTitle() %>"
 										placeholder="제목">
 								</div>
@@ -165,12 +159,6 @@ function boardValidate(){
 	const $title = $("[name=title]");
 	const $content = $("[name=content]");
 	
-	// 말머리를 작성하지 않은 경우 폼을 제출할 수 없음.
-	if($category.val() == null){
-		alert("말머리를 선택하세요.");
-		$category.focus();
-		return false;
-	}
 	
 	// 제목을 작성하지 않은 경우 폼을 제출할 수 없음.
 	if(!/^.+$/.test($title.val())){
