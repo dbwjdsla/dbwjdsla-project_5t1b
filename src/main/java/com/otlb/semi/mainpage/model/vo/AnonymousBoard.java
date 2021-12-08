@@ -9,22 +9,24 @@ public class AnonymousBoard implements Serializable {
 	private int no;
 	private String title;
 	private String content;
+	private String category;
 	private Timestamp reg_date;
 	private int read_count;
 	private int like_count; // 추천수
 	private int user_no;
-
+	
 	public AnonymousBoard() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public AnonymousBoard(int no, String title, String content, Timestamp reg_date, int read_count, int like_count,
-			int user_no) {
+	public AnonymousBoard(int no, String title, String content, String category, Timestamp reg_date, int read_count,
+			int like_count, int user_no) {
 		super();
 		this.no = no;
 		this.title = title;
 		this.content = content;
+		this.category = category;
 		this.reg_date = reg_date;
 		this.read_count = read_count;
 		this.like_count = like_count;
@@ -53,6 +55,14 @@ public class AnonymousBoard implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public Timestamp getReg_date() {
@@ -93,8 +103,10 @@ public class AnonymousBoard implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Anonymous_boardVo [no=" + no + ", title=" + title + ", content=" + content + ", reg_date=" + reg_date
-				+ ", read_count=" + read_count + ", like_count=" + like_count + ", user_no=" + user_no + "]";
+		return "AnonymousBoard [no=" + no + ", title=" + title + ", content=" + content + ", category=" + category
+				+ ", reg_date=" + reg_date + ", read_count=" + read_count + ", like_count=" + like_count + ", user_no="
+				+ user_no + "]";
 	}
+	
 
 }

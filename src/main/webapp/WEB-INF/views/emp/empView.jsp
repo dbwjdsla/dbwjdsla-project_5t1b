@@ -48,6 +48,7 @@
 					<div class="card-body p-0">
 						<!-- Nested Row within Card Body -->
 						<div class="p-5">
+							<a href="<%= request.getContextPath() %>"><i class="fa fa-arrow-left" aria-hidden="true"></i></a>
 							<div class="text-center">
 								<br /> <br />
 								<h1 class="h4 text-gray-900 mb-4">회원정보</h1>
@@ -55,7 +56,6 @@
 							<div class="row">
 								<div class="col-lg-6 d-none d-lg-block bg-mypage-image">
 									<div class="form-group">
-									<br /><br />
 										<img src="<%= request.getContextPath() + profileImagePath %>" 
 											width="320px" height="300px" />
 									</div>

@@ -923,7 +923,24 @@ public class BulletinDao {
 			pstmt.setInt(1, no);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new BulletinException("조회수 증가 오류", e); 
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteBoardComment(Connection conn, int no) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoardComment");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new BulletinException("댓글 삭제 오류", e); 
 		}finally {
 			close(pstmt);
 		}
