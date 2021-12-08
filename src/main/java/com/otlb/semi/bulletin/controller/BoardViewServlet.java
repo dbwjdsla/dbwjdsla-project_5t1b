@@ -99,6 +99,7 @@ public class BoardViewServlet extends HttpServlet {
 			
 			// 파일 다운로드
 			Attachment attach = bulletinService.selectOneAttachment(no);
+			System.out.println(attach);
 			System.out.println("[FileDownloadServlet] attach = " + attach);
 
 			String saveDirectory = getServletContext().getRealPath("/upload/board");
