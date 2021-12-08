@@ -152,8 +152,6 @@ if(category == '[공지]'){
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
-		console.log(empPopover);
-		console.log(empPopover.dataset.empNo);
 		setPopovers("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
 	}
 $(searchType).change((e) => {
