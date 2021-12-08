@@ -37,79 +37,110 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int no = Integer.valueOf(request.getParameter("no"));
-		
-		
-		// 쿠키 생성 
-		Cookie[] cookies = request.getCookies();
-		boolean hasRead = false;
-		String boardCookieVal = "";
-		if(cookies != null ) {
-			for(Cookie cookie : cookies) {
-				String name = cookie.getName();
-				String value = cookie.getValue();
-				if("boardCookie".equals(name)) {
-					boardCookieVal = value;
-					if(value.contains("[" + no + "]")) {
-						hasRead = true;
-						break;
+		try {
+			int no = Integer.valueOf(request.getParameter("no"));
+			
+			
+			// 쿠키 생성 
+			Cookie[] cookies = request.getCookies();
+			boolean hasRead = false;
+			String boardCookieVal = "";
+			if(cookies != null ) {
+				for(Cookie cookie : cookies) {
+					String name = cookie.getName();
+					String value = cookie.getValue();
+					if("boardCookie".equals(name)) {
+						boardCookieVal = value;
+						if(value.contains("[" + no + "]")) {
+							hasRead = true;
+							break;
+						}
 					}
 				}
 			}
-		}
-		// 조회수 증가 및 쿠키 생성 
-		if(!hasRead) {
-			int result = bulletinService.updateReadCount(no);
+			// 조회수 증가 및 쿠키 생성 
+			if(!hasRead) {
+				int result = bulletinService.updateReadCount(no);
+				
+				Cookie cookie = new Cookie("boardCookie",boardCookieVal + "[" + no + "]");
+				cookie.setPath(request.getContextPath() + "/board/boardView");
+				cookie.setMaxAge(365 * 24 * 60 * 60);
+				response.addCookie(cookie);
+				System.out.println("조회수 증가 & 쿠키 생성 ");
+			}
 			
-			Cookie cookie = new Cookie("boardCookie",boardCookieVal + "[" + no + "]");
-			cookie.setPath(request.getContextPath() + "/board/boardView");
-			cookie.setMaxAge(365 * 24 * 60 * 60);
-			response.addCookie(cookie);
-			System.out.println("조회수 증가 & 쿠키 생성 ");
+			//게시판 데이터 가져오기
+			Board board = bulletinService.selectOneBoard(no);
+
+			String filepath = BoardViewServlet.class.getResource("/../../img/profile").getPath();
+			File writerProfileImage = new File(filepath + board.getEmpNo() + ".png");
+			if(writerProfileImage.exists()) request.setAttribute("writerProfileImageExists", true);
+			else request.setAttribute("writerProfileImageExists", false);
+			
+
+			//System.out.println(board);
+			String regDate = DateFormatUtils.formatDate(board.getRegDate());
+			String content = LineFormatUtils.formatLine(board.getContent());
+			
+			//게시판 댓글 가져오기
+			List<BoardComment> boardCommentList = bulletinService.selectBoardCommentList(no);
+			List<String> commentListContent = new ArrayList<>();
+			List<String> commentListDate = new ArrayList<>();
+			
+			List<Boolean> commenterImageList = new ArrayList<>();
+			for(BoardComment bc : boardCommentList) {
+				File commenterProfileImage = new File(filepath + bc.getEmpNo() + ".png");
+				if(commenterProfileImage.exists()) commenterImageList.add(true);
+				else commenterImageList.add(false);
+
+				commentListContent.add(LineFormatUtils.formatLine(bc.getContent()));
+				commentListDate.add(DateFormatUtils.formatDateBoard(bc.getRegDate()));
+			}
+			
+			// 파일 다운로드
+			Attachment attach = bulletinService.selectOneAttachment(no);
+			System.out.println("[FileDownloadServlet] attach = " + attach);
+
+			String saveDirectory = getServletContext().getRealPath("/upload/board");
+		
+			File downFile = new File(saveDirectory, attach.getRenamedFilename());
+			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));
+			
+			ServletOutputStream sos = response.getOutputStream();
+			BufferedOutputStream bos= new BufferedOutputStream(sos);
+		
+			response.setContentType("application/octet-stream"); 
+		
+			String originalFilename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
+			System.out.println("[FileDownloadServlet] originalFilename = " + originalFilename);
+			response.setHeader("Content-Disposition", "attachment; filename=" + originalFilename);
+			
+		
+			int data = -1;
+			while((data = bis.read()) != -1) {
+				bos.write(data);
+			}
+			
+			bos.close();
+			bis.close();
+			
+			request.setAttribute("commenterImageList", commenterImageList);
+			request.setAttribute("board", board);
+			request.setAttribute("regDate", regDate);
+			request.setAttribute("content", content);
+			request.setAttribute("boardCommentList", boardCommentList);
+			request.setAttribute("commentListContent", commentListContent);
+			request.setAttribute("commentListDate", commentListDate);
+			
+			
+			request
+				.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")
+				.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
 		}
-		
-		//게시판 데이터 가져오기
-		Board board = bulletinService.selectOneBoard(no);
 
-		String filepath = BoardViewServlet.class.getResource("/../../img/profile").getPath();
-		File writerProfileImage = new File(filepath + board.getEmpNo() + ".png");
-		if(writerProfileImage.exists()) request.setAttribute("writerProfileImageExists", true);
-		else request.setAttribute("writerProfileImageExists", false);
-		
-
-		//System.out.println(board);
-		String regDate = DateFormatUtils.formatDate(board.getRegDate());
-		String content = LineFormatUtils.formatLine(board.getContent());
-		
-		//게시판 댓글 가져오기
-		List<BoardComment> boardCommentList = bulletinService.selectBoardCommentList(no);
-		List<String> commentListContent = new ArrayList<>();
-		List<String> commentListDate = new ArrayList<>();
-		
-		List<Boolean> commenterImageList = new ArrayList<>();
-		for(BoardComment bc : boardCommentList) {
-			File commenterProfileImage = new File(filepath + bc.getEmpNo() + ".png");
-			if(commenterProfileImage.exists()) commenterImageList.add(true);
-			else commenterImageList.add(false);
-
-			commentListContent.add(LineFormatUtils.formatLine(bc.getContent()));
-			commentListDate.add(DateFormatUtils.formatDateBoard(bc.getRegDate()));
-		}
-	
-		
-		request.setAttribute("commenterImageList", commenterImageList);
-		request.setAttribute("board", board);
-		request.setAttribute("regDate", regDate);
-		request.setAttribute("content", content);
-		request.setAttribute("boardCommentList", boardCommentList);
-		request.setAttribute("commentListContent", commentListContent);
-		request.setAttribute("commentListDate", commentListDate);
-		
-		
-		request
-			.getRequestDispatcher("/WEB-INF/views/board/boardView.jsp")
-			.forward(request, response);
 	}
 
 }

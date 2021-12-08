@@ -137,11 +137,10 @@
 							삭제된 댓글입니다.
 						</td>
 	
+					</tr>
+				
 <%
 				}
-%>					
-					</tr>
-<%
 			} else{
 				if(bc.getDeleteYn().equals("N")){
 			
@@ -237,10 +236,15 @@
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
+<<<<<<< HEAD
+		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+ 	}
+=======
 		console.log(empPopover.dataset.empName);
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
 
  }
+>>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
 </script>
 <script>
 //삭제하기 버튼
@@ -328,9 +332,8 @@ function commentReply(e) {
 }
 
 //게시판 리스트로 돌아가는 함수
- function moveBoardList() {
-
-	 location.href = "<%= request.getContextPath() %>/board/boardList";
+function moveBoardList() {
+	location.href = "<%= request.getContextPath() %>/board/boardList";
 
 }
 </script>
