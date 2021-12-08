@@ -24,7 +24,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/noticeList">
 								공지사항 <i class="fas fa-thumbtack"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -37,11 +39,9 @@
 							%>
 							<p>
 								<a
-
-
 									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>" 
 									style="color: black;">
-										[<%=notice.getTitle()%>]
+										<%=notice.getTitle()%>
 
 								</a>
 							</p>
@@ -55,7 +55,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/survey">
 								오늘의 메뉴 <i class="fas fa-utensils"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -82,7 +84,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/boardList">
 								자유게시판 <i class="fas fa-users"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -96,8 +100,7 @@
 							<p>
 								<a
 									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>"
-									style="color: black;">[<%=board.getCategory()%>]
-									<%=board.getTitle()%></a>
+									style="color: black;"> <%=board.getTitle()%></a>
 							</p>
 							<hr>
 							<%
@@ -109,7 +112,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/anonymousBoardList">
 								익명게시판 <i class="fas fa-user-secret"></i>
+							</a>
 							</h6>
 						</div>
 						<%
@@ -123,7 +128,7 @@
 							<p>
 								<a
 									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>"
-									style="color: black;">[<%=anonymousBoard.getTitle()%>]
+									style="color: black;"><%=anonymousBoard.getTitle()%>
 
 								</a>
 							</p>
@@ -141,7 +146,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/boardList">
 								인기게시글 <i class="far fa-thumbs-up"></i>
+								</a>
 
 							</h6>
 						</div>
@@ -156,7 +163,7 @@
 							<p>
 								<a
 									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>"
-									style="color: black;">[인기]
+									style="color: black;">
 									<%=likeContent.getTitle()%>
 								</a>
 							</p>
@@ -180,7 +187,7 @@
 							<p>
 								<a
 									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>"
-									style="color: black;">[인기]
+									style="color: black;">
 									<%=likeContent.getTitle()%>
 								</a>
 							</p>

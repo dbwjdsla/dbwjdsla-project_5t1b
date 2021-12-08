@@ -50,6 +50,7 @@ public class SelectService {
 	public List<BoardEntity> selectAnonymous_boardLikeContent() {
 		Connection conn = getConnection();
 		List<BoardEntity> likeContentAnonymous_boardSelect = SelectDao.likeContentAnonymous_boardSelect(conn);
+		close(conn);
 		return likeContentAnonymous_boardSelect;
 	}
 

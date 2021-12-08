@@ -45,13 +45,12 @@
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
 		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
-			 	<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
+			 	<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>" data-emp-name="<%= board.getEmp().getEmpName() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
 <%
  	List<Attachment> attachments = board.getAttachments();
-    if(attachments != null && !attachments.isEmpty()){	
     	if (attachments != null && !attachments.isEmpty()) {
     		for(int i = 0; i < attachments.size(); i++){
     			Attachment attach = attachments.get(i);
@@ -59,11 +58,12 @@
 			<tr>
 			<td>
 			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
-			 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
 			</tr> 	
 <%	
-    		}
+    		
+    	}
 	}
 %>			 	
 			 	
@@ -110,7 +110,7 @@
 					<tr class="level1">
 						<td style="padding: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
-							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>" data-emp-name="<%= bc.getEmp().getEmpName() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -137,11 +137,10 @@
 							삭제된 댓글입니다.
 						</td>
 	
+					</tr>
+				
 <%
 				}
-%>					
-					</tr>
-<%
 			} else{
 				if(bc.getDeleteYn().equals("N")){
 			
@@ -237,8 +236,15 @@
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
+<<<<<<< HEAD
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+ 	}
+=======
+		console.log(empPopover.dataset.empName);
+		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
+
  }
+>>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
 </script>
 <script>
 //삭제하기 버튼
@@ -327,8 +333,7 @@ function commentReply(e) {
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
-
-	location.href = "<%=request.getContextPath()/board/boardList %>";
+	location.href = "<%= request.getContextPath() %>/board/boardList";
 
 }
 </script>
