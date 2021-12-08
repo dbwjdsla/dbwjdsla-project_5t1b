@@ -1,4 +1,5 @@
 <%@page import="com.otlb.semi.emp.model.service.EmpService"%>
+<%@page import="com.otlb.semi.bulletin.model.service.BulletinService"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
@@ -45,21 +46,21 @@
 			 	<span><%= regDate %></span>
 <%
  	List<Attachment> attachments = board.getAttachments();
-    	if (attachments != null && !attachments.isEmpty()) {
-    		for(int i = 0; i < attachments.size(); i++){
-    			Attachment attach = attachments.get(i);
-%>	
+		if(attachments != null && !attachments.isEmpty()){
+			for(int i =0; i< attachments.size(); i++){
+				Attachment attach = attachments.get(i);			
+%>		
 			<tr>
 			<td>
-			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
-			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+				<img src="<%= request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+				<a href="<%= request.getContextPath()%>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
-			</tr> 	
-<%	
-    		
-    	}
+			</tr>
+<%
+		}
+
 	}
-%>			 	
+%> 	
 			
 			 </div>
 			 <br />
