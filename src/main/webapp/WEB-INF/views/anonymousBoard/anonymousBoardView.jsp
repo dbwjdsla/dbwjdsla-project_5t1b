@@ -141,10 +141,10 @@
 				<input type="hidden" name="board" value="anonyBoard" />
 			</form>	
 			<form 
-				action="<%= request.getContextPath() %>/board/boardDelete" 
+				action="<%= request.getContextPath() %>/board/anonymousBoardDelete" 
 				name="boardDeleteFrm"
 				method="POST">
-				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+				<input type="hidden" name="no" value="<%= board.getNo() %>"/>
 			</form>
 
 <script>
@@ -156,7 +156,7 @@ function deleteBoard() {
 }
 //수정하기 버튼
 function updateBoard() {
-	location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+	location.href = "<%= request.getContextPath() %>/board/anonymousBoardUpdate?no=<%= board.getNo() %>";
 }
 //추천하기 버튼
 function recommend(){

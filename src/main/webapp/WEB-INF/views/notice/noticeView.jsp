@@ -42,10 +42,10 @@
 			 	<span><%= content %></span>
 			 </div>
 			 <form 
-				action="<%= request.getContextPath() %>/board/boardDelete" 
+				action="<%= request.getContextPath() %>/board/noticeDelete" 
 				name="boardDeleteFrm"
 				method="POST">
-				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+				<input type="hidden" name="no" value="<%= board.getNo() %>"/>
 			</form>
 
 
@@ -62,7 +62,7 @@ function deleteBoard() {
 }
 //수정하기 버튼
 function updateBoard() {
-	location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+	location.href = "<%= request.getContextPath() %>/board/noticeUpdate?no=<%= board.getNo() %>";
 }
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
