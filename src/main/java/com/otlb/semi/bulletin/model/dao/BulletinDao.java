@@ -341,7 +341,7 @@ public class BulletinDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("selectOneAttachment");
 		ResultSet rset = null;
-		Attachment attach = null;
+		Attachment attach = new Attachment();
 
 		try{
 			//미완성쿼리문을 가지고 객체생성.
@@ -355,7 +355,6 @@ public class BulletinDao {
 			System.out.println("rset = "+ rset);
 			
 			if(rset.next()){
-				attach = new Attachment();
 				attach.setNo(rset.getInt("no"));
 				attach.setBoardNo(rset.getInt("board_no"));
 				attach.setOriginalFilename(rset.getString("original_filename"));
