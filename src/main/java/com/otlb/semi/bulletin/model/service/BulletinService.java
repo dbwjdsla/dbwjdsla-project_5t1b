@@ -1,5 +1,6 @@
 package com.otlb.semi.bulletin.model.service;
 
+
 import static com.otlb.semi.common.JdbcTemplate.close;
 import static com.otlb.semi.common.JdbcTemplate.commit;
 import static com.otlb.semi.common.JdbcTemplate.getConnection;
@@ -240,8 +241,8 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertNotice(conn, board);
-			int boardNo = bulletinDao.selectLastNoticeNo(conn);
-			board.setNo(boardNo);
+			//int boardNo = bulletinDao.selectLastNoticeNo(conn);
+			//board.setNo(boardNo);
 			
 			commit(conn);
 		} catch (Exception e) {
@@ -404,6 +405,89 @@ public class BulletinService {
 			close(conn);
 		}
 		return result;
+	}
+
+
+	public Attachment selectAttachment(int no) {
+		Connection conn = getConnection();
+		Attachment attach = bulletinDao.selectAttachment(conn, no);
+		close(conn);
+		return attach;
+	}
+	public Board selectOneAnonymousBoard(int no) {
+		Connection conn = getConnection();
+		Board board = bulletinDao.selectOneAnonymousBoard(conn, no);
+		List<Attachment> attachments = bulletinDao.selectAttachmentByAnonymousBoardNo(conn, no);
+		System.out.println(attachments);
+		board.setAttachments(attachments);
+		close(conn);
+		return board;
+	}
+
+	public Attachment selectOneAnonymousAttachment(int delFileNo) {
+		Connection conn = getConnection();
+		Attachment attach = bulletinDao.selectOneAnonymousAttachment(conn, delFileNo);
+		close(conn);
+		return attach;
+	}
+
+	public int deleteAnonymousAttachment(int delFileNo) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteAnonymousAttachment(conn, delFileNo);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateAnonymousBoard(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateAnonymousBoard(conn, board);
+			
+			List<Attachment> attachments = board.getAttachments();
+			if(attachments != null && !attachments.isEmpty()) {
+				for(Attachment attach : attachments) {
+					result = bulletinDao.insertAnonymousAttachment(conn, attach);
+				}
+			}
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int updateNotice(Board board) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.updateNotice(conn, board);
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+
 	}
 
 

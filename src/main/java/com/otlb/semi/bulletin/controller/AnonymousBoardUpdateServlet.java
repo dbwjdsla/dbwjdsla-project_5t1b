@@ -23,24 +23,24 @@ import com.otlb.semi.common.EmpUtils;
 /**
  * Servlet implementation class BoardUpdateServlet
  */
-@WebServlet("/board/boardUpdate")
-public class BoardUpdateServlet extends HttpServlet {
+@WebServlet("/board/anonymousBoardUpdate")
+public class AnonymousBoardUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BulletinService bulletinService = new BulletinService();
        
 	/**
-	 * select * from board where no = ?
+	 * select * from anonymous_board where no = ?
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int no = Integer.parseInt(request.getParameter("no"));
 		
-		Board board = bulletinService.selectOneBoard(no);
+		Board board = bulletinService.selectOneAnonymousBoard(no);
 		System.out.println(board);
 		
 		request.setAttribute("board", board);
 		request
-			.getRequestDispatcher("/WEB-INF/views/board/boardUpdate.jsp")
+			.getRequestDispatcher("/WEB-INF/views/anonymousBoard/anonymousBoardUpdate.jsp")
 			.forward(request, response);
 	}
 
@@ -59,7 +59,6 @@ public class BoardUpdateServlet extends HttpServlet {
 			
 			// 사용자입력값
 			int no = Integer.parseInt(multipartRequest.getParameter("no"));
-			String category = multipartRequest.getParameter("category");
 			String title = multipartRequest.getParameter("title");
 			String content = multipartRequest.getParameter("content");
 			int empNo = Integer.parseInt(multipartRequest.getParameter("empNo"));
@@ -68,7 +67,6 @@ public class BoardUpdateServlet extends HttpServlet {
 			
 			Board board = new Board();
 			board.setNo(no);
-			board.setCategory(category);
 			board.setTitle(title);
 			board.setContent(content);
 			board.setEmpNo(empNo);
@@ -96,14 +94,14 @@ public class BoardUpdateServlet extends HttpServlet {
 			if(delFiles != null) {
 				for(String temp : delFiles) {
 					int delFileNo = Integer.parseInt(temp);
-					Attachment attach = bulletinService.selectOneAttachment(delFileNo);
+					Attachment attach = bulletinService.selectOneAnonymousAttachment(delFileNo);
 					//가. 첨부파일 삭제 
 					String renamedFilename = attach.getRenamedFilename();
 					File delFile = new File(saveDirectory, renamedFilename);
 					boolean removed = delFile.delete();
 					
 					//나. DB 첨부파일 레코드 삭제
-					int result = bulletinService.deleteAttachment(delFileNo);
+					int result = bulletinService.deleteAnonymousAttachment(delFileNo);
 					
 					System.out.println("[BoardUpdateServlet] " + renamedFilename + " 삭제 : " + removed);
 					System.out.println("[BoardUpdateServlet] " + renamedFilename + "  레코드 삭제 : " + result);
@@ -117,12 +115,12 @@ public class BoardUpdateServlet extends HttpServlet {
 			
 			
 			
-			int result = bulletinService.updateBoard(board);
+			int result = bulletinService.updateAnonymousBoard(board);
 			
 			String msg = result > 0 ? "게시물 수정 성공" : "게시물 수정 실패";
 			
 			request.getSession().setAttribute("msg", msg);
-			String location = request.getContextPath() + "/board/noticeView?no=" + board.getNo();
+			String location = request.getContextPath() + "/board/anonymousBoardView?no=" + board.getNo();
 			response.sendRedirect(location);
 
 		} catch (Exception e) {

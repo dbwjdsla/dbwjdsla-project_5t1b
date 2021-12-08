@@ -140,7 +140,7 @@ public class BoardViewServlet extends HttpServlet {
 			e.printStackTrace();
 			throw e;
 		}
-		
+
 	}
 
 }
