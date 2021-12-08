@@ -55,7 +55,7 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
-							<a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/survey">
+							<a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/calendar">
 								오늘의 메뉴 <i class="fas fa-utensils"></i>
 								</a>
 							</h6>
@@ -63,7 +63,7 @@
 						<%
 						FoodMenu foodMenu = (FoodMenu) session.getAttribute("foodMenu");
 						%>
-						<div class="card-body">
+						<div class="card-body" style="line-height:0.75em">
 							<p style="list-style-type: none; text-align: center;">[밥]</p>
 							<p style="text-align: center;"><%=foodMenu.getMain()%></p>
 							<p style="list-style-type: none; text-align: center;">[국]</p>
