@@ -125,6 +125,14 @@ public class MessageService {
 		
 		return count;
 	}
+
+	public Emp selectOneMember(int empNo) {
+		Connection conn = getConnection();
+		Emp emp = messageDao.selectOneMember(conn, empNo);
+		close(conn);
+		
+		return emp;
+	}
 	
 	
 	

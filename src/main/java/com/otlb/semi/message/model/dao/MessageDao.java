@@ -119,6 +119,7 @@ public class MessageDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				message.setNo(rset.getInt("no"));
+				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 				
@@ -147,7 +148,6 @@ public class MessageDao {
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				message.setNo(rset.getInt("no"));
-				message.setSenderEmpNo(rset.getInt("sender_emp_no"));
 				message.setSentDate(rset.getTimestamp("sent_date"));
 				message.setContent(rset.getString("content"));
 //				message.setReadDate(rset.getDate("read_date"));
@@ -288,6 +288,30 @@ public class MessageDao {
 			close(pstmt);
 		}
 		return count;
+	}
+
+	public Emp selectOneMember(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		Emp emp = new Emp();
+		String sql = prop.getProperty("selectOneMember");
+		ResultSet rset = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()){
+				emp.setEmpNo(rset.getInt("emp_no"));
+				emp.setEmpName(rset.getString("emp_name"));
+			}
+		} catch (SQLException e) {
+			throw new MessageException("사원 번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return emp;
 	}
 }
 

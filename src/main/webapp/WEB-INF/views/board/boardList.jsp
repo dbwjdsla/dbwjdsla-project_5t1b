@@ -4,13 +4,13 @@
 	pageEncoding="UTF-8"%>
 <% 
 	List<Board> list = (List<Board>) request.getAttribute("list"); 
-	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
 %>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
 <%@ include file="/WEB-INF/views/common/navbar.jsp"%>
+
 
 <!-- Custom styles for this template -->
 <link
@@ -27,7 +27,11 @@ div#search-title {display: <%= searchType == null || "title".equals(searchType) 
 div#search-empName{display: <%= "empName".equals(searchType) ? "inline-block" : "none" %>;}
 div#search-category{display: <%= "category".equals(searchType) ? "inline-block" : "none" %>;}
 </style>
-
+<style>
+.hidden {
+  display: none;
+}
+</style>
 <!-- Begin Page Content -->
 <div class="container-fluid">
 
@@ -52,29 +56,26 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 							<th>조회</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="list">
 					<%
-					for(int i = 0; i < list.size(); i++){
-						Board board = list.get(i);
-					//for (Board board : list) {
+					for (Board board : list) {
 					%>
-						<tr>
-							<td><%= board.getNo()%></td>
-							<td>
-								<a href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
-									<span>[<%=board.getCategory()%>]</span><%=board.getTitle()%>
+						<tr id="table-row">
+							<td id="no"><span></span><%= board.getNo()%></td>
+							<td id="main" colspan="1">
+								<a id="link" href="<%= request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">
+									<span id="category">[<%=board.getCategory()%>]</span><span id="title"><%=board.getTitle()%></span>
 								</a> 
 								<% if (board.getAttachCount() > 0) { %> 
-								 <span><i class="fa fa-paperclip"></i></span> 
+								 <span id="comment"><i class="fa fa-paperclip"></i></span> 
 								<% } %>
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
 							 </td>
 
-
-							<td class="empPopover" data-toggle="popover"><%= board.getEmp().getEmpName() %></td>
-							<td><%= board.getLikeCount()%></td>
-							<td><%= regDate.get(i) %></td>
-							<td><%= board.getReadCount()%></td>
+							<td id="writer" class="empPopover" data-toggle="popover"><%= board.getEmp().getEmpName() %></td>
+							<td id="like"><%= board.getLikeCount()%></td>
+							<td id="date"><%= board.getRegDate()%></td>
+							<td id="read"><%= board.getReadCount()%></td>
 						</tr>
 						<%
 						}
@@ -144,11 +145,30 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 		</div>
 	</div>
 </div>
+<script>
+const category = document.getElementById('category').textContent;
+const main = document.getElementById('main');
+
+const displayNone = function (id) {
+	document.getElementById(id).style.display = 'none';
+}
+if(category == '[공지]'){
+	displayNone('no');
+	displayNone('like');
+	displayNone('read');
+	displayNone('date');
+	displayNone('writer');
+	document.getElementById('table-row').style.backgroundColor = '#b5d1ff';
+	main.colSpan = "6";
+	main.setAttribute('style', 'color: blue; font-weight:bold');
+	document.getElementById('category').setAttribute('style', 'color: red; margin-left:75px');
+}
+
+</script>
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
 	setPopovers("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");</script>
 <script>
-
 $(searchType).change((e) => {
 	$(".search-type").hide();
 	
@@ -181,7 +201,7 @@ $(searchType).change((e) => {
 <!-- Page level custom scripts -->
 <script
 	src="<%=request.getContextPath()%>/resources/js/demo/datatables-demo.js"></script>
-	
+
 
 </body>
 

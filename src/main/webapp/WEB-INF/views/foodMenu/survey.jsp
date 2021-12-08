@@ -19,13 +19,13 @@
 		<div class="container-fluid">
 			<div class="container">
 			<br>
-			  <h2>만족도 설문조사</h2>
+			  <h1 style=" color: black; font-weight:bolder; text-shadow: 1px 1px skyblue; margin-left:20px; margin-top:30px">만족도 설문조사</h1>
 			  <br>
 
 		  <form action="<%= request.getContextPath() %>/foodMenu/survey?year=<%= request.getParameter("year") + "&month=" + request.getParameter("month") %>"  method="post">
 			<div>		
 				<br>
-    	  		<p>1. 이번주의 식단은 어떠셨습니까?</p>
+    	  		<p><strong>1. 이번주의 식단은 어떠셨습니까?</strong></p>
     	  	</div>
 			<div class="form-check-inline">
 			  <label class="form-check-label" for="q1radio1">
@@ -55,7 +55,7 @@
 			
 			<div>		
 				<br>
-    	  		<p>2. 식사가 가장 맛있었던 요일은 언제입니까?</p>
+    	  		<p><strong>2. 식사가 가장 맛있었던 요일은 언제입니까?</strong></p>
     	  	</div>
 			<div class="form-check-inline">
 			  <label class="form-check-label" for="q2radio1">
@@ -85,7 +85,7 @@
 	
 			<div>		
 				<br>
-    	  		<p>3. 구내 식당의 위생상태는 어떻습니까?</p>
+    	  		<p><strong>3. 구내 식당의 위생상태는 어떻습니까?</strong></p>
     	  	</div>
 			<div class="form-check-inline">
 			  <label class="form-check-label" for="q3radio1">
@@ -115,7 +115,7 @@
 			
 			<div>
 				<br>
-				<p>4. 배식되는 메뉴의 양은 어떠합니까?</p>
+				<p><strong>4. 배식되는 메뉴의 양은 어떠합니까?</strong></p>
 			</div>
 			<div class="form-check-inline">
 			  <label class="form-check-label" for="q4radio1">
@@ -146,7 +146,7 @@
 
 			<div>		
 				<br>
-    	  		<p>5. 국과 반찬의 간은 어떠합니까?</p>
+    	  		<p><strong>5. 국과 반찬의 간은 어떠합니까?</strong></p>
     	  	</div>
 			<div class="form-check-inline">
 			  <label class="form-check-label" for="q5radio1">
