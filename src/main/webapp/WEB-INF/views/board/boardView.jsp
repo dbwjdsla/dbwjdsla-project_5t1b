@@ -1,3 +1,4 @@
+<%@page import="com.otlb.semi.bulletin.model.service.BulletinService"%>
 <%@page import="com.otlb.semi.emp.model.service.EmpService"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
@@ -17,25 +18,33 @@
 	
 	String writerProfileImagePath = "/img/profile/profile.png";
 	Boolean writerProfileImageExists = (boolean) ((request.getAttribute("writerProfileImageExists") == null) ? false : request.getAttribute("writerProfileImageExists"));
-	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";
-
+	if(writerProfileImageExists) writerProfileImagePath = "/img/profile/" + board.getEmpNo() + ".png";	
+	
 %>
-
-
-
-
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
 		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
+<%
+	if(board.getEmpNo() == loginEmp.getEmpNo()){
+%>
+		    	<button class="btn btn-primary btn-icon-split" onclick="updateBoard();">수정</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<%
+	}
+	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+%>
+				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+<% 
+	}
+%>
 				<hr class="sidebar-divider my-3">
 			</div>
 			 <div class="container-fluid" id="titleContent">
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
 		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
-			 	<span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
-			 	
+			 	<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
@@ -59,13 +68,13 @@
 			 	<button class="btn btn-primary btn-icon-split" id="recommend-btn" onclick="recommend();">추천하기</button>
 			 	<hr class="sidebar-divider my-3">
 <% 
-	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
+ 	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
 	List<String> commentListDate = (List<String>) request.getAttribute("commentListDate");
 	
 	List<Boolean> commenterImageList = (List<Boolean>) request.getAttribute("commenterImageList");
 	
-	if(commentList != null && !commentList.isEmpty()){
+	if(commentList != null && !commentList.isEmpty()){ 
 %>
 				<table>
 <%
@@ -91,7 +100,7 @@
 					<tr class="level1">
 						<td style="padding: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
-							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -130,7 +139,7 @@
 					<tr class="level2">
 						<td style="padding-left: 50px; padding-bottom: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
-							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 대댓글내용 -->
@@ -207,12 +216,31 @@
 				<input type="hidden" name="no" />
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
 			</form>
+			<form 
+				action="<%= request.getContextPath() %>/board/boardDelete" 
+				name="boardDeleteFrm"
+				method="POST">
+				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
+			</form>
 
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
-	setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "/emp/empInfoView?empNo=<%= board.getEmpNo() %>", "대화 링크", "/message/messageForm?senderNo=");
+	const empPopovers = document.getElementsByClassName("empPopover");
+	for (let empPopover of empPopovers) {
+		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+ }
 </script>
 <script>
+//삭제하기 버튼
+function deleteBoard() {
+	if(confirm("이 게시물을 정말 삭제하시겠습니까?")){
+		$(document.boardDeleteFrm).submit();		
+	}
+}
+//수정하기 버튼
+function updateBoard() {
+	location.href = "<%= request.getContextPath() %>/board/boardUpdate?no=<%= board.getNo() %>";
+}
 //추천하기 버튼
 function recommend(){
 	$("form[name=recommendFrm]").submit();	
