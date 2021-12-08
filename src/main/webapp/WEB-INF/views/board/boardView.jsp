@@ -52,18 +52,17 @@
 <%
  	List<Attachment> attachments = board.getAttachments();
     if(attachments != null && !attachments.isEmpty()){	
-    	if (attachments != null && !attachments.isEmpty()) {
-    		for(int i = 0; i < attachments.size(); i++){
-    			Attachment attach = attachments.get(i);
+   		for(int i = 0; i < attachments.size(); i++){
+   			Attachment attach = attachments.get(i);
 %>	
 			<tr>
-			<td>
-			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
-			 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
-			</td>
+				<td>
+				 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+				 	<a href="<%= request.getContextPath() %>/board/boardView?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+				</td>
 			</tr> 	
 <%	
-    		}
+   		}
 	}
 %>			 	
 			 	
@@ -137,11 +136,10 @@
 							삭제된 댓글입니다.
 						</td>
 	
+					</tr>
+				
 <%
 				}
-%>					
-					</tr>
-<%
 			} else{
 				if(bc.getDeleteYn().equals("N")){
 			
@@ -238,7 +236,7 @@
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
- }
+ 	}
 </script>
 <script>
 //삭제하기 버튼
@@ -327,8 +325,7 @@ function commentReply(e) {
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
-
-	location.href = "<%=request.getContextPath()/board/boardList %>";
+	location.href = "<%= request.getContextPath() %>/board/boardList";
 
 }
 </script>
