@@ -50,7 +50,7 @@ public class BoardServlet extends HttpServlet {
 
 		FoodMenu foodMenu = selectService.selectFoodMenu();
 		System.out.println("foodMenu Servlet" + foodMenu);
-
+		
 		request.getSession().setAttribute("noticeList", noticeList);
 		request.getSession().setAttribute("boardList", boardList);
 		request.getSession().setAttribute("anonymousBoardList", anonymousBoardList);

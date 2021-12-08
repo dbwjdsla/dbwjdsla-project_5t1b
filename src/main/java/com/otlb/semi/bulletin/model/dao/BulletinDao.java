@@ -342,15 +342,17 @@ public class BulletinDao {
 		String sql = prop.getProperty("selectOneAttachment");
 		ResultSet rset = null;
 		Attachment attach = null;
-		
+
 		try{
 			//미완성쿼리문을 가지고 객체생성.
 			pstmt = conn.prepareStatement(sql);
+			System.out.println("pstmt Dao = " + pstmt );
 			//쿼리문미완성
 			pstmt.setInt(1, no);
 			//쿼리문실행
 			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			rset = pstmt.executeQuery();
+			System.out.println("rset = "+ rset);
 			
 			if(rset.next()){
 				attach = new Attachment();
@@ -359,12 +361,15 @@ public class BulletinDao {
 				attach.setOriginalFilename(rset.getString("original_filename"));
 				attach.setRenamedFilename(rset.getString("renamed_filename"));
 				attach.setRegDate(rset.getDate("reg_date"));
+
 			}
+			System.out.println("if문끝 =" + attach);
 		}catch(Exception e){
 			throw new BulletinException("첨부파일 조회 오류!", e);
 		}finally{
 			close(rset);
 			close(pstmt);
+			
 		}
 		return attach;
 	}
