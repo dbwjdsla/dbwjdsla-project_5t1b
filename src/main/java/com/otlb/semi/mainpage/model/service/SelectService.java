@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.otlb.semi.mainpage.model.dao.SelectDao;
-import com.otlb.semi.bulletin.model.vo.Board;
-import com.otlb.semi.bulletin.model.vo.Notice;
 import com.otlb.semi.foodMenu.model.vo.FoodMenu;
 import com.otlb.semi.mainpage.model.vo.AnonymousBoard;
 import com.otlb.semi.bulletin.model.vo.*;
@@ -40,12 +38,19 @@ public class SelectService {
 		return anonymousBoardList;
 	}
 
-	// 인기 게시글 조회
-	public List<BoardEntity> selectLikeContent() {
+	// 자유게시판 인기 게시글 조회
+	public List<BoardEntity> selectBoardLikeContent() {
 		Connection conn = getConnection();
-		List<BoardEntity> likeContentList = SelectDao.selectLikeContent(conn);
+		List<BoardEntity> likeContentBoardSelect = SelectDao.selectBoardLikeContent(conn);
 		close(conn);
-		return likeContentList;
+		return likeContentBoardSelect;
+	}
+
+	// 익명 게시판 인기게시글 조회
+	public List<BoardEntity> selectAnonymous_boardLikeContent() {
+		Connection conn = getConnection();
+		List<BoardEntity> likeContentAnonymous_boardSelect = SelectDao.likeContentAnonymous_boardSelect(conn);
+		return likeContentAnonymous_boardSelect;
 	}
 
 	// 오늘의 메뉴 조회

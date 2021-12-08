@@ -40,10 +40,13 @@ public class BoardServlet extends HttpServlet {
 		System.out.println("board  Servlet" + boardList);
 
 		List<AnonymousBoard> anonymousBoardList = selectService.selectAnonymousBoardContent();
-		System.out.println("AnonymousBoard Servlet" + anonymousBoardList);
+		System.out.println("anonymousBoard Servlet" + anonymousBoardList);
 
-		List<BoardEntity> likeContentList = selectService.selectLikeContent();
-		System.out.println("likeContent Servlet" + likeContentList);
+		List<BoardEntity> likeContentBoardSelect = selectService.selectBoardLikeContent();
+		System.out.println("likeContentBoardSelect Servlet" + likeContentBoardSelect);
+		
+		List<BoardEntity> likeContentAnonymous_boardSelect = selectService.selectAnonymous_boardLikeContent();
+		System.out.println("likeContentAnonymous_boardSelect Servlet" +likeContentAnonymous_boardSelect);
 
 		FoodMenu foodMenu = selectService.selectFoodMenu();
 		System.out.println("foodMenu Servlet" + foodMenu);
@@ -51,7 +54,8 @@ public class BoardServlet extends HttpServlet {
 		request.getSession().setAttribute("noticeList", noticeList);
 		request.getSession().setAttribute("boardList", boardList);
 		request.getSession().setAttribute("anonymousBoardList", anonymousBoardList);
-		request.getSession().setAttribute("likeContentList", likeContentList);
+		request.getSession().setAttribute("likeContentBoardSelect", likeContentBoardSelect);
+		request.getSession().setAttribute("likeContentAnonymous_boardSelect", likeContentAnonymous_boardSelect);
 		request.getSession().setAttribute("foodMenu", foodMenu);
 		String location = request.getContextPath() + "/index.jsp";
 		response.sendRedirect(location);
