@@ -74,10 +74,8 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 								<% } %>
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
 							 </td>
-
-							<td id="writer" >
-								<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %></span>
-							</td>
+							<td id="writer" class="empPopover" data-toggle="popover" 
+								data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %></td>
 							<td id="like"><%= board.getLikeCount()%></td>
 							<td id="date"><%= regDate.get(i) %></td>
 							<td id="read"><%= board.getReadCount()%></td>
@@ -149,20 +147,21 @@ if(category == '[공지]'){
 	document.getElementById('category').setAttribute('style', 'color: red; margin-left:75px');
 }
 
-$(searchType).change((e) => {
-	$(".search-type").hide();
-	
-	const v = $(e.target).val();
-	$("#search-" + v).css("display", "inline-block");
-});
 
 </script>
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
-		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
- }
+		setPopovers("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+	}
+
+$(searchType).change((e) => {
+	$(".search-type").hide();
+	
+	const v = $(e.target).val();
+	$("#search-" + v).css("display", "inline-block");
+});
 
 </script>
 
