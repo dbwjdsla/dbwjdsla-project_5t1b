@@ -76,6 +76,7 @@ public class BulletinService {
 		Connection conn = getConnection();
 		Board board = bulletinDao.selectOneBoard(conn, no);
 		List<Attachment> attachments = bulletinDao.selectAttachmentByBoardNo(conn, no);
+		System.out.println(attachments);
 		board.setAttachments(attachments);
 		close(conn);
 		return board;
@@ -344,6 +345,23 @@ public class BulletinService {
 		Connection conn = getConnection();
 		int result = bulletinDao.updateNoticeReadCount(conn,no);
 		close(conn);
+		return result;
+	}
+
+	public int deleteBoardComment(int no) {
+		Connection conn = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteBoardComment(conn, no);	
+			commit(conn);
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
 		return result;
 	}
 
