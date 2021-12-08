@@ -1,6 +1,9 @@
 package com.otlb.semi.chat.controller;
 
+import static com.otlb.semi.common.JdbcTemplate.getConnection;
+
 import java.io.IOException;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.otlb.semi.emp.model.dao.EmpDao;
 import com.otlb.semi.emp.model.service.EmpService;
 import com.otlb.semi.emp.model.vo.Emp;
 
@@ -18,7 +22,8 @@ import com.otlb.semi.emp.model.vo.Emp;
 public class OtoChatRoomServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EmpService empService = new EmpService();
-
+	private EmpDao empDao = new EmpDao();
+	
 	public OtoChatRoomServlet() {
 		System.out.println("////ChatroomServlet////...create");
 	}
@@ -49,10 +54,16 @@ public class OtoChatRoomServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/chat/otoChatRoomError.jsp").forward(request, response);
 			return;
 		}
+		Connection conn = getConnection();
+		//Emp emp = empDao.selectOneEmp(conn, no);
+		
+//		Emp sndEmp = empService.selectOneEmp(Integer.parseInt(otoSenderId));
+//		Emp rcvEmp = empService.selectOneEmp(Integer.parseInt(otoReceiverId));
 
-		Emp sndEmp = empService.selectOneEmp(Integer.parseInt(otoSenderId));
-		Emp rcvEmp = empService.selectOneEmp(Integer.parseInt(otoReceiverId));
-
+		Emp sndEmp = empDao.selectOneEmp(conn, Integer.parseInt(otoSenderId));
+		Emp rcvEmp = empDao.selectOneEmp(conn, Integer.parseInt(otoReceiverId));
+		
+		
 		// 2.
 		// websocket session
 		request.getSession().setAttribute("otoSenderId", otoSenderId);

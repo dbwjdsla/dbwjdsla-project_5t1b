@@ -17,7 +17,7 @@ public class OtoChatAlarmWebsocketConfig extends Configurator {
 		//
 		HttpSession session = (HttpSession) request.getHttpSession();
 		Emp ssEmp = (Emp) session.getAttribute("loginEmp");
-
+System.out.println("[OtoChatAlarmWebsocketConfig][ssEmp]"+ssEmp);
 		Map<String, Object> userProp = sec.getUserProperties();
 
 		if (ssEmp != null) {

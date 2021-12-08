@@ -7,6 +7,8 @@
 	List<String> regDate = (List<String>) request.getAttribute("regDate"); 
 	String searchType = request.getParameter("searchType");
 	String searchKeyword = request.getParameter("searchKeyword");
+	
+	Emp currentLoginEmp = (Emp) session.getAttribute("loginEmp");
 %>
 
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -75,7 +77,10 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
 							 </td>
 							<td id="writer" class="empPopover" data-toggle="popover" 
-								data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %></td>
+								data-snd-emp-no="<%= currentLoginEmp.getEmpNo() %>"
+		                        data-snd-emp-nm="<%= currentLoginEmp.getEmpName() %>"
+		                        data-rcv-emp-no="<%= board.getEmp().getEmpNo() %>"
+		                        data-rcv-emp-nm="<%= board.getEmp().getEmpName() %>" ><%= board.getEmp().getEmpName() %></td>
 							<td id="like"><%= board.getLikeCount()%></td>
 							<td id="date"><%= regDate.get(i) %></td>
 							<td id="read"><%= board.getReadCount()%></td>
@@ -150,10 +155,17 @@ if(category == '[공지]'){
 
 </script>
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
+<script src="<%= request.getContextPath() %>/js/otochatroom.js"></script>
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
-		setPopovers("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+	      setPopoversBoard("<%= request.getContextPath() %>"
+		            , empPopover.dataset.sndEmpNo
+		            , empPopover.dataset.sndEmpNm
+		            , empPopover.dataset.rcvEmpNo
+		            , empPopover.dataset.rcvEmpNm
+		            , empPopover);
+
 	}
 
 $(searchType).change((e) => {
