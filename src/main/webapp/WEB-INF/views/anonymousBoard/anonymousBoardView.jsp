@@ -43,7 +43,7 @@
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
-			 	<%
+<%
  	List<Attachment> attachments = board.getAttachments();
     	if (attachments != null && !attachments.isEmpty()) {
     		for(int i = 0; i < attachments.size(); i++){
