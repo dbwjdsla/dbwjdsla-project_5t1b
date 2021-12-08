@@ -57,7 +57,7 @@
 %>	
 			<tr>
 			<td>
-			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+			 	<i class="fa fa-paperclip" src="<%=request.getContextPath() %> width=16px alt="첨부파일" ></i>
 			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
 			</td>
 			</tr> 	
