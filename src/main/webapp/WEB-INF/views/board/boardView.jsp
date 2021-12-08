@@ -2,6 +2,7 @@
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -34,11 +35,22 @@
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
 		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
 			 	<span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
+			 	
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
+<%
+ 	List<Attachment> attachments = board.getAttachments();
+    if(attachments != null && !attachments.isEmpty()){			 	
+%>	
+			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+<%	
+	}
+%>			 	
+			 	
 			 </div>
 			 <br />
+			 
 			 <div class="container-fluid" id="Content" style="margin: 10px">
 			 	<span><%= content %></span>
 			 </div>
