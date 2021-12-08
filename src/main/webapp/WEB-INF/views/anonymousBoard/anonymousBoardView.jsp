@@ -3,6 +3,7 @@
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
+<%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/header.jsp"%>
@@ -42,6 +43,24 @@
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
+			 	<%
+ 	List<Attachment> attachments = board.getAttachments();
+    	if (attachments != null && !attachments.isEmpty()) {
+    		for(int i = 0; i < attachments.size(); i++){
+    			Attachment attach = attachments.get(i);
+%>	
+			<tr>
+			<td>
+			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+			</td>
+			</tr> 	
+<%	
+    		
+    	}
+	}
+%>			 	
+			
 			 </div>
 			 <br />
 			 <div class="container-fluid" id="Content" style="margin: 10px">

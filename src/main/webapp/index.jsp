@@ -24,7 +24,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/noticeList">
 								공지사항 <i class="fas fa-thumbtack"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -53,7 +55,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/foodMenu/survey">
 								오늘의 메뉴 <i class="fas fa-utensils"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -80,7 +84,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/boardList">
 								자유게시판 <i class="fas fa-users"></i>
+								</a>
 							</h6>
 						</div>
 						<%
@@ -106,7 +112,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/anonymousBoardList">
 								익명게시판 <i class="fas fa-user-secret"></i>
+							</a>
 							</h6>
 						</div>
 						<%
@@ -138,7 +146,9 @@
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">
+							<a class="nav-link" href="<%= request.getContextPath() %>/board/boardList">
 								인기게시글 <i class="far fa-thumbs-up"></i>
+								</a>
 
 							</h6>
 						</div>
