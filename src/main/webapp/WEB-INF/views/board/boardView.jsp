@@ -32,7 +32,7 @@
 		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <%
 	}
-	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
+	else if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
 %>
 				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
 <% 
