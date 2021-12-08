@@ -75,7 +75,7 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 								<%= board.getCommentCount() > 0 ? "(" + board.getCommentCount() + ")" : "" %>
 							 </td>
 
-							<td id="writer" class="empPopover" data-toggle="popover"><%= board.getEmp().getEmpName() %></td>
+							<td id="writer" class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %></td>
 							<td id="like"><%= board.getLikeCount()%></td>
 							<td id="date"><%= regDate.get(i) %></td>
 							<td id="read"><%= board.getReadCount()%></td>
@@ -119,8 +119,8 @@ div#search-category{display: <%= "category".equals(searchType) ? "inline-block" 
 				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 		    </div>
 		</div>
-	</div>
-</div>
+	<!-- </div>
+</div> -->
 
 <!-- Scroll to Top Button-->
 <a class="scroll-to-top rounded" href="#page-top"> <i
@@ -150,8 +150,10 @@ if(category == '[공지]'){
 </script>
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
-	setPopovers("<%= request.getContextPath() %>", "게시글보기 링크", "프로필 보기 링크", "대화 링크", "쪽지 보내기 링크");</script>
-<script>
+	const empPopovers = document.getElementsByClassName("empPopover");
+	for (let empPopover of empPopovers) {
+		setPopovers("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+	}
 $(searchType).change((e) => {
 	$(".search-type").hide();
 	
