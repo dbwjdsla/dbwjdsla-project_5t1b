@@ -27,7 +27,7 @@ public class AnonymousBoardDeleteServlet extends HttpServlet {
 		String msg = result > 0 ? "게시물 삭제 성공" : "게시물 삭제 실패";
 		
 		request.getSession().setAttribute("msg", msg);
-		String location = request.getContextPath() + "/anonymousBoard/anonymousBoardList";
+		String location = request.getContextPath() + "/board/anonymousBoardList";
 		response.sendRedirect(location);
 	}
 
