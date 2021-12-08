@@ -44,8 +44,7 @@
 			 	<p>자유게시판</p>
 		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
 		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
-			 	<span class="empPopover" data-toggle="popover" ><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
-			 	
+			 	<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
 			 	<span>추천수<%= board.getLikeCount() %></span>
 			 	<span>조회<%= board.getReadCount() %></span>
 			 	<span><%= regDate %></span>
@@ -101,7 +100,7 @@
 					<tr class="level1">
 						<td style="padding: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
-							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 댓글내용 -->
@@ -140,7 +139,7 @@
 					<tr class="level2">
 						<td style="padding-left: 50px; padding-bottom: 15px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
-							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
+							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
 							<!-- 대댓글내용 -->
@@ -226,7 +225,10 @@
 
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
-	setPopover("<%= request.getContextPath() %>", "게시글보기 링크", "/emp/empInfoView?empNo=<%= board.getEmpNo() %>", "대화 링크", "/message/messageForm?senderNo=");
+	const empPopovers = document.getElementsByClassName("empPopover");
+	for (let empPopover of empPopovers) {
+		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+ }
 </script>
 <script>
 //삭제하기 버튼

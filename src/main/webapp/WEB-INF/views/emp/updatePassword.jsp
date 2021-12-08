@@ -30,10 +30,6 @@
 <script src="<%=request.getContextPath()%>/js/jquery-3.6.0.js"></script>
 
 </head>
-<style>
-#aa {margin-botton:2erm;}
-
-</style>
 
 <body class="mypage" id="mypage">
 
