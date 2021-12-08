@@ -37,7 +37,9 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]
+									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>" 
+									style="color: black;">
+										[<%=notice.getTitle()%>]
 								</a>
 							</p>
 							<hr>
@@ -90,7 +92,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>">[<%=board.getCategory()%>]
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=board.getNo()%>"
+									style="color: black;">[<%=board.getCategory()%>]
 									<%=board.getTitle()%></a>
 							</p>
 							<hr>
@@ -116,7 +119,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>"
+									style="color: black;">[<%=anonymousBoard.getTitle()%>]
 								</a>
 							</p>
 							<hr>
@@ -147,7 +151,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[인기]
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>"
+									style="color: black;">[인기]
 									<%=likeContent.getTitle()%>
 								</a>
 							</p>
@@ -170,7 +175,8 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>">[인기]
+									href="<%=request.getContextPath()%>/board/boardView?no=<%=likeContent.getNo()%>"
+									style="color: black;">[인기]
 									<%=likeContent.getTitle()%>
 								</a>
 							</p>
