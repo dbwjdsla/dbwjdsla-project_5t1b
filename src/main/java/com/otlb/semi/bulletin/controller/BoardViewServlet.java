@@ -1,11 +1,15 @@
 package com.otlb.semi.bulletin.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.otlb.semi.bulletin.model.service.BulletinService;
+import com.otlb.semi.bulletin.model.vo.Attachment;
 import com.otlb.semi.bulletin.model.vo.Board;
 import com.otlb.semi.bulletin.model.vo.BoardComment;
 import com.otlb.semi.common.DateFormatUtils;
@@ -32,6 +37,7 @@ public class BoardViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		int no = Integer.valueOf(request.getParameter("no"));
 		
 		
@@ -90,6 +96,34 @@ public class BoardViewServlet extends HttpServlet {
 			commentListContent.add(LineFormatUtils.formatLine(bc.getContent()));
 			commentListDate.add(DateFormatUtils.formatDateBoard(bc.getRegDate()));
 		}
+		
+		// 파일 다운로드
+		Attachment attach =bulletinService.selectOneAttachment(no);
+		System.out.println("[FileDownloadServlet] attach = " + attach);
+
+		String saveDirectory = getServletContext().getRealPath("/upload/board");
+	
+		File downFile = new File(saveDirectory, attach.getRenamedFilename());
+		BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));
+		
+		ServletOutputStream sos = response.getOutputStream();
+		BufferedOutputStream bos= new BufferedOutputStream(sos);
+	
+		response.setContentType("application/octet-stream"); 
+	
+		String originalFilename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
+		System.out.println("[FileDownloadServlet] originalFilename = " + originalFilename);
+		response.setHeader("Content-Disposition", "attachment; filename=" + originalFilename);
+		
+	
+		int data = -1;
+		while((data = bis.read()) != -1) {
+			bos.write(data);
+		}
+		
+		bos.close();
+		bis.close();
+		
 		request.setAttribute("commenterImageList", commenterImageList);
 		request.setAttribute("board", board);
 		request.setAttribute("regDate", regDate);

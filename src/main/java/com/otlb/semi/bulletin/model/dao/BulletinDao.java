@@ -350,6 +350,7 @@ public class BulletinDao {
 			//쿼리문실행
 			//완성된 쿼리를 가지고 있는 pstmt실행(파라미터 없음)
 			rset = pstmt.executeQuery();
+			System.out.println("rset = "+ rset);
 			
 			if(rset.next()){
 				attach = new Attachment();
@@ -358,12 +359,14 @@ public class BulletinDao {
 				attach.setOriginalFilename(rset.getString("original_filename"));
 				attach.setRenamedFilename(rset.getString("renamed_filename"));
 				attach.setRegDate(rset.getDate("reg_date"));
+				
 			}
 		}catch(Exception e){
 			throw new BulletinException("첨부파일 조회 오류!", e);
 		}finally{
 			close(rset);
 			close(pstmt);
+			System.out.println("attachDao = " + attach );
 		}
 		return attach;
 	}

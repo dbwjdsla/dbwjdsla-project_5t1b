@@ -37,7 +37,7 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[<%=notice.getTitle()%>]
+									href="<%=request.getContextPath()%>/board/noticeView?no=<%=notice.getNo()%>">[공지] <%=notice.getTitle()%>
 								</a>
 							</p>
 							<hr>
@@ -116,7 +116,7 @@
 							%>
 							<p>
 								<a
-									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[<%=anonymousBoard.getTitle()%>]
+									href="<%=request.getContextPath()%>/board/anonymousBoardView?no=<%=anonymousBoard.getNo()%>">[익명] <%=anonymousBoard.getTitle()%>
 								</a>
 							</p>
 							<hr>

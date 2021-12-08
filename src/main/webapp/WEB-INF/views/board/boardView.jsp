@@ -21,9 +21,6 @@
 
 %>
 
-
-
-
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
@@ -41,10 +38,15 @@
 			 	<span><%= regDate %></span>
 <%
  	List<Attachment> attachments = board.getAttachments();
-    if(attachments != null && !attachments.isEmpty()){			 	
+    if(attachments != null && !attachments.isEmpty()){	
+    	if (attachments != null && !attachments.isEmpty()) {
+    		for(int i = 0; i < attachments.size(); i++){
+    			Attachment attach = attachments.get(i);
 %>	
 			 	<img src="<%=request.getContextPath() %>/img/profile/file.png" width=16px alt="첨부파일" />
+			 	<a href="<%= request.getContextPath() %>/board/boardView%></a>
 <%	
+    		}
 	}
 %>			 	
 			 	
@@ -289,7 +291,7 @@ function commentReply(e) {
 
 //게시판 리스트로 돌아가는 함수
 function moveBoardList() {
-	location.href = "<%= request.getContextPath()%>/board/boardList";
+	location.href = "<%=request.getContextPath()/board/boardList %>";
 }
 </script>
 <%@ include file="/WEB-INF/views/common/footer.jsp"%>
