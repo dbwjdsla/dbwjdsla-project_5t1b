@@ -4,6 +4,7 @@
 <%@page import="com.otlb.semi.bulletin.model.vo.BoardComment"%>
 <%@page import="java.util.List"%>
 <%@page import="com.otlb.semi.bulletin.model.vo.Board"%>
+<%@page import="com.otlb.semi.mainpage.model.vo.*" %>
 <%@page import="com.otlb.semi.bulletin.model.vo.Attachment"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -61,7 +62,6 @@
 
 	}
 %> 	
-			
 			 </div>
 			 <br />
 			 <div class="container-fluid" id="Content" style="margin: 10px">
