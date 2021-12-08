@@ -138,6 +138,7 @@ public class BulletinDao {
 				board.setTitle(rset.getString("title"));
 				
 				Emp emp = new Emp();
+				emp.setEmpNo(rset.getInt("emp_no"));
 				emp.setEmpName(rset.getString("emp_name"));
 				board.setEmp(emp);				
 				board.setEmpNo(rset.getInt("emp_no"));

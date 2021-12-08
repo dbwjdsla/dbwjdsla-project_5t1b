@@ -97,33 +97,6 @@ public class BoardViewServlet extends HttpServlet {
 				commentListDate.add(DateFormatUtils.formatDateBoard(bc.getRegDate()));
 			}
 			
-			// 파일 다운로드
-			Attachment attach = bulletinService.selectOneAttachment(no);
-			System.out.println(attach);
-			System.out.println("[FileDownloadServlet] attach = " + attach);
-
-			String saveDirectory = getServletContext().getRealPath("/upload/board");
-		
-			File downFile = new File(saveDirectory, attach.getRenamedFilename());
-			BufferedInputStream bis = new BufferedInputStream(new FileInputStream(downFile));
-			
-			ServletOutputStream sos = response.getOutputStream();
-			BufferedOutputStream bos= new BufferedOutputStream(sos);
-		
-			response.setContentType("application/octet-stream"); 
-		
-			String originalFilename = new String(attach.getOriginalFilename().getBytes("utf-8"), "iso-8859-1");
-			System.out.println("[FileDownloadServlet] originalFilename = " + originalFilename);
-			response.setHeader("Content-Disposition", "attachment; filename=" + originalFilename);
-			
-		
-			int data = -1;
-			while((data = bis.read()) != -1) {
-				bos.write(data);
-			}
-			
-			bos.close();
-			bis.close();
 			
 			request.setAttribute("commenterImageList", commenterImageList);
 			request.setAttribute("board", board);

@@ -60,7 +60,7 @@ public class OtoChatAlarmWebsocket {
 
 	@OnMessage
 	public void onMessage(String msgInfo, Session session) throws IOException {
-
+System.out.println("onMessage111>>"+msgInfo);	
 		Map<String, Object> msgMap = new Gson().fromJson(msgInfo, HashMap.class);
 		Map<String, Session> alarmClients = OtoChatInfo.getAlramClients();
 
@@ -69,6 +69,8 @@ public class OtoChatAlarmWebsocket {
 		String userId = (String) userProp.get("userId");
 		String loginYn = (String) userProp.get("loginYn");
 
+		
+System.out.println("onMessage>>"+msgMap);		
 		// 메세지를 정리
 		String type = "" + msgMap.get("type");
 		String otoSenderId = "" + msgMap.get("sender");
@@ -136,6 +138,8 @@ public class OtoChatAlarmWebsocket {
 				Calendar cal = Calendar.getInstance();
 				SimpleDateFormat thisFmt = new SimpleDateFormat("HH");
 				thisHH = Integer.parseInt(thisFmt.format(cal.getTime()));
+				
+				thisHH = 12;// 임시 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
