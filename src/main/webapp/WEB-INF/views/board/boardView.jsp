@@ -236,15 +236,9 @@
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
 	for (let empPopover of empPopovers) {
-<<<<<<< HEAD
-		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
- 	}
-=======
 		console.log(empPopover.dataset.empName);
 		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
-
  }
->>>>>>> branch 'master' of https://github.com/jinmae1/5t1b.git
 </script>
 <script>
 //삭제하기 버튼
