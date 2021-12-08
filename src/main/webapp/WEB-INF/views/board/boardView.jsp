@@ -142,9 +142,15 @@
 <script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
 <script>
 	const empPopovers = document.getElementsByClassName("empPopover");
-	for (let pop of empPopovers) {
-		setPopover("<%= request.getContextPath() %>", "게시글보기 링크", pop.dataset.empNo, "대화 링크", "쪽지 보내기 링크");
-	}
+	for (let empPopover of empPopovers) {
+		setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover);
+
+<%--
+ 		setPopover("<%= request.getContextPath() %>", "게시글보기 링크", pop.dataset.empNo, "대화 링크", "쪽지 보내기 링크");
+ 		--%>
+
+
+ }
 </script>
 <script>
 //추천하기 버튼
