@@ -21,13 +21,13 @@ public class AnonymousBoardDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int no = Integer.parseInt((String) request.getAttribute("no"));
+		int no = Integer.parseInt(request.getParameter("no"));
 		int result = bulletinService.deleteAnonymousBoard(no);
 		
 		String msg = result > 0 ? "게시물 삭제 성공" : "게시물 삭제 실패";
 		
 		request.getSession().setAttribute("msg", msg);
-		String location = request.getContextPath() + "/";
+		String location = request.getContextPath() + "/anonymousBoard/anonymousBoardList";
 		response.sendRedirect(location);
 	}
 

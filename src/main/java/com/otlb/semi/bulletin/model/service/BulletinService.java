@@ -33,10 +33,12 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertBoard(conn, board);
+			System.out.println(" insertBoard전");
 			
 			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
 			int boardNo = bulletinDao.selectLastBoardNo(conn);
 			System.out.println("[bulletinService] boardNo = " + boardNo);
+			board.setNo(boardNo);
 			
 			List<Attachment> attachments = board.getAttachments();
 			if(attachments != null) {
@@ -52,6 +54,7 @@ public class BulletinService {
 		} finally {
 			close(conn);
 		}
+		System.out.println("return 전");
 		return result;
 	}
 
@@ -211,6 +214,7 @@ public class BulletinService {
 			// 방금 insert된 boardNo 조회 : select seq_board_no.currval from dual
 			int boardNo = bulletinDao.selectLastAnonymousBoardNo(conn);
 			System.out.println("[bulletinService] boardNo = " + boardNo);
+			board.setNo(boardNo);
 			
 			List<Attachment> attachments = board.getAttachments();
 			if(attachments != null) {
@@ -236,6 +240,9 @@ public class BulletinService {
 		try {
 			conn = getConnection();
 			result = bulletinDao.insertNotice(conn, board);
+			int boardNo = bulletinDao.selectLastNoticeNo(conn);
+			board.setNo(boardNo);
+			
 			commit(conn);
 		} catch (Exception e) {
 			rollback(conn);

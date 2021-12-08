@@ -983,6 +983,26 @@ public class BulletinDao {
 		return result;
 	}
 
+	public int selectLastNoticeNo(Connection conn) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectLastNoticeNo");
+		ResultSet rset = null;
+		int boardNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			if(rset.next())
+				boardNo = rset.getInt(1);
+		} catch (SQLException e) {
+			throw new BulletinException("최근 게시글 번호 조회 오류", e);
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return boardNo;
+	}
+
 	
 }
 
