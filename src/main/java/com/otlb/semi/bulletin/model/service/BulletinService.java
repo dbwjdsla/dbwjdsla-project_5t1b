@@ -365,6 +365,40 @@ public class BulletinService {
 		return result;
 	}
 
+	public int deleteAnonymousBoard(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteAnonymousBoard(conn, no);
+			commit(conn);
+			
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
+	public int deleteNotice(int no) {
+		Connection conn = null;
+		int result = 0;
+		try {
+			conn = getConnection();
+			result = bulletinDao.deleteNotice(conn, no);
+			commit(conn);
+			
+		} catch (Exception e) {
+			rollback(conn);
+			throw e;
+		} finally {
+			close(conn);
+		}
+		return result;
+	}
+
 
 	
 }
