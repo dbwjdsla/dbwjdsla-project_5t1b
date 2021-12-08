@@ -217,7 +217,7 @@
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
 			</form>
 			<form 
-				action="<%= request.getContextPath() %>/board/boardDelete" 
+				action="<%= request.getContextPath() %>/board/boardDelete?no=<%= board.getNo() %>" 
 				name="boardDeleteFrm"
 				method="POST">
 				<input type="hidden" name="boardNo" value="<%= board.getNo() %>"/>
