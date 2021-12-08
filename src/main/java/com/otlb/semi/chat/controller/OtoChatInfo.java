@@ -18,6 +18,8 @@ public class OtoChatInfo {
 	// 알람 정보 저장 
 	public static void addAlarmClients(String userId, Session session) { 
 		alarmClients.put(userId, session); 
+		
+		logAlramClients();
 	}
 	
 	// 알람 정보 로그 출력 
@@ -40,6 +42,10 @@ public class OtoChatInfo {
 		for(Session sess : sessions) {
 			//	사용자 아이디를 체크한다  
 			Map<String, Object> sessionUserProp = sess.getUserProperties();
+System.out.println("[OtoChatInfo][sessionUserProp]"+sessionUserProp);
+System.out.println("[OtoChatInfo][userId]"+userId);
+			
+
 			String sessUserId	=	""+sessionUserProp.get("userId");
 			//	대상이 같을 때만 메세지를 출력한다 
 			if(userId.equals(sessUserId)) {
@@ -49,7 +55,7 @@ public class OtoChatInfo {
 		return null;
 	}
 	public static void  removeAlramClientsUser(String userId){
-		alarmClients.remove(userId);
+		//alarmClients.remove(userId);
 	}
 	
 	/**
