@@ -61,7 +61,7 @@ public class SelectDao {
 	}
 
 	// 자유게시판 조회
-	public static List<Board> selectBoardContent(Connection conn) {
+	public List<Board> selectBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("boardSelect");
 		ResultSet rset = null;
@@ -92,7 +92,7 @@ public class SelectDao {
 	}
 
 	// 익명 게시판 조회
-	public static List<AnonymousBoard> selectAnonymousBoardContent(Connection conn) {
+	public List<AnonymousBoard> selectAnonymousBoardContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("anonymousBoardSelect");
 		ResultSet rset = null;
@@ -122,7 +122,7 @@ public class SelectDao {
 	}
 
 	// 자유게시판 인기 게시글 조회
-	public static List<BoardEntity> selectBoardLikeContent(Connection conn) {
+	public List<BoardEntity> selectBoardLikeContent(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("likeContentBoardSelect");
 		ResultSet rset = null;
@@ -150,7 +150,7 @@ public class SelectDao {
 	}
 
 	// 익명 게시판 인기게시글 조회
-	public static List<BoardEntity> likeContentAnonymous_boardSelect(Connection conn) {
+	public List<BoardEntity> likeContentAnonymous_boardSelect(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("likeContentAnonymous_boardSelect");
 		ResultSet rset = null;
@@ -178,7 +178,7 @@ public class SelectDao {
 	}
 
 	// 오늘의 메뉴 조회
-	public static FoodMenu selectFoodMenu(Connection conn) {
+	public FoodMenu selectFoodMenu(Connection conn) {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("foodMenuSelect");
 		ResultSet rset = null;
