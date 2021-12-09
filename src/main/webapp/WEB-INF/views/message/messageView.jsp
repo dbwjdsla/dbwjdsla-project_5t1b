@@ -20,7 +20,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
 			<div class="container">
         		<button class="btn btn-primary btn-icon-split" onclick="delMessage();" style="padding: 5px; margin-top: 20px;">삭제</button>
-        		<button class="btn btn-primary btn-icon-split" onclick="replyMessage();" style="padding: 5px; margin-top: 20px;">답장</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="replyMessage();" style="padding: 5px;">답장</button>
 			</div>
             <!-- Main Content -->
             <div id="content">
