@@ -2,6 +2,8 @@ package com.otlb.semi.message.model.service;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Map;
+
 import static com.otlb.semi.common.JdbcTemplate.*;
 
 import com.otlb.semi.emp.model.vo.Emp;
@@ -18,6 +20,13 @@ public class MessageService {
 		
 		return list;
 	}
+//	public List<Message> selectAllReceivedMessage(int empNo, Map<String, Integer> param) {
+//		Connection conn = getConnection();
+//		List<Message> list = messageDao.selectAllReceivedMessage(conn, empNo, param);
+//		close(conn);
+//		
+//		return list;
+//	}
 
 	public List<Message> selectAllSentMessage(int empNo) {
 		Connection conn = getConnection();

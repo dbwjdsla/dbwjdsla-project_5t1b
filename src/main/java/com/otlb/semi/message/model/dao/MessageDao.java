@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import com.otlb.semi.emp.model.vo.Emp;
@@ -30,6 +31,7 @@ public class MessageDao {
 		}
 	}
 
+//	public List<Message> selectAllReceivedMessage(Connection conn, int empNo, Map<String, Integer> param) {
 	public List<Message> selectAllReceivedMessage(Connection conn, int empNo) {
 		PreparedStatement pstmt = null;
 		List<Message> list = new ArrayList<>();
@@ -39,6 +41,9 @@ public class MessageDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, empNo);
+//			pstmt.setInt(2, param.get("start"));
+//			pstmt.setInt(3, param.get("end"));
+
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

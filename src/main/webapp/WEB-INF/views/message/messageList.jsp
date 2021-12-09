@@ -75,7 +75,7 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
  %>
                          </tbody>
  					</table>
-	 				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
+	 				<%-- <div id="pageBar"><%= request.getAttribute("pagebar") %></div> --%>
 	 			</div>
 	 		<form
 	 		

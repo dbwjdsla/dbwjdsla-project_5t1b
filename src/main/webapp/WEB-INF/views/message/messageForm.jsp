@@ -21,7 +21,7 @@ System.out.println(receiver + "2#@#!#13131");
 	        	action="<%= request.getContextPath() %>/message/messageEnroll"
 	        	method="POST">
 	        	<div class="container">
-					<input type="submit" value="보내기" class="btn btn-primary btn-icon-split"/>
+					<input type="submit" value="보내기" class="btn btn-primary btn-icon-split" style="padding: 5px; margin-top: 20px;"/>
 				</div>
 			 	<hr class="sidebar-divider my-3">
 	            <!-- Main Content -->
@@ -99,7 +99,6 @@ $(receiver).autocomplete({
 	},
     focus: function(event, selected) {
         const selected2 = document.getElementsByClassName("ui-state-active")[0];
-        //console.log("+++++++++" + selected2.innerText);
         receiver.value =  selected2.innerText;
         return false;
     } 
