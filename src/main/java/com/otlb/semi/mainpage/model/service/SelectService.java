@@ -25,7 +25,7 @@ public class SelectService {
 	// 자유게시판 조회
 	public List<Board> selectBoardContent() {
 		Connection conn = getConnection();
-		List<Board> boardList = SelectDao.selectBoardContent(conn);
+		List<Board> boardList = selectDao.selectBoardContent(conn);
 		close(conn);
 		return boardList;
 	}
@@ -33,7 +33,7 @@ public class SelectService {
 	// 익명 게시판 조회
 	public List<AnonymousBoard> selectAnonymousBoardContent() {
 		Connection conn = getConnection();
-		List<AnonymousBoard> anonymousBoardList = SelectDao.selectAnonymousBoardContent(conn);
+		List<AnonymousBoard> anonymousBoardList = selectDao.selectAnonymousBoardContent(conn);
 		close(conn);
 		return anonymousBoardList;
 	}
@@ -41,7 +41,7 @@ public class SelectService {
 	// 자유게시판 인기 게시글 조회
 	public List<BoardEntity> selectBoardLikeContent() {
 		Connection conn = getConnection();
-		List<BoardEntity> likeContentBoardSelect = SelectDao.selectBoardLikeContent(conn);
+		List<BoardEntity> likeContentBoardSelect = selectDao.selectBoardLikeContent(conn);
 		close(conn);
 		return likeContentBoardSelect;
 	}
@@ -49,7 +49,7 @@ public class SelectService {
 	// 익명 게시판 인기게시글 조회
 	public List<BoardEntity> selectAnonymous_boardLikeContent() {
 		Connection conn = getConnection();
-		List<BoardEntity> likeContentAnonymous_boardSelect = SelectDao.likeContentAnonymous_boardSelect(conn);
+		List<BoardEntity> likeContentAnonymous_boardSelect = selectDao.likeContentAnonymous_boardSelect(conn);
 		close(conn);
 		return likeContentAnonymous_boardSelect;
 	}
@@ -57,7 +57,7 @@ public class SelectService {
 	// 오늘의 메뉴 조회
 	public FoodMenu selectFoodMenu() {
 		Connection conn = getConnection();
-		FoodMenu foodMenu = SelectDao.selectFoodMenu(conn);
+		FoodMenu foodMenu = selectDao.selectFoodMenu(conn);
 		close(conn);
 		return foodMenu;
 	}
