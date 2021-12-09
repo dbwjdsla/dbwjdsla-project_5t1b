@@ -133,6 +133,13 @@ public class MessageService {
 		
 		return emp;
 	}
+
+	public int selectTotalSentMessageount(int empNo) {
+		Connection conn = getConnection();
+		int totalCount = messageDao.selectTotalSentMessageount(conn, empNo);
+		close(conn);
+		return totalCount;
+	}
 	
 	
 	

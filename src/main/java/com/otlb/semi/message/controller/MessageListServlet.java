@@ -2,7 +2,9 @@ package com.otlb.semi.message.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.otlb.semi.common.DateFormatUtils;
+import com.otlb.semi.common.EmpUtils;
 import com.otlb.semi.emp.model.vo.Emp;
 import com.otlb.semi.message.model.service.MessageService;
 import com.otlb.semi.message.model.vo.Message;
@@ -34,6 +37,22 @@ public class MessageListServlet extends HttpServlet {
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		
 		int empNo = emp.getEmpNo();
+		
+		//페이징
+		final int numPerPage = 5;
+		int cPage = 1;
+		try {
+			cPage = Integer.parseInt(request.getParameter("cPage"));
+		} catch (NumberFormatException e) {}
+		int start = (cPage - 1) * numPerPage + 1; 
+		int end = cPage * numPerPage;
+		Map<String, Integer> param = new HashMap<>();
+		param.put("start", start);
+		param.put("end", end);
+		
+		
+		
+		
 		List<Message> list = messageService.selectAllReceivedMessage(empNo);
 		List<String> titleList = new ArrayList<>();
 		List<String> sentDateList = new ArrayList<>();
@@ -48,9 +67,15 @@ public class MessageListServlet extends HttpServlet {
 			//쪽지 날짜 변형부
 			sentDateList.add(DateFormatUtils.formatDate(list.get(i).getSentDate()));
 		}
+		int totalContent = messageService.selectTotalSentMessageount(empNo);
+		String url = request.getRequestURI();
+		String pagebar = EmpUtils.getPagebar(cPage, numPerPage, totalContent, url);
+		
 		request.setAttribute("list", list);
 		request.setAttribute("titleList", titleList);
 		request.setAttribute("sentDateList", sentDateList);
+		request.setAttribute("pagebar", pagebar);
+		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageList.jsp")
 			.forward(request, response);
