@@ -8,6 +8,7 @@
 	Message message = (Message) request.getAttribute("message");
 	String date = (String) request.getAttribute("date");
 %>
+</style>
 <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -18,8 +19,8 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 			<div class="container">
-        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
-        		<button class="btn btn-primary btn-icon-split" onclick="replyMessage();">답장</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();" style="padding: 5px; margin-top: 20px;">삭제</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="replyMessage();" style="padding: 5px; margin-top: 20px;">답장</button>
 			</div>
             <!-- Main Content -->
             <div id="content">
@@ -31,20 +32,20 @@
                 <div class="container-fluid">
 					<hr class="sidebar-divider">
 	 				<div class="col-sm-12">
-		 				<table>
+		 				<table style="color: black;">
                            <tr>
                                <th>보낸사람</th>
-                               <td><%= message.getEmp().getEmpName() %></td>
+                               <td style="padding-left: 30px;"><%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)</td>
                            </tr>
                          	<tr>
                          		<th>받은시간</th>
-                         		<td><%= date %></td>
+                         		<td style="padding-left: 30px;"><%= date %></td>
                          	</tr>
 	 					</table>
  					
 	 				</div>
  					<hr class="sidebar-divider">
- 					<div class="container">
+ 					<div class="container-container" style="color: black;">
 						<%= message.getContent() %>
  					</div>	
 

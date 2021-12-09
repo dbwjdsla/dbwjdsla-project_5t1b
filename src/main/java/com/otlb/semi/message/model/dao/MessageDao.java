@@ -54,6 +54,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("sender_emp_name"));
+				emp.setDeptName(rset.getString("sender_dept_name"));
 				
 				message.setEmp(emp);
 				
@@ -92,6 +93,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("receiver_emp_name"));
+				emp.setDeptName(rset.getString("receiver_dept_name"));
 				
 				message.setEmp(emp);
 				
@@ -125,6 +127,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("sender_emp_name")); 
+				emp.setDeptName(rset.getString("sender_dept_name")); 
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {
@@ -154,6 +157,7 @@ public class MessageDao {
 				
 				Emp emp = new Emp();
 				emp.setEmpName(rset.getString("receiver_emp_name"));
+				emp.setDeptName(rset.getString("receiver_dept_name"));
 				message.setEmp(emp);
 			}
 		} catch (SQLException e) {

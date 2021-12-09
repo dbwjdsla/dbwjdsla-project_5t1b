@@ -16,7 +16,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
         	<div class="container">
-        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();" style="padding: 5px; margin-top: 20px;">삭제</button>
 			</div>
 		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
@@ -25,8 +25,8 @@
 	 			<div class="col-sm-12">
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
-                           <tr>
-                               <th><input type="checkbox" class="checkAll"/></th>
+                           <tr style="background-color: #CCCCCC; color: black;">
+                               <th style="text-align: center;"><input type="checkbox" class="checkAll"/></th>
                                <th>보낸사람</th>
                                <th>내용</th>
                                <th>날짜</th>
@@ -38,30 +38,37 @@
 	로그인 회원이 받은 쪽지데이터 출력
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
+List<String> titleList = (List<String>) request.getAttribute("titleList");
 List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 	//for(Message message : list){
 	for(int i = 0; i < list.size(); i++){	
 		Message message = list.get(i);
+		String title = titleList.get(i);
 %>
-                         	<tr>
-                         		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
+                         	<tr>dd
+                         		<td width="50px;" style="text-align: center;"><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
                          		<!-- 안읽었다면 파란글씨 -->
-                         		<td>
+                         		<td width="180px">
                          			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getSenderEmpNo()%>"
                          			<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
-                         				<%= message.getEmp().getEmpName() %>
+                         				<%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)
                          			</a>
+        
+     						
+                         		<span class="empPopover" data-toggle="popover" style="font-weight: bold;"
+                         		data-emp-no="<%= message.getSenderEmpNo()%>"
+                         		data-emp-name="<%= message.getEmp().getEmpName() %>"><%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)</span>
                          		</td>
                          		<td>
                          			<!-- 읽었다면 링크 회색글씨 처리-->
                          			<a 
                        				href="<%= request.getContextPath() %>/message/messageView?no=<%= message.getNo()%>" 
 									<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
-                       				<%= message.getContent() %>
+                       				<%= title %>
                        				</a>
                    				</td>
                          		<%-- <td><%= message.getSentDate() %></td> --%>
-                         		<td><%= sentDateList.get(i) %></td>
+                         		<td width="200px"><%= sentDateList.get(i) %></td>
                          	</tr>
 <% 
 	}
@@ -88,6 +95,15 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 
             </div>
             <!-- End of Main Content -->
+            
+<script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
+<script>
+    const empPopovers = document.getElementsByClassName("empPopover");
+    for (let empPopover of empPopovers) {
+        console.log(empPopover.dataset.empName);
+        setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
+ }
+</script>           
 <script>
 //메세지 삭제 제어
 function delMessage(){

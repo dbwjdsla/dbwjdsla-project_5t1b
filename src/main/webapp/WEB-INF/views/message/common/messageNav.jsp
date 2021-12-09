@@ -74,7 +74,7 @@ $( document ).ready(function(){
 //마우스 오버 이벤트
 $(hover1).hover(
 	function () {
-		const span = `<span style=" position: absolute; transform: translate(500%, 50%); " id="hoverSpan">
+		const span = `<span style=" position: absolute; transform: translate(380%, 50%); " id="hoverSpan">
 						<i class="fa fa-arrow-right" style="float: right; "></i>
 			       	</span>`;
 		$(hover1).append(span);
