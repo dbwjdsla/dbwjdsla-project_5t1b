@@ -317,6 +317,28 @@ public class MessageDao {
 		}
 		return emp;
 	}
+
+	public int selectTotalSentMessageount(Connection conn, int empNo) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("selectTotalSentMessageount");
+		ResultSet rset = null;
+		int totalCount = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, empNo);
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				totalCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalCount;
+	}
 }
 
 

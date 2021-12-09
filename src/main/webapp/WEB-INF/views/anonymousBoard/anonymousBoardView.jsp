@@ -111,6 +111,7 @@
 						<td style="padding: 10px;" width="1000px;">
 							<sub class="comment-writer" style="font-weight: bold;"><%= name %></sub>
 							<sub class="comment-date"><%= commentDate %></sub>
+							<br />
 							<!-- 댓글내용 -->
 							<%= commentContent %>
 						</td>

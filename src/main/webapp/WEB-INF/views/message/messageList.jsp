@@ -75,6 +75,7 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
  %>
                          </tbody>
  					</table>
+	 				<div id="pageBar"><%= request.getAttribute("pagebar") %></div>
 	 			</div>
 	 		<form
 	 		
@@ -154,4 +155,4 @@ $("input[name=check]").click(function() {
 	else $(".checkAll").prop("checked", true); 
 });
 </script>
-<%@ include file="/WEB-INF/views/common/footer.jsp"%>
+<%-- <%@ include file="/WEB-INF/views/common/footer.jsp"%> --%>
