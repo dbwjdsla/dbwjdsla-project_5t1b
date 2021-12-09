@@ -99,7 +99,6 @@ $(receiver).autocomplete({
 	},
     focus: function(event, selected) {
         const selected2 = document.getElementsByClassName("ui-state-active")[0];
-        //console.log("+++++++++" + selected2.innerText);
         receiver.value =  selected2.innerText;
         return false;
     } 
