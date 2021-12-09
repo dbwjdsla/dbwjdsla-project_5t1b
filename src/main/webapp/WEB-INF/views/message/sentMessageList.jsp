@@ -47,9 +47,11 @@ List<String> readDateList = (List<String>) request.getAttribute("readDateList");
 %>
                          	<tr>
                          		<td width="50px;" style="text-align: center;"><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td width="180px">
-                         			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getReceiverEmpNo()%>"
-                         			style="color: #858796;" >
+                         		<td width="180px" style="font-weight: bold;">
+                         			<a class="empPopover" data-toggle="popover" 
+		                         		data-emp-no="<%= message.getReceiverEmpNo()%>"
+		                         		data-emp-name="<%= message.getEmp().getEmpName() %>"
+		                         		style="color: #858796;">
                          				<%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)
                          			</a>
                          		</td>
@@ -90,6 +92,15 @@ List<String> readDateList = (List<String>) request.getAttribute("readDateList");
 
             </div>
             <!-- End of Main Content -->
+
+<script src="<%= request.getContextPath() %>/js/empPopup.js"></script>
+<script>
+    const empPopovers = document.getElementsByClassName("empPopover");
+    for (let empPopover of empPopovers) {
+        console.log(empPopover.dataset.empName);
+        setPopover("<%= request.getContextPath() %>", empPopover.dataset.empNo, empPopover, empPopover.dataset.empName, "<%= loginEmp.getEmpNo() %>", "<%= loginEmp.getEmpName() %>");
+ }
+</script>  
 <script>
 //메세지 삭제 제어
 function delMessage(){

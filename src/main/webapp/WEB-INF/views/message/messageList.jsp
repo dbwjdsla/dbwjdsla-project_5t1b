@@ -45,19 +45,19 @@ List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 		Message message = list.get(i);
 		String title = titleList.get(i);
 %>
-                         	<tr>dd
+                         	<tr>
                          		<td width="50px;" style="text-align: center;"><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
                          		<!-- 안읽었다면 파란글씨 -->
-                         		<td width="180px">
-                         			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getSenderEmpNo()%>"
-                         			<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
+                         		<td width="180px" style="font-weight: bold;">
+                         			<a class="empPopover" data-toggle="popover" 
+		                         		data-emp-no="<%= message.getSenderEmpNo()%>"
+		                         		data-emp-name="<%= message.getEmp().getEmpName() %>" 
+		                         		<%= message.getReadDate() != null ? "style=\"color: #858796;\"" : "" %>>
                          				<%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)
                          			</a>
         
      						
-                         		<span class="empPopover" data-toggle="popover" style="font-weight: bold;"
-                         		data-emp-no="<%= message.getSenderEmpNo()%>"
-                         		data-emp-name="<%= message.getEmp().getEmpName() %>"><%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)</span>
+                         		<%-- <span ><%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)</span> --%>
                          		</td>
                          		<td>
                          			<!-- 읽었다면 링크 회색글씨 처리-->

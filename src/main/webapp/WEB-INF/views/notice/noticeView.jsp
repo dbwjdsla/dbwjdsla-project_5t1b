@@ -18,12 +18,12 @@
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
-		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();" style="padding: 5px; margin-top: 20px;">목록</button>
 <%
 	if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
 %>			
-				<button class="btn btn-primary btn-icon-split" onclick="updateBoard();">수정</button>
-		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+				<button class="btn btn-primary btn-icon-split" onclick="updateBoard();" style="padding: 5px; margin-top: 20px;">수정</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();" style="padding: 5px; margin-top: 20px;">삭제</button>
 <%
 	}
 %>			

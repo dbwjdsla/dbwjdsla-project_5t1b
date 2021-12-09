@@ -25,17 +25,17 @@
  		<!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 	        <div class="container-fluid">
-		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();">목록</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="moveBoardList();" style="padding: 5px; margin-top: 20px;">목록</button>
 <%
 	if(board.getEmpNo() == loginEmp.getEmpNo()){
 %>
-		    	<button class="btn btn-primary btn-icon-split" onclick="updateBoard();">수정</button>
-		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="updateBoard();" style="padding: 5px; margin-top: 20px;">수정</button>
+		    	<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();" style="padding: 5px; margin-top: 20px;"">삭제</button>
 <%
 	}
 	else if(EmpService.ADMIN_ROLE.equals(loginEmp.getEmpRole())){
 %>
-				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();">삭제</button>
+				<button class="btn btn-primary btn-icon-split" onclick="deleteBoard();" style="padding: 5px; margin-top: 20px;">삭제</button>
 <% 
 	}
 %>
@@ -43,40 +43,55 @@
 			</div>
 			 <div class="container-fluid" id="titleContent">
 			 	<p>자유게시판</p>
-		 		<h5 style="font-weight: bold;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
+		 		<h5 style="font-weight: bold; color: black;">[<%= board.getCategory() %>] <%= board.getTitle() %></h5>
+		 		
 		 		<img class="img-profile rounded-circle" src="<%= request.getContextPath() + writerProfileImagePath %>" height="40px" />
-			 	<span class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>" data-emp-name="<%= board.getEmp().getEmpName() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
-			 	<span>추천수<%= board.getLikeCount() %></span>
-			 	<span>조회<%= board.getReadCount() %></span>
-			 	<span><%= regDate %></span>
+			 	<span 
+			 		style="color: black;"
+			 		class="empPopover" data-toggle="popover" data-emp-no="<%= board.getEmpNo() %>" data-emp-name="<%= board.getEmp().getEmpName() %>"><%= board.getEmp().getEmpName() %>(<%= board.getEmp().getDeptName() %>)</span>
+			 	<span style="margin-left: 30px;">추천수<%= board.getLikeCount() %></span>
+			 	<span style="margin-left: 10px;">조회<%= board.getReadCount() %></span>
+			 	<span style="margin-left: 10px;"><%= regDate %></span>
+			 </div>
+			 <br />
+			 	
+			 
+			 <div class="container-fluid" id="Content" style="margin-top: 20px; margin-bottom: 50px;">
+			 	<span><%= content %></span>
+			 </div>
+			 <div class="container-fluid">
+			 	<button class="btn btn-primary btn-icon-split" id="recommend-btn" onclick="recommend();" style="padding: 5px; margin-top: 20px;"><i class="far fa-thumbs-up"> 추천하기</i></button>
+			 </div>
+			 <div class="container-fluid" id="attachContent" >
+			 <hr class="sidebar-divider my-3">
 <%
  	List<Attachment> attachments = board.getAttachments();
     	if (attachments != null && !attachments.isEmpty()) {
     		for(int i = 0; i < attachments.size(); i++){
     			Attachment attach = attachments.get(i);
 %>	
-			<tr>
-			<td>
-			 	<i class="fa fa-paperclip" src="<%=request.getContextPath() %> width=16px alt="첨부파일" ></i>
-			 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
-			</td>
-			</tr> 	
+			 <p>첨부파일</p>
+				<table>
+					<tr>
+						<td>
+						 	<i class="fa fa-paperclip" src="<%=request.getContextPath() %> width=16px alt="첨부파일" ></i>
+						 	<a href="<%= request.getContextPath() %>/board/fileDownload?no=<%= attach.getNo() %>"><%= attach.getOriginalFilename() %></a>
+						</td>
+					</tr> 
+				</table>	
 <%	
     		
     	}
+%>
+			<hr class="sidebar-divider my-3">
+			</div>
+<%
 	}
 %>			 	
-			 	
-			 </div>
-			 <br />
-			 
-			 <div class="container-fluid" id="Content" style="margin: 10px">
-			 	<span><%= content %></span>
-			 </div>
 			  <div class="container-fluid" id="commentContent">
 			 	<span>댓글 <%= board.getCommentCount() %></span>
-			 	<button class="btn btn-primary btn-icon-split" id="recommend-btn" onclick="recommend();">추천하기</button>
-			 	<hr class="sidebar-divider my-3">
+			 	
+
 <% 
  	List<BoardComment> commentList = (List<BoardComment>) request.getAttribute("boardCommentList");
 	List<String> commentListContent = (List<String>) request.getAttribute("commentListContent");
@@ -108,20 +123,24 @@
 			
 %>				
 					<tr class="level1">
-						<td style="padding: 15px;">
+						<td style="padding: 15px;" width="1000px;">
 							<img class="img-profile rounded-circle" src="<%= request.getContextPath() + commenterProfileImagePath %>" height="30px" />
 							<sub class="comment-writer empPopover" data-toggle="popover" style="font-weight: bold;" data-emp-no="<%= bc.getEmpNo() %>" data-emp-name="<%= bc.getEmp().getEmpName() %>"><%= bc.getEmp().getEmpName() %>(<%= bc.getEmp().getDeptName() %>)</sub>
 							<sub class="comment-date"><%= commentDate %></sub>
 							<br />
+							<div class="container-fluid" style="margin-top: 10px;">
+								<%= commentContent %>
+							
+							</div>
 							<!-- 댓글내용 -->
-							<%= commentContent %>
+							
 						</td>
 						<td>
-							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
+							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);" style="padding: 5px; margin-top: 20px;">답글</button>
 <%
 					if(removable){
 %>						
-							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>">삭제</button>
+							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>" style="padding: 5px; margin-top: 20px;">삭제</button>
 <%
 					}
 %>					
@@ -155,11 +174,11 @@
 							<%= commentContent %>
 						</td>
 						<td>
-							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);">답글</button>
+							<button class="btn btn-primary btn-icon-split" id="btn-reply" value="<%= bc.getNo()%>" onclick="commentReply(this);" style="padding: 5px; margin-top: 20px;">답글</button>
 <%
 					if(removable){
 %>	
-							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>">삭제</button>
+							<button class="btn btn-primary btn-icon-split" name="btn-delete" value="<%= bc.getNo()%>" style="padding: 5px; margin-top: 20px;">삭제</button>
 <%
 					}
 %>					
@@ -201,12 +220,10 @@
 				    <input type="hidden" name="commentLevel" value="1" />
 				    <input type="hidden" name="commentRef" value="0" />    
 				    <div id="comment-input">
-						<textarea name="content" cols="100" rows="3" style="resize: none;" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
-					   	<div class="counter" style="float: right;">
-								<span id="count">0</span><span>/100</span>
-                   		</div>
+						<textarea name="content" cols="120" rows="3" style="resize: none;" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+					   	
 					   	<br />
-					    <button type="submit" class="btn btn-primary btn-icon-split" >등록</button>
+					    <button type="submit" class="btn btn-primary btn-icon-split" style="padding: 5px; margin-top: 20px;">등록</button>
 					</div>
 				</form>
 			 </div>
@@ -279,6 +296,7 @@ $(document.boardCommentFrm).submit((e) => {
 		e.preventDefault();
 	}
 });
+
 //댓글 삭제 기능
 $("button[name=btn-delete]").click(function(){
 	console.log(12345);
@@ -303,10 +321,12 @@ function commentReply(e) {
 			    <input type="hidden" name="no" value="<%= board.getNo() %>" />
 			    <input type="hidden" name="commentLevel" value="2" />
 			    <input type="hidden" name="commentRef" value="\${commentRef}" />    
-				<textarea name="content" cols="60" rows="3" style="resize: none;"></textarea>
-			    <button type="submit" class="btn btn-primary btn-icon-split">등록</button>
-			</form>
+				<textarea name="content" cols="60" rows="3" style="resize: none;" placeholder="인터넷은 우리가 함께 만들어가는 소중한 공간입니다. 글 작성 시 타인에 대한 배려와 책임을 담아주세요."></textarea>
+			    <br />
+				<button type="submit" class="btn btn-primary btn-icon-split" style="padding: 5px; margin-top: 20px;">등록</button>
+				</form>
 		</td>`;
+
 	const baseTr = e.parentNode.parentNode;
 	const $baseTr = $(e.target).parent().parent();
 	const $tr = $(tr);
