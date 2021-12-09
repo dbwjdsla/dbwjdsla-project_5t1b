@@ -31,22 +31,25 @@ public class MessageListServlet extends HttpServlet {
 		//받은 메세지함
 		HttpSession session = request.getSession();
 		
-		System.out.println(session.getAttribute("loginEmp"));
 		Emp emp = (Emp) session.getAttribute("loginEmp");
 		
 		int empNo = emp.getEmpNo();
 		List<Message> list = messageService.selectAllReceivedMessage(empNo);
-//		System.out.println("[MessageListServlet] list = " + list);
-//		for(int i = 0; i < list.size(); i++) {
-//			System.out.println("@@@@@@@@@@@@" + list.get(i).getReadDate() + ", " + list.get(i).getSentDate());
-//			
-//		}
+		List<String> titleList = new ArrayList<>();
 		List<String> sentDateList = new ArrayList<>();
 		for(int i = 0; i < list.size(); i++) {
+			
+			if(list.get(i).getContent().length() > 50) {
+				//n자가 넘는 쪽지의 경우 n자만출력해줌
+				titleList.add(list.get(i).getContent().substring(0, 40) + "...더보기");
+			}else {
+				titleList.add(list.get(i).getContent());
+			}
+			//쪽지 날짜 변형부
 			sentDateList.add(DateFormatUtils.formatDate(list.get(i).getSentDate()));
 		}
-		//System.out.println("@@@@@@@@" + DateFormatUtils.formatDate(list.get(0).getSentDate()));
 		request.setAttribute("list", list);
+		request.setAttribute("titleList", titleList);
 		request.setAttribute("sentDateList", sentDateList);
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageList.jsp")

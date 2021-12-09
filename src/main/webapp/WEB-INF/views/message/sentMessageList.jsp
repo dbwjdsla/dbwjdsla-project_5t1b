@@ -14,7 +14,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 			<div class="container">
-        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();" style="padding: 5px; margin-top: 20px;">삭제</button>
 			</div>
 		 	<hr class="sidebar-divider my-3">
             <!-- Main Content -->
@@ -23,8 +23,8 @@
 	 			<div class="col-sm-12">
 	 				<table class="table table-bordered dataTable">
 	 					<thead>
-                           <tr>
-                               <th><input type="checkbox" class="checkAll"/></th>
+                           <tr style="background-color: #CCCCCC; color: black;">
+                               <th style="text-align: center;"><input type="checkbox" class="checkAll"/></th>
                                <th>받는사람</th>
                                <th>내용</th>
                                <th>보낸날짜</th>
@@ -37,31 +37,33 @@
 	로그인 회원이 보낸 쪽지데이터 출력
 */
 List<Message> list = (List<Message>) request.getAttribute("list");
+List<String> titleList = (List<String>) request.getAttribute("titleList");
 List<String> sentDateList = (List<String>) request.getAttribute("sentDateList");
 List<String> readDateList = (List<String>) request.getAttribute("readDateList");
 	//for(Message message : list){
 	for(int i = 0; i < list.size(); i++){
 		Message message = list.get(i);
+		String title = titleList.get(i);
 %>
                          	<tr>
-                         		<td><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
-                         		<td>
+                         		<td width="50px;" style="text-align: center;"><input type="checkbox" name="check" value="<%= message.getNo()%>"/></td>
+                         		<td width="180px">
                          			<a href="<%= request.getContextPath() %>/emp/empInfoView?empNo=<%= message.getReceiverEmpNo()%>"
                          			style="color: #858796;" >
-                         				<%= message.getEmp().getEmpName() %>
+                         				<%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)
                          			</a>
                          		</td>
                          		
                          		<td>
                          			<a href="<%= request.getContextPath() %>/message/sentMessageView?no=<%= message.getNo()%>"
                          			style="color: #858796;" >
-                         				<%= message.getContent() %>
+                         				<%= title %>
                        				</a>
                     			</td>
                          		<%-- <td><%= message.getSentDate() %></td> --%>
                          		<%-- <td><%= message.getReadDate() != null ? message.getReadDate() : "읽지 않음" %></td> --%>
-                         		<td><%= sentDateList.get(i) %></td>
-                         		<td><%= readDateList.get(i) != null ? readDateList.get(i) : "읽지 않음" %></td>
+                         		<td width="200px"><%= sentDateList.get(i) %></td>
+                         		<td width="200px"><%= readDateList.get(i) != null ? readDateList.get(i) : "읽지 않음" %></td>
                          	</tr>
 <% 
 	}

@@ -18,7 +18,7 @@
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 			<div class="container">
-        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();">삭제</button>
+        		<button class="btn btn-primary btn-icon-split" onclick="delMessage();" style="padding: 5px; margin-top: 20px;">삭제</button>
 			</div>
             <!-- Main Content -->
             <div id="content">
@@ -30,19 +30,19 @@
                 <div class="container-fluid">
 					<hr class="sidebar-divider">
 	 				<div class="col-sm-12">
-	 				<table>
+	 				<table style="color: black;">
                            <tr>
                                <th>받는사람</th>
-                               <td><%= message.getEmp().getEmpName() %></td>
+                               <td style="padding-left: 30px;"><%= message.getEmp().getEmpName() %>(<%= message.getEmp().getDeptName() %>)</td>
                            </tr>
                          	<tr>
                          		<th>보낸시간</th>
-                         		<td><%= sentDate %></td> 
+                         		<td style="padding-left: 30px;"><%= sentDate %></td> 
                          	</tr>
  					</table>
  					<hr class="sidebar-divider">
- 					<div class="container-container">
-					<%= message.getContent() %>
+ 					<div class="container-container" style="color: black;">
+						<%= message.getContent() %>
  					</div>	
  					
 	 			</div>

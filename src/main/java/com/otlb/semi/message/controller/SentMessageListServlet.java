@@ -35,15 +35,23 @@ public class SentMessageListServlet extends HttpServlet {
 		
 		int empNo = emp.getEmpNo();
 		List<Message> list = messageService.selectAllSentMessage(empNo);
-		//System.out.println("[MessageListServlet] list = " + list);
+		List<String> titleList = new ArrayList<>();
 		List<String> sentDateList = new ArrayList<>();
 		List<String> readDateList = new ArrayList<>();
 		
 		for(int i = 0; i < list.size(); i++) {
+			if(list.get(i).getContent().length() > 50) {
+				//n자가 넘는 쪽지의 경우 n자만출력해줌
+				titleList.add(list.get(i).getContent().substring(0, 40) + "...더보기");
+			}else {
+				titleList.add(list.get(i).getContent());
+			}
+			//날짜처리
 			sentDateList.add(DateFormatUtils.formatDate(list.get(i).getSentDate()));
 			readDateList.add(DateFormatUtils.formatDate(list.get(i).getReadDate()));
 		}
 		request.setAttribute("list", list);
+		request.setAttribute("titleList", titleList);
 		request.setAttribute("sentDateList", sentDateList);
 		request.setAttribute("readDateList", readDateList);
 		request
