@@ -54,10 +54,10 @@
 										<p style="height: 44px;">현재 비밀번호 :</p>
 									</div>
 									<div class="form-group">
-										<p style="height: 44px;">현재 비밀번호 :</p>
+										<p style="height: 44px;">새로운 비밀번호 :</p>
 									</div>
 									<div class="form-group">
-										<p>현재 비밀번호 :</p>
+										<p>새로운 비밀번호 확인:</p>
 									</div>
 								</div>
 								<div class="col-lg-6">
