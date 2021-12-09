@@ -62,13 +62,13 @@
 			 </div>
 			 <div class="container-fluid" id="attachContent" >
 			 <hr class="sidebar-divider my-3">
-			 <p>첨부파일</p>
 <%
  	List<Attachment> attachments = board.getAttachments();
     	if (attachments != null && !attachments.isEmpty()) {
     		for(int i = 0; i < attachments.size(); i++){
     			Attachment attach = attachments.get(i);
 %>	
+			 <p>첨부파일</p>
 				<table>
 					<tr>
 					<td>
