@@ -38,22 +38,23 @@ public class MessageListServlet extends HttpServlet {
 		
 		int empNo = emp.getEmpNo();
 		
-		//페이징
-		final int numPerPage = 5;
-		int cPage = 1;
-		try {
-			cPage = Integer.parseInt(request.getParameter("cPage"));
-		} catch (NumberFormatException e) {}
-		int start = (cPage - 1) * numPerPage + 1; 
-		int end = cPage * numPerPage;
-		Map<String, Integer> param = new HashMap<>();
-		param.put("start", start);
-		param.put("end", end);
+//		//페이징
+//		final int numPerPage = 5;
+//		int cPage = 1;
+//		try {
+//			cPage = Integer.parseInt(request.getParameter("cPage"));
+//		} catch (NumberFormatException e) {}
+//		int start = (cPage - 1) * numPerPage + 1; 
+//		int end = cPage * numPerPage;
+//		Map<String, Integer> param = new HashMap<>();
+//		param.put("start", start);
+//		param.put("end", end);
 		
 		
 		
 		
 		List<Message> list = messageService.selectAllReceivedMessage(empNo);
+//		List<Message> list = messageService.selectAllReceivedMessage(empNo, param);
 		List<String> titleList = new ArrayList<>();
 		List<String> sentDateList = new ArrayList<>();
 		for(int i = 0; i < list.size(); i++) {
@@ -69,12 +70,12 @@ public class MessageListServlet extends HttpServlet {
 		}
 		int totalContent = messageService.selectTotalSentMessageount(empNo);
 		String url = request.getRequestURI();
-		String pagebar = EmpUtils.getPagebar(cPage, numPerPage, totalContent, url);
+//		String pagebar = EmpUtils.getPagebar(cPage, numPerPage, totalContent, url);
 		
 		request.setAttribute("list", list);
 		request.setAttribute("titleList", titleList);
 		request.setAttribute("sentDateList", sentDateList);
-		request.setAttribute("pagebar", pagebar);
+//		request.setAttribute("pagebar", pagebar);
 		
 		request
 			.getRequestDispatcher("/WEB-INF/views/message/messageList.jsp")
